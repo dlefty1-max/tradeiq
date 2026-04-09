@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_13.html -->
+<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_20.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,8 +61,83 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   position: fixed;
   top: 0; left: 0; bottom: 0;
   z-index: 100;
-  transition: width 0.2s ease;
+  transition: width 0.25s ease;
+  overflow: hidden;
 }
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed);
+}
+.sidebar.collapsed .nav-label { display: none; }
+.sidebar.collapsed .sidebar-section { display: none; }
+.sidebar.collapsed .sidebar-logo-text { display: none; }
+.sidebar.collapsed .sidebar-market { display: none; }
+.sidebar.collapsed .section-arrow { display: none; }
+.sidebar.collapsed .nav-item { justify-content: center; padding: 10px 0; margin: 2px 8px; }
+.sidebar.collapsed .nav-sub { display: none !important; }
+
+.sidebar-toggle {
+  position: absolute;
+  top: 16px; right: -12px;
+  width: 24px; height: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 10px;
+  color: var(--text-muted);
+  z-index: 101;
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+}
+.sidebar-toggle:hover { background: var(--blue); color: white; border-color: var(--blue); }
+
+.section-arrow {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+}
+.nav-group-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; cursor: pointer;
+  border-radius: var(--radius-sm);
+  margin: 2px 8px;
+  transition: all 0.15s;
+  color: var(--text-muted);
+  font-size: 14px; font-weight: 500;
+  user-select: none;
+}
+.nav-group-header:hover { background: var(--surface-2); color: var(--text); }
+.nav-group-header.open { color: var(--blue); }
+.nav-group-header.open .section-arrow { transform: rotate(90deg); color: var(--blue); }
+
+.nav-sub {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease;
+}
+.nav-sub.open {
+  max-height: 300px;
+}
+.nav-sub-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px 8px 46px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  margin: 1px 8px;
+  transition: all 0.15s;
+  color: var(--text-muted);
+  font-size: 13px; font-weight: 500;
+}
+.nav-sub-item:hover { background: var(--surface-2); color: var(--text); }
+.nav-sub-item.active { color: var(--blue); font-weight: 600; background: var(--blue-dim); }
+.nav-sub-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--border-bright);
+  flex-shrink: 0;
+}
+.nav-sub-item.active .nav-sub-dot { background: var(--blue); }
 .sidebar-logo {
   padding: 18px 20px 16px;
   border-bottom: 1px solid var(--border);
@@ -114,11 +189,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 }
 
 .sidebar-market {
-  margin-top: auto;
-  border-top: 1px solid var(--border);
-  padding: 12px 10px;
-  overflow-y: auto;
-  max-height: 60vh;
+  display: none;
 }
 .sidebar-ticker {
   display: flex; align-items: center; justify-content: space-between;
@@ -140,7 +211,10 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  transition: margin-left 0.2s ease;
+  transition: margin-left 0.25s ease;
+}
+.main-content.expanded {
+  margin-left: var(--sidebar-collapsed);
 }
 
 /* Top bar */
@@ -322,7 +396,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 /* ═══════════════════════════════
    MARKETS / CHART PAGE
 ═══════════════════════════════ */
-.chart-layout { display: grid; grid-template-columns: 1fr 320px; gap: 16px; }
+.chart-layout { display: flex; gap: 0; align-items: flex-start; }
+.chart-main { flex: 1; min-width: 300px; padding-right: 8px; }
+.chart-sidebar-panel { width: 320px; min-width: 220px; max-width: 600px; flex-shrink: 0; padding-left: 8px; }
 .chart-main { display: flex; flex-direction: column; gap: 12px; }
 .chart-sidebar { display: flex; flex-direction: column; gap: 12px; }
 
@@ -748,56 +824,66 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 <div class="app-shell">
 
 <!-- SIDEBAR -->
-<nav class="sidebar">
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">◀</div>
+
   <div class="sidebar-logo">
     <div class="sidebar-logo-mark">T</div>
     <div class="sidebar-logo-text">Trade<span>IQ</span></div>
   </div>
 
+  <!-- MAIN -->
   <div class="sidebar-section">Main</div>
-  <div class="nav-item active" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
-  <div class="nav-item" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-icon">◈</div><div class="nav-label">Markets</div></div>
+  <div class="nav-item" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
   <div class="nav-item" onclick="switchPage(&#39;ai&#39;)" id="nav-ai"><div class="nav-icon">▲</div><div class="nav-label">AI Chat</div></div>
 
-  <div class="sidebar-section">Tools</div>
-  <div class="nav-item" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-icon">◉</div><div class="nav-label">Learn</div></div>
-  <div class="nav-item" onclick="switchPage(&#39;news&#39;)" id="nav-news"><div class="nav-icon">≡</div><div class="nav-label">News</div></div>
-  <div class="nav-item" onclick="switchPage(&#39;alerts&#39;)" id="nav-alerts"><div class="nav-icon">◎</div><div class="nav-label">Alerts</div><span class="nav-badge" id="alerts-badge" style="display:none;"></span></div>
-  <div class="nav-item" onclick="switchPage(&#39;journal&#39;)" id="nav-journal"><div class="nav-icon">▣</div><div class="nav-label">Journal</div></div>
-
-  <div class="sidebar-section">Account</div>
-  <div class="nav-item" onclick="switchPage(&#39;settings&#39;)" id="nav-settings"><div class="nav-icon">⚙</div><div class="nav-label">Settings</div></div>
-
-  <div class="sidebar-market" id="sidebar-market">
-    <!-- Portfolio Summary -->
-    <div style="font-size:9px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px;padding:0 6px 6px;font-family:var(--font-mono);">Portfolio</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 4px 10px;">
-      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;">
-        <div style="font-size:8px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">P&amp;L</div>
-        <div style="font-size: 14px; font-weight: 700; font-family: var(--font-mono); color: var(--green);" id="sidebar-pnl">+$0.00</div>
-      </div>
-      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;">
-        <div style="font-size:8px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Win Rate</div>
-        <div style="font-size:14px;font-weight:700;font-family:var(--font-mono);color:var(--green);" id="sidebar-winrate">--</div>
-      </div>
-      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;">
-        <div style="font-size:8px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Trades</div>
-        <div style="font-size:14px;font-weight:700;font-family:var(--font-mono);" id="sidebar-trades">0</div>
-      </div>
-      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px;">
-        <div style="font-size:8px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Open</div>
-        <div style="font-size:14px;font-weight:700;font-family:var(--font-mono);color:var(--amber);" id="sidebar-open">0</div>
-      </div>
-    </div>
-
-    <!-- Recent Trades -->
-    <div style="font-size:9px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px;padding:0 6px 6px;font-family:var(--font-mono);">Recent Trades</div>
-    <div id="sidebar-recent-trades" style="padding:0 4px 10px;"><div style="font-size:11px;color:var(--text-dim);padding:4px 6px;font-family:var(--font-mono);">No trades yet</div></div>
-
-    <!-- Watchlist -->
-    <div style="font-size:9px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px;padding:0 6px 6px;font-family:var(--font-mono);">Watchlist</div>
-    <div id="sidebar-watchlist"><div class="sidebar-ticker" style="cursor: pointer;"><div class="sidebar-ticker-sym">SPY</div><div style="text-align:right;"><div class="sidebar-ticker-price">$679.91</div><div class="sidebar-ticker-change" style="color:var(--green);">▲0.58%</div></div></div><div class="sidebar-ticker" style="cursor: pointer;"><div class="sidebar-ticker-sym">QQQ</div><div style="text-align:right;"><div class="sidebar-ticker-price">$610.19</div><div class="sidebar-ticker-change" style="color:var(--green);">▲0.68%</div></div></div><div class="sidebar-ticker" style="cursor: pointer;"><div class="sidebar-ticker-sym">DIA</div><div style="text-align:right;"><div class="sidebar-ticker-price">$481.90</div><div class="sidebar-ticker-change" style="color:var(--green);">▲0.57%</div></div></div><div class="sidebar-ticker" style="cursor: pointer;"><div class="sidebar-ticker-sym">IWM</div><div style="text-align:right;"><div class="sidebar-ticker-price">$261.96</div><div class="sidebar-ticker-change" style="color:var(--green);">▲0.57%</div></div></div><div class="sidebar-ticker" style="cursor: pointer;"><div class="sidebar-ticker-sym">AMD</div><div style="text-align:right;"><div class="sidebar-ticker-price">$236.64</div><div class="sidebar-ticker-change" style="color:var(--green);">▲2.08%</div></div></div><div class="sidebar-ticker" style="cursor: pointer;"><div class="sidebar-ticker-sym">TSLA</div><div style="text-align:right;"><div class="sidebar-ticker-price">$345.62</div><div class="sidebar-ticker-change" style="color:var(--green);">▲0.69%</div></div></div></div>
+  <!-- MARKETS GROUP -->
+  <div class="sidebar-section">Markets</div>
+  <div class="nav-group-header open" id="group-markets" onclick="toggleGroup(&#39;markets&#39;)">
+    <div class="nav-icon">◈</div>
+    <div class="nav-label">Markets</div>
+    <div class="section-arrow">▶</div>
   </div>
+  <div class="nav-sub open" id="sub-markets">
+    <div class="nav-sub-item active" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;news&#39;)" id="nav-news"><div class="nav-sub-dot"></div>News</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;alerts&#39;)" id="nav-alerts"><div class="nav-sub-dot"></div>Price Alerts <span class="nav-badge" id="alerts-badge" style="display:none;margin-left:4px;"></span></div>
+  </div>
+
+  <!-- TRADING GROUP -->
+  <div class="sidebar-section">Trading</div>
+  <div class="nav-group-header open" id="group-trading" onclick="toggleGroup(&#39;trading&#39;)">
+    <div class="nav-icon">▣</div>
+    <div class="nav-label">Trading</div>
+    <div class="section-arrow">▶</div>
+  </div>
+  <div class="nav-sub open" id="sub-trading">
+    <div class="nav-sub-item" onclick="switchPage(&#39;journal&#39;)" id="nav-journal"><div class="nav-sub-dot"></div>Journal</div>
+    <div class="nav-sub-item" onclick="openTradeModal()" id="nav-logtrade"><div class="nav-sub-dot"></div>Log a Trade</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;watchlist&#39;)" id="nav-watchlist"><div class="nav-sub-dot"></div>Watchlist</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;portfolio&#39;)" id="nav-portfolio"><div class="nav-sub-dot"></div>Portfolio</div>
+  </div>
+
+  <!-- LEARN GROUP -->
+  <div class="sidebar-section">Education</div>
+  <div class="nav-group-header" id="group-learn" onclick="toggleGroup(&#39;learn&#39;)">
+    <div class="nav-icon">◉</div>
+    <div class="nav-label">Learn</div>
+    <div class="section-arrow">▶</div>
+  </div>
+  <div class="nav-sub" id="sub-learn">
+    <div class="nav-sub-item" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
+  </div>
+
+
+
+
+  <!-- ACCOUNT (at bottom) -->
+  <div style="margin-top:auto;">
+    <div class="sidebar-section">Account</div>
+    <div class="nav-item" onclick="switchPage(&#39;settings&#39;)" id="nav-settings"><div class="nav-icon">⚙</div><div class="nav-label">Settings</div></div>
+  </div>
+
 </nav>
 
 <!-- MAIN -->
@@ -809,7 +895,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
       <span class="topbar-search-icon">⌕</span>
       <input type="text" id="tickerInput" placeholder="Search any stock — e.g. AAPL, TSLA, SPY..." onkeydown="if(event.key===&#39;Enter&#39;) doSearch()" oninput="this.value=this.value.toUpperCase()">
     </div>
-    <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
+    <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()" disabled="">...</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
       <div class="status-dot premarket" id="market-dot"></div>
@@ -821,7 +907,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page-area">
 
   <!-- HOME -->
-  <div class="page active" id="page-home">
+  <div class="page" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
     <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$48190.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.57%</div><div class="market-card-points up">+274.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6799.10</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.58%</div><div class="market-card-points up">+39.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24407.60</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.68%</div><div class="market-card-points up">+164.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2619.60</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.57%</div><div class="market-card-points up">+14.90 pts</div></div></div></div>
@@ -830,7 +916,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="home-three-col">
       <div>
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/09/jim-cramer-tech-stocks-diverge.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108288638-17756569222026-04-08t135836z_57320729_rc21lkazl7y0_rtrmadp_0_usa-stocks.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Cramer explains the divergence in tech stocks – and why software may continue to lag</div><div class="news-time">23m ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/09/keir-starmer-fed-up-trump-putin-uk-energy-costs.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108270816-1772180493424-gettyimages-2262757819-Britain_Politics.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Keir Starmer: 'I'm fed up' with Trump and Putin affecting UK energy costs</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/09/married-filing-separately-trumps-tax-breaks.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108289354-1775753609321-gettyimages-2200125278-img_1771-edit.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">How married filing separately could affect Trump's tax breaks this season</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMisgFBVV95cUxQYTJIenV2el8xdGYwSWxGMTNZTThhbUlwVFdhY2EzUmlGOGk3RHBsOXdXeU1PdGZzeVk5Q0RBMFltZXFjdmx0UFRsckh5SGNfMGlwMUxuLUV0Mk9lc0V3RjhvRXp4OGdfNHotVHdyc1Q1eGduTy1rcHYzMm5IX25MMWE2UmNYSVRtZXVoOE4wSFFuR3JacUVNYnM5eTlHbUZyTFJ1QWsxZkd5WF9QNDZVcFJ3?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">UK's Starmer says Iran conflict shows Britain must take a new path - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/09/47percent-of-college-students-have-seriously-considered-changing-majors-due-to-ai-survey.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108200336-1758143906510-gettyimages-2220890473-nw107895.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">47% of college students have seriously considered changing majors due to AI: Survey</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipwFBVV95cUxOTGRhQ1RvRUdRYUI5d25PdUxIbTAyVHBOWWJuNFlUM2UteTg5cU5Bdmg3OEk1NkNmQk9fTGFrS1FrWGhpTk5GVWhKTnVISHZVbGpJRVZteF9GOUQtUGhuenpIcGJlT3lGanpRNzdoMEhyMVJ0MGhZY3Fya2pFTlBCY2wyZ21CV1Uzc0s3ZUZDcW9uQ2ZyVmhYQzgxSWh5SWJEUjdGT2dMRQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US Republicans block bid to rein in Trump Iran war powers - Reuters</div><div class="news-time">3h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/09/jim-cramer-tech-stocks-diverge.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108288638-17756569222026-04-08t135836z_57320729_rc21lkazl7y0_rtrmadp_0_usa-stocks.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Cramer explains the divergence in tech stocks – and why software may continue to lag</div><div class="news-time">55m ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixwFBVV95cUxOLTZPamh1b29xTVhnUHZJSjdyQkZtcUdodUY3dC1NUVBFbGpBVURERnpsVDh4T2JuM0pESHVmSEI1WUh6VVNvQ0hPZk1QYkhSMGg5VnJ0aVBIVGNWNWQtbzBVTDFnNlZtLWlVQkxYR01WbldjNU9mVXZMZFZHUUNUczgwYnhMcFNTSVdmTTRXRjhmR1NacHhqVzdvZmxPWkcyTzFQZ1pieXpmSzdPUXpQQW85TDBTOVY1NHZjODNqVzlULWRKZVI4?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says Iran should not charge fees to tankers going through Strait of Hormuz - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMizgFBVV95cUxPbTJQR3N1VWw2dXc3bm5YbUQ1NkQwakVtMHNkbUtjVWU1VDlRWTdiSHhVNndZQk1nd3RXZm5RdjJnNE1OMmRZaFhNeF9TaWc2V2lNX1lLMmM3R080RTRlaVBfajZMQ09QQWVvcnRwWDkzQmFCSEZOMjE4LU9LWkxtaHQ4MlY4UFZJRUU2R3lGcU5Tdm1jTEgzMWdfYW00UG5xRjhWcks0aGZEcWFsam1VYWZSS3JUNzJVaWdsbXh3MFRNWWhPaTVhcmJOVU1OZw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Hormuz at near standstill as Iran warns ships to keep to its waters - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/09/keir-starmer-fed-up-trump-putin-uk-energy-costs.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108270816-1772180493424-gettyimages-2262757819-Britain_Politics.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Keir Starmer: 'I'm fed up' with Trump and Putin affecting UK energy costs</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/09/married-filing-separately-trumps-tax-breaks.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108289354-1775753609321-gettyimages-2200125278-img_1771-edit.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">How married filing separately could affect Trump's tax breaks this season</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMisgFBVV95cUxQYTJIenV2el8xdGYwSWxGMTNZTThhbUlwVFdhY2EzUmlGOGk3RHBsOXdXeU1PdGZzeVk5Q0RBMFltZXFjdmx0UFRsckh5SGNfMGlwMUxuLUV0Mk9lc0V3RjhvRXp4OGdfNHotVHdyc1Q1eGduTy1rcHYzMm5IX25MMWE2UmNYSVRtZXVoOE4wSFFuR3JacUVNYnM5eTlHbUZyTFJ1QWsxZkd5WF9QNDZVcFJ3?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">UK's Starmer says Iran conflict shows Britain must take a new path - Reuters</div><div class="news-time">3h ago</div></div></a></div>
       </div>
       <div>
         <div class="section-label">AI Assistant</div>
@@ -865,47 +951,53 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   </div>
 
   <!-- MARKETS -->
-  <div class="page" id="page-search">
+  <div class="page active" id="page-search">
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
-    <div id="markets-content">
+    <div id="markets-content" style="display: none;">
       <div class="section-label">Market Overview</div>
       <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$48190.00</div><div class="market-card-change up">▲ 0.57%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6799.10</div><div class="market-card-change up">▲ 0.58%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24407.60</div><div class="market-card-change up">▲ 0.68%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2619.60</div><div class="market-card-change up">▲ 0.57%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
-    <div id="chart-content" style="display:none;">
+    <div id="chart-content" style="display: none;">
       <div class="chart-layout">
+
+        <!-- LEFT: Chart + Analysis -->
         <div class="chart-main">
           <div class="chart-container">
             <div class="chart-header">
               <div>
-                <div id="r-sym" style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:1px;"></div>
-                <div id="r-name" style="font-size:16px;font-weight:600;margin-top:2px;"></div>
+                <div id="r-sym" style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:1px;">AAPL</div>
+                <div id="r-name" style="font-size:16px;font-weight:600;margin-top:2px;">Apple Inc</div>
               </div>
               <div>
-                <div class="chart-price" id="r-price"></div>
-                <div class="chart-change" id="r-change"></div>
+                <div class="chart-price" id="r-price">$260.49</div>
+                <div class="chart-change green" id="r-change">▲ 0.61% today</div>
               </div>
-              <div class="chart-detail" id="r-detail"></div>
+              <div class="chart-detail" id="r-detail"><span><div>Open</div><strong>$259.00</strong></span><span><div>High</div><strong class="green">$261.12</strong></span><span><div>Low</div><strong class="red">$256.07</strong></span><span><div>Prev Close</div><strong>$258.90</strong></span></div>
             </div>
-            <iframe id="tv-chart" class="chart-embed" src="./index_files/saved_resource.html" frameborder="0"></iframe>
-            <div class="chart-actions">
-              <button class="chart-action-btn" onclick="logResultTrade()">📝 Log Trade</button>
-              <button class="chart-action-btn" onclick="addResultToWatchlist()">★ Add to Watchlist</button>
-              <button class="chart-action-btn" onclick="addAlertFromResult()">◎ Set Alert</button>
-              <button class="chart-action-btn" onclick="askAboutResult()">▲ Ask AI</button>
+            <div id="chart-body">
+              <iframe id="tv-chart" class="chart-embed" src="./index_files/saved_resource.html" frameborder="0" style="height:400px;"></iframe>
+
+              <div class="chart-actions">
+                <button class="chart-action-btn" onclick="logResultTrade()">📝 Log Trade</button>
+                <button class="chart-action-btn" onclick="addResultToWatchlist()">★ Watchlist</button>
+                <button class="chart-action-btn" onclick="addAlertFromResult()">◎ Alert</button>
+              </div>
             </div>
           </div>
-          <div class="analysis-card" id="analysisCard" style="display:none;">
+
+          <!-- AI Analysis -->
+          <div class="analysis-card" id="analysisCard" style="display: block;">
             <div class="analysis-header">
               <div class="analysis-dot"></div>
               <div class="analysis-title">AI Technical Analysis</div>
               <div class="analysis-sub" id="analysis-sub">Analyzing...</div>
             </div>
-            <div class="loading-bar" id="analysis-loading"><div class="loading-dots"><span></span><span></span><span></span></div>&nbsp;Reading RSI, MACD, moving averages...</div>
-            <div id="indicator-row-wrap" style="display:none;">
+            <div class="loading-bar" id="analysis-loading" style="display: none;"><div class="loading-dots"><span></span><span></span><span></span></div>&nbsp;Reading RSI, MACD, moving averages...</div>
+            <div id="indicator-row-wrap" style="display: block;">
               <div class="indicator-grid" id="indicator-row"></div>
               <div id="signal-wrap"></div>
-              <div class="analysis-body" id="analysis-body"></div>
+              <div class="analysis-body" id="analysis-body">Could not load indicator data. Try a major US stock like AAPL, TSLA, or SPY.</div>
               <div class="ee-grid" id="entry-exit-row">
                 <div class="ee-box"><div class="ee-label">Entry Zone</div><div class="ee-val green" id="ee-entry">--</div></div>
                 <div class="ee-box"><div class="ee-label">Target</div><div class="ee-val green" id="ee-target">--</div></div>
@@ -913,13 +1005,61 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               </div>
             </div>
           </div>
-        </div>
-        <div class="chart-sidebar">
-          <div class="card" id="stockNews" style="display:none;">
-            <div class="card-header"><div class="card-title">Latest News</div></div>
-            <div id="stockNewsList"></div>
+
+          <!-- News — collapsed below analysis -->
+          <div class="card" id="stockNews" style="display: block;">
+            <div class="card-header" style="cursor:pointer;" onclick="toggleStockNews()">
+              <div class="card-title">Latest News</div>
+              <div id="stock-news-arrow" style="font-size:10px;color:var(--text-muted);">▼</div>
+            </div>
+            <div id="stockNewsList" style="max-height: 260px; overflow-y: auto; display: none;"><a class="news-item" href="https://finnhub.io/api/news?id=a26aae8d11fddb479ec01c256284857358401fd2e6e736641aadde6a3a368ad4" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">Microsoft’s New AI Alliances Reframe Its Role In Patents And Security</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=336dbbe1b0d55df16b5e96330af4fc5ec13461e2acfb74098c38e00dbe1c0add" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">Broadcom vs. Qualcomm: Buy One, Avoid the Other</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=172eea800d5d6893f7c686e6b7115f0842c17a9f7aa5a96d842e3fed156502d4" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">Vista Investment Partners Just Bought a New $4.7 Million Stake in Federated Hermes</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=959553b004b0b574d71be0815723282e46dccbdcc077328dbc0da38f079fa7a6" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">Amazon Stock Jumps on DOJ’s NFL Probe. It’s About ‘Affordability for Consumers.’</div><div class="news-time">4h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=6390d5122129d570c97cd118f5d72718a9c4db3c41691fc7ce400fc0a1163630" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">What a $20 Million Sale Signals as This Cash Cow ETF Lags the S&amp;P 500 by 10 Points</div><div class="news-time">5h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=bcaf3c3569328a87f1d8dfd495f5c19bc0b778fbfe90dda040fd5aa525555ae6" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">DELL Gains From Commercial PC Demand: Can it Boost CSG Growth?</div><div class="news-time">5h ago</div></div></a></div>
           </div>
         </div>
+
+        <!-- RIGHT: AI Chat -->
+        <!-- VERTICAL RESIZE HANDLE -->
+        <div id="chart-col-handle" style="
+          width: 10px;
+          cursor: ew-resize;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          position: relative;
+          z-index: 10;
+        ">
+          <div style="width:3px;height:60px;background:var(--border-bright);border-radius:2px;"></div>
+        </div>
+        <div class="chart-sidebar-panel" id="chart-sidebar-panel">
+          <div class="chat-panel" style="height:calc(100vh - 100px);position:sticky;top:80px;overflow:hidden;">
+            <div class="chat-panel-header">
+              <div class="chat-panel-dot"></div>
+              <div class="chat-panel-title">Ask AI About This Chart</div>
+            </div>
+            <div class="chat-messages" id="chat-messages-chart" style="flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;">
+              <div class="bubble-wrap ai">
+                <div class="bubble-avatar">AI</div>
+                <div class="bubble">I'm analyzing this chart with you. Ask me anything — entry points, what the indicators mean, whether this setup looks good, or anything else.</div>
+              </div>
+            </div>
+            <div class="quick-chips" style="padding:6px 10px;border-top:1px solid var(--border);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;">
+              <div class="chip" onclick="sendChartChip(&#39;Is this a good entry point right now?&#39;)">Good entry?</div>
+              <div class="chip" onclick="sendChartChip(&#39;What does the RSI tell me here?&#39;)">RSI meaning</div>
+              <div class="chip" onclick="sendChartChip(&#39;Where should I set my stop loss?&#39;)">Stop loss</div>
+              <div class="chip" onclick="sendChartChip(&#39;What is the overall trend?&#39;)">Trend?</div>
+              <div class="chip" onclick="sendChartChip(&#39;What are the risks of this trade?&#39;)">Risks</div>
+            </div>
+            <div class="chat-input-wrap" style="padding:8px 10px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end;">
+              <div class="chat-input-box" style="flex:1;">
+                <textarea id="chartChatInput" placeholder="Ask about this chart..." rows="1" onkeydown="if(event.key===&#39;Enter&#39;&amp;&amp;!event.shiftKey){event.preventDefault();sendChartChat()}" oninput="this.style.height=&#39;auto&#39;;this.style.height=Math.min(this.scrollHeight,80)+&#39;px&#39;"></textarea>
+              </div>
+              <button class="send-btn" id="chartSendBtn" onclick="sendChartChat()">
+                <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1029,6 +1169,28 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div id="journal-list"><div class="empty-state"><p>No trades yet. Log your first trade to start tracking.</p></div></div>
   </div>
 
+  <!-- WATCHLIST PAGE -->
+  <div class="page" id="page-watchlist">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <h2 style="font-size:20px;font-weight:700;">Watchlist</h2>
+      <button onclick="promptAddWatchlist()" style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">+ Add Stock</button>
+    </div>
+    <div class="card" id="watchlist-page-list"></div>
+  </div>
+
+  <!-- PORTFOLIO PAGE -->
+  <div class="page" id="page-portfolio">
+    <h2 style="font-size:20px;font-weight:700;margin-bottom:20px;">Portfolio</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">
+      <div class="stat-card"><div class="stat-card-label">Total P&amp;L</div><div class="stat-card-value" id="port-pnl">$0.00</div></div>
+      <div class="stat-card"><div class="stat-card-label">Win Rate</div><div class="stat-card-value green" id="port-winrate">--</div></div>
+      <div class="stat-card"><div class="stat-card-label">Total Trades</div><div class="stat-card-value" id="port-trades">0</div></div>
+      <div class="stat-card"><div class="stat-card-label">Open Positions</div><div class="stat-card-value" style="color:var(--amber)" id="port-open">0</div></div>
+    </div>
+    <div class="section-label">All Trades</div>
+    <div id="portfolio-trades-list"></div>
+  </div>
+
   <!-- SETTINGS -->
   <div class="page" id="page-settings">
     <div class="settings-layout">
@@ -1128,6 +1290,108 @@ const NAMES = { 'SPY':'S&P 500 ETF','QQQ':'Nasdaq 100 ETF','DIA':'Dow Jones ETF'
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // NAVIGATION
+function goToChart(sym) {
+  document.getElementById('tickerInput').value = sym;
+  doSearch();
+  switchPage('search');
+}
+
+function promptAddWatchlist() {
+  var sym = prompt('Enter stock ticker to add (e.g. AAPL):');
+  if (!sym) return;
+  sym = sym.trim().toUpperCase();
+  if (watchlist.includes(sym)) { alert(sym + ' is already on your watchlist.'); return; }
+  watchlist.push(sym);
+  localStorage.setItem('tradeiq_watchlist', JSON.stringify(watchlist));
+  fetchPrice(sym).then(function(result) {
+    if (result.success) marketData[sym] = result;
+    renderWatchlistPage();
+    renderSidebarMarket();
+  });
+}
+
+function removeFromWatchlist(sym) {
+  watchlist = watchlist.filter(function(s) { return s !== sym; });
+  localStorage.setItem('tradeiq_watchlist', JSON.stringify(watchlist));
+  renderWatchlistPage();
+  renderSidebarMarket();
+}
+
+function renderWatchlistPage() {
+  var list = document.getElementById('watchlist-page-list');
+  if (!list) return;
+  if (!watchlist.length) {
+    list.innerHTML = '<div class="empty-state"><p>No stocks on your watchlist yet. Click + Add Stock to get started.</p></div>';
+    return;
+  }
+  list.innerHTML = '';
+  watchlist.forEach(function(sym) {
+    var data = marketData[sym];
+    var pct = data ? data.changePct : null;
+    var row = document.createElement('div');
+    row.className = 'ticker-row';
+    var priceStr = data ? '$' + data.price.toFixed(2) : '---';
+    var changeClass = pct === null ? 'neutral-pill' : pct >= 0 ? 'up-pill' : 'down-pill';
+    var changeStr = pct !== null ? (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%' : '...';
+    var symName = NAMES[sym] || (data && data.name) || sym;
+    row.innerHTML = '<div class="ticker-icon">' + sym.slice(0,3) + '</div>' +
+      '<div style="flex:1;min-width:0;"><div class="ticker-sym">' + sym + '</div><div class="ticker-name">' + symName + '</div></div>' +
+      '<div class="ticker-price" style="margin-right:12px;">' + priceStr + '</div>' +
+      '<div class="change-pill ' + changeClass + '" style="margin-right:12px;">' + changeStr + '</div>';
+    var chartBtn = document.createElement('button');
+    chartBtn.textContent = 'Chart';
+    chartBtn.style.cssText = 'background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;margin-right:6px;';
+    chartBtn.onclick = (function(s){ return function(e){ e.stopPropagation(); goToChart(s); }; })(sym);
+    var removeBtn = document.createElement('button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.style.cssText = 'background:var(--red-dim);color:var(--red);border:1px solid rgba(200,16,46,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;';
+    removeBtn.onclick = (function(s){ return function(e){ e.stopPropagation(); removeFromWatchlist(s); }; })(sym);
+    row.appendChild(chartBtn);
+    row.appendChild(removeBtn);
+    list.appendChild(row);
+  });
+}
+
+function renderPortfolioPage() {
+  var closed = trades.filter(function(t) { return t.status !== 'open'; });
+  var wins = closed.filter(function(t) { return t.status === 'win'; });
+  var totalPnl = closed.reduce(function(s,t) { return s + (t.pnl||0); }, 0);
+  var open = trades.filter(function(t) { return t.status === 'open'; }).length;
+  var winRate = closed.length > 0 ? Math.round(wins.length/closed.length*100) + '%' : '--';
+  var pnlStr = (totalPnl >= 0 ? '+$' : '-$') + Math.abs(totalPnl).toFixed(2);
+  var pp = document.getElementById('port-pnl'); if(pp) { pp.textContent = pnlStr; pp.style.color = totalPnl >= 0 ? 'var(--green)' : 'var(--red)'; }
+  var pw = document.getElementById('port-winrate'); if(pw) pw.textContent = winRate;
+  var pt = document.getElementById('port-trades'); if(pt) pt.textContent = trades.length;
+  var po = document.getElementById('port-open'); if(po) po.textContent = open;
+  var list = document.getElementById('portfolio-trades-list');
+  if (!list) return;
+  if (!trades.length) { list.innerHTML = '<div class="empty-state"><p>No trades logged yet.</p></div>'; return; }
+  list.innerHTML = '';
+  [...trades].reverse().forEach(function(t) {
+    var div = document.createElement('div'); div.className = 'trade-card';
+    div.onclick = function() { sendMessage2('Analyze my ' + t.dir + ' trade on ' + t.symbol + ' — entry $' + t.entry + (t.exit ? ', exit $' + t.exit : ' (open)') + '. Reason: ' + (t.reason||'none') + '.'); switchPage('ai'); };
+    div.innerHTML = '<div class="trade-card-bar ' + t.status + '"></div><div class="trade-card-body"><div><div class="trade-card-sym">' + t.symbol + '</div><div class="trade-card-meta">' + t.dir.toUpperCase() + ' · ' + t.size + ' shares · ' + t.date + '</div></div><div style="text-align:right;"><div class="trade-card-pnl ' + (t.status==='win'?'green':t.status==='loss'?'red':'muted') + '">' + (t.pnl!==null?(t.pnl>=0?'+$':'-$')+Math.abs(t.pnl).toFixed(2):'OPEN') + '</div><div class="trade-card-status">' + t.status + '</div></div></div>';
+    list.appendChild(div);
+  });
+}
+
+function toggleSidebar() {
+  var sidebar = document.getElementById('sidebar');
+  var main = document.querySelector('.main-content');
+  var toggle = document.getElementById('sidebar-toggle');
+  sidebar.classList.toggle('collapsed');
+  main.classList.toggle('expanded');
+  toggle.textContent = sidebar.classList.contains('collapsed') ? '▶' : '◀';
+}
+
+function toggleGroup(group) {
+  var header = document.getElementById('group-' + group);
+  var sub = document.getElementById('sub-' + group);
+  if (!header || !sub) return;
+  header.classList.toggle('open');
+  sub.classList.toggle('open');
+}
+
 function switchPage(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1141,6 +1405,8 @@ function switchPage(page) {
   if (page === 'alerts') renderAlerts();
   if (page === 'learn') renderLearn();
   if (page === 'settings') initSettingsPage();
+  if (page === 'watchlist') renderWatchlistPage();
+  if (page === 'portfolio') renderPortfolioPage();
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1334,28 +1600,7 @@ function renderMarketGrids() {
 }
 
 function renderSidebarMarket() {
-  // Sidebar watchlist
-  const wl = document.getElementById('sidebar-watchlist'); 
-  if (wl) {
-    wl.innerHTML = '';
-    if (!watchlist.length) {
-      wl.innerHTML = '<div style="font-size:11px;color:var(--text-dim);padding:4px 8px;font-family:var(--font-mono);">No stocks added yet</div>';
-      return;
-    }
-    watchlist.slice(0,8).forEach(function(sym) {
-      var data = marketData[sym];
-      var pct = data ? data.changePct : null;
-      var div = document.createElement('div');
-      div.className = 'sidebar-ticker';
-      div.style.cursor = 'pointer';
-      div.onclick = (function(s){ return function(){ document.getElementById('tickerInput').value = s; doSearch(); switchPage('search'); }; })(sym);
-      var priceStr = data ? '$'+data.price.toFixed(2) : '---';
-      var changeStr = pct !== null ? (pct>=0?'▲':'▼')+Math.abs(pct).toFixed(2)+'%' : '...';
-      var changeColor = pct !== null ? (pct>=0?'var(--green)':'var(--red)') : 'var(--text-muted)';
-      div.innerHTML = '<div class="sidebar-ticker-sym">'+sym+'</div><div style="text-align:right;"><div class="sidebar-ticker-price">'+priceStr+'</div><div class="sidebar-ticker-change" style="color:'+changeColor+';">'+changeStr+'</div></div>';
-      wl.appendChild(div);
-    });
-  }
+  // Watchlist now lives on its own page
 }
 
 function updateMarketStatus() {
@@ -1482,7 +1727,8 @@ async function doSearch() {
 
   const aiText = await getAIAnalysis(sym, result, indicators, overallSignal);
   document.getElementById('analysis-body').innerHTML = aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-  document.getElementById('analysis-sub').textContent = `${sym} · Live Analysis`;
+  document.getElementById('analysis-sub').textContent = sym + ' · Live Analysis';
+  resetChartChat(sym, result.name, result.price);
 
   const price = result.price, atr = result.high - result.low;
   document.getElementById('ee-entry').textContent = `$${(price - atr * 0.3).toFixed(2)}–${price.toFixed(2)}`;
@@ -1506,19 +1752,35 @@ function ema(arr, period) {
 }
 async function fetchIndicators(symbol) {
   try {
-    const to = Math.floor(Date.now()/1000), from = to - 60*24*60*60;
-    const candles = await finnhub(`stock/candle?symbol=${symbol}&resolution=D&from=${from}&to=${to}`);
-    if (candles.s !== 'ok' || !candles.c || candles.c.length < 20) return null;
-    const closes = candles.c, volumes = candles.v;
-    const rsi = calcRSI(closes);
-    const ema12 = ema(closes,12), ema26 = ema(closes,26);
-    const macd = ema12 && ema26 ? +(ema12-ema26).toFixed(3) : null;
-    const sma20val = sma(closes,20);
-    const avgVol = volumes ? sma(volumes,10) : null;
-    const lastVol = volumes ? volumes[volumes.length-1] : null;
-    const volRatio = avgVol && lastVol ? +(lastVol/avgVol).toFixed(2) : null;
-    return { rsi, macd, sma20: sma20val ? +sma20val.toFixed(2) : null, currentPrice: closes[closes.length-1], volRatio };
-  } catch { return null; }
+    var to = Math.floor(Date.now() / 1000);
+    var from = to - 180 * 24 * 60 * 60; // 180 days for enough candles
+    var endpoint = 'stock/candle?symbol=' + symbol + '&resolution=D&from=' + from + '&to=' + to;
+    var candles = await finnhub(endpoint);
+    if (!candles || candles.s !== 'ok' || !candles.c || candles.c.length < 14) {
+      console.log('Candle data issue:', candles ? candles.s : 'no response', 'count:', candles && candles.c ? candles.c.length : 0);
+      return null;
+    }
+    var closes = candles.c;
+    var volumes = candles.v;
+    var rsi = calcRSI(closes);
+    var ema12val = ema(closes, 12);
+    var ema26val = ema(closes, 26);
+    var macd = (ema12val && ema26val) ? +((ema12val - ema26val).toFixed(3)) : null;
+    var sma20val = sma(closes, 20);
+    var avgVol = volumes ? sma(volumes, 10) : null;
+    var lastVol = volumes ? volumes[volumes.length - 1] : null;
+    var volRatio = (avgVol && lastVol) ? +((lastVol / avgVol).toFixed(2)) : null;
+    return {
+      rsi: rsi,
+      macd: macd,
+      sma20: sma20val ? +sma20val.toFixed(2) : null,
+      currentPrice: closes[closes.length - 1],
+      volRatio: volRatio
+    };
+  } catch(e) {
+    console.log('fetchIndicators error:', e);
+    return null;
+  }
 }
 async function getAIAnalysis(symbol, priceData, indicators, signal) {
   try {
@@ -1528,7 +1790,10 @@ async function getAIAnalysis(symbol, priceData, indicators, signal) {
   } catch { return 'Could not load AI analysis. Check your Anthropic API key in Settings.'; }
 }
 
-function askAboutResult() { if (!lastResult) return; switchPage('ai'); setTimeout(() => sendMessage2(`Tell me more about ${lastResult.symbol} — I just reviewed the technical analysis. What else should I know?`), 100); }
+function askAboutResult() {
+  if (!lastResult) return;
+  sendChartMessage('Tell me more about ' + lastResult.symbol + ' — I just reviewed the technical analysis. What else should I know?');
+}
 function logResultTrade() { if (!lastResult) return; document.getElementById('t-symbol').value = lastResult.symbol; document.getElementById('t-entry').value = lastResult.price.toFixed(2); openTradeModal(); }
 function addResultToWatchlist() {
   if (!lastResult) return;
@@ -1728,6 +1993,168 @@ async function sendMessage(text) {
   } catch { removeTyping(typingId); addBubble('ai', 'Connection issue. Check your Anthropic API key in Settings.', 'chat-messages'); }
   isChatLoading = false; document.getElementById('sendBtn').disabled = false;
 }
+var isChartChatLoading = false;
+
+// Left-right column resize
+(function() {
+  var isResizing = false;
+  var startX = 0;
+  var startSidebarWidth = 0;
+
+  document.addEventListener('mousedown', function(e) {
+    var handle = document.getElementById('chart-col-handle');
+    if (!handle) return;
+    if (e.target === handle || handle.contains(e.target)) {
+      isResizing = true;
+      startX = e.clientX;
+      var sidebar = document.getElementById('chart-sidebar-panel');
+      startSidebarWidth = sidebar ? sidebar.offsetWidth : 320;
+      document.body.style.cursor = 'ew-resize';
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    }
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!isResizing) return;
+    var sidebar = document.getElementById('chart-sidebar-panel');
+    if (!sidebar) return;
+    var delta = startX - e.clientX;
+    var newWidth = Math.max(220, Math.min(600, startSidebarWidth + delta));
+    sidebar.style.width = newWidth + 'px';
+  });
+
+  document.addEventListener('mouseup', function() {
+    if (isResizing) {
+      isResizing = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    }
+  });
+
+  document.addEventListener('touchstart', function(e) {
+    var handle = document.getElementById('chart-col-handle');
+    if (!handle) return;
+    if (e.target === handle || handle.contains(e.target)) {
+      isResizing = true;
+      startX = e.touches[0].clientX;
+      var sidebar = document.getElementById('chart-sidebar-panel');
+      startSidebarWidth = sidebar ? sidebar.offsetWidth : 320;
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchmove', function(e) {
+    if (!isResizing) return;
+    var sidebar = document.getElementById('chart-sidebar-panel');
+    if (!sidebar) return;
+    var delta = startX - e.touches[0].clientX;
+    var newWidth = Math.max(220, Math.min(600, startSidebarWidth + delta));
+    sidebar.style.width = newWidth + 'px';
+  }, { passive: false });
+
+  document.addEventListener('touchend', function() { isResizing = false; });
+})();
+
+function toggleStockNews() {
+  var list = document.getElementById('stockNewsList');
+  var arrow = document.getElementById('stock-news-arrow');
+  if (!list || !arrow) return;
+  var isHidden = list.style.display === 'none';
+  list.style.display = isHidden ? 'block' : 'none';
+  arrow.textContent = isHidden ? '▲' : '▼';
+}
+
+function sendChartChip(text) {
+  if (lastResult) {
+    sendChartMessage('Regarding ' + lastResult.symbol + ': ' + text);
+  } else {
+    sendChartMessage(text);
+  }
+}
+
+async function sendChartChat() {
+  var input = document.getElementById('chartChatInput');
+  var text = input.value.trim();
+  if (!text) return;
+  input.value = ''; input.style.height = 'auto';
+  if (lastResult) {
+    await sendChartMessage('Regarding ' + lastResult.symbol + ' at $' + lastResult.price.toFixed(2) + ': ' + text);
+  } else {
+    await sendChartMessage(text);
+  }
+}
+
+async function sendChartMessage(text) {
+  if (!text || isChartChatLoading) return;
+  var container = document.getElementById('chat-messages-chart');
+  addBubbleToContainer('user', text, container);
+  isChartChatLoading = true;
+  document.getElementById('chartSendBtn').disabled = true;
+  var typingId = addTypingToContainer(container);
+  try {
+    var bubbles = container.querySelectorAll('.bubble-wrap[data-role]');
+    var history = [];
+    bubbles.forEach(function(b) { history.push({role: b.dataset.role, content: b.dataset.content}); });
+    // Build context-aware system prompt for chart chat
+    var chartContext = lastResult ? 
+      'You are analyzing ' + lastResult.symbol + ' (' + lastResult.name + ') at $' + lastResult.price.toFixed(2) + ' (' + lastResult.changePct.toFixed(2) + '% today). ' : '';
+    var systemPrompt = 'You are TradeIQ, an AI trading coach. ' + chartContext + buildSystemPrompt() + ' The user is looking at a chart and has a specific question. Be concise and practical. 2-3 paragraphs max.';
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:600, system:systemPrompt, messages:history})
+    });
+    var data = await res.json();
+    removeTypingById(typingId);
+    addBubbleToContainer('ai', data.content && data.content[0] ? data.content[0].text : 'Something went wrong.', container);
+  } catch(e) {
+    removeTypingById(typingId);
+    addBubbleToContainer('ai', 'Connection issue. Check your Anthropic API key in Settings.', container);
+  }
+  isChartChatLoading = false;
+  document.getElementById('chartSendBtn').disabled = false;
+}
+
+function addBubbleToContainer(role, content, container) {
+  var wrap = document.createElement('div');
+  wrap.className = 'bubble-wrap ' + role;
+  wrap.dataset.role = role;
+  wrap.dataset.content = content;
+  var av = document.createElement('div');
+  av.className = 'bubble-avatar';
+  av.textContent = role === 'ai' ? 'AI' : 'Me';
+  var bub = document.createElement('div');
+  bub.className = 'bubble';
+  bub.innerHTML = content.replace(/\n/g, '<br>');
+  wrap.appendChild(av);
+  wrap.appendChild(bub);
+  container.appendChild(wrap);
+  container.scrollTop = container.scrollHeight;
+}
+
+function addTypingToContainer(container) {
+  var id = 'typing-' + Date.now();
+  var wrap = document.createElement('div');
+  wrap.className = 'bubble-wrap ai'; wrap.id = id;
+  wrap.innerHTML = '<div class="bubble-avatar">AI</div><div class="typing-bubble"><span></span><span></span><span></span></div>';
+  container.appendChild(wrap);
+  container.scrollTop = container.scrollHeight;
+  return id;
+}
+
+function removeTypingById(id) {
+  var el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+// When a new stock is searched, reset chart chat context
+function resetChartChat(sym, name, price) {
+  var container = document.getElementById('chat-messages-chart');
+  if (!container) return;
+  container.innerHTML = '<div class="bubble-wrap ai"><div class="bubble-avatar">AI</div><div class="bubble">Now analyzing <strong>' + sym + '</strong> — ' + name + ' at $' + price.toFixed(2) + '.<br><br>Ask me anything about this chart, entry points, or what the indicators mean.</div></div>';
+}
+
 async function sendMessage2(text) {
   if (!text || isChatLoading2) return;
   addBubble('user', text, 'chat-messages-2');
@@ -1746,10 +2173,21 @@ async function sendChat2() { const input=document.getElementById('chatInput2'); 
 function sendChip(text) { sendMessage(text); }
 function sendChip2(text) { sendMessage2(text); }
 function addBubble(role, content, containerId) {
-  const container = document.getElementById(containerId);
-  const wrap = document.createElement('div'); wrap.className = `bubble-wrap ${role}`; wrap.dataset.role = role; wrap.dataset.content = content;
-  wrap.innerHTML = `<div class="bubble-avatar">${role==='ai'?'AI':'Me'}</div><div class="bubble">${content.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</div>`;
-  container.appendChild(wrap); container.scrollTop = container.scrollHeight;
+  var container = document.getElementById(containerId);
+  var wrap = document.createElement('div');
+  wrap.className = 'bubble-wrap ' + role;
+  wrap.dataset.role = role;
+  wrap.dataset.content = content;
+  var avatar = document.createElement('div');
+  avatar.className = 'bubble-avatar';
+  avatar.textContent = role === 'ai' ? 'AI' : 'Me';
+  var bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.innerHTML = content.split('\n').join('<br>');
+  wrap.appendChild(avatar);
+  wrap.appendChild(bubble);
+  container.appendChild(wrap);
+  container.scrollTop = container.scrollHeight;
 }
 function addTyping(containerId) {
   const container = document.getElementById(containerId); const id = 'typing-'+Date.now();
