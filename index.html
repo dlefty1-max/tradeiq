@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_45.html -->
+<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_51.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -867,7 +867,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- MAIN -->
   <div class="sidebar-section">Main</div>
-  <div class="nav-item active" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
+  <div class="nav-item" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
   <div class="nav-item" onclick="switchPage(&#39;ai&#39;)" id="nav-ai"><div class="nav-icon">▲</div><div class="nav-label">AI Chat</div></div>
 
   <!-- MARKETS GROUP -->
@@ -878,19 +878,20 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="section-arrow">▶</div>
   </div>
   <div class="nav-sub open" id="sub-markets">
-    <div class="nav-sub-item active" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;news&#39;)" id="nav-news"><div class="nav-sub-dot"></div>News</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;alerts&#39;)" id="nav-alerts"><div class="nav-sub-dot"></div>Price Alerts <span class="nav-badge" id="alerts-badge" style="display:none;margin-left:4px;"></span></div>
+    <div class="nav-sub-item active" onclick="switchPage(&#39;earnings&#39;)" id="nav-earnings"><div class="nav-sub-dot"></div>Earnings Calendar</div>
   </div>
 
   <!-- TRADING GROUP -->
   <div class="sidebar-section">Trading</div>
-  <div class="nav-group-header open" id="group-trading" onclick="toggleGroup(&#39;trading&#39;)">
+  <div class="nav-group-header" id="group-trading" onclick="toggleGroup(&#39;trading&#39;)">
     <div class="nav-icon">▣</div>
     <div class="nav-label">Trading</div>
     <div class="section-arrow">▶</div>
   </div>
-  <div class="nav-sub open" id="sub-trading">
+  <div class="nav-sub" id="sub-trading">
     <div class="nav-sub-item" onclick="switchPage(&#39;journal&#39;)" id="nav-journal"><div class="nav-sub-dot"></div>Journal</div>
     <div class="nav-sub-item" onclick="openTradeModal()" id="nav-logtrade"><div class="nav-sub-dot"></div>Log a Trade</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;watchlist&#39;)" id="nav-watchlist"><div class="nav-sub-dot"></div>Watchlist</div>
@@ -941,7 +942,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page-area">
 
   <!-- HOME -->
-  <div class="page active" id="page-home">
+  <div class="page" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
     <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$47925.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.55%</div><div class="market-card-points down">-265.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6794.60</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.07%</div><div class="market-card-points down">-4.50 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24442.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.14%</div><div class="market-card-points up">+35.20 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2613.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.25%</div><div class="market-card-points down">-6.60 pts</div></div></div></div>
@@ -950,7 +951,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="home-three-col">
       <div>
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNdlZ5X19tUWI2blRNMGlsdjczRTE4RlZzNWZNNGpYc1ZpTU4tdlVDNTN1Szh0enJreDZ0Z2JpTklhWndPeWY4ODhTbU5qUE1ZeWxQWVh1VzYySG1OcFVUOE15UjdRbk1MUE9GT3Y1aGFGb0RoNmRkd2NOa0hnWHNjalczVWRIQWxZN01mZXRiVmRFYTczb3hwY2p5c3JJQUJjNlVmMk0zNGJtbkd3VXNGVmppMTF4U1pLMUxv?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Gulf stocks slide as US-Iran talks falter, ceasefire doubts resurface - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSktOaDJJa2VRS3hkeTZtcWsxb2g2MVM2dzl5bDBRRV9naHhnbVNJbjROa0taM2ZTcElmQTJEQXdSRGl4ZDAwcFhjQmcxbVBZTEhVX1I2RzhMV3E3YWdORE5oZ2loSXM0TUlXRHotTTFxTm1JTUgtVHpZeEZiekhXTERvMXVGLWdfX0MybHdleWk5ckpOZVhvaElJUTViWkdsT1Rob29ZR3JoS3lTNC1aRGtnWjF4eFVkdy12dGJDWkFPMTY3aDZJUQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran aims to restore majority of refining capability within two months, oil ministry official says - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPMjB6Z0FIdjZ3alpsY0IwMkFGNUdoY0RYQUVqMjJ4TWdfVmFaV0ZtUUJJaV9NUzFwQXlSbnFGMzdSNG15MlB5UG5qZzhqX1JuLUJKZ2hQSTZJQ3owREZmY1cyTVAxbWdiSElUTG4xb25VN25Udm9FOXpuUlRvSlJKVXJlOVhpY2Q4aW82OWppY041RzJPeW9FQ0RkcFd6VEhz?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US-Iran peace talks end without a deal as delegations leave Pakistan - Reuters</div><div class="news-time">12h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMilwFBVV95cUxOZXpPT0NLSDVfcjcxQTBGUTB6M3Q2VEhhYmtKa0w1Y2NTSlBaVWEwdEJoLWJCYVJuV0tzaEFnb0VwUXNuWVZlZmpTR2xOTHVHMllPeFZHNmkwVVJfaFFuSWNMT0NuLVV3S2J3VG13X0VQd1J5aFN2NWp0REVxalM1b2Nsb2Zad0Q0N1BZZ25pbkJhM096SjhR?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Pope Leo urges end to 'madness of war' as US, Iran start talks - Reuters</div><div class="news-time">14h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipAFBVV95cUxQN3hnbUZSX2gtVDBXNFhtRndieXlMUDhHd2tTQVZ4NnU0Z01fZnloY3R1bWZGeHZuRGVQUGlFRzZmcUkxVEx5OW83SDVyN2prOXRtb0RRRl9nbFZrWWNKWWs0dGU0TnZQSVBHTHNtNDlaWmVTckdNekJJekZiUWtnUFVoYTJudlUzZnZaNnVhdmotQnJwTEdTQWY1UDdMbUJIUWU0Zw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military 'setting conditions' to clear mines from Strait of Hormuz - Reuters</div><div class="news-time">18h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNb1pxSEdYT01ocEZVcmV5dF9hZ3JxQlZOSVJEbUZYTWgxYXhsN212OG9KOXpaaEZ4ZjYzZXhSV2JPVW5jeE1PZy1PWEFkeU9GTUFlLTBkZ0o2R21iU0pkSGo5aDlLUXBqMEtVRTNDZUljZHhnSGR6Nkw4SVNRalJseE1weUxjTF9QcGFJSDZQV0VVdTdiRHc2NmxmcXVIR19YZTBQd2hQQ0g2aDNfREZWbkxkeWY?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military says two of its ships crossed through Strait of Hormuz - Reuters</div><div class="news-time">18h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNdlZ5X19tUWI2blRNMGlsdjczRTE4RlZzNWZNNGpYc1ZpTU4tdlVDNTN1Szh0enJreDZ0Z2JpTklhWndPeWY4ODhTbU5qUE1ZeWxQWVh1VzYySG1OcFVUOE15UjdRbk1MUE9GT3Y1aGFGb0RoNmRkd2NOa0hnWHNjalczVWRIQWxZN01mZXRiVmRFYTczb3hwY2p5c3JJQUJjNlVmMk0zNGJtbkd3VXNGVmppMTF4U1pLMUxv?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Gulf stocks slide as US-Iran talks falter, ceasefire doubts resurface - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSktOaDJJa2VRS3hkeTZtcWsxb2g2MVM2dzl5bDBRRV9naHhnbVNJbjROa0taM2ZTcElmQTJEQXdSRGl4ZDAwcFhjQmcxbVBZTEhVX1I2RzhMV3E3YWdORE5oZ2loSXM0TUlXRHotTTFxTm1JTUgtVHpZeEZiekhXTERvMXVGLWdfX0MybHdleWk5ckpOZVhvaElJUTViWkdsT1Rob29ZR3JoS3lTNC1aRGtnWjF4eFVkdy12dGJDWkFPMTY3aDZJUQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran aims to restore majority of refining capability within two months, oil ministry official says - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPMjB6Z0FIdjZ3alpsY0IwMkFGNUdoY0RYQUVqMjJ4TWdfVmFaV0ZtUUJJaV9NUzFwQXlSbnFGMzdSNG15MlB5UG5qZzhqX1JuLUJKZ2hQSTZJQ3owREZmY1cyTVAxbWdiSElUTG4xb25VN25Udm9FOXpuUlRvSlJKVXJlOVhpY2Q4aW82OWppY041RzJPeW9FQ0RkcFd6VEhz?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US-Iran peace talks end without a deal as delegations leave Pakistan - Reuters</div><div class="news-time">12h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMilwFBVV95cUxOZXpPT0NLSDVfcjcxQTBGUTB6M3Q2VEhhYmtKa0w1Y2NTSlBaVWEwdEJoLWJCYVJuV0tzaEFnb0VwUXNuWVZlZmpTR2xOTHVHMllPeFZHNmkwVVJfaFFuSWNMT0NuLVV3S2J3VG13X0VQd1J5aFN2NWp0REVxalM1b2Nsb2Zad0Q0N1BZZ25pbkJhM096SjhR?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Pope Leo urges end to 'madness of war' as US, Iran start talks - Reuters</div><div class="news-time">14h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipAFBVV95cUxQN3hnbUZSX2gtVDBXNFhtRndieXlMUDhHd2tTQVZ4NnU0Z01fZnloY3R1bWZGeHZuRGVQUGlFRzZmcUkxVEx5OW83SDVyN2prOXRtb0RRRl9nbFZrWWNKWWs0dGU0TnZQSVBHTHNtNDlaWmVTckdNekJJekZiUWtnUFVoYTJudlUzZnZaNnVhdmotQnJwTEdTQWY1UDdMbUJIUWU0Zw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military 'setting conditions' to clear mines from Strait of Hormuz - Reuters</div><div class="news-time">18h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNb1pxSEdYT01ocEZVcmV5dF9hZ3JxQlZOSVJEbUZYTWgxYXhsN212OG9KOXpaaEZ4ZjYzZXhSV2JPVW5jeE1PZy1PWEFkeU9GTUFlLTBkZ0o2R21iU0pkSGo5aDlLUXBqMEtVRTNDZUljZHhnSGR6Nkw4SVNRalJseE1weUxjTF9QcGFJSDZQV0VVdTdiRHc2NmxmcXVIR19YZTBQd2hQQ0g2aDNfREZWbkxkeWY?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military says two of its ships crossed through Strait of Hormuz - Reuters</div><div class="news-time">19h ago</div></div></a></div>
       </div>
       <div>
         <div class="section-label">AI Assistant</div>
@@ -1224,6 +1225,62 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     </div>
     <div class="section-label">All Trades</div>
     <div id="portfolio-trades-list"></div>
+  </div>
+
+  <!-- EARNINGS CALENDAR -->
+  <div class="page active" id="page-earnings">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2 style="font-size:20px;font-weight:700;">Earnings Calendar</h2>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">Upcoming earnings reports — know before you trade.</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <!-- Search bar -->
+        <div style="display:flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;gap:8px;min-width:220px;" id="earnings-search-wrap">
+          <span style="color:var(--text-muted);font-size:13px;">⌕</span>
+          <input type="text" id="earnings-search" placeholder="Search ticker or company..." style="background:transparent;border:none;outline:none;font-family:var(--font-ui);font-size:13px;color:var(--text);width:100%;" oninput="filterEarnings(this.value)">
+        </div>
+        <button onclick="loadEarnings(&#39;week&#39;)" id="earn-btn-week" style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">This Week</button>
+        <button onclick="loadEarnings(&#39;month&#39;)" id="earn-btn-month" style="background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">This Month</button>
+      </div>
+    </div>
+
+    <!-- What is earnings explainer -->
+    <div style="background:var(--blue-dim);border:1px solid rgba(0,48,135,0.15);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;">
+      <div style="font-size:20px;flex-shrink:0;">📊</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:var(--blue);">What are earnings reports?</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Every 3 months companies report how much money they made. Stocks often move 5-20% on earnings day. <strong>Tip: close your position before earnings if you're not experienced</strong> — the move can go either way regardless of how the chart looks.</div>
+      </div>
+    </div>
+
+    <!-- Open positions earnings warning -->
+    <div id="open-positions-earnings-section" style="margin-bottom:16px;display:none;">
+      <div class="section-label">⚠ Your Open Positions Have Upcoming Earnings</div>
+      <div id="open-positions-earnings-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+
+    <!-- Watchlist earnings highlight -->
+    <div id="watchlist-earnings-section" style="margin-bottom:20px;display:none;">
+      <div class="section-label">Your Watchlist — Upcoming Earnings</div>
+      <div id="watchlist-earnings-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;"></div>
+    </div>
+
+    <!-- Full calendar -->
+    <div class="section-label" id="earnings-section-label">Upcoming Earnings This Week</div>
+    <div id="earnings-loading" style="padding: 40px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; display: none;">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      <div style="margin-top:10px;">Loading earnings data...</div>
+    </div>
+    <div id="earnings-list" style="display: block;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+        <div style="display:grid;grid-template-columns:140px 1fr 120px 120px 120px;padding:10px 16px;background:var(--surface-2);border-bottom:1px solid var(--border);font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);">
+          <div>Date</div><div>Company</div><div>EPS Estimate</div><div>Time</div><div>Action</div>
+        </div>
+        <div id="earnings-rows"><div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">No earnings data found for "tesla". Check the ticker symbol.</div></div>
+      </div>
+    </div>
+    <div id="earnings-empty" style="display:none;padding:40px;text-align:center;color:var(--text-muted);font-size:13px;">No earnings data found for this period.</div>
   </div>
 
   <!-- PAPER TRADING -->
@@ -1727,6 +1784,7 @@ function switchPage(page) {
   if (page === 'learn') renderLearn();
   if (page === 'settings') initSettingsPage();
   if (page === 'watchlist') renderWatchlistPage();
+  if (page === 'earnings') loadEarnings('week');
   if (page === 'portfolio') renderPortfolioPage();
   if (page === 'papertrade') renderPaperPage();
 }
@@ -3346,6 +3404,303 @@ function renderPaperPage() {
 document.addEventListener('input', function(e) {
   if (e.target.id === 'paper-shares') updatePaperCostEstimate();
 });
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// EARNINGS CALENDAR
+async function loadEarnings(period) {
+  // Update button styles
+  var btnWeek = document.getElementById('earn-btn-week');
+  var btnMonth = document.getElementById('earn-btn-month');
+  if (btnWeek && btnMonth) {
+    btnWeek.style.background = period === 'week' ? 'var(--blue)' : 'var(--surface-2)';
+    btnWeek.style.color = period === 'week' ? 'white' : 'var(--text-muted)';
+    btnWeek.style.border = period === 'week' ? 'none' : '1px solid var(--border)';
+    btnMonth.style.background = period === 'month' ? 'var(--blue)' : 'var(--surface-2)';
+    btnMonth.style.color = period === 'month' ? 'white' : 'var(--text-muted)';
+    btnMonth.style.border = period === 'month' ? 'none' : '1px solid var(--border)';
+  }
+
+  var label = document.getElementById('earnings-section-label');
+  if (label) label.textContent = period === 'week' ? 'Upcoming Earnings This Week' : 'Upcoming Earnings This Month';
+
+  document.getElementById('earnings-loading').style.display = 'block';
+  document.getElementById('earnings-list').style.display = 'none';
+  document.getElementById('earnings-empty').style.display = 'none';
+
+  try {
+    var today = new Date();
+    var from = today.toISOString().split('T')[0];
+    var toDate = new Date(today);
+    if (period === 'week') {
+      toDate.setDate(today.getDate() + 7);
+    } else {
+      toDate.setDate(today.getDate() + 30);
+    }
+    var to = toDate.toISOString().split('T')[0];
+
+    var data = await finnhub('calendar/earnings?from=' + from + '&to=' + to);
+    document.getElementById('earnings-loading').style.display = 'none';
+
+    if (!data || !data.earningsCalendar || !data.earningsCalendar.length) {
+      document.getElementById('earnings-empty').style.display = 'block';
+      return;
+    }
+
+    var earnings = data.earningsCalendar;
+
+    // Filter to show watchlist stocks highlighted
+    window._allEarnings = earnings;
+    renderEarningsRows(earnings);
+    renderWatchlistEarnings(earnings);
+    document.getElementById('earnings-list').style.display = 'block';
+    // Clear search on fresh load
+    var searchEl = document.getElementById('earnings-search');
+    if (searchEl) searchEl.value = '';
+  } catch(e) {
+    console.log('Earnings error:', e);
+    document.getElementById('earnings-loading').style.display = 'none';
+    document.getElementById('earnings-empty').style.display = 'block';
+  }
+}
+
+function renderEarningsRows(earnings) {
+  var rows = document.getElementById('earnings-rows');
+  if (!rows) return;
+  rows.innerHTML = '';
+
+  // Get open trade symbols
+  var openTrades = trades.filter(function(t) { return t.status === 'open'; });
+  var openSymbols = openTrades.map(function(t) { return t.symbol; });
+
+  earnings.slice(0, 50).forEach(function(e) {
+    var isWatchlisted = watchlist.includes(e.symbol);
+    var hasOpenTrade = openSymbols.includes(e.symbol);
+    var row = document.createElement('div');
+    var rowBg = hasOpenTrade ? 'background:var(--red-dim);border-left:3px solid var(--red);' : isWatchlisted ? 'background:var(--blue-dim);' : '';
+    row.style.cssText = 'display:grid;grid-template-columns:140px 1fr 120px 120px 120px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.1s;' + rowBg;
+    row.onmouseover = function() { this.style.background = hasOpenTrade ? 'rgba(200,16,46,0.1)' : isWatchlisted ? 'rgba(0,48,135,0.1)' : 'var(--surface-2)'; };
+    row.onmouseout = function() { this.style.background = hasOpenTrade ? 'var(--red-dim)' : isWatchlisted ? 'var(--blue-dim)' : ''; };
+
+    var dateStr = e.date || '--';
+    var dateObj = new Date(dateStr);
+    var dayName = dateObj.toLocaleDateString('en-US', {weekday:'short'});
+    var dateFormatted = dateObj.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+    var isToday = dateStr === new Date().toISOString().split('T')[0];
+    var isTomorrow = dateStr === new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    var dayLabel = isToday ? 'TODAY' : isTomorrow ? 'TOMORROW' : dayName;
+    var dayColor = isToday ? 'var(--red)' : isTomorrow ? 'var(--amber)' : 'var(--text-muted)';
+
+    var eps = e.epsEstimate !== null && e.epsEstimate !== undefined ? '$' + parseFloat(e.epsEstimate).toFixed(2) : '--';
+    var time = e.hour === 'bmo' ? 'Before Open' : e.hour === 'amc' ? 'After Close' : 'During Day';
+    var timeColor = e.hour === 'bmo' ? 'var(--amber)' : e.hour === 'amc' ? 'var(--blue)' : 'var(--text-muted)';
+
+    row.innerHTML =
+      '<div>' +
+        '<div style="font-size:10px;font-weight:700;color:' + dayColor + ';font-family:var(--font-mono);">' + dayLabel + '</div>' +
+        '<div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);">' + dateFormatted + '</div>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:8px;">' +
+        (hasOpenTrade ? '<div style="width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;"></div>' : isWatchlisted ? '<div style="width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;"></div>' : '') +
+        '<div>' +
+          '<div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + (e.symbol || '--') + '</div>' +
+          '<div style="font-size:11px;color:var(--text-muted);">' + (e.name || '') + (hasOpenTrade ? ' <span style="color:var(--red);font-weight:700;">⚠ Open Position</span>' : '') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:12px;font-weight:600;font-family:var(--font-mono);">' + eps + '</div>' +
+      '<div style="font-size:11px;font-weight:600;font-family:var(--font-mono);color:' + timeColor + ';">' + time + '</div>' +
+      '<div></div>';
+
+    // Add chart button
+    var chartBtn = document.createElement('button');
+    chartBtn.textContent = 'Chart';
+    chartBtn.style.cssText = 'background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;';
+    chartBtn.onclick = (function(sym) { return function() { goToChart(sym); }; })(e.symbol);
+    row.querySelector('div:last-child').appendChild(chartBtn);
+
+    rows.appendChild(row);
+  });
+}
+
+function renderWatchlistEarnings(earnings) {
+  // Open positions warnings
+  var openTrades = trades.filter(function(t) { return t.status === 'open'; });
+  var openSymbols = openTrades.map(function(t) { return t.symbol; });
+  var openEarnings = earnings.filter(function(e) { return openSymbols.includes(e.symbol); });
+  var openSection = document.getElementById('open-positions-earnings-section');
+  var openList = document.getElementById('open-positions-earnings-list');
+
+  if (openSection && openList) {
+    if (openEarnings.length) {
+      openSection.style.display = 'block';
+      openList.innerHTML = '';
+      openEarnings.forEach(function(e) {
+        var dateObj = new Date(e.date);
+        var isToday = e.date === new Date().toISOString().split('T')[0];
+        var isTomorrow = e.date === new Date(Date.now() + 86400000).toISOString().split('T')[0];
+        var daysUntil = Math.ceil((dateObj - new Date()) / (1000 * 60 * 60 * 24));
+        var urgency = isToday ? 'var(--red)' : isTomorrow ? 'var(--amber)' : 'var(--blue)';
+        var dayLabel = isToday ? 'TODAY' : isTomorrow ? 'TOMORROW' : 'in ' + daysUntil + ' days';
+        var time = e.hour === 'bmo' ? 'Before Market Open' : e.hour === 'amc' ? 'After Market Close' : 'During Market Hours';
+
+        var warn = document.createElement('div');
+        warn.style.cssText = 'background:var(--surface);border:1px solid ' + urgency + ';border-left:4px solid ' + urgency + ';border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:16px;';
+        warn.innerHTML =
+          '<div style="font-size:24px;">⚠</div>' +
+          '<div style="flex:1;">' +
+            '<div style="font-size:15px;font-weight:700;font-family:var(--font-mono);">' + e.symbol + ' reports earnings <span style="color:' + urgency + ';">' + dayLabel + '</span></div>' +
+            '<div style="font-size:12px;color:var(--text-muted);margin-top:3px;">' + (e.name || '') + ' · ' + time + ' · EPS estimate: ' + (e.epsEstimate !== null ? '$' + parseFloat(e.epsEstimate).toFixed(2) : 'N/A') + '</div>' +
+            '<div style="font-size:12px;font-weight:600;color:var(--red);margin-top:6px;">You have an open position — consider closing before earnings to avoid surprise moves.</div>' +
+          '</div>' +
+          '<button style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:8px 14px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;white-space:nowrap;">View Chart</button>';
+        warn.querySelector('button').onclick = (function(sym) { return function() { goToChart(sym); }; })(e.symbol);
+        openList.appendChild(warn);
+      });
+    } else {
+      openSection.style.display = 'none';
+    }
+  }
+
+  // Watchlist section
+  var section = document.getElementById('watchlist-earnings-section');
+  var list = document.getElementById('watchlist-earnings-list');
+  if (!section || !list) return;
+
+  var watchlistEarnings = earnings.filter(function(e) { return watchlist.includes(e.symbol); });
+  if (!watchlistEarnings.length) { section.style.display = 'none'; return; }
+
+  section.style.display = 'block';
+  list.innerHTML = '';
+  watchlistEarnings.forEach(function(e) {
+    var card = document.createElement('div');
+    card.style.cssText = 'background:var(--surface);border:2px solid var(--blue);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all 0.15s;';
+    card.onmouseover = function() { this.style.transform = 'translateY(-2px)'; this.style.boxShadow = 'var(--shadow-lg)'; };
+    card.onmouseout = function() { this.style.transform = ''; this.style.boxShadow = ''; };
+    card.onclick = function() { goToChart(e.symbol); };
+
+    var dateObj = new Date(e.date);
+    var isToday = e.date === new Date().toISOString().split('T')[0];
+    var isTomorrow = e.date === new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    var dayLabel = isToday ? '⚠ TODAY' : isTomorrow ? '⚡ TOMORROW' : dateObj.toLocaleDateString('en-US', {weekday:'long', month:'short', day:'numeric'});
+    var time = e.hour === 'bmo' ? 'Before Market Open' : e.hour === 'amc' ? 'After Market Close' : 'During Market Hours';
+
+    card.innerHTML =
+      '<div style="font-size:18px;font-weight:700;font-family:var(--font-mono);margin-bottom:4px;">' + e.symbol + '</div>' +
+      '<div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;">' + (e.name || '') + '</div>' +
+      '<div style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);margin-bottom:2px;">' + dayLabel + '</div>' +
+      '<div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);">' + time + '</div>';
+    list.appendChild(card);
+  });
+}
+
+async function filterEarnings(query) {
+  var q = query.trim().toUpperCase();
+
+  // If empty — restore current tab view
+  if (!q) {
+    if (window._allEarnings) {
+      renderEarningsRows(window._allEarnings);
+      renderWatchlistEarnings(window._allEarnings);
+    }
+    document.getElementById('watchlist-earnings-section').style.display = 'block';
+    document.getElementById('open-positions-earnings-section').style.display = 'block';
+    document.getElementById('earnings-list').style.display = window._allEarnings ? 'block' : 'none';
+    document.getElementById('earnings-empty').style.display = 'none';
+    return;
+  }
+
+  // Hide watchlist/open sections when searching
+  document.getElementById('watchlist-earnings-section').style.display = 'none';
+  document.getElementById('open-positions-earnings-section').style.display = 'none';
+  document.getElementById('earnings-list').style.display = 'block';
+
+  // First try filtering existing data
+  if (window._allEarnings) {
+    var quickFilter = window._allEarnings.filter(function(e) {
+      return (e.symbol||'').toUpperCase().includes(q) || (e.name||'').toUpperCase().includes(q);
+    });
+    if (quickFilter.length) {
+      renderEarningsRows(quickFilter);
+      return;
+    }
+  }
+
+  // Not found in current data — fetch a full 90-day window to search broadly
+  document.getElementById('earnings-rows').innerHTML =
+    '<div style="padding:20px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:12px;"><div class="loading-dots"><span></span><span></span><span></span></div><div style="margin-top:8px;">Searching all upcoming earnings...</div></div>';
+
+  try {
+    var today = new Date();
+    var from = today.toISOString().split('T')[0];
+    var toDate = new Date(today);
+    toDate.setDate(today.getDate() + 90);
+    var to = toDate.toISOString().split('T')[0];
+    // Search using Alpha Vantage for the specific symbol
+    var avKey = localStorage.getItem('tradeiq_av_key') || 'demo';
+    var url = 'https://www.alphavantage.co/query?function=EARNINGS&symbol=' + q + '&apikey=' + avKey;
+    var res = await fetch(url);
+    var data = await res.json();
+
+    if (!data || !data.quarterlyEarnings || !data.quarterlyEarnings.length) {
+      document.getElementById('earnings-rows').innerHTML =
+        '<div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">No earnings data found for "' + query + '". Check the ticker symbol.</div>';
+      return;
+    }
+
+    // Show last 4 + next upcoming
+    var today = new Date();
+    var allQ = data.quarterlyEarnings.slice(0, 8);
+    var formatted = allQ.map(function(eq) {
+      return {
+        symbol: q,
+        name: q,
+        date: eq.reportedDate !== 'None' ? eq.reportedDate : eq.fiscalDateEnding,
+        epsEstimate: eq.estimatedEPS || null,
+        epsActual: eq.reportedEPS || null,
+        hour: 'amc',
+        isFuture: eq.reportedDate === 'None' || new Date(eq.reportedDate) > today
+      };
+    });
+
+    // Build custom rows showing history + upcoming
+    var rows = document.getElementById('earnings-rows');
+    rows.innerHTML = '';
+
+    // Header showing the stock
+    var header = document.createElement('div');
+    header.style.cssText = 'padding:12px 16px;background:var(--blue-dim);border-bottom:1px solid var(--border);font-size:13px;font-weight:700;font-family:var(--font-mono);color:var(--blue);';
+    header.textContent = q + ' — Earnings History & Upcoming';
+    rows.appendChild(header);
+
+    formatted.forEach(function(e) {
+      var row = document.createElement('div');
+      var isFuture = e.isFuture;
+      row.style.cssText = 'display:grid;grid-template-columns:140px 1fr 130px 130px 100px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:center;' + (isFuture ? 'background:var(--green-dim);' : '');
+      
+      var dateObj = new Date(e.date);
+      var dateStr = dateObj.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+      var estStr = e.epsEstimate ? '$' + parseFloat(e.epsEstimate).toFixed(2) : '--';
+      var actualStr = e.epsActual && !isFuture ? '$' + parseFloat(e.epsActual).toFixed(2) : (isFuture ? 'Upcoming' : '--');
+      var beat = e.epsActual && e.epsEstimate ? parseFloat(e.epsActual) >= parseFloat(e.epsEstimate) : null;
+
+      row.innerHTML =
+        '<div style="font-size:11px;font-family:var(--font-mono);color:' + (isFuture ? 'var(--green)' : 'var(--text-muted)') + ';">' + (isFuture ? '▶ ' : '') + dateStr + '</div>' +
+        '<div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + e.symbol + (isFuture ? ' <span style="color:var(--green);font-size:11px;">UPCOMING</span>' : '') + '</div>' +
+        '<div style="font-size:12px;font-family:var(--font-mono);">' + estStr + '</div>' +
+        '<div style="font-size:12px;font-weight:700;font-family:var(--font-mono);color:' + (beat === true ? 'var(--green)' : beat === false ? 'var(--red)' : 'var(--text-muted)') + ';">' + actualStr + (beat === true ? ' ✓' : beat === false ? ' ✗' : '') + '</div>' +
+        '<div></div>';
+
+      var chartBtn = document.createElement('button');
+      chartBtn.textContent = 'Chart';
+      chartBtn.style.cssText = 'background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;';
+      chartBtn.onclick = function() { goToChart(q); };
+      row.querySelector('div:last-child').appendChild(chartBtn);
+      rows.appendChild(row);
+    });
+  } catch(e) {
+    document.getElementById('earnings-rows').innerHTML =
+      '<div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">Could not load earnings data. Check your Finnhub key.</div>';
+  }
+}
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // WELCOME MODAL
