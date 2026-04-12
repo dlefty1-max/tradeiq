@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_21.html -->
+<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_43.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -466,6 +466,39 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 .sig-bear { color: var(--red); }
 .sig-neutral { color: var(--amber); }
 
+/* Visual indicator cards */
+.visual-indicators { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; }
+.vi-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.vi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.vi-title { font-size: 13px; font-weight: 700; }
+.vi-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; font-family: var(--font-mono); border: 1px solid; }
+.vi-badge.bull { color: var(--green); border-color: rgba(0,132,61,0.3); background: var(--green-dim); }
+.vi-badge.bear { color: var(--red); border-color: rgba(200,16,46,0.3); background: var(--red-dim); }
+.vi-badge.neutral { color: var(--amber); border-color: rgba(180,83,9,0.3); background: var(--amber-dim); }
+.vi-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+.vi-bar-track { height: 8px; background: var(--surface-3); border-radius: 100px; overflow: hidden; position: relative; }
+.vi-bar-fill { height: 100%; border-radius: 100px; transition: width 0.6s ease; }
+.vi-bar-fill.bull { background: var(--green); }
+.vi-bar-fill.bear { background: var(--red); }
+.vi-bar-fill.neutral { background: var(--amber); }
+.vi-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 9px; color: var(--text-dim); font-family: var(--font-mono); }
+.vi-gauge-wrap { display: flex; align-items: center; gap: 12px; }
+.vi-gauge-val { font-size: 22px; font-weight: 300; font-family: var(--font-mono); min-width: 60px; }
+.vi-gauge-val.bull { color: var(--green); }
+.vi-gauge-val.bear { color: var(--red); }
+.vi-gauge-val.neutral { color: var(--amber); }
+.vi-gauge-track { flex: 1; }
+
+/* Overall score meter */
+.score-meter { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+.score-meter-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-family: var(--font-mono); margin-bottom: 10px; }
+.score-meter-bar { height: 12px; background: var(--surface-3); border-radius: 100px; overflow: hidden; position: relative; margin-bottom: 6px; }
+.score-meter-fill { height: 100%; border-radius: 100px; transition: width 0.8s ease; }
+.score-meter-labels { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-dim); font-family: var(--font-mono); }
+.score-meter-reading { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.score-meter-number { font-size: 28px; font-weight: 300; font-family: var(--font-mono); }
+.score-meter-text { font-size: 13px; font-weight: 600; }
+
 .signal-bar {
   padding: 10px 14px;
   display: flex; align-items: center; gap: 10px;
@@ -817,7 +850,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 }
 </style>
 </head>
-<body style="">
+<body>
 
 <div class="alert-banner" id="alertBanner"></div>
 
@@ -834,7 +867,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- MAIN -->
   <div class="sidebar-section">Main</div>
-  <div class="nav-item" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
+  <div class="nav-item active" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
   <div class="nav-item" onclick="switchPage(&#39;ai&#39;)" id="nav-ai"><div class="nav-icon">▲</div><div class="nav-label">AI Chat</div></div>
 
   <!-- MARKETS GROUP -->
@@ -866,13 +899,14 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- LEARN GROUP -->
   <div class="sidebar-section">Education</div>
-  <div class="nav-group-header" id="group-learn" onclick="toggleGroup(&#39;learn&#39;)">
+  <div class="nav-group-header open" id="group-learn" onclick="toggleGroup(&#39;learn&#39;)">
     <div class="nav-icon">◉</div>
     <div class="nav-label">Learn</div>
     <div class="section-arrow">▶</div>
   </div>
-  <div class="nav-sub" id="sub-learn">
+  <div class="nav-sub open" id="sub-learn">
     <div class="nav-sub-item" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;papertrade&#39;)" id="nav-papertrade"><div class="nav-sub-dot"></div>Paper Trading</div>
   </div>
 
 
@@ -898,8 +932,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot premarket" id="market-dot"></div>
-      <span id="market-status-text">After-Hours</span>
+      <div class="status-dot closed" id="market-dot"></div>
+      <span id="market-status-text">Closed — Weekend</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -907,16 +941,16 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page-area">
 
   <!-- HOME -->
-  <div class="page" id="page-home">
+  <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$48190.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.57%</div><div class="market-card-points up">+274.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6799.10</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.58%</div><div class="market-card-points up">+39.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24407.60</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.68%</div><div class="market-card-points up">+164.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2619.60</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.57%</div><div class="market-card-points up">+14.90 pts</div></div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$47925.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.55%</div><div class="market-card-points down">-265.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6794.60</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.07%</div><div class="market-card-points down">-4.50 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24442.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.14%</div><div class="market-card-points up">+35.20 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2613.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.25%</div><div class="market-card-points down">-6.60 pts</div></div></div></div>
 
     <!-- AI CHAT FULL WIDTH BELOW MARKETS -->
     <div class="home-three-col">
       <div>
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/09/jim-cramer-tech-stocks-diverge.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108288638-17756569222026-04-08t135836z_57320729_rc21lkazl7y0_rtrmadp_0_usa-stocks.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Cramer explains the divergence in tech stocks – and why software may continue to lag</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixwFBVV95cUxOLTZPamh1b29xTVhnUHZJSjdyQkZtcUdodUY3dC1NUVBFbGpBVURERnpsVDh4T2JuM0pESHVmSEI1WUh6VVNvQ0hPZk1QYkhSMGg5VnJ0aVBIVGNWNWQtbzBVTDFnNlZtLWlVQkxYR01WbldjNU9mVXZMZFZHUUNUczgwYnhMcFNTSVdmTTRXRjhmR1NacHhqVzdvZmxPWkcyTzFQZ1pieXpmSzdPUXpQQW85TDBTOVY1NHZjODNqVzlULWRKZVI4?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says Iran should not charge fees to tankers going through Strait of Hormuz - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMizgFBVV95cUxPbTJQR3N1VWw2dXc3bm5YbUQ1NkQwakVtMHNkbUtjVWU1VDlRWTdiSHhVNndZQk1nd3RXZm5RdjJnNE1OMmRZaFhNeF9TaWc2V2lNX1lLMmM3R080RTRlaVBfajZMQ09QQWVvcnRwWDkzQmFCSEZOMjE4LU9LWkxtaHQ4MlY4UFZJRUU2R3lGcU5Tdm1jTEgzMWdfYW00UG5xRjhWcks0aGZEcWFsam1VYWZSS3JUNzJVaWdsbXh3MFRNWWhPaTVhcmJOVU1OZw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Hormuz at near standstill as Iran warns ships to keep to its waters - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/09/keir-starmer-fed-up-trump-putin-uk-energy-costs.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108270816-1772180493424-gettyimages-2262757819-Britain_Politics.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Keir Starmer: 'I'm fed up' with Trump and Putin affecting UK energy costs</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/09/married-filing-separately-trumps-tax-breaks.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108289354-1775753609321-gettyimages-2200125278-img_1771-edit.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">How married filing separately could affect Trump's tax breaks this season</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMisgFBVV95cUxQYTJIenV2el8xdGYwSWxGMTNZTThhbUlwVFdhY2EzUmlGOGk3RHBsOXdXeU1PdGZzeVk5Q0RBMFltZXFjdmx0UFRsckh5SGNfMGlwMUxuLUV0Mk9lc0V3RjhvRXp4OGdfNHotVHdyc1Q1eGduTy1rcHYzMm5IX25MMWE2UmNYSVRtZXVoOE4wSFFuR3JacUVNYnM5eTlHbUZyTFJ1QWsxZkd5WF9QNDZVcFJ3?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">UK's Starmer says Iran conflict shows Britain must take a new path - Reuters</div><div class="news-time">4h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNdlZ5X19tUWI2blRNMGlsdjczRTE4RlZzNWZNNGpYc1ZpTU4tdlVDNTN1Szh0enJreDZ0Z2JpTklhWndPeWY4ODhTbU5qUE1ZeWxQWVh1VzYySG1OcFVUOE15UjdRbk1MUE9GT3Y1aGFGb0RoNmRkd2NOa0hnWHNjalczVWRIQWxZN01mZXRiVmRFYTczb3hwY2p5c3JJQUJjNlVmMk0zNGJtbkd3VXNGVmppMTF4U1pLMUxv?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Gulf stocks slide as US-Iran talks falter, ceasefire doubts resurface - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSktOaDJJa2VRS3hkeTZtcWsxb2g2MVM2dzl5bDBRRV9naHhnbVNJbjROa0taM2ZTcElmQTJEQXdSRGl4ZDAwcFhjQmcxbVBZTEhVX1I2RzhMV3E3YWdORE5oZ2loSXM0TUlXRHotTTFxTm1JTUgtVHpZeEZiekhXTERvMXVGLWdfX0MybHdleWk5ckpOZVhvaElJUTViWkdsT1Rob29ZR3JoS3lTNC1aRGtnWjF4eFVkdy12dGJDWkFPMTY3aDZJUQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran aims to restore majority of refining capability within two months, oil ministry official says - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPMjB6Z0FIdjZ3alpsY0IwMkFGNUdoY0RYQUVqMjJ4TWdfVmFaV0ZtUUJJaV9NUzFwQXlSbnFGMzdSNG15MlB5UG5qZzhqX1JuLUJKZ2hQSTZJQ3owREZmY1cyTVAxbWdiSElUTG4xb25VN25Udm9FOXpuUlRvSlJKVXJlOVhpY2Q4aW82OWppY041RzJPeW9FQ0RkcFd6VEhz?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US-Iran peace talks end without a deal as delegations leave Pakistan - Reuters</div><div class="news-time">11h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMilwFBVV95cUxOZXpPT0NLSDVfcjcxQTBGUTB6M3Q2VEhhYmtKa0w1Y2NTSlBaVWEwdEJoLWJCYVJuV0tzaEFnb0VwUXNuWVZlZmpTR2xOTHVHMllPeFZHNmkwVVJfaFFuSWNMT0NuLVV3S2J3VG13X0VQd1J5aFN2NWp0REVxalM1b2Nsb2Zad0Q0N1BZZ25pbkJhM096SjhR?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Pope Leo urges end to 'madness of war' as US, Iran start talks - Reuters</div><div class="news-time">14h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipAFBVV95cUxQN3hnbUZSX2gtVDBXNFhtRndieXlMUDhHd2tTQVZ4NnU0Z01fZnloY3R1bWZGeHZuRGVQUGlFRzZmcUkxVEx5OW83SDVyN2prOXRtb0RRRl9nbFZrWWNKWWs0dGU0TnZQSVBHTHNtNDlaWmVTckdNekJJekZiUWtnUFVoYTJudlUzZnZaNnVhdmotQnJwTEdTQWY1UDdMbUJIUWU0Zw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military 'setting conditions' to clear mines from Strait of Hormuz - Reuters</div><div class="news-time">18h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNb1pxSEdYT01ocEZVcmV5dF9hZ3JxQlZOSVJEbUZYTWgxYXhsN212OG9KOXpaaEZ4ZjYzZXhSV2JPVW5jeE1PZy1PWEFkeU9GTUFlLTBkZ0o2R21iU0pkSGo5aDlLUXBqMEtVRTNDZUljZHhnSGR6Nkw4SVNRalJseE1weUxjTF9QcGFJSDZQV0VVdTdiRHc2NmxmcXVIR19YZTBQd2hQQ0g2aDNfREZWbkxkeWY?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military says two of its ships crossed through Strait of Hormuz - Reuters</div><div class="news-time">18h ago</div></div></a></div>
       </div>
       <div>
         <div class="section-label">AI Assistant</div>
@@ -951,14 +985,14 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   </div>
 
   <!-- MARKETS -->
-  <div class="page active" id="page-search">
+  <div class="page" id="page-search">
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
-    <div id="markets-content" style="display: none;">
+    <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$48190.00</div><div class="market-card-change up">▲ 0.57%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6799.10</div><div class="market-card-change up">▲ 0.58%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24407.60</div><div class="market-card-change up">▲ 0.68%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2619.60</div><div class="market-card-change up">▲ 0.57%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$47925.00</div><div class="market-card-change down">▼ 0.55%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6794.60</div><div class="market-card-change down">▼ 0.07%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24442.80</div><div class="market-card-change up">▲ 0.14%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2613.00</div><div class="market-card-change down">▼ 0.25%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
-    <div id="chart-content" style="display: block;">
+    <div id="chart-content" style="display:none;">
       <div class="chart-layout">
 
         <!-- LEFT: Chart + Analysis -->
@@ -966,14 +1000,14 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
           <div class="chart-container">
             <div class="chart-header">
               <div>
-                <div id="r-sym" style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:1px;">AAPL</div>
-                <div id="r-name" style="font-size:16px;font-weight:600;margin-top:2px;">Apple Inc</div>
+                <div id="r-sym" style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:1px;"></div>
+                <div id="r-name" style="font-size:16px;font-weight:600;margin-top:2px;"></div>
               </div>
               <div>
-                <div class="chart-price" id="r-price">$260.49</div>
-                <div class="chart-change green" id="r-change">▲ 0.61% today</div>
+                <div class="chart-price" id="r-price"></div>
+                <div class="chart-change" id="r-change"></div>
               </div>
-              <div class="chart-detail" id="r-detail"><span><div>Open</div><strong>$259.00</strong></span><span><div>High</div><strong class="green">$261.12</strong></span><span><div>Low</div><strong class="red">$256.07</strong></span><span><div>Prev Close</div><strong>$258.90</strong></span></div>
+              <div class="chart-detail" id="r-detail"></div>
             </div>
             <div id="chart-body">
               <iframe id="tv-chart" class="chart-embed" src="./index_files/saved_resource.html" frameborder="0" style="height:400px;"></iframe>
@@ -987,17 +1021,18 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
           </div>
 
           <!-- AI Analysis -->
-          <div class="analysis-card" id="analysisCard" style="display: block;">
+          <div class="analysis-card" id="analysisCard" style="display:none;">
             <div class="analysis-header">
               <div class="analysis-dot"></div>
               <div class="analysis-title">AI Technical Analysis</div>
               <div class="analysis-sub" id="analysis-sub">Analyzing...</div>
             </div>
-            <div class="loading-bar" id="analysis-loading" style="display: none;"><div class="loading-dots"><span></span><span></span><span></span></div>&nbsp;Reading RSI, MACD, moving averages...</div>
-            <div id="indicator-row-wrap" style="display: block;">
-              <div class="indicator-grid" id="indicator-row"></div>
+            <div class="loading-bar" id="analysis-loading"><div class="loading-dots"><span></span><span></span><span></span></div>&nbsp;Reading RSI, MACD, moving averages...</div>
+            <div id="indicator-row-wrap" style="display:none;">
               <div id="signal-wrap"></div>
-              <div class="analysis-body" id="analysis-body">Could not load indicator data. Try a major US stock like AAPL, TSLA, or SPY.</div>
+              <div class="score-meter" id="score-meter-wrap"></div>
+              <div class="visual-indicators" id="indicator-row"></div>
+              <div class="analysis-body" id="analysis-body" style="border-top:1px solid var(--border);"></div>
               <div class="ee-grid" id="entry-exit-row">
                 <div class="ee-box"><div class="ee-label">Entry Zone</div><div class="ee-val green" id="ee-entry">--</div></div>
                 <div class="ee-box"><div class="ee-label">Target</div><div class="ee-val green" id="ee-target">--</div></div>
@@ -1007,12 +1042,12 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
           </div>
 
           <!-- News — collapsed below analysis -->
-          <div class="card" id="stockNews" style="display: block;">
+          <div class="card" id="stockNews" style="display:none;">
             <div class="card-header" style="cursor:pointer;" onclick="toggleStockNews()">
               <div class="card-title">Latest News</div>
               <div id="stock-news-arrow" style="font-size:10px;color:var(--text-muted);">▼</div>
             </div>
-            <div id="stockNewsList" style="max-height:260px;overflow-y:auto;"><a class="news-item" href="https://finnhub.io/api/news?id=a26aae8d11fddb479ec01c256284857358401fd2e6e736641aadde6a3a368ad4" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">Microsoft’s New AI Alliances Reframe Its Role In Patents And Security</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=336dbbe1b0d55df16b5e96330af4fc5ec13461e2acfb74098c38e00dbe1c0add" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">Broadcom vs. Qualcomm: Buy One, Avoid the Other</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=172eea800d5d6893f7c686e6b7115f0842c17a9f7aa5a96d842e3fed156502d4" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">Vista Investment Partners Just Bought a New $4.7 Million Stake in Federated Hermes</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=959553b004b0b574d71be0815723282e46dccbdcc077328dbc0da38f079fa7a6" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">Amazon Stock Jumps on DOJ’s NFL Probe. It’s About ‘Affordability for Consumers.’</div><div class="news-time">4h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=6390d5122129d570c97cd118f5d72718a9c4db3c41691fc7ce400fc0a1163630" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">What a $20 Million Sale Signals as This Cash Cow ETF Lags the S&amp;P 500 by 10 Points</div><div class="news-time">5h ago</div></div></a><a class="news-item" href="https://finnhub.io/api/news?id=bcaf3c3569328a87f1d8dfd495f5c19bc0b778fbfe90dda040fd5aa525555ae6" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/yahoo_finance_en-US_h_p_finance_2.png"><div><div class="news-source">Yahoo</div><div class="news-headline">DELL Gains From Commercial PC Demand: Can it Boost CSG Growth?</div><div class="news-time">5h ago</div></div></a></div>
+            <div id="stockNewsList" style="max-height:260px;overflow-y:auto;"></div>
           </div>
         </div>
 
@@ -1030,7 +1065,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         ">
           <div style="width:3px;height:60px;background:var(--border-bright);border-radius:2px;"></div>
         </div>
-        <div class="chart-sidebar-panel" id="chart-sidebar-panel" style="width: 313px;">
+        <div class="chart-sidebar-panel" id="chart-sidebar-panel">
           <div class="chat-panel" style="height:calc(100vh - 100px);position:sticky;top:80px;overflow:hidden;">
             <div class="chat-panel-header">
               <div class="chat-panel-dot"></div>
@@ -1182,13 +1217,127 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page" id="page-portfolio">
     <h2 style="font-size:20px;font-weight:700;margin-bottom:20px;">Portfolio</h2>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">
-      <div class="stat-card"><div class="stat-card-label">Total P&amp;L</div><div class="stat-card-value" id="port-pnl">$0.00</div></div>
-      <div class="stat-card"><div class="stat-card-label">Win Rate</div><div class="stat-card-value green" id="port-winrate">--</div></div>
-      <div class="stat-card"><div class="stat-card-label">Total Trades</div><div class="stat-card-value" id="port-trades">0</div></div>
-      <div class="stat-card"><div class="stat-card-label">Open Positions</div><div class="stat-card-value" style="color:var(--amber)" id="port-open">0</div></div>
+      <div class="stat-card"><div class="stat-card-label">Realized P&amp;L</div><div class="stat-card-value" id="port-pnl">$0.00</div><div class="stat-card-sub">Closed trades only</div></div>
+      <div class="stat-card"><div class="stat-card-label">Win Rate</div><div class="stat-card-value green" id="port-winrate">--</div><div class="stat-card-sub">Closed trades only</div></div>
+      <div class="stat-card"><div class="stat-card-label">Closed Trades</div><div class="stat-card-value" id="port-trades">0</div><div class="stat-card-sub">With exit price</div></div>
+      <div class="stat-card"><div class="stat-card-label">Open Positions</div><div class="stat-card-value" style="color:var(--amber)" id="port-open">0</div><div class="stat-card-sub">No exit yet</div></div>
     </div>
     <div class="section-label">All Trades</div>
     <div id="portfolio-trades-list"></div>
+  </div>
+
+  <!-- PAPER TRADING -->
+  <div class="page" id="page-papertrade">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+      <div>
+        <h2 style="font-size:20px;font-weight:700;">Paper Trading</h2>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">Practice with $10,000 of fake money. No real money at risk.</p>
+      </div>
+      <button onclick="resetPaperAccount()" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(200,16,46,0.2);border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">Reset Account</button>
+    </div>
+
+    <!-- Stats Row -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;" id="paper-stats-row">
+      <div class="stat-card">
+        <div class="stat-card-label">Account Value</div>
+        <div class="stat-card-value" id="paper-account-val">$10,000.00</div>
+        <div class="stat-card-sub" id="paper-account-sub">Starting balance</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Cash Available</div>
+        <div class="stat-card-value" id="paper-cash">$10,000.00</div>
+        <div class="stat-card-sub">Ready to trade</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Total P&amp;L</div>
+        <div class="stat-card-value" id="paper-pnl">$0.00</div>
+        <div class="stat-card-sub" id="paper-pnl-pct">0.00%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-label">Win Rate</div>
+        <div class="stat-card-value green" id="paper-winrate">--</div>
+        <div class="stat-card-sub" id="paper-trades-count">0 trades</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:340px 1fr;gap:20px;">
+
+      <!-- Place Trade Form -->
+      <div>
+        <div class="section-label">Place a Trade</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;">
+          <div class="form-group">
+            <label>Direction</label>
+            <div class="seg-control">
+              <button class="seg-btn active" id="paper-seg-long" onclick="setPaperDir(&#39;long&#39;)">▲ Buy (Long)</button>
+              <button class="seg-btn" id="paper-seg-short" onclick="setPaperDir(&#39;short&#39;)">▼ Sell Short</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Ticker Symbol</label>
+            <input type="text" id="paper-symbol" placeholder="e.g. AAPL" style="text-transform:uppercase;font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:17px;font-weight:600;" oninput="this.value=this.value.toUpperCase()">
+          </div>
+          <div class="form-group">
+            <label>Shares</label>
+            <input type="number" id="paper-shares" placeholder="e.g. 10" min="1" oninput="updatePaperCostEstimate()">
+          </div>
+
+          <!-- Target + Stop Loss -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+            <div class="form-group" style="margin:0;">
+              <label style="display:flex;align-items:center;gap:6px;"><span style="color:var(--green);">▲</span> Target Price</label>
+              <input type="number" id="paper-target" placeholder="Exit when price hits..." step="0.01" oninput="updatePaperCostEstimate()" style="border-color:rgba(0,132,61,0.3);">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label style="display:flex;align-items:center;gap:6px;"><span style="color:var(--red);">▼</span> Stop Loss</label>
+              <input type="number" id="paper-stop" placeholder="Exit to limit losses..." step="0.01" oninput="updatePaperCostEstimate()" style="border-color:rgba(200,16,46,0.3);">
+            </div>
+          </div>
+
+          <!-- Risk/Reward preview -->
+          <div id="paper-rr-preview" style="display:none;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:12px;">
+            <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:8px;">Trade Plan</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-family:var(--font-mono);">
+              <div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Potential Gain</div><div style="font-size:13px;font-weight:700;color:var(--green);" id="pr-gain">--</div></div>
+              <div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Max Loss</div><div style="font-size:13px;font-weight:700;color:var(--red);" id="pr-loss">--</div></div>
+              <div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Risk/Reward</div><div style="font-size:13px;font-weight:700;color:var(--blue);" id="pr-rr">--</div></div>
+            </div>
+          </div>
+
+          <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-bottom:12px;font-family:var(--font-mono);font-size:13px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="color:var(--text-muted);">Current Price</span>
+              <span id="paper-live-price" style="font-weight:700;">--</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="color:var(--text-muted);">Est. Cost</span>
+              <span id="paper-est-cost" style="font-weight:700;">--</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="color:var(--text-muted);">Cash After</span>
+              <span id="paper-cash-after" style="font-weight:700;">--</span>
+            </div>
+          </div>
+          <button onclick="lookupPaperPrice()" style="width:100%;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Get Live Price</button>
+          <button onclick="placePaperTrade()" style="width:100%;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">Place Paper Trade</button>
+        </div>
+
+        <!-- Open Positions -->
+        <div class="section-label" style="margin-top:20px;">Open Positions</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <div id="paper-positions"><div class="empty-state"><p>No open positions.</p></div></div>
+        </div>
+      </div>
+
+      <!-- Trade History -->
+      <div>
+        <div class="section-label">Trade History</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+          <div id="paper-history"><div class="empty-state"><p>No completed trades yet. Open a position and close it to see your history.</p></div></div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- SETTINGS -->
@@ -1204,6 +1353,15 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
             <button class="settings-save-btn" onclick="saveFinnhubKey()">Save</button>
           </div>
           <div class="settings-status" id="finnhub-status"></div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-label">Alpha Vantage API Key</div>
+          <div class="settings-desc">Required for AI technical analysis (RSI, MACD, indicators). Free key at alphavantage.co — no credit card needed.</div>
+          <div class="settings-input-row">
+            <input type="password" class="settings-input" id="av-key-input" placeholder="Paste your Alpha Vantage key...">
+            <button class="settings-save-btn" onclick="saveAVKey()">Save</button>
+          </div>
+          <div class="settings-status" id="av-status"></div>
         </div>
         <div class="settings-row">
           <div class="settings-label">Anthropic API Key</div>
@@ -1243,26 +1401,68 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
 <!-- TRADE MODAL -->
 <div class="modal-overlay" id="tradeModal">
-  <div class="modal">
+  <div class="modal" style="max-width:520px;">
     <div class="modal-header">
       <h3>Log a Trade</h3>
       <div class="modal-close" onclick="closeTradeModal()">✕</div>
     </div>
+
     <div class="form-group"><label>Direction</label>
       <div class="seg-control">
         <button class="seg-btn active" id="seg-long" onclick="setDir(&#39;long&#39;)">▲ Long (Buy)</button>
         <button class="seg-btn" id="seg-short" onclick="setDir(&#39;short&#39;)">▼ Short (Sell)</button>
       </div>
     </div>
-    <div class="form-group"><label>Ticker Symbol</label><input type="text" id="t-symbol" placeholder="e.g. AAPL, SPY" style="text-transform:uppercase;font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:17px;font-weight:600;"></div>
-    <div class="form-row">
-      <div class="form-group"><label>Entry Price</label><input type="number" id="t-entry" placeholder="0.00"></div>
-      <div class="form-group"><label>Exit Price</label><input type="number" id="t-exit" placeholder="Open if blank"></div>
+
+    <!-- Ticker + Live Price Lookup -->
+    <div class="form-group">
+      <label>Ticker Symbol</label>
+      <div style="display:flex;gap:8px;">
+        <input type="text" id="t-symbol" placeholder="e.g. AAPL, SPY" oninput="this.value=this.value.toUpperCase()" style="text-transform:uppercase;font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:17px;font-weight:600;flex:1;">
+        <button onclick="lookupTradePrice()" style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:10px 14px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;text-transform:uppercase;letter-spacing:0.5px;">Get Price</button>
+      </div>
     </div>
-    <div class="form-group"><label>Shares</label><input type="number" id="t-size" placeholder="e.g. 10"></div>
-    <div class="form-group"><label>Why this trade?</label><textarea id="t-reason" placeholder="What did you see?"></textarea></div>
-    <div class="form-group"><label>How did you feel?</label><textarea id="t-emotion" placeholder="Confident? Anxious?"></textarea></div>
-    <button class="modal-btn" onclick="saveTrade()">Save &amp; Get AI Analysis</button>
+
+    <!-- Live Stock Info Panel (hidden until price fetched) -->
+    <div id="trade-price-panel" style="display:none;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);letter-spacing:1px;" id="tp-sym"></div>
+          <div style="font-size:13px;font-weight:500;color:var(--text-muted);" id="tp-name"></div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:26px;font-weight:300;font-family:var(--font-mono);" id="tp-price"></div>
+          <div style="font-size:12px;font-weight:700;font-family:var(--font-mono);" id="tp-change"></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid var(--border);padding-top:8px;">
+        <div><div style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Open</div><div style="font-size:12px;font-weight:600;font-family:var(--font-mono);" id="tp-open"></div></div>
+        <div><div style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">High</div><div style="font-size:12px;font-weight:600;font-family:var(--font-mono);color:var(--green);" id="tp-high"></div></div>
+        <div><div style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Low</div><div style="font-size:12px;font-weight:600;font-family:var(--font-mono);color:var(--red);" id="tp-low"></div></div>
+        <div><div style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Prev Close</div><div style="font-size:12px;font-weight:600;font-family:var(--font-mono);" id="tp-prev"></div></div>
+      </div>
+      <button onclick="useCurrentPrice()" style="width:100%;margin-top:10px;background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:8px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.5px;">Use Current Price as Entry</button>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group"><label>Entry Price</label><input type="number" id="t-entry" placeholder="0.00" step="0.01" oninput="updateTradeCostEstimate()"></div>
+      <div class="form-group"><label>Exit Price</label><input type="number" id="t-exit" placeholder="Leave blank if open" step="0.01"></div>
+    </div>
+
+    <!-- Cost estimate -->
+    <div class="form-group">
+      <label>Shares</label>
+      <input type="number" id="t-size" placeholder="e.g. 10" min="1" oninput="updateTradeCostEstimate()">
+    </div>
+    <div id="trade-cost-estimate" style="display:none;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:12px;display:flex;gap:20px;">
+      <div><div style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Total Cost</div><div style="font-size:14px;font-weight:700;font-family:var(--font-mono);" id="tce-cost">--</div></div>
+      <div><div style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Per Share</div><div style="font-size:14px;font-weight:700;font-family:var(--font-mono);" id="tce-per">--</div></div>
+      <div><div style="font-size:9px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Risk (1% acct)</div><div style="font-size:14px;font-weight:700;font-family:var(--font-mono);color:var(--amber);" id="tce-risk">--</div></div>
+    </div>
+
+    <div class="form-group"><label>Why this trade?</label><textarea id="t-reason" placeholder="What did you see? What was your setup?"></textarea></div>
+    <div class="form-group"><label>How did you feel?</label><textarea id="t-emotion" placeholder="Confident? Anxious? Unsure?"></textarea></div>
+    <button class="modal-btn" onclick="saveTrade()">Save Trade</button>
   </div>
 </div>
 
@@ -1274,6 +1474,10 @@ let ANTHROPIC_KEY = localStorage.getItem('tradeiq_anthropic_key') || '';
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // STATE
+var MARKET_NAMES = { 'SPY':'S&P 500', 'QQQ':'Nasdaq 100', 'DIA':'Dow Jones', 'IWM':'Russell 2000', '^DJI':'Dow Jones Ind.', '^GSPC':'S&P 500', '^IXIC':'Nasdaq Composite', '^RUT':'Russell 2000' };
+var MARKET_SYMBOLS = ['^DJI','^GSPC','^IXIC','^RUT'];
+var MARKET_DISPLAY = { '^DJI':'DJIA', '^GSPC':'S&P 500', '^IXIC':'NASDAQ', '^RUT':'RUT' };
+
 let trades = JSON.parse(localStorage.getItem('tradeiq_trades') || '[]');
 let watchlist = JSON.parse(localStorage.getItem('tradeiq_watchlist') || '["SPY","QQQ","DIA","IWM"]');
 let alerts = JSON.parse(localStorage.getItem('tradeiq_alerts') || '[]');
@@ -1353,25 +1557,76 @@ function renderWatchlistPage() {
 }
 
 function renderPortfolioPage() {
+  var open = trades.filter(function(t) { return t.status === 'open'; });
   var closed = trades.filter(function(t) { return t.status !== 'open'; });
   var wins = closed.filter(function(t) { return t.status === 'win'; });
+  var losses = closed.filter(function(t) { return t.status === 'loss'; });
   var totalPnl = closed.reduce(function(s,t) { return s + (t.pnl||0); }, 0);
-  var open = trades.filter(function(t) { return t.status === 'open'; }).length;
   var winRate = closed.length > 0 ? Math.round(wins.length/closed.length*100) + '%' : '--';
   var pnlStr = (totalPnl >= 0 ? '+$' : '-$') + Math.abs(totalPnl).toFixed(2);
-  var pp = document.getElementById('port-pnl'); if(pp) { pp.textContent = pnlStr; pp.style.color = totalPnl >= 0 ? 'var(--green)' : 'var(--red)'; }
+  var pp = document.getElementById('port-pnl'); if(pp) { pp.textContent = closed.length > 0 ? pnlStr : '$0.00'; pp.style.color = totalPnl >= 0 ? 'var(--green)' : 'var(--red)'; }
   var pw = document.getElementById('port-winrate'); if(pw) pw.textContent = winRate;
-  var pt = document.getElementById('port-trades'); if(pt) pt.textContent = trades.length;
-  var po = document.getElementById('port-open'); if(po) po.textContent = open;
+  var pt = document.getElementById('port-trades'); if(pt) pt.textContent = closed.length + ' closed';
+  var po = document.getElementById('port-open'); if(po) po.textContent = open.length;
   var list = document.getElementById('portfolio-trades-list');
   if (!list) return;
-  if (!trades.length) { list.innerHTML = '<div class="empty-state"><p>No trades logged yet.</p></div>'; return; }
+  if (!trades.length) {
+    list.innerHTML = '<div class="empty-state"><p>No trades logged yet.</p></div>';
+    return;
+  }
   list.innerHTML = '';
-  [...trades].reverse().forEach(function(t) {
-    var div = document.createElement('div'); div.className = 'trade-card';
-    div.onclick = function() { sendMessage2('Analyze my ' + t.dir + ' trade on ' + t.symbol + ' — entry $' + t.entry + (t.exit ? ', exit $' + t.exit : ' (open)') + '. Reason: ' + (t.reason||'none') + '.'); switchPage('ai'); };
-    div.innerHTML = '<div class="trade-card-bar ' + t.status + '"></div><div class="trade-card-body"><div><div class="trade-card-sym">' + t.symbol + '</div><div class="trade-card-meta">' + t.dir.toUpperCase() + ' · ' + t.size + ' shares · ' + t.date + '</div></div><div style="text-align:right;"><div class="trade-card-pnl ' + (t.status==='win'?'green':t.status==='loss'?'red':'muted') + '">' + (t.pnl!==null?(t.pnl>=0?'+$':'-$')+Math.abs(t.pnl).toFixed(2):'OPEN') + '</div><div class="trade-card-status">' + t.status + '</div></div></div>';
-    list.appendChild(div);
+  trades.slice().reverse().forEach(function(t, i) {
+    var realIndex = trades.length - 1 - i;
+    var pnlText = t.pnl !== null ? (t.pnl >= 0 ? '+$' : '-$') + Math.abs(t.pnl).toFixed(2) : 'OPEN';
+    var pnlColor = t.status === 'win' ? 'var(--green)' : t.status === 'loss' ? 'var(--red)' : 'var(--text-muted)';
+    var statusColor = t.status === 'win' ? 'var(--green)' : t.status === 'loss' ? 'var(--red)' : 'var(--amber)';
+    var totalCost = (t.entry && t.size) ? '$' + (t.entry * t.size).toFixed(2) : '--';
+    var exitLine = t.exit ? '$' + t.exit : 'Open';
+
+    var outer = document.createElement('div');
+    outer.className = 'trade-card';
+    outer.style.marginBottom = '8px';
+
+    var bar = document.createElement('div');
+    bar.className = 'trade-card-bar ' + t.status;
+    outer.appendChild(bar);
+
+    var body = document.createElement('div');
+    body.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:12px;';
+
+    var info = document.createElement('div');
+    info.style.flex = '1';
+    info.innerHTML =
+      '<div class="trade-card-sym">' + t.symbol + ' <span style="font-size:11px;color:var(--text-muted);">' + t.dir.toUpperCase() + '</span></div>' +
+      '<div class="trade-card-meta">Entry $' + t.entry + ' → Exit ' + exitLine + ' &middot; ' + t.size + ' shares &middot; Cost ' + totalCost + ' &middot; ' + t.date + '</div>';
+    body.appendChild(info);
+
+    var right = document.createElement('div');
+    right.style.cssText = 'display:flex;align-items:center;gap:12px;flex-shrink:0;';
+    right.innerHTML =
+      '<div style="text-align:right;">' +
+        '<div style="font-size:15px;font-weight:700;font-family:var(--font-mono);color:' + pnlColor + ';">' + pnlText + '</div>' +
+        '<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:' + statusColor + ';font-family:var(--font-mono);">' + t.status + '</div>' +
+      '</div>';
+    body.appendChild(right);
+
+    var delBtn = document.createElement('button');
+    delBtn.textContent = 'Delete';
+    delBtn.style.cssText = 'background:var(--red-dim);color:var(--red);border:1px solid rgba(200,16,46,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;flex-shrink:0;';
+    delBtn.onclick = (function(idx){ return function(e){
+      e.stopPropagation();
+      if(confirm('Delete this trade?')){
+        trades.splice(idx,1);
+        localStorage.setItem('tradeiq_trades',JSON.stringify(trades));
+        updateStats();
+        renderPortfolioPage();
+      }
+    };})(realIndex);
+    right.appendChild(delBtn);
+
+    outer.appendChild(body);
+    outer.onclick = function(){ sendMessage2('Analyze my '+t.dir+' trade on '+t.symbol); switchPage('ai'); };
+    list.appendChild(outer);
   });
 }
 
@@ -1393,10 +1648,11 @@ function toggleGroup(group) {
 }
 
 function switchPage(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const pageEl = document.getElementById(`page-${page}`);
-  const navEl = document.getElementById(`nav-${page}`);
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+  document.querySelectorAll('.nav-sub-item').forEach(function(n) { n.classList.remove('active'); });
+  var pageEl = document.getElementById('page-' + page);
+  var navEl = document.getElementById('nav-' + page);
   if (pageEl) pageEl.classList.add('active');
   if (navEl) navEl.classList.add('active');
   if (page === 'home') renderHome();
@@ -1407,6 +1663,7 @@ function switchPage(page) {
   if (page === 'settings') initSettingsPage();
   if (page === 'watchlist') renderWatchlistPage();
   if (page === 'portfolio') renderPortfolioPage();
+  if (page === 'papertrade') renderPaperPage();
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1420,6 +1677,20 @@ function saveFinnhubKey() {
   updateFinnhubStatus('ok');
   fetchAllPrices();
 }
+function saveAVKey() {
+  var val = document.getElementById('av-key-input').value.trim();
+  if (!val) { updateAVStatus('missing'); return; }
+  localStorage.setItem('tradeiq_av_key', val);
+  document.getElementById('av-key-input').value = '';
+  updateAVStatus('ok');
+}
+
+function updateAVStatus(state) {
+  var el = document.getElementById('av-status'); if (!el) return;
+  el.className = 'settings-status ' + state;
+  el.innerHTML = state === 'ok' ? '✓ Key saved — technical analysis active' : '⚠ No key — get a free one at alphavantage.co';
+}
+
 function saveAnthropicKey() {
   const val = document.getElementById('anthropic-key-input').value.trim();
   if (!val) { updateAnthropicStatus('missing'); return; }
@@ -1441,6 +1712,7 @@ function updateAnthropicStatus(state) {
 function initSettingsPage() {
   updateFinnhubStatus(localStorage.getItem('tradeiq_finnhub_key') ? 'ok' : 'missing');
   updateAnthropicStatus(localStorage.getItem('tradeiq_anthropic_key') ? 'ok' : 'missing');
+  updateAVStatus(localStorage.getItem('tradeiq_av_key') ? 'ok' : 'missing');
 }
 function clearAllData() {
   if (!confirm('Delete ALL trades, watchlist, alerts, and lesson progress? Cannot be undone.')) return;
@@ -1453,7 +1725,12 @@ function clearAllData() {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // FINNHUB API
 async function finnhub(endpoint) {
-  const res = await fetch(`https://finnhub.io/api/v1/${endpoint}&token=${FINNHUB_KEY}`);
+  if (!FINNHUB_KEY) {
+    console.warn('No Finnhub API key set. Go to Settings to add your key.');
+    return {};
+  }
+  var url = 'https://finnhub.io/api/v1/' + endpoint + '&token=' + FINNHUB_KEY;
+  var res = await fetch(url);
   return res.json();
 }
 async function fetchPrice(symbol) {
@@ -1471,16 +1748,14 @@ async function fetchPrice(symbol) {
 }
 
 async function fetchYahooPrice(symbol) {
-  // Map index symbols to their ETF proxies which work with Finnhub
-  const indexToEtf = { '^DJI':'DIA', '^GSPC':'SPY', '^IXIC':'QQQ', '^RUT':'IWM' };
-  // Scale factors to approximate real index values from ETF prices
-  const scaleFactors = { '^DJI': 100, '^GSPC': 10, '^IXIC': 40, '^RUT': 10 };
-  const etf = indexToEtf[symbol];
+  var indexToEtf = { '^DJI':'DIA', '^GSPC':'SPY', '^IXIC':'QQQ', '^RUT':'IWM' };
+  var scaleFactors = { '^DJI': 100, '^GSPC': 10, '^IXIC': 40, '^RUT': 10 };
+  var etf = indexToEtf[symbol];
   if (!etf) return { success: false };
   try {
-    const quote = await finnhub('quote?symbol=' + etf);
-    if (!quote.c || quote.c === 0) return { success: false };
-    const scale = scaleFactors[symbol] || 1;
+    var quote = await finnhub('quote?symbol=' + etf);
+    if (!quote || !quote.c || quote.c === 0) return { success: false };
+    var scale = scaleFactors[symbol] || 1;
     return {
       price: quote.c * scale,
       changePct: ((quote.c - quote.pc) / quote.pc) * 100,
@@ -1539,9 +1814,7 @@ async function fetchAllPrices() {
   await checkAlerts();
 }
 
-const MARKET_NAMES = { 'SPY':'S&P 500', 'QQQ':'Nasdaq 100', 'DIA':'Dow Jones', 'IWM':'Russell 2000', '^DJI':'Dow Jones Ind.', '^GSPC':'S&P 500', '^IXIC':'Nasdaq Composite', '^RUT':'Russell 2000' };
-const MARKET_SYMBOLS = ['^DJI','^GSPC','^IXIC','^RUT'];
-const MARKET_DISPLAY = { '^DJI':'DJIA', '^GSPC':'S&P 500', '^IXIC':'NASDAQ', '^RUT':'RUT' };
+
 
 function renderMarketGrids() {
   var symbols = MARKET_SYMBOLS;
@@ -1672,8 +1945,8 @@ async function doSearch() {
   document.getElementById('r-detail').innerHTML = `<span><div>Open</div><strong>$${result.open.toFixed(2)}</strong></span><span><div>High</div><strong class="green">$${result.high.toFixed(2)}</strong></span><span><div>Low</div><strong class="red">$${result.low.toFixed(2)}</strong></span><span><div>Prev Close</div><strong>$${result.prev.toFixed(2)}</strong></span>`;
 
   // Load TradingView chart
-  const tvChart = document.getElementById('tv-chart');
-  tvChart.src = `https://s.tradingview.com/widgetembed/?frameElementId=tv-chart&symbol=${sym}&interval=D&hidesidetoolbar=0&hidetoptoolbar=0&symboledit=1&saveimage=1&toolbarbg=f8f9fa&studies=RSI%40tv-basicstudies%1FMACD%40tv-basicstudies&theme=light&style=1&timezone=exchange&withdateranges=1&showpopupbutton=1&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&locale=en&utm_source=tradeiq`;
+  var tvChart = document.getElementById('tv-chart');
+  tvChart.src = 'https://s.tradingview.com/widgetembed/?frameElementId=tv-chart&symbol=' + sym + '&interval=D&hidesidetoolbar=0&hidetoptoolbar=0&symboledit=1&saveimage=1&toolbarbg=f8f9fa&studies=RSI%40tv-basicstudies%1FMACD%40tv-basicstudies&theme=light&style=1&timezone=exchange&withdateranges=1&showpopupbutton=1&locale=en';
 
   document.getElementById('chart-content').style.display = 'block';
 
@@ -1699,29 +1972,142 @@ async function doSearch() {
     return;
   }
 
-  const indRow = document.getElementById('indicator-row'); indRow.innerHTML = '';
-  const rsiSignal = indicators.rsi > 70 ? 'Overbought' : indicators.rsi < 30 ? 'Oversold' : 'Neutral';
-  const rsiClass = indicators.rsi > 70 ? 'sig-bear' : indicators.rsi < 30 ? 'sig-bull' : 'sig-neutral';
-  const macdClass = indicators.macd > 0 ? 'sig-bull' : 'sig-bear';
-  const ma20Class = indicators.currentPrice > indicators.sma20 ? 'sig-bull' : 'sig-bear';
-  const volSignal = indicators.volRatio > 1.5 ? 'High' : indicators.volRatio < 0.7 ? 'Low' : 'Normal';
-  const volClass = indicators.volRatio > 1.5 ? 'sig-bull' : 'sig-neutral';
+  var indRow = document.getElementById('indicator-row');
+  indRow.innerHTML = '';
 
-  indRow.innerHTML = `
-    <div class="indicator-box"><div class="indicator-name">RSI 14</div><div class="indicator-val">${indicators.rsi||'--'}</div><div class="indicator-signal ${rsiClass}">${rsiSignal}</div></div>
-    <div class="indicator-box"><div class="indicator-name">MACD</div><div class="indicator-val">${indicators.macd||'--'}</div><div class="indicator-signal ${macdClass}">${indicators.macd > 0 ? 'Bullish' : 'Bearish'}</div></div>
-    <div class="indicator-box"><div class="indicator-name">vs 20MA</div><div class="indicator-val">$${indicators.sma20||'--'}</div><div class="indicator-signal ${ma20Class}">${indicators.currentPrice > indicators.sma20 ? 'Above' : 'Below'}</div></div>
-    <div class="indicator-box"><div class="indicator-name">Volume</div><div class="indicator-val">${indicators.volRatio?indicators.volRatio+'x':'--'}</div><div class="indicator-signal ${volClass}">${volSignal}</div></div>`;
+  // ── RSI ──────────────────────────────────────────────
+  var rsi = indicators.rsi || 50;
+  var rsiClass = rsi > 70 ? 'bear' : rsi < 30 ? 'bull' : 'neutral';
+  var rsiLabel = rsi > 70 ? 'Overbought — may pull back soon' : rsi < 30 ? 'Oversold — may bounce soon' : 'Neutral — no extreme pressure';
+  var rsiDesc = rsi > 70
+    ? 'The stock has moved up a lot recently and buyers may be running out of steam. Buying at these levels carries more risk of a pullback.'
+    : rsi < 30
+    ? 'The stock has been pushed down significantly and sellers may be exhausted. This can signal a potential bounce opportunity.'
+    : 'The stock is not in an extreme condition. This is a healthy zone - neither overbought nor oversold.';
+  var rsiFill = Math.round((rsi / 100) * 100);
 
-  let bullCount = 0, bearCount = 0;
-  if (indicators.rsi < 50) bullCount++; else bearCount++;
-  if (indicators.macd > 0) bullCount++; else bearCount++;
+  // ── MACD ──────────────────────────────────────────────
+  var macd = indicators.macd || 0;
+  var macdClass = macd > 0 ? 'bull' : 'bear';
+  var macdLabel = macd > 0 ? 'Bullish Momentum' : 'Bearish Momentum';
+  var macdDesc = macd > 0
+    ? 'Short-term price momentum is stronger than long-term. Buyers have more control right now - a positive sign.'
+    : 'Short-term price momentum is weaker than long-term. Sellers have more control right now - proceed with caution.';
+
+  // ── 20-Day Moving Average ─────────────────────────────
+  var ma20Class = indicators.currentPrice > indicators.sma20 ? 'bull' : 'bear';
+  var ma20Label = indicators.currentPrice > indicators.sma20 ? 'Trading Above Average' : 'Trading Below Average';
+  var ma20Desc = indicators.currentPrice > indicators.sma20
+    ? 'The stock is above its 20-day average price - the trend is up. Think of it as the stock trading above what has been normal recently.'
+    : 'The stock is below its 20-day average price - the trend is down. The stock is trading below what has been normal recently.';
+  var ma20Diff = indicators.sma20 ? Math.abs(((indicators.currentPrice - indicators.sma20) / indicators.sma20) * 100).toFixed(1) : '0';
+
+  // ── Volume ────────────────────────────────────────────
+  var volRatio = indicators.volRatio || 1;
+  var volClass = volRatio > 1.5 ? 'bull' : volRatio < 0.7 ? 'neutral' : 'neutral';
+  var volLabel = volRatio > 1.5 ? 'High Volume — Strong Move' : volRatio < 0.7 ? 'Low Volume — Weak Move' : 'Normal Volume';
+  var volDesc = volRatio > 1.5
+    ? 'More shares than usual are trading today. This means the price move has conviction — big money is participating.'
+    : volRatio < 0.7
+    ? 'Fewer shares than usual are trading. Price moves on low volume can be misleading and often reverse.'
+    : 'Trading volume is about average. The price move is neither strongly confirmed nor denied.';
+  var volFill = Math.min(100, Math.round((volRatio / 3) * 100));
+
+  indRow.innerHTML =
+    // RSI Card
+    '<div class="vi-card">' +
+      '<div class="vi-header">' +
+        '<div class="vi-title">Momentum Strength (RSI)</div>' +
+        '<div class="vi-badge ' + rsiClass + '">' + rsiLabel + '</div>' +
+      '</div>' +
+      '<div class="vi-desc">' + rsiDesc + '</div>' +
+      '<div class="vi-gauge-wrap">' +
+        '<div class="vi-gauge-val ' + rsiClass + '">' + rsi + '</div>' +
+        '<div class="vi-gauge-track">' +
+          '<div class="vi-bar-track">' +
+            '<div class="vi-bar-fill ' + rsiClass + '" style="width:' + rsiFill + '%"></div>' +
+          '</div>' +
+          '<div class="vi-labels"><span>Oversold (Cheap)</span><span>Neutral</span><span>Overbought (Expensive)</span></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    // MACD Card
+    '<div class="vi-card">' +
+      '<div class="vi-header">' +
+        '<div class="vi-title">Trend Direction (MACD)</div>' +
+        '<div class="vi-badge ' + macdClass + '">' + macdLabel + '</div>' +
+      '</div>' +
+      '<div class="vi-desc">' + macdDesc + '</div>' +
+      '<div class="vi-gauge-wrap">' +
+        '<div class="vi-gauge-val ' + macdClass + '">' + (macd > 0 ? '+' : '') + macd + '</div>' +
+        '<div class="vi-gauge-track">' +
+          '<div class="vi-bar-track">' +
+            '<div class="vi-bar-fill ' + macdClass + '" style="width:' + (macd > 0 ? '70' : '30') + '%"></div>' +
+          '</div>' +
+          '<div class="vi-labels"><span>Bearish</span><span>Neutral</span><span>Bullish</span></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    // 20MA Card
+    '<div class="vi-card">' +
+      '<div class="vi-header">' +
+        '<div class="vi-title">Price vs 20-Day Average</div>' +
+        '<div class="vi-badge ' + ma20Class + '">' + ma20Label + '</div>' +
+      '</div>' +
+      '<div class="vi-desc">' + ma20Desc + '</div>' +
+      '<div style="display:flex;gap:16px;font-family:var(--font-mono);font-size:13px;margin-top:4px;">' +
+        '<div><div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Current Price</div><div style="font-weight:700;">$' + (indicators.currentPrice || '--') + '</div></div>' +
+        '<div><div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">20-Day Average</div><div style="font-weight:700;">$' + (indicators.sma20 || '--') + '</div></div>' +
+        '<div><div style="font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;">Difference</div><div style="font-weight:700;color:var(--' + (ma20Class === 'bull' ? 'green' : 'red') + ');">' + (indicators.currentPrice > indicators.sma20 ? '+' : '-') + ma20Diff + '%</div></div>' +
+      '</div>' +
+    '</div>' +
+
+    // Volume Card
+    '<div class="vi-card">' +
+      '<div class="vi-header">' +
+        '<div class="vi-title">Trading Volume</div>' +
+        '<div class="vi-badge ' + volClass + '">' + volLabel + '</div>' +
+      '</div>' +
+      '<div class="vi-desc">' + volDesc + '</div>' +
+      '<div class="vi-gauge-wrap">' +
+        '<div class="vi-gauge-val ' + volClass + '">' + volRatio + 'x</div>' +
+        '<div class="vi-gauge-track">' +
+          '<div class="vi-bar-track">' +
+            '<div class="vi-bar-fill ' + volClass + '" style="width:' + volFill + '%"></div>' +
+          '</div>' +
+          '<div class="vi-labels"><span>Very Low</span><span>Normal (1x)</span><span>Very High (3x+)</span></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  // Overall score
+  var bullCount = 0, bearCount = 0;
+  if (rsi < 50) bullCount++; else bearCount++;
+  if (macd > 0) bullCount++; else bearCount++;
   if (indicators.currentPrice > indicators.sma20) bullCount++; else bearCount++;
-  if (indicators.volRatio > 1) bullCount++; else bearCount++;
-  const overallSignal = bullCount > bearCount ? 'bullish' : bearCount > bullCount ? 'bearish' : 'neutral';
-  const signalText = overallSignal === 'bullish' ? 'Bullish Setup' : overallSignal === 'bearish' ? 'Bearish Setup' : 'Mixed Signals';
+  if (volRatio > 1) bullCount++; else bearCount++;
+  var overallSignal = bullCount > bearCount ? 'bullish' : bearCount > bullCount ? 'bearish' : 'neutral';
+  var score = Math.round((bullCount / 4) * 10);
+  var scoreColor = overallSignal === 'bullish' ? 'var(--green)' : overallSignal === 'bearish' ? 'var(--red)' : 'var(--amber)';
+  var scoreText = overallSignal === 'bullish' ? 'Bullish Setup' : overallSignal === 'bearish' ? 'Bearish Setup' : 'Mixed Signals';
+  var scoreFill = (score / 10) * 100;
 
-  document.getElementById('signal-wrap').innerHTML = `<div class="signal-bar ${overallSignal}"><div><div class="signal-bar-text">${signalText}</div><div class="signal-bar-sub">${bullCount} bullish · ${bearCount} bearish signals</div></div></div>`;
+  document.getElementById('signal-wrap').innerHTML = '';
+  document.getElementById('score-meter-wrap').innerHTML =
+    '<div class="score-meter-label">Overall Signal</div>' +
+    '<div class="score-meter-reading">' +
+      '<div class="score-meter-number" style="color:' + scoreColor + ';">' + score + '<span style="font-size:14px;color:var(--text-muted)">/10</span></div>' +
+      '<div>' +
+        '<div class="score-meter-text" style="color:' + scoreColor + ';">' + scoreText + '</div>' +
+        '<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">' + bullCount + ' of 4 indicators bullish</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="score-meter-bar" style="margin-top:10px;">' +
+      '<div class="score-meter-fill" style="width:' + scoreFill + '%;background:' + scoreColor + ';border-radius:100px;height:100%;transition:width 0.8s ease;"></div>' +
+    '</div>' +
+    '<div class="score-meter-labels"><span>0 — Strong Bear</span><span>5 — Neutral</span><span>10 — Strong Bull</span></div>';
   document.getElementById('indicator-row-wrap').style.display = 'block';
   document.getElementById('analysis-sub').textContent = 'Getting AI interpretation...';
 
@@ -1752,24 +2138,42 @@ function ema(arr, period) {
 }
 async function fetchIndicators(symbol) {
   try {
-    var to = Math.floor(Date.now() / 1000);
-    var from = to - 180 * 24 * 60 * 60; // 180 days for enough candles
-    var endpoint = 'stock/candle?symbol=' + symbol + '&resolution=D&from=' + from + '&to=' + to;
-    var candles = await finnhub(endpoint);
-    if (!candles || candles.s !== 'ok' || !candles.c || candles.c.length < 14) {
-      console.log('Candle data issue:', candles ? candles.s : 'no response', 'count:', candles && candles.c ? candles.c.length : 0);
+    // Use Alpha Vantage free API for daily candle data (no credit card needed)
+    // Get free key at alphavantage.co - takes 30 seconds
+    var avKey = localStorage.getItem('tradeiq_av_key') || 'demo';
+    var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + symbol + '&outputsize=compact&apikey=' + avKey;
+    var res = await fetch(url);
+    var data = await res.json();
+
+    if (data['Note'] || data['Information']) {
+      console.log('Alpha Vantage limit hit, using demo data');
+    }
+
+    console.log('Alpha Vantage response keys:', Object.keys(data));
+    console.log('Full response:', JSON.stringify(data).slice(0, 300));
+    var timeSeries = data['Time Series (Daily)'];
+    if (!timeSeries) {
+      console.log('No time series data from Alpha Vantage for', symbol);
+      console.log('Response was:', JSON.stringify(data));
       return null;
     }
-    var closes = candles.c;
-    var volumes = candles.v;
+
+    // Extract closes and volumes in chronological order
+    var dates = Object.keys(timeSeries).sort();
+    var closes = dates.map(function(d) { return parseFloat(timeSeries[d]['4. close']); });
+    var volumes = dates.map(function(d) { return parseFloat(timeSeries[d]['5. volume']); });
+
+    if (closes.length < 14) return null;
+
     var rsi = calcRSI(closes);
     var ema12val = ema(closes, 12);
     var ema26val = ema(closes, 26);
     var macd = (ema12val && ema26val) ? +((ema12val - ema26val).toFixed(3)) : null;
     var sma20val = sma(closes, 20);
-    var avgVol = volumes ? sma(volumes, 10) : null;
-    var lastVol = volumes ? volumes[volumes.length - 1] : null;
+    var avgVol = sma(volumes, 10);
+    var lastVol = volumes[volumes.length - 1];
     var volRatio = (avgVol && lastVol) ? +((lastVol / avgVol).toFixed(2)) : null;
+
     return {
       rsi: rsi,
       macd: macd,
@@ -1897,51 +2301,167 @@ function showAlertToast(alert, currentPrice) {
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // JOURNAL & TRADE MODAL
-function openTradeModal() { document.getElementById('tradeModal').classList.add('open'); }
+function openTradeModal() {
+  document.getElementById('tradeModal').classList.add('open');
+  document.getElementById('trade-price-panel').style.display = 'none';
+  document.getElementById('trade-cost-estimate').style.display = 'none';
+}
 function closeTradeModal() { document.getElementById('tradeModal').classList.remove('open'); }
+
+async function lookupTradePrice() {
+  var sym = document.getElementById('t-symbol').value.trim().toUpperCase();
+  if (!sym) { alert('Enter a ticker symbol first.'); return; }
+  var btn = event.target;
+  btn.textContent = '...';
+  btn.disabled = true;
+  var result = await fetchPrice(sym);
+  btn.textContent = 'Get Price';
+  btn.disabled = false;
+  if (!result.success) { alert('Could not find price for ' + sym + '. Check the symbol.'); return; }
+  var panel = document.getElementById('trade-price-panel');
+  panel.style.display = 'block';
+  document.getElementById('tp-sym').textContent = sym;
+  document.getElementById('tp-name').textContent = result.name || sym;
+  document.getElementById('tp-price').textContent = '$' + result.price.toFixed(2);
+  var changeEl = document.getElementById('tp-change');
+  changeEl.textContent = (result.changePct >= 0 ? '+' : '') + result.changePct.toFixed(2) + '% today';
+  changeEl.style.color = result.changePct >= 0 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('tp-open').textContent = '$' + result.open.toFixed(2);
+  document.getElementById('tp-high').textContent = '$' + result.high.toFixed(2);
+  document.getElementById('tp-low').textContent = '$' + result.low.toFixed(2);
+  document.getElementById('tp-prev').textContent = '$' + result.prev.toFixed(2);
+  // Auto-fill entry price
+  document.getElementById('t-entry').value = result.price.toFixed(2);
+  updateTradeCostEstimate();
+}
+
+function useCurrentPrice() {
+  var priceEl = document.getElementById('tp-price');
+  if (priceEl && priceEl.textContent) {
+    var price = parseFloat(priceEl.textContent.replace('$',''));
+    document.getElementById('t-entry').value = price.toFixed(2);
+    updateTradeCostEstimate();
+  }
+}
+
+function updateTradeCostEstimate() {
+  var entry = parseFloat(document.getElementById('t-entry').value);
+  var shares = parseFloat(document.getElementById('t-size').value);
+  var estimate = document.getElementById('trade-cost-estimate');
+  if (!entry || !shares) { estimate.style.display = 'none'; return; }
+  var totalCost = entry * shares;
+  estimate.style.display = 'flex';
+  document.getElementById('tce-cost').textContent = '$' + totalCost.toFixed(2);
+  document.getElementById('tce-per').textContent = '$' + entry.toFixed(2);
+  // Risk based on 1% of a $10,000 account as example
+  var riskShares = Math.floor(100 / entry);
+  document.getElementById('tce-risk').textContent = riskShares + ' shares';
+}
 function setDir(dir) { tradeDir = dir; document.getElementById('seg-long').classList.toggle('active', dir === 'long'); document.getElementById('seg-short').classList.toggle('active', dir === 'short'); }
 function saveTrade() {
-  const symbol = document.getElementById('t-symbol').value.trim().toUpperCase();
-  const entry = parseFloat(document.getElementById('t-entry').value);
-  const exit = parseFloat(document.getElementById('t-exit').value) || null;
-  const size = parseFloat(document.getElementById('t-size').value) || 1;
-  const reason = document.getElementById('t-reason').value.trim();
-  const emotion = document.getElementById('t-emotion').value.trim();
+  var symbol = document.getElementById('t-symbol').value.trim().toUpperCase();
+  var entry = parseFloat(document.getElementById('t-entry').value);
+  var exit = parseFloat(document.getElementById('t-exit').value) || null;
+  var size = parseFloat(document.getElementById('t-size').value) || 1;
+  var reason = document.getElementById('t-reason').value.trim();
+  var emotion = document.getElementById('t-emotion').value.trim();
   if (!symbol || !entry) { alert('Please enter a ticker and entry price.'); return; }
-  const pnl = exit ? (tradeDir === 'long' ? (exit-entry)*size : (entry-exit)*size) : null;
-  const status = exit ? (pnl >= 0 ? 'win' : 'loss') : 'open';
-  trades.push({ symbol, entry, exit, size, dir:tradeDir, reason, emotion, pnl, status, date: new Date().toLocaleDateString() });
+  var pnl = exit ? (tradeDir === 'long' ? (exit - entry) * size : (entry - exit) * size) : null;
+  var status = exit ? (pnl >= 0 ? 'win' : 'loss') : 'open';
+  var trade = { symbol: symbol, entry: entry, exit: exit, size: size, dir: tradeDir, reason: reason, emotion: emotion, pnl: pnl, status: status, date: new Date().toLocaleDateString() };
+  trades.push(trade);
   localStorage.setItem('tradeiq_trades', JSON.stringify(trades));
-  closeTradeModal(); updateStats(); renderJournal();
-  ['t-symbol','t-entry','t-exit','t-size','t-reason','t-emotion'].forEach(id => document.getElementById(id).value = '');
-  const currentPrice = marketData[symbol] ? ` Current price: $${marketData[symbol].price.toFixed(2)}.` : '';
-  const msg = exit ? `I logged a ${tradeDir} on ${symbol}. Entry $${entry}, Exit $${exit}, ${size} shares. ${reason?'Reason: '+reason+'.':''} P&L: $${pnl.toFixed(2)}.${currentPrice} Thoughts?` : `Just opened a ${tradeDir} on ${symbol} at $${entry}, ${size} shares.${reason?' Reason: '+reason+'.':''}${currentPrice} Thoughts?`;
-  setTimeout(() => sendMessage2(msg), 200);
+  closeTradeModal();
+  document.getElementById('t-symbol').value = '';
+  document.getElementById('t-entry').value = '';
+  document.getElementById('t-exit').value = '';
+  document.getElementById('t-size').value = '';
+  document.getElementById('t-reason').value = '';
+  document.getElementById('t-emotion').value = '';
+  updateStats();
+  switchPage('journal');
 }
 function renderJournal() {
   updateStats();
-  // Sidebar recent trades updated via updateStats()
-  const list = document.getElementById('journal-list'); if (!list) return;
-  if (!trades.length) { list.innerHTML = '<div class="empty-state"><p>No trades yet. Log your first trade to start tracking.</p></div>'; return; }
+  var list = document.getElementById('journal-list');
+  if (!list) return;
+  if (!trades.length) {
+    list.innerHTML = '<div class="empty-state"><p>No trades yet. Log your first trade to start tracking.</p></div>';
+    return;
+  }
   list.innerHTML = '';
-  [...trades].reverse().forEach(t => {
-    const div = document.createElement('div'); div.className = 'trade-card';
-    div.onclick = () => { sendMessage2(`Analyze my ${t.dir} trade on ${t.symbol} — entry $${t.entry}${t.exit?', exit $'+t.exit:' (open)'}. Reason: ${t.reason||'none'}. Emotion: ${t.emotion||'none'}.`); switchPage('ai'); };
-    div.innerHTML = `<div class="trade-card-bar ${t.status}"></div><div class="trade-card-body"><div><div class="trade-card-sym">${t.symbol}</div><div class="trade-card-meta">${t.dir.toUpperCase()} · ${t.size} shares · ${t.date}</div></div><div style="text-align:right;"><div class="trade-card-pnl ${t.status==='win'?'green':t.status==='loss'?'red':'muted'}">${t.pnl!==null?(t.pnl>=0?'+$':'-$')+Math.abs(t.pnl).toFixed(2):'OPEN'}</div><div class="trade-card-status">${t.status}</div></div></div>`;
+  [...trades].reverse().forEach(function(t, i) {
+    var realIndex = trades.length - 1 - i;
+    var div = document.createElement('div');
+    div.className = 'trade-card';
+    div.onclick = function() {
+      sendMessage2('Analyze my ' + t.dir + ' trade on ' + t.symbol + ' — entry $' + t.entry + (t.exit ? ', exit $' + t.exit : ' (open)') + '. Reason: ' + (t.reason||'none') + '.');
+      switchPage('ai');
+    };
+    var pnlText = t.pnl !== null ? (t.pnl >= 0 ? '+$' : '-$') + Math.abs(t.pnl).toFixed(2) : 'OPEN';
+    var pnlClass = t.status === 'win' ? 'green' : t.status === 'loss' ? 'red' : 'muted';
+    var totalCost = t.entry && t.size ? (t.entry * t.size).toFixed(2) : '--';
+    var exitLine = t.exit ? '$' + t.exit : 'Open';
+    var perSharePnl = t.pnl !== null && t.size ? (t.pnl / t.size).toFixed(2) : '--';
+    div.innerHTML =
+      '<div class="trade-card-bar ' + t.status + '"></div>' +
+      '<div style="padding:14px 16px;">' +
+        // Row 1: Symbol + P&L
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">' +
+          '<div style="display:flex;align-items:center;gap:10px;">' +
+            '<div style="background:' + (t.dir==='long'?'var(--green-dim)':'var(--red-dim)') + ';border:1px solid ' + (t.dir==='long'?'rgba(0,132,61,0.3)':'rgba(200,16,46,0.3)') + ';color:' + (t.dir==='long'?'var(--green)':'var(--red)') + ';font-family:var(--font-mono);font-size:9px;font-weight:700;padding:3px 8px;border-radius:100px;text-transform:uppercase;">' + t.dir + '</div>' +
+            '<div style="font-size:18px;font-weight:700;font-family:var(--font-mono);">' + t.symbol + '</div>' +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div class="trade-card-pnl ' + pnlClass + '" style="font-size:18px;">' + pnlText + '</div>' +
+            '<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:' + (t.status==='win'?'var(--green)':t.status==='loss'?'var(--red)':'var(--amber)') + ';font-family:var(--font-mono);">' + t.status + '</div>' +
+          '</div>' +
+        '</div>' +
+        // Row 2: Trade details grid
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:10px;">' +
+          '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Entry</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">$' + (t.entry||'--') + '</div></div>' +
+          '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Exit</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + exitLine + '</div></div>' +
+          '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Shares</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + (t.size||'--') + '</div></div>' +
+          '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Total Cost</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">$' + totalCost + '</div></div>' +
+        '</div>' +
+        // Row 3: Per share P&L + date + reason
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">' +
+          '<div style="display:flex;gap:16px;">' +
+            (t.reason ? '<div style="font-size:11px;color:var(--text-muted);"><span style="font-weight:700;color:var(--text);">Why:</span> ' + t.reason + '</div>' : '') +
+          '</div>' +
+          '<div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);">' + t.date + '</div>' +
+        '</div>' +
+      '</div>';
+    var deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.style.cssText = 'background:var(--red-dim);color:var(--red);border:1px solid rgba(200,16,46,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;';
+    deleteBtn.onclick = (function(idx) {
+      return function(e) {
+        e.stopPropagation();
+        if (confirm('Delete this trade? Cannot be undone.')) {
+          trades.splice(idx, 1);
+          localStorage.setItem('tradeiq_trades', JSON.stringify(trades));
+          updateStats();
+          renderJournal();
+        }
+      };
+    })(realIndex);
+    div.querySelector('.trade-card-body div:last-child').appendChild(deleteBtn);
     list.appendChild(div);
   });
 }
 function updateStats() {
-  const closed = trades.filter(t=>t.status!=='open'), wins = closed.filter(t=>t.status==='win');
-  const totalPnl = closed.reduce((s,t)=>s+(t.pnl||0),0), open = trades.filter(t=>t.status==='open').length;
-  const winRate = closed.length > 0 ? Math.round(wins.length/closed.length*100)+'%' : '--';
-  const pnlStr = (totalPnl>=0?'+$':'-$')+Math.abs(totalPnl).toFixed(2);
-  ['qs-winrate','j-winrate'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=winRate;});
-  ['qs-trades','j-trades'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=trades.length;});
-  ['qs-open','j-open'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=open;});
-  const jPnl=document.getElementById('j-pnl');if(jPnl){jPnl.textContent=pnlStr;jPnl.className=`stat-card-value ${totalPnl>=0?'green':'red'}`;}
-  const homePnl=document.getElementById('home-pnl');if(homePnl)homePnl.textContent=pnlStr;
-  const homeSub=document.getElementById('home-pnl-change');
+  var closedT = trades.filter(function(t){return t.status!=='open';}), winsT = closedT.filter(function(t){return t.status==='win';});
+  var totalPnl = closedT.reduce(function(s,t){return s+(t.pnl||0);},0), open = trades.filter(function(t){return t.status==='open';}).length;
+  var winRate = closedT.length > 0 ? Math.round(winsT.length/closedT.length*100)+'%' : '--';
+  var pnlStr = (totalPnl>=0?'+$':'-$')+Math.abs(totalPnl).toFixed(2);
+  var closed = closedT;
+  ['qs-winrate','j-winrate'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=winRate;});
+  ['qs-trades','j-trades'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=trades.length;});
+  ['qs-open','j-open'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=open;});
+  var jPnl=document.getElementById('j-pnl');if(jPnl){jPnl.textContent=pnlStr;jPnl.className='stat-card-value '+(totalPnl>=0?'green':'red');}
+  var homePnl=document.getElementById('home-pnl');if(homePnl)homePnl.textContent=pnlStr;
+  var homeSub=document.getElementById('home-pnl-change');
   if(homeSub){if(!closed.length){homeSub.textContent='No closed trades yet';homeSub.className='stat-card-sub';}else{homeSub.textContent=winRate+' win rate · '+closed.length+' closed';homeSub.className='stat-card-sub '+(totalPnl>=0?'green':'red');}}
   // Update sidebar stats
   var sp=document.getElementById('sidebar-pnl'); if(sp){sp.textContent=pnlStr;sp.style.color=totalPnl>=0?'var(--green)':'var(--red)';}
@@ -2367,6 +2887,309 @@ function toggleCheck(el) {
   const label = document.getElementById('ready-label');
   if (label) label.textContent = checked === total ? 'READY — Go make your first real trade' : `${checked} / ${total} complete`;
 }
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// PAPER TRADING
+var paperDir = 'long';
+var paperLivePrice = 0;
+
+function getPaperAccount() {
+  return JSON.parse(localStorage.getItem('tradeiq_paper') || JSON.stringify({
+    cash: 10000,
+    startingBalance: 10000,
+    positions: [],
+    history: []
+  }));
+}
+
+function savePaperAccount(account) {
+  localStorage.setItem('tradeiq_paper', JSON.stringify(account));
+}
+
+function resetPaperAccount() {
+  if (!confirm('Reset your paper trading account? All positions and history will be cleared.')) return;
+  localStorage.removeItem('tradeiq_paper');
+  renderPaperPage();
+}
+
+function setPaperDir(dir) {
+  paperDir = dir;
+  document.getElementById('paper-seg-long').classList.toggle('active', dir === 'long');
+  document.getElementById('paper-seg-short').classList.toggle('active', dir === 'short');
+}
+
+async function lookupPaperPrice() {
+  var sym = document.getElementById('paper-symbol').value.trim().toUpperCase();
+  if (!sym) { alert('Enter a ticker first.'); return; }
+  var result = await fetchPrice(sym);
+  if (!result.success) { alert('Could not find price for ' + sym + '. Check the ticker.'); return; }
+  paperLivePrice = result.price;
+  document.getElementById('paper-live-price').textContent = '$' + result.price.toFixed(2);
+  updatePaperCostEstimate();
+}
+
+function updatePaperCostEstimate() {
+  var shares = parseFloat(document.getElementById('paper-shares').value) || 0;
+  var cost = paperLivePrice * shares;
+  var account = getPaperAccount();
+  var cashAfter = account.cash - cost;
+  document.getElementById('paper-est-cost').textContent = cost > 0 ? '$' + cost.toFixed(2) : '--';
+  document.getElementById('paper-cash-after').textContent = cost > 0 ? '$' + cashAfter.toFixed(2) : '--';
+  document.getElementById('paper-cash-after').style.color = cashAfter < 0 ? 'var(--red)' : 'var(--green)';
+
+  // Update risk/reward preview
+  var target = parseFloat(document.getElementById('paper-target').value);
+  var stop = parseFloat(document.getElementById('paper-stop').value);
+  var rrPreview = document.getElementById('paper-rr-preview');
+  if (paperLivePrice && shares && (target || stop)) {
+    rrPreview.style.display = 'block';
+    var gain = target ? (paperDir === 'long' ? (target - paperLivePrice) * shares : (paperLivePrice - target) * shares) : null;
+    var loss = stop ? (paperDir === 'long' ? (paperLivePrice - stop) * shares : (stop - paperLivePrice) * shares) : null;
+    document.getElementById('pr-gain').textContent = gain !== null ? (gain >= 0 ? '+$' : '-$') + Math.abs(gain).toFixed(2) : '--';
+    document.getElementById('pr-loss').textContent = loss !== null ? '-$' + Math.abs(loss).toFixed(2) : '--';
+    if (gain !== null && loss !== null && loss !== 0) {
+      var rr = (gain / loss).toFixed(2);
+      var rrEl = document.getElementById('pr-rr');
+      rrEl.textContent = rr + ':1';
+      rrEl.style.color = rr >= 2 ? 'var(--green)' : rr >= 1 ? 'var(--amber)' : 'var(--red)';
+    } else {
+      document.getElementById('pr-rr').textContent = '--';
+    }
+  } else {
+    rrPreview.style.display = 'none';
+  }
+}
+
+function placePaperTrade() {
+  var sym = document.getElementById('paper-symbol').value.trim().toUpperCase();
+  var shares = parseFloat(document.getElementById('paper-shares').value);
+  if (!sym || !shares || shares < 1) { alert('Enter a ticker and number of shares.'); return; }
+  if (!paperLivePrice) { alert('Click "Get Live Price" first.'); return; }
+  var cost = paperLivePrice * shares;
+  var account = getPaperAccount();
+  if (paperDir === 'long' && cost > account.cash) { alert('Not enough cash. You have $' + account.cash.toFixed(2) + ' but need $' + cost.toFixed(2)); return; }
+  var target = parseFloat(document.getElementById('paper-target').value) || null;
+  var stop = parseFloat(document.getElementById('paper-stop').value) || null;
+  account.cash -= cost;
+  account.positions.push({
+    id: Date.now(),
+    symbol: sym,
+    dir: paperDir,
+    shares: shares,
+    entryPrice: paperLivePrice,
+    entryDate: new Date().toLocaleDateString(),
+    cost: cost,
+    target: target,
+    stop: stop
+  });
+  savePaperAccount(account);
+  document.getElementById('paper-symbol').value = '';
+  document.getElementById('paper-shares').value = '';
+  document.getElementById('paper-target').value = '';
+  document.getElementById('paper-stop').value = '';
+  document.getElementById('paper-live-price').textContent = '--';
+  document.getElementById('paper-est-cost').textContent = '--';
+  document.getElementById('paper-cash-after').textContent = '--';
+  document.getElementById('paper-rr-preview').style.display = 'none';
+  paperLivePrice = 0;
+  renderPaperPage();
+}
+
+async function closePaperPosition(id) {
+  var account = getPaperAccount();
+  var pos = account.positions.find(function(p) { return p.id === id; });
+  if (!pos) return;
+  var result = await fetchPrice(pos.symbol);
+  if (!result.success) { alert('Could not get current price for ' + pos.symbol); return; }
+  var closePrice = result.price;
+  var pnl = pos.dir === 'long'
+    ? (closePrice - pos.entryPrice) * pos.shares
+    : (pos.entryPrice - closePrice) * pos.shares;
+  account.cash += pos.cost + pnl;
+  account.positions = account.positions.filter(function(p) { return p.id !== id; });
+  var trade = {
+    symbol: pos.symbol,
+    dir: pos.dir,
+    shares: pos.shares,
+    entryPrice: pos.entryPrice,
+    closePrice: closePrice,
+    pnl: pnl,
+    date: new Date().toLocaleDateString()
+  };
+  account.history.push(trade);
+  savePaperAccount(account);
+  renderPaperPage();
+
+  // Get AI feedback on the trade
+  analyzePaperTrade(trade);
+}
+
+async function analyzePaperTrade(trade) {
+  if (!ANTHROPIC_KEY) return;
+  var outcome = trade.pnl >= 0 ? 'WIN' : 'LOSS';
+  var pnlStr = (trade.pnl >= 0 ? '+$' : '-$') + Math.abs(trade.pnl).toFixed(2);
+  var pctMove = ((trade.closePrice - trade.entryPrice) / trade.entryPrice * 100).toFixed(2);
+
+  var prompt = 'A beginner paper trader just closed a ' + trade.dir.toUpperCase() + ' trade on ' + trade.symbol + '. ' +
+    'Entry: $' + trade.entryPrice.toFixed(2) + ', Exit: $' + trade.closePrice.toFixed(2) + ', Shares: ' + trade.shares + ', P&L: ' + pnlStr + ' (' + pctMove + '% move). Outcome: ' + outcome + '. ' +
+    'Give them SHORT coaching feedback (3-4 sentences max) covering: (1) Was this a good entry point based on typical price action? (2) Was the exit good or should they have held longer / exited sooner? (3) One specific thing to improve next time. ' +
+    'Be encouraging but honest. Use plain English, no jargon. Start with either "Good trade —" or "Learning opportunity —" depending on the quality of the trade.';
+
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 200,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    var data = await res.json();
+    var feedback = data.content && data.content[0] ? data.content[0].text : null;
+    if (feedback) showPaperTradeFeedback(trade, feedback);
+  } catch(e) {
+    console.log('Paper trade AI error:', e);
+  }
+}
+
+function showPaperTradeFeedback(trade, feedback) {
+  // Show feedback as a toast-style overlay on the paper trading page
+  var existing = document.getElementById('paper-feedback-modal');
+  if (existing) existing.remove();
+
+  var pnlColor = trade.pnl >= 0 ? 'var(--green)' : 'var(--red)';
+  var pnlStr = (trade.pnl >= 0 ? '+$' : '-$') + Math.abs(trade.pnl).toFixed(2);
+  var icon = trade.pnl >= 0 ? '✓' : '↻';
+  var isGood = feedback.toLowerCase().startsWith('good trade');
+
+  var modal = document.createElement('div');
+  modal.id = 'paper-feedback-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;';
+
+  modal.innerHTML =
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;max-width:480px;width:100%;box-shadow:var(--shadow-lg);animation:modalIn 0.2s ease;">' +
+      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">' +
+        '<div style="width:44px;height:44px;border-radius:50%;background:' + (isGood ? 'var(--green-dim)' : 'var(--blue-dim)') + ';border:2px solid ' + (isGood ? 'var(--green)' : 'var(--blue)') + ';display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:' + (isGood ? 'var(--green)' : 'var(--blue)') + ';">' + icon + '</div>' +
+        '<div>' +
+          '<div style="font-size:16px;font-weight:700;">' + trade.symbol + ' Trade Closed</div>' +
+          '<div style="font-size:13px;font-weight:700;color:' + pnlColor + ';">' + pnlStr + ' · $' + trade.entryPrice.toFixed(2) + ' → $' + trade.closePrice.toFixed(2) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="background:var(--surface-2);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:20px;">' +
+        '<div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:6px;">AI Coach Feedback</div>' +
+        '<div style="font-size:13px;line-height:1.65;color:var(--text);">' + feedback + '</div>' +
+      '</div>' +
+      '<button onclick="closePaperFeedback()" style="width:100%;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:13px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">Got it - keep trading</button>' +
+    '</div>';
+
+  modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
+  document.body.appendChild(modal);
+}
+
+function closePaperFeedback() {
+  var m = document.getElementById('paper-feedback-modal');
+  if (m) m.remove();
+}
+
+function renderPaperPage() {
+  var account = getPaperAccount();
+  var totalPositionValue = 0;
+  account.positions.forEach(function(p) {
+    var currentPrice = marketData[p.symbol] ? marketData[p.symbol].price : p.entryPrice;
+    var unrealized = p.dir === 'long'
+      ? (currentPrice - p.entryPrice) * p.shares
+      : (p.entryPrice - currentPrice) * p.shares;
+    totalPositionValue += p.cost + unrealized;
+  });
+  var closedTrades = account.history;
+  var wins = closedTrades.filter(function(t) { return t.pnl >= 0; });
+  var totalPnl = closedTrades.reduce(function(s, t) { return s + t.pnl; }, 0);
+  var accountValue = account.cash + totalPositionValue;
+  var pnlPct = ((accountValue - account.startingBalance) / account.startingBalance * 100).toFixed(2);
+  var winRate = closedTrades.length > 0 ? Math.round(wins.length / closedTrades.length * 100) + '%' : '--';
+
+  // Stats
+  var av = document.getElementById('paper-account-val');
+  if (av) { av.textContent = '$' + accountValue.toFixed(2); av.style.color = accountValue >= account.startingBalance ? 'var(--green)' : 'var(--red)'; }
+  var pc = document.getElementById('paper-cash'); if (pc) pc.textContent = '$' + account.cash.toFixed(2);
+  var pp = document.getElementById('paper-pnl');
+  if (pp) { pp.textContent = (totalPnl >= 0 ? '+$' : '-$') + Math.abs(totalPnl).toFixed(2); pp.style.color = totalPnl >= 0 ? 'var(--green)' : 'var(--red)'; }
+  var ppp = document.getElementById('paper-pnl-pct'); if (ppp) ppp.textContent = (pnlPct >= 0 ? '+' : '') + pnlPct + '%';
+  var wr = document.getElementById('paper-winrate'); if (wr) wr.textContent = winRate;
+  var tc = document.getElementById('paper-trades-count'); if (tc) tc.textContent = closedTrades.length + ' trades closed';
+
+  // Open positions
+  var posList = document.getElementById('paper-positions');
+  if (posList) {
+    if (!account.positions.length) {
+      posList.innerHTML = '<div class="empty-state"><p>No open positions.</p></div>';
+    } else {
+      posList.innerHTML = '';
+      account.positions.forEach(function(pos) {
+        var currentPrice = marketData[pos.symbol] ? marketData[pos.symbol].price : pos.entryPrice;
+        var unrealized = pos.dir === 'long'
+          ? (currentPrice - pos.entryPrice) * pos.shares
+          : (pos.entryPrice - currentPrice) * pos.shares;
+        var pnlColor = unrealized >= 0 ? 'var(--green)' : 'var(--red)';
+        var div = document.createElement('div');
+        div.style.cssText = 'display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);';
+        var targetStr = pos.target ? '<span style="color:var(--green);">▲ $' + pos.target.toFixed(2) + '</span>' : '';
+        var stopStr = pos.stop ? '<span style="color:var(--red);">▼ $' + pos.stop.toFixed(2) + '</span>' : '';
+        var planStr = (targetStr || stopStr) ? ' · ' + [targetStr, stopStr].filter(Boolean).join(' ') : '';
+        div.innerHTML =
+          '<div style="flex:1;">' +
+            '<div style="font-size:14px;font-weight:700;font-family:var(--font-mono);">' + pos.symbol + ' <span style="font-size:11px;color:var(--text-muted);">' + pos.dir.toUpperCase() + '</span></div>' +
+            '<div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);margin-top:2px;">' + pos.shares + ' shares @ $' + pos.entryPrice.toFixed(2) + ' · ' + pos.entryDate + planStr + '</div>' +
+          '</div>' +
+          '<div style="text-align:right;margin-right:12px;">' +
+            '<div style="font-size:13px;font-weight:700;font-family:var(--font-mono);color:' + pnlColor + ';">' + (unrealized >= 0 ? '+$' : '-$') + Math.abs(unrealized).toFixed(2) + '</div>' +
+            '<div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);">Current: $' + currentPrice.toFixed(2) + '</div>' +
+          '</div>' +
+          '<button style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:8px 14px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;">Close</button>';
+        div.querySelector('button').onclick = (function(pid) { return function() { closePaperPosition(pid); }; })(pos.id);
+        posList.appendChild(div);
+      });
+    }
+  }
+
+  // Trade history
+  var histList = document.getElementById('paper-history');
+  if (histList) {
+    if (!account.history.length) {
+      histList.innerHTML = '<div class="empty-state"><p>No completed trades yet.</p></div>';
+    } else {
+      histList.innerHTML = '';
+      [...account.history].reverse().forEach(function(t) {
+        var div = document.createElement('div');
+        div.style.cssText = 'display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);';
+        var pnlColor = t.pnl >= 0 ? 'var(--green)' : 'var(--red)';
+        var bar = document.createElement('div');
+        bar.style.cssText = 'width:3px;height:40px;border-radius:2px;margin-right:12px;background:' + (t.pnl >= 0 ? 'var(--green)' : 'var(--red)') + ';flex-shrink:0;';
+        div.appendChild(bar);
+        var info = document.createElement('div');
+        info.style.flex = '1';
+        info.innerHTML = '<div style="font-size:14px;font-weight:700;font-family:var(--font-mono);">' + t.symbol + ' <span style="font-size:11px;color:var(--text-muted);">' + t.dir.toUpperCase() + '</span></div>' +
+          '<div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);margin-top:2px;">' + t.shares + ' shares · Entry $' + t.entryPrice.toFixed(2) + ' → Close $' + t.closePrice.toFixed(2) + ' · ' + t.date + '</div>';
+        div.appendChild(info);
+        var pnlDiv = document.createElement('div');
+        pnlDiv.style.cssText = 'font-size:15px;font-weight:700;font-family:var(--font-mono);color:' + pnlColor + ';';
+        pnlDiv.textContent = (t.pnl >= 0 ? '+$' : '-$') + Math.abs(t.pnl).toFixed(2);
+        div.appendChild(pnlDiv);
+        histList.appendChild(div);
+      });
+    }
+  }
+}
+
+document.addEventListener('input', function(e) {
+  if (e.target.id === 'paper-shares') updatePaperCostEstimate();
+});
 
 // INIT
 document.getElementById('tradeModal').addEventListener('click', function(e) { if (e.target.id === 'tradeModal') closeTradeModal(); });
