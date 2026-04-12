@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_51.html -->
+<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_52.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -867,7 +867,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- MAIN -->
   <div class="sidebar-section">Main</div>
-  <div class="nav-item" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
+  <div class="nav-item active" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
   <div class="nav-item" onclick="switchPage(&#39;ai&#39;)" id="nav-ai"><div class="nav-icon">▲</div><div class="nav-label">AI Chat</div></div>
 
   <!-- MARKETS GROUP -->
@@ -878,20 +878,20 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="section-arrow">▶</div>
   </div>
   <div class="nav-sub open" id="sub-markets">
-    <div class="nav-sub-item" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
+    <div class="nav-sub-item active" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;news&#39;)" id="nav-news"><div class="nav-sub-dot"></div>News</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;alerts&#39;)" id="nav-alerts"><div class="nav-sub-dot"></div>Price Alerts <span class="nav-badge" id="alerts-badge" style="display:none;margin-left:4px;"></span></div>
-    <div class="nav-sub-item active" onclick="switchPage(&#39;earnings&#39;)" id="nav-earnings"><div class="nav-sub-dot"></div>Earnings Calendar</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;earnings&#39;)" id="nav-earnings"><div class="nav-sub-dot"></div>Earnings Calendar</div>
   </div>
 
   <!-- TRADING GROUP -->
   <div class="sidebar-section">Trading</div>
-  <div class="nav-group-header" id="group-trading" onclick="toggleGroup(&#39;trading&#39;)">
+  <div class="nav-group-header open" id="group-trading" onclick="toggleGroup(&#39;trading&#39;)">
     <div class="nav-icon">▣</div>
     <div class="nav-label">Trading</div>
     <div class="section-arrow">▶</div>
   </div>
-  <div class="nav-sub" id="sub-trading">
+  <div class="nav-sub open" id="sub-trading">
     <div class="nav-sub-item" onclick="switchPage(&#39;journal&#39;)" id="nav-journal"><div class="nav-sub-dot"></div>Journal</div>
     <div class="nav-sub-item" onclick="openTradeModal()" id="nav-logtrade"><div class="nav-sub-dot"></div>Log a Trade</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;watchlist&#39;)" id="nav-watchlist"><div class="nav-sub-dot"></div>Watchlist</div>
@@ -942,7 +942,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page-area">
 
   <!-- HOME -->
-  <div class="page" id="page-home">
+  <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
     <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$47925.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.55%</div><div class="market-card-points down">-265.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6794.60</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.07%</div><div class="market-card-points down">-4.50 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24442.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.14%</div><div class="market-card-points up">+35.20 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2613.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.25%</div><div class="market-card-points down">-6.60 pts</div></div></div></div>
@@ -951,7 +951,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="home-three-col">
       <div>
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNdlZ5X19tUWI2blRNMGlsdjczRTE4RlZzNWZNNGpYc1ZpTU4tdlVDNTN1Szh0enJreDZ0Z2JpTklhWndPeWY4ODhTbU5qUE1ZeWxQWVh1VzYySG1OcFVUOE15UjdRbk1MUE9GT3Y1aGFGb0RoNmRkd2NOa0hnWHNjalczVWRIQWxZN01mZXRiVmRFYTczb3hwY2p5c3JJQUJjNlVmMk0zNGJtbkd3VXNGVmppMTF4U1pLMUxv?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Gulf stocks slide as US-Iran talks falter, ceasefire doubts resurface - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSktOaDJJa2VRS3hkeTZtcWsxb2g2MVM2dzl5bDBRRV9naHhnbVNJbjROa0taM2ZTcElmQTJEQXdSRGl4ZDAwcFhjQmcxbVBZTEhVX1I2RzhMV3E3YWdORE5oZ2loSXM0TUlXRHotTTFxTm1JTUgtVHpZeEZiekhXTERvMXVGLWdfX0MybHdleWk5ckpOZVhvaElJUTViWkdsT1Rob29ZR3JoS3lTNC1aRGtnWjF4eFVkdy12dGJDWkFPMTY3aDZJUQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran aims to restore majority of refining capability within two months, oil ministry official says - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPMjB6Z0FIdjZ3alpsY0IwMkFGNUdoY0RYQUVqMjJ4TWdfVmFaV0ZtUUJJaV9NUzFwQXlSbnFGMzdSNG15MlB5UG5qZzhqX1JuLUJKZ2hQSTZJQ3owREZmY1cyTVAxbWdiSElUTG4xb25VN25Udm9FOXpuUlRvSlJKVXJlOVhpY2Q4aW82OWppY041RzJPeW9FQ0RkcFd6VEhz?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US-Iran peace talks end without a deal as delegations leave Pakistan - Reuters</div><div class="news-time">12h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMilwFBVV95cUxOZXpPT0NLSDVfcjcxQTBGUTB6M3Q2VEhhYmtKa0w1Y2NTSlBaVWEwdEJoLWJCYVJuV0tzaEFnb0VwUXNuWVZlZmpTR2xOTHVHMllPeFZHNmkwVVJfaFFuSWNMT0NuLVV3S2J3VG13X0VQd1J5aFN2NWp0REVxalM1b2Nsb2Zad0Q0N1BZZ25pbkJhM096SjhR?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Pope Leo urges end to 'madness of war' as US, Iran start talks - Reuters</div><div class="news-time">14h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipAFBVV95cUxQN3hnbUZSX2gtVDBXNFhtRndieXlMUDhHd2tTQVZ4NnU0Z01fZnloY3R1bWZGeHZuRGVQUGlFRzZmcUkxVEx5OW83SDVyN2prOXRtb0RRRl9nbFZrWWNKWWs0dGU0TnZQSVBHTHNtNDlaWmVTckdNekJJekZiUWtnUFVoYTJudlUzZnZaNnVhdmotQnJwTEdTQWY1UDdMbUJIUWU0Zw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military 'setting conditions' to clear mines from Strait of Hormuz - Reuters</div><div class="news-time">18h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNb1pxSEdYT01ocEZVcmV5dF9hZ3JxQlZOSVJEbUZYTWgxYXhsN212OG9KOXpaaEZ4ZjYzZXhSV2JPVW5jeE1PZy1PWEFkeU9GTUFlLTBkZ0o2R21iU0pkSGo5aDlLUXBqMEtVRTNDZUljZHhnSGR6Nkw4SVNRalJseE1weUxjTF9QcGFJSDZQV0VVdTdiRHc2NmxmcXVIR19YZTBQd2hQQ0g2aDNfREZWbkxkeWY?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military says two of its ships crossed through Strait of Hormuz - Reuters</div><div class="news-time">19h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNdlZ5X19tUWI2blRNMGlsdjczRTE4RlZzNWZNNGpYc1ZpTU4tdlVDNTN1Szh0enJreDZ0Z2JpTklhWndPeWY4ODhTbU5qUE1ZeWxQWVh1VzYySG1OcFVUOE15UjdRbk1MUE9GT3Y1aGFGb0RoNmRkd2NOa0hnWHNjalczVWRIQWxZN01mZXRiVmRFYTczb3hwY2p5c3JJQUJjNlVmMk0zNGJtbkd3VXNGVmppMTF4U1pLMUxv?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Gulf stocks slide as US-Iran talks falter, ceasefire doubts resurface - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSktOaDJJa2VRS3hkeTZtcWsxb2g2MVM2dzl5bDBRRV9naHhnbVNJbjROa0taM2ZTcElmQTJEQXdSRGl4ZDAwcFhjQmcxbVBZTEhVX1I2RzhMV3E3YWdORE5oZ2loSXM0TUlXRHotTTFxTm1JTUgtVHpZeEZiekhXTERvMXVGLWdfX0MybHdleWk5ckpOZVhvaElJUTViWkdsT1Rob29ZR3JoS3lTNC1aRGtnWjF4eFVkdy12dGJDWkFPMTY3aDZJUQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran aims to restore majority of refining capability within two months, oil ministry official says - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPMjB6Z0FIdjZ3alpsY0IwMkFGNUdoY0RYQUVqMjJ4TWdfVmFaV0ZtUUJJaV9NUzFwQXlSbnFGMzdSNG15MlB5UG5qZzhqX1JuLUJKZ2hQSTZJQ3owREZmY1cyTVAxbWdiSElUTG4xb25VN25Udm9FOXpuUlRvSlJKVXJlOVhpY2Q4aW82OWppY041RzJPeW9FQ0RkcFd6VEhz?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US-Iran peace talks end without a deal as delegations leave Pakistan - Reuters</div><div class="news-time">12h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMilwFBVV95cUxOZXpPT0NLSDVfcjcxQTBGUTB6M3Q2VEhhYmtKa0w1Y2NTSlBaVWEwdEJoLWJCYVJuV0tzaEFnb0VwUXNuWVZlZmpTR2xOTHVHMllPeFZHNmkwVVJfaFFuSWNMT0NuLVV3S2J3VG13X0VQd1J5aFN2NWp0REVxalM1b2Nsb2Zad0Q0N1BZZ25pbkJhM096SjhR?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Pope Leo urges end to 'madness of war' as US, Iran start talks - Reuters</div><div class="news-time">14h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipAFBVV95cUxQN3hnbUZSX2gtVDBXNFhtRndieXlMUDhHd2tTQVZ4NnU0Z01fZnloY3R1bWZGeHZuRGVQUGlFRzZmcUkxVEx5OW83SDVyN2prOXRtb0RRRl9nbFZrWWNKWWs0dGU0TnZQSVBHTHNtNDlaWmVTckdNekJJekZiUWtnUFVoYTJudlUzZnZaNnVhdmotQnJwTEdTQWY1UDdMbUJIUWU0Zw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military 'setting conditions' to clear mines from Strait of Hormuz - Reuters</div><div class="news-time">19h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitAFBVV95cUxNb1pxSEdYT01ocEZVcmV5dF9hZ3JxQlZOSVJEbUZYTWgxYXhsN212OG9KOXpaaEZ4ZjYzZXhSV2JPVW5jeE1PZy1PWEFkeU9GTUFlLTBkZ0o2R21iU0pkSGo5aDlLUXBqMEtVRTNDZUljZHhnSGR6Nkw4SVNRalJseE1weUxjTF9QcGFJSDZQV0VVdTdiRHc2NmxmcXVIR19YZTBQd2hQQ0g2aDNfREZWbkxkeWY?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military says two of its ships crossed through Strait of Hormuz - Reuters</div><div class="news-time">19h ago</div></div></a></div>
       </div>
       <div>
         <div class="section-label">AI Assistant</div>
@@ -1228,7 +1228,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   </div>
 
   <!-- EARNINGS CALENDAR -->
-  <div class="page active" id="page-earnings">
+  <div class="page" id="page-earnings">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px;">
       <div>
         <h2 style="font-size:20px;font-weight:700;">Earnings Calendar</h2>
@@ -1268,16 +1268,16 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
     <!-- Full calendar -->
     <div class="section-label" id="earnings-section-label">Upcoming Earnings This Week</div>
-    <div id="earnings-loading" style="padding: 40px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; display: none;">
+    <div id="earnings-loading" style="padding:40px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">
       <div class="loading-dots"><span></span><span></span><span></span></div>
       <div style="margin-top:10px;">Loading earnings data...</div>
     </div>
-    <div id="earnings-list" style="display: block;">
+    <div id="earnings-list" style="display:none;">
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
         <div style="display:grid;grid-template-columns:140px 1fr 120px 120px 120px;padding:10px 16px;background:var(--surface-2);border-bottom:1px solid var(--border);font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);">
           <div>Date</div><div>Company</div><div>EPS Estimate</div><div>Time</div><div>Action</div>
         </div>
-        <div id="earnings-rows"><div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">No earnings data found for "tesla". Check the ticker symbol.</div></div>
+        <div id="earnings-rows"></div>
       </div>
     </div>
     <div id="earnings-empty" style="display:none;padding:40px;text-align:center;color:var(--text-muted);font-size:13px;">No earnings data found for this period.</div>
@@ -3634,15 +3634,23 @@ async function filterEarnings(query) {
     var toDate = new Date(today);
     toDate.setDate(today.getDate() + 90);
     var to = toDate.toISOString().split('T')[0];
-    // Search using Alpha Vantage for the specific symbol
+    // Use Alpha Vantage EARNINGS endpoint
     var avKey = localStorage.getItem('tradeiq_av_key') || 'demo';
     var url = 'https://www.alphavantage.co/query?function=EARNINGS&symbol=' + q + '&apikey=' + avKey;
+    console.log('Fetching earnings for:', q, 'url:', url);
     var res = await fetch(url);
     var data = await res.json();
+    console.log('AV Earnings response:', JSON.stringify(data).slice(0, 300));
 
-    if (!data || !data.quarterlyEarnings || !data.quarterlyEarnings.length) {
+    if (!data || (!data.quarterlyEarnings && !data.annualEarnings)) {
       document.getElementById('earnings-rows').innerHTML =
-        '<div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">No earnings data found for "' + query + '". Check the ticker symbol.</div>';
+        '<div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">No earnings data found for "' + query + '". Check the ticker and make sure your Alpha Vantage key is set in Settings.</div>';
+      return;
+    }
+    
+    if (!data.quarterlyEarnings || !data.quarterlyEarnings.length) {
+      document.getElementById('earnings-rows').innerHTML =
+        '<div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">No quarterly earnings history found for "' + query + '".</div>';
       return;
     }
 
