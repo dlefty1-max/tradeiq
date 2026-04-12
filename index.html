@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_61.html -->
+<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_62.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3675,8 +3675,8 @@ async function filterEarnings(query) {
 
     var aiData = await aiRes.json();
     var text = aiData.content && aiData.content[0] ? aiData.content[0].text : '';
-    var clean = text.replace(/```json|```/g, '').trim();
-    var earningsInfo = JSON.parse(clean);
+
+    if (!text) throw new Error('No response from AI');
 
     var rows = document.getElementById('earnings-rows');
     rows.innerHTML = '';
@@ -3684,57 +3684,26 @@ async function filterEarnings(query) {
     // Header
     var header = document.createElement('div');
     header.style.cssText = 'padding:12px 16px;background:var(--blue-dim);border-bottom:1px solid var(--border);font-size:13px;font-weight:700;font-family:var(--font-mono);color:var(--blue);';
-    header.textContent = earningsInfo.symbol + ' — ' + earningsInfo.companyName;
+    header.textContent = q + ' — Earnings Info (AI-Powered)';
     rows.appendChild(header);
 
-    // Next earnings card
-    if (earningsInfo.nextEarningsDate) {
-      var nextDate = new Date(earningsInfo.nextEarningsDate);
-      var daysUntil = Math.ceil((nextDate - today) / (1000*60*60*24));
-      var urgency = daysUntil <= 1 ? 'var(--red)' : daysUntil <= 7 ? 'var(--amber)' : 'var(--green)';
-      var nextCard = document.createElement('div');
-      nextCard.style.cssText = 'padding:14px 16px;background:var(--green-dim);border-bottom:2px solid var(--green);display:flex;align-items:center;gap:16px;';
-      nextCard.innerHTML =
-        '<div style="font-size:28px;">📅</div>' +
-        '<div style="flex:1;">' +
-          '<div style="font-size:15px;font-weight:700;">Next Earnings: <span style="color:' + urgency + ';">' + nextDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}) + '</span></div>' +
-          '<div style="font-size:12px;color:var(--text-muted);margin-top:3px;">' + (earningsInfo.nextEarningsTime||'') + (earningsInfo.nextEPSEstimate ? ' · EPS Estimate: $' + parseFloat(earningsInfo.nextEPSEstimate).toFixed(2) : '') + '</div>' +
-          '<div style="font-size:12px;font-weight:600;color:' + urgency + ';margin-top:4px;">' + (daysUntil <= 0 ? 'Earnings TODAY' : daysUntil === 1 ? 'Earnings TOMORROW' : 'In ' + daysUntil + ' days') + '</div>' +
-        '</div>';
-      var chartBtn2 = document.createElement('button');
-      chartBtn2.textContent = 'Chart';
-      chartBtn2.style.cssText = 'background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:8px 14px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;flex-shrink:0;';
-      chartBtn2.onclick = (function(s){ return function(){ goToChart(s); }; })(earningsInfo.symbol);
-      nextCard.appendChild(chartBtn2);
-      rows.appendChild(nextCard);
-    }
+    // AI response as plain text
+    var card = document.createElement('div');
+    card.style.cssText = 'padding:18px 20px;';
+    card.innerHTML = '<div style="font-size:13px;line-height:1.75;color:var(--text);">' + text.split('\n').join('<br>') + '</div>' +
+      '<div style="margin-top:16px;display:flex;gap:10px;">' +
+        '<button style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:9px 18px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;" id="earn-chart-btn">View Chart</button>' +
+        '<button style="background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:9px 18px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;" id="earn-ai-btn">Ask AI More</button>' +
+      '</div>';
+    rows.appendChild(card);
 
-    // Recent quarters table header
-    if (earningsInfo.recentQuarters && earningsInfo.recentQuarters.length) {
-      var qHeader = document.createElement('div');
-      qHeader.style.cssText = 'display:grid;grid-template-columns:160px 1fr 140px 140px 100px;padding:8px 16px;background:var(--surface-2);border-bottom:1px solid var(--border);font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);';
-      qHeader.innerHTML = '<div>Quarter</div><div>Stock</div><div>EPS Estimate</div><div>EPS Actual</div><div>Result</div>';
-      rows.appendChild(qHeader);
+    document.getElementById('earn-chart-btn').onclick = function() { goToChart(q); };
+    document.getElementById('earn-ai-btn').onclick = function() { sendMessage2('Tell me more about ' + q + ' earnings and whether it looks like a good setup right now'); switchPage('ai'); };
 
-      earningsInfo.recentQuarters.forEach(function(qt) {
-        var row = document.createElement('div');
-        row.style.cssText = 'display:grid;grid-template-columns:160px 1fr 140px 140px 100px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:center;';
-        var beatColor = qt.beat === true ? 'var(--green)' : qt.beat === false ? 'var(--red)' : 'var(--text-muted)';
-        var beatText = qt.beat === true ? '✓ Beat' : qt.beat === false ? '✗ Missed' : '--';
-        row.innerHTML =
-          '<div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);">' + (qt.date||'--') + '</div>' +
-          '<div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + earningsInfo.symbol + '</div>' +
-          '<div style="font-size:12px;font-family:var(--font-mono);">' + (qt.epsEstimate !== null ? '$' + parseFloat(qt.epsEstimate).toFixed(2) : '--') + '</div>' +
-          '<div style="font-size:12px;font-weight:700;font-family:var(--font-mono);color:' + beatColor + ';">' + (qt.epsActual !== null ? '$' + parseFloat(qt.epsActual).toFixed(2) : '--') + '</div>' +
-          '<div style="font-size:11px;font-weight:700;font-family:var(--font-mono);color:' + beatColor + ';">' + beatText + '</div>';
-        rows.appendChild(row);
-      });
-    }
-
-    // Disclaimer note
+    // Disclaimer
     var note = document.createElement('div');
     note.style.cssText = 'padding:10px 16px;font-size:10px;color:var(--text-muted);font-family:var(--font-mono);background:var(--surface-2);border-top:1px solid var(--border);';
-    note.textContent = 'AI-powered data — verify on earnings.com or Yahoo Finance before trading decisions.';
+    note.textContent = 'AI-powered — verify on Yahoo Finance or earnings.com before trading.';
     rows.appendChild(note);
 
   } catch(e) {
