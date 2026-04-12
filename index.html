@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_43.html -->
+<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_44.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1812,6 +1812,7 @@ async function fetchAllPrices() {
   updateMarketStatus();
   if (btn) btn.style.animation = '';
   await checkAlerts();
+  await checkPaperPositions();
 }
 
 
@@ -2289,6 +2290,96 @@ async function checkAlerts() {
       showAlertToast(alert, data.price); renderAlerts(); updateAlertsBadge();
     }
   }
+}
+
+async function checkPaperPositions() {
+  var account = getPaperAccount();
+  if (!account.positions.length) return;
+  var anyTriggered = false;
+
+  for (var i = 0; i < account.positions.length; i++) {
+    var pos = account.positions[i];
+    if (!pos.target && !pos.stop) continue;
+
+    var result = await fetchPrice(pos.symbol);
+    if (!result.success) continue;
+    var price = result.price;
+
+    var hitTarget = false;
+    var hitStop = false;
+
+    if (pos.dir === 'long') {
+      if (pos.target && price >= pos.target) hitTarget = true;
+      if (pos.stop && price <= pos.stop) hitStop = true;
+    } else {
+      if (pos.target && price <= pos.target) hitTarget = true;
+      if (pos.stop && price >= pos.stop) hitStop = true;
+    }
+
+    if (hitTarget || hitStop) {
+      // Auto-close this position
+      var pnl = pos.dir === 'long'
+        ? (price - pos.entryPrice) * pos.shares
+        : (pos.entryPrice - price) * pos.shares;
+      account.cash += pos.cost + pnl;
+
+      var trade = {
+        symbol: pos.symbol,
+        dir: pos.dir,
+        shares: pos.shares,
+        entryPrice: pos.entryPrice,
+        closePrice: price,
+        pnl: pnl,
+        date: new Date().toLocaleDateString(),
+        closedBy: hitTarget ? 'target' : 'stop'
+      };
+      account.history.push(trade);
+      account.positions.splice(i, 1);
+      i--;
+      anyTriggered = true;
+
+      // Show notification
+      showPaperAutoCloseToast(trade, hitTarget);
+
+      // AI feedback
+      analyzePaperTrade(trade);
+    }
+  }
+
+  if (anyTriggered) {
+    savePaperAccount(account);
+    if (document.getElementById('page-papertrade').classList.contains('active')) {
+      renderPaperPage();
+    }
+  }
+}
+
+function showPaperAutoCloseToast(trade, hitTarget) {
+  var banner = document.getElementById('alertBanner');
+  var toast = document.createElement('div');
+  toast.className = 'alert-toast';
+  toast.style.borderColor = hitTarget ? 'var(--green)' : 'var(--red)';
+  toast.style.borderLeftColor = hitTarget ? 'var(--green)' : 'var(--red)';
+  var pnlStr = (trade.pnl >= 0 ? '+$' : '-$') + Math.abs(trade.pnl).toFixed(2);
+  toast.innerHTML =
+    '<div style="font-size:18px;">' + (hitTarget ? '🎯' : '🛑') + '</div>' +
+    '<div>' +
+      '<div class="alert-toast-title">' + trade.symbol + ' ' + (hitTarget ? 'Target Hit!' : 'Stop Loss Hit') + '</div>' +
+      '<div class="alert-toast-sub">Closed at $' + trade.closePrice.toFixed(2) + ' · P&L: ' + pnlStr + '</div>' +
+    '</div>' +
+    '<div class="alert-toast-close" onclick="this.parentElement.remove()">✕</div>';
+  banner.appendChild(toast);
+  try {
+    var ctx = new AudioContext();
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = hitTarget ? 880 : 440;
+    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.4);
+  } catch(e) {}
+  setTimeout(function() { toast.remove(); }, 8000);
 }
 function showAlertToast(alert, currentPrice) {
   const banner = document.getElementById('alertBanner');
