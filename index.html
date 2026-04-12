@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_59.html -->
+<!-- saved from url=(0048)file:///C:/Users/dleft/Downloads/TradeIQ_60.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3739,8 +3739,10 @@ async function filterEarnings(query) {
 
   } catch(e) {
     console.log('Earnings search error:', e);
+    console.log('ANTHROPIC_KEY exists:', !!ANTHROPIC_KEY);
+    console.log('AI response text:', typeof text !== 'undefined' ? text : 'no text');
     document.getElementById('earnings-rows').innerHTML =
-      '<div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">Could not find earnings for "' + query + '". Try again or check your Anthropic key in Settings.</div>';
+      '<div style="padding:30px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;">Error: ' + e.message + '</div>';
   }
 }
 
