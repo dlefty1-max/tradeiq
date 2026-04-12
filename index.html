@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_101.html -->
+<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_102.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -878,20 +878,21 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="section-arrow">▶</div>
   </div>
   <div class="nav-sub open" id="sub-markets">
-    <div class="nav-sub-item active" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;news&#39;)" id="nav-news"><div class="nav-sub-dot"></div>News</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;alerts&#39;)" id="nav-alerts"><div class="nav-sub-dot"></div>Price Alerts <span class="nav-badge" id="alerts-badge" style="display:none;margin-left:4px;"></span></div>
     <div class="nav-sub-item" onclick="switchPage(&#39;earnings&#39;)" id="nav-earnings"><div class="nav-sub-dot"></div>Earnings Calendar</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;congress&#39;)" id="nav-congress"><div class="nav-sub-dot"></div>Congress Trades</div>
   </div>
 
   <!-- TRADING GROUP -->
   <div class="sidebar-section">Trading</div>
-  <div class="nav-group-header open" id="group-trading" onclick="toggleGroup(&#39;trading&#39;)">
+  <div class="nav-group-header" id="group-trading" onclick="toggleGroup(&#39;trading&#39;)">
     <div class="nav-icon">▣</div>
     <div class="nav-label">Trading</div>
     <div class="section-arrow">▶</div>
   </div>
-  <div class="nav-sub open" id="sub-trading">
+  <div class="nav-sub" id="sub-trading">
     <div class="nav-sub-item" onclick="switchPage(&#39;journal&#39;)" id="nav-journal"><div class="nav-sub-dot"></div>Journal</div>
     <div class="nav-sub-item" onclick="openTradeModal()" id="nav-logtrade"><div class="nav-sub-dot"></div>Log a Trade</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;watchlist&#39;)" id="nav-watchlist"><div class="nav-sub-dot"></div>Watchlist</div>
@@ -951,7 +952,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="home-three-col">
       <div>
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/12/here-are-the-3-big-things-were-watching-in-the-stock-market-this-week.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108271051-17722088882026-02-27t161126z_2021603882_rc2dujae1vmc_rtrmadp_0_usa-stocks.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Here are the 3 big things we're watching in the stock market this week</div><div class="news-time">38m ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxQRDFEMUE0bWdtaC1adkdsOGtmeExiZkJVbDh3Q3JSNHhvT3JRT1hzQ0M2dHYydGxIdDFTY2pDdkRKcUVUYjRaY2g2M2FKRk02X0ljTmFJcmpGYVBGSUlRSDBNRF9Xc3NHbVBXMXhNdV9vNlN4YmxCSjBRM0hzSkZDalA4Yy13WmM3aUREai1QdEdzZGNUOGtEdjAzeGxQOFdJaGVjWHZjYWtiT1RSLTg0ZktmdFlWQTZ5dWY0RWl2bWc?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran war has cost Israel $11.5 billion in budgetary expenses, ministry says - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPX3I3U21xU29jUFBkX2loNlFCQ3NsaGhrMHByU2VCTGxuaVowU1JZVEUxNFBhempjenlHRFNOUlpNTml2cXItZGZxMGoyNzlDazhfbmN4d3ItN3otbDBqQkhKeTRwdk9FVTdlRVVJR1VYM1RSeU12MHJJRk1vMVVDRXA1NldxTzRULTJOd3JNZkxNOHJMYXh0OWVCNjU4cmo2?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says US to start blockading the Strait of Hormuz immediately - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNdlZ5X19tUWI2blRNMGlsdjczRTE4RlZzNWZNNGpYc1ZpTU4tdlVDNTN1Szh0enJreDZ0Z2JpTklhWndPeWY4ODhTbU5qUE1ZeWxQWVh1VzYySG1OcFVUOE15UjdRbk1MUE9GT3Y1aGFGb0RoNmRkd2NOa0hnWHNjalczVWRIQWxZN01mZXRiVmRFYTczb3hwY2p5c3JJQUJjNlVmMk0zNGJtbkd3VXNGVmppMTF4U1pLMUxv?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Equities subdued as US-Iran talks falter, ceasefire concerns renewed - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/12/this-4-minute-morning-routine-is-key-to-a-successful-day-mental-performance-coach.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108288058-1775579123065-gettyimages-2215235706-5v1a3231.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">This morning routine is key to a successful day, says mental performance coach—and it only takes 4 minutes</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/12/harvard-psychologist-couples-who-are-emotionally-secure-regularly-talk-about-8-things.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108289404-1775760068798-CNBC_Same_Boat_Blue.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">Couples who are 'emotionally secure' regularly talk about 8 things, says Harvard-trained psychologist</div><div class="news-time">2h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/12/here-are-the-3-big-things-were-watching-in-the-stock-market-this-week.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108271051-17722088882026-02-27t161126z_2021603882_rc2dujae1vmc_rtrmadp_0_usa-stocks.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Here are the 3 big things we're watching in the stock market this week</div><div class="news-time">50m ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxQRDFEMUE0bWdtaC1adkdsOGtmeExiZkJVbDh3Q3JSNHhvT3JRT1hzQ0M2dHYydGxIdDFTY2pDdkRKcUVUYjRaY2g2M2FKRk02X0ljTmFJcmpGYVBGSUlRSDBNRF9Xc3NHbVBXMXhNdV9vNlN4YmxCSjBRM0hzSkZDalA4Yy13WmM3aUREai1QdEdzZGNUOGtEdjAzeGxQOFdJaGVjWHZjYWtiT1RSLTg0ZktmdFlWQTZ5dWY0RWl2bWc?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran war has cost Israel $11.5 billion in budgetary expenses, ministry says - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPX3I3U21xU29jUFBkX2loNlFCQ3NsaGhrMHByU2VCTGxuaVowU1JZVEUxNFBhempjenlHRFNOUlpNTml2cXItZGZxMGoyNzlDazhfbmN4d3ItN3otbDBqQkhKeTRwdk9FVTdlRVVJR1VYM1RSeU12MHJJRk1vMVVDRXA1NldxTzRULTJOd3JNZkxNOHJMYXh0OWVCNjU4cmo2?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says US to start blockading the Strait of Hormuz immediately - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNdlZ5X19tUWI2blRNMGlsdjczRTE4RlZzNWZNNGpYc1ZpTU4tdlVDNTN1Szh0enJreDZ0Z2JpTklhWndPeWY4ODhTbU5qUE1ZeWxQWVh1VzYySG1OcFVUOE15UjdRbk1MUE9GT3Y1aGFGb0RoNmRkd2NOa0hnWHNjalczVWRIQWxZN01mZXRiVmRFYTczb3hwY2p5c3JJQUJjNlVmMk0zNGJtbkd3VXNGVmppMTF4U1pLMUxv?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Equities subdued as US-Iran talks falter, ceasefire concerns renewed - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/12/this-4-minute-morning-routine-is-key-to-a-successful-day-mental-performance-coach.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108288058-1775579123065-gettyimages-2215235706-5v1a3231.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">This morning routine is key to a successful day, says mental performance coach—and it only takes 4 minutes</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/12/harvard-psychologist-couples-who-are-emotionally-secure-regularly-talk-about-8-things.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108289404-1775760068798-CNBC_Same_Boat_Blue.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">Couples who are 'emotionally secure' regularly talk about 8 things, says Harvard-trained psychologist</div><div class="news-time">3h ago</div></div></a></div>
       </div>
       <div>
         <div class="section-label">AI Assistant</div>
@@ -1252,6 +1253,47 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     </div>
     <div class="section-label">All Trades</div>
     <div id="portfolio-trades-list"></div>
+  </div>
+
+  <!-- CONGRESS TRADES -->
+  <div class="page" id="page-congress">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2 style="font-size:20px;font-weight:700;">Congress Trades</h2>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">Trades filed in the last 5 days — required by the STOCK Act.</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;gap:8px;min-width:200px;">
+          <span style="color:var(--text-muted);font-size:13px;">⌕</span>
+          <input type="text" id="congress-search" placeholder="Search ticker or name..." style="background:transparent;border:none;outline:none;font-family:var(--font-ui);font-size:13px;color:var(--text);width:100%;" oninput="filterCongressTrades(this.value)">
+        </div>
+        <button onclick="loadCongressTrades()" style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">↻ Refresh</button>
+      </div>
+    </div>
+
+    <!-- Info box -->
+    <div style="background:var(--amber-dim);border:1px solid rgba(180,83,9,0.2);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start;">
+      <div style="font-size:20px;flex-shrink:0;">🏛</div>
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:var(--amber);">STOCK Act — Congress must disclose trades within 45 days</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Showing only trades filed in the last <strong>5 days</strong> — anything older is likely already priced in. Pay attention to clusters of members buying the same stock, especially in sectors they oversee on their committees.</div>
+      </div>
+    </div>
+
+    <!-- Filter tabs -->
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;" id="congress-filters">
+      <button onclick="setCongressFilter(&#39;all&#39;)" id="cf-all" class="news-chip">All Trades</button>
+      <button onclick="setCongressFilter(&#39;buy&#39;)" id="cf-buy" class="news-chip active">Purchases Only</button>
+      <button onclick="setCongressFilter(&#39;sell&#39;)" id="cf-sell" class="news-chip">Sales Only</button>
+      <button onclick="setCongressFilter(&#39;watchlist&#39;)" id="cf-watchlist" class="news-chip">My Watchlist</button>
+    </div>
+
+    <div id="congress-loading" style="padding: 40px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px; display: none;">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      <div style="margin-top:10px;">Loading congressional trades...</div>
+    </div>
+    <div id="congress-empty" style="display: block; padding: 40px; text-align: center; color: var(--text-muted); font-size: 13px;"><div style="font-size:32px;margin-bottom:12px;">🏛</div><div style="font-size:15px;font-weight:700;margin-bottom:8px;">Could not load trades</div><div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">The Quiver Quant API may be unavailable. Try again shortly.</div><a href="https://www.capitoltrades.com/" target="_blank" style="color:var(--blue);font-weight:600;font-size:13px;">View on Capitol Trades ↗</a></div>
+    <div id="congress-list"><div style="padding:30px;text-align:center;color:var(--text-muted);font-size:13px;">No trades match this filter.</div></div>
   </div>
 
   <!-- EARNINGS CALENDAR -->
@@ -1812,6 +1854,7 @@ function switchPage(page) {
   if (page === 'settings') initSettingsPage();
   if (page === 'watchlist') renderWatchlistPage();
   if (page === 'earnings') showEarningsSearchPrompt();
+  if (page === 'congress') loadCongressTrades();
   if (page === 'portfolio') renderPortfolioPage();
   if (page === 'papertrade') renderPaperPage();
 }
@@ -4065,6 +4108,157 @@ async function filterEarnings(query) {
   }
 }
 
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CONGRESS TRADES
+var congressFilter = 'all';
+var allCongressTrades = [];
+
+function setCongressFilter(filter) {
+  congressFilter = filter;
+  ['all','buy','sell','watchlist'].forEach(function(f) {
+    var btn = document.getElementById('cf-' + f);
+    if (btn) btn.className = 'news-chip' + (f === filter ? ' active' : '');
+  });
+  renderCongressTrades(allCongressTrades);
+}
+
+function filterCongressTrades(query) {
+  var q = query.trim().toUpperCase();
+  if (!q) { renderCongressTrades(allCongressTrades); return; }
+  var filtered = allCongressTrades.filter(function(t) {
+    return (t.ticker||'').toUpperCase().includes(q) ||
+           (t.representative||'').toUpperCase().includes(q) ||
+           (t.asset_description||'').toUpperCase().includes(q);
+  });
+  renderCongressTrades(filtered);
+}
+
+async function loadCongressTrades() {
+  document.getElementById('congress-loading').style.display = 'block';
+  document.getElementById('congress-list').innerHTML = '';
+  document.getElementById('congress-empty').style.display = 'none';
+
+  try {
+    // Use Quiver Quant API — free, tracks all congressional trades
+    var url = 'https://api.quiverquant.com/beta/live/congresstrading';
+    var res = await fetch(url, {
+      headers: { 'Accept': 'application/json' }
+    });
+    var data = await res.json();
+    console.log('Congress trades loaded:', data.length);
+
+    // Filter to last 5 days
+    var fiveDaysAgo = new Date();
+    fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+
+    var recent = data.filter(function(t) {
+      var filed = new Date(t.Date || t.TransactionDate);
+      return filed >= fiveDaysAgo;
+    });
+
+    document.getElementById('congress-loading').style.display = 'none';
+
+    if (!recent.length) {
+      document.getElementById('congress-empty').innerHTML =
+        '<div style="font-size:32px;margin-bottom:12px;">🏛</div>' +
+        '<div style="font-size:15px;font-weight:700;margin-bottom:8px;">No trades filed in the last 5 days</div>' +
+        '<div style="font-size:13px;color:var(--text-muted);">Check back soon — Congress members have up to 45 days to file.</div>';
+      document.getElementById('congress-empty').style.display = 'block';
+      return;
+    }
+
+    // Sort by date newest first
+    recent.sort(function(a,b) { return new Date(b.Date||b.TransactionDate) - new Date(a.Date||a.TransactionDate); });
+    allCongressTrades = recent;
+    renderCongressTrades(recent);
+
+  } catch(e) {
+    console.log('Congress trades error:', e);
+    document.getElementById('congress-loading').style.display = 'none';
+    document.getElementById('congress-empty').innerHTML =
+      '<div style="font-size:32px;margin-bottom:12px;">🏛</div>' +
+      '<div style="font-size:15px;font-weight:700;margin-bottom:8px;">Could not load trades</div>' +
+      '<div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">The Quiver Quant API may be unavailable. Try again shortly.</div>' +
+      '<a href="https://www.capitoltrades.com" target="_blank" style="color:var(--blue);font-weight:600;font-size:13px;">View on Capitol Trades ↗</a>';
+    document.getElementById('congress-empty').style.display = 'block';
+  }
+}
+
+function renderCongressTrades(trades) {
+  var list = document.getElementById('congress-list');
+  list.innerHTML = '';
+
+  var filtered = trades.filter(function(t) {
+    if (congressFilter === 'buy') return (t.Transaction||'').toLowerCase().includes('purchase');
+    if (congressFilter === 'sell') return (t.Transaction||'').toLowerCase().includes('sale');
+    if (congressFilter === 'watchlist') return watchlist.includes((t.Ticker||t.ticker||'').toUpperCase());
+    return true;
+  });
+
+  if (!filtered.length) {
+    list.innerHTML = '<div style="padding:30px;text-align:center;color:var(--text-muted);font-size:13px;">No trades match this filter.</div>';
+    return;
+  }
+
+  // Header
+  var header = document.createElement('div');
+  header.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;';
+
+  var colHeader = document.createElement('div');
+  colHeader.style.cssText = 'display:grid;grid-template-columns:120px 1fr 140px 120px 120px 100px;padding:10px 16px;background:var(--surface-2);border-bottom:1px solid var(--border);font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);';
+  colHeader.innerHTML = '<div>Date Filed</div><div>Member</div><div>Stock</div><div>Type</div><div>Amount</div><div>Action</div>';
+  header.appendChild(colHeader);
+
+  filtered.forEach(function(t) {
+    var ticker = (t.Ticker || t.ticker || '').toUpperCase();
+    var name = t.Representative || t.representative || 'Unknown';
+    var txType = t.Transaction || t.transaction || '';
+    var isBuy = txType.toLowerCase().includes('purchase');
+    var isSell = txType.toLowerCase().includes('sale');
+    var txColor = isBuy ? 'var(--green)' : isSell ? 'var(--red)' : 'var(--text-muted)';
+    var txBg = isBuy ? 'var(--green-dim)' : isSell ? 'var(--red-dim)' : 'transparent';
+    var amount = t.Amount || t.amount || '--';
+    var date = t.Date || t.TransactionDate || '--';
+    var dateStr = date !== '--' ? new Date(date).toLocaleDateString('en-US', {month:'short', day:'numeric'}) : '--';
+    var isWatchlisted = watchlist.includes(ticker);
+
+    var row = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:120px 1fr 140px 120px 120px 100px;padding:11px 16px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.1s;' + (isWatchlisted ? 'background:var(--blue-dim);' : '');
+    row.onmouseover = function() { this.style.background = isWatchlisted ? 'rgba(0,48,135,0.1)' : 'var(--surface-2)'; };
+    row.onmouseout = function() { this.style.background = isWatchlisted ? 'var(--blue-dim)' : ''; };
+
+    row.innerHTML =
+      '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);">' + dateStr + '</div>' +
+      '<div>' +
+        '<div style="font-size:13px;font-weight:600;">' + name + (isWatchlisted ? ' <span style="color:var(--blue);font-size:9px;">★ WATCHLIST</span>' : '') + '</div>' +
+        '<div style="font-size:10px;color:var(--text-muted);margin-top:1px;">' + (t.Chamber || '') + '</div>' +
+      '</div>' +
+      '<div>' +
+        '<div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + (ticker || '--') + '</div>' +
+        '<div style="font-size:10px;color:var(--text-muted);margin-top:1px;">' + (t.asset_description || t.Asset || '').slice(0,25) + '</div>' +
+      '</div>' +
+      '<div style="display:inline-flex;align-items:center;padding:3px 8px;border-radius:var(--radius-sm);background:' + txBg + ';color:' + txColor + ';font-size:11px;font-weight:700;font-family:var(--font-mono);">' + (isBuy ? '▲ BUY' : isSell ? '▼ SELL' : txType) + '</div>' +
+      '<div style="font-size:12px;font-family:var(--font-mono);color:var(--text-muted);">' + amount + '</div>' +
+      '<div></div>';
+
+    if (ticker) {
+      var btn = document.createElement('button');
+      btn.textContent = 'Chart';
+      btn.style.cssText = 'background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;';
+      btn.onclick = (function(s){ return function(){ goToChart(s); }; })(ticker);
+      row.querySelector('div:last-child').appendChild(btn);
+    }
+
+    header.appendChild(row);
+  });
+
+  var note = document.createElement('div');
+  note.style.cssText = 'padding:10px 16px;font-size:10px;color:var(--text-muted);font-family:var(--font-mono);background:var(--surface-2);border-top:1px solid var(--border);';
+  note.innerHTML = 'Source: Quiver Quant · ' + filtered.length + ' trades · <a href="https://www.capitoltrades.com" target="_blank" style="color:var(--blue);">View full history on Capitol Trades ↗</a>';
+  header.appendChild(note);
+  list.appendChild(header);
+}
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // WELCOME MODAL
