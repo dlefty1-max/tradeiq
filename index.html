@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_117.html -->
+<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_118.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4275,6 +4275,107 @@ function renderTop20(members) {
   note.innerHTML = 'AI-researched data · <a href="https://unusualwhales.com/politics" target="_blank" style="color:var(--blue);">Full data at Unusual Whales ↗</a>';
   container.appendChild(note);
   listEl.appendChild(container);
+}
+
+async function loadMemberTrades(memberName) {
+  if (!memberName) return;
+  document.querySelectorAll('.member-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.member-btn').forEach(function(b) {
+    if (b.textContent.includes(memberName.split(' ')[0])) b.classList.add('active');
+  });
+  var loadingEl = document.getElementById('congress-member-loading');
+  var tradesEl = document.getElementById('congress-member-trades');
+  if (!loadingEl || !tradesEl) return;
+  loadingEl.style.display = 'block';
+  tradesEl.innerHTML = '';
+
+  if (!ANTHROPIC_KEY) {
+    loadingEl.style.display = 'none';
+    tradesEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">Add your Anthropic key in Settings.</div>';
+    return;
+  }
+
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        system: 'Return ONLY a valid JSON array starting with [ and ending with ]. No other text before or after.',
+        messages: [{ role: 'user', content: 'Search capitoltrades.com for the 5 most recent stock trades filed by ' + memberName + '. Return ONLY this JSON array: [{"ticker":"AAPL","company":"Apple Inc","type":"Purchase or Sale","amount":"$1,001-$15,000","date":"2026-04-01","notes":"any relevant detail"}]' }]
+      })
+    });
+
+    var data = await res.json();
+    var text = '';
+    if (data.content) {
+      data.content.forEach(function(block) {
+        if (block.type === 'text') text += block.text;
+      });
+    }
+    loadingEl.style.display = 'none';
+
+    var clean = text.replace(/```json|```/g, '').trim();
+    var arrStart = clean.indexOf('[');
+    var arrEnd = clean.lastIndexOf(']');
+    if (arrStart === -1) throw new Error('No data');
+    if (arrEnd === -1 || arrEnd < arrStart) {
+      var lastBrace = clean.lastIndexOf('}');
+      if (lastBrace === -1) throw new Error('No trades found');
+      clean = clean.slice(arrStart, lastBrace + 1) + ']';
+      arrEnd = clean.length - 1; arrStart = 0;
+    }
+    var trades = JSON.parse(clean.slice(arrStart, arrEnd + 1));
+    if (!trades.length) throw new Error('No trades found');
+
+    var container = document.createElement('div');
+    container.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:16px;';
+
+    var header = document.createElement('div');
+    header.style.cssText = 'padding:12px 16px;background:var(--blue-dim);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;';
+    header.innerHTML = '<div style="font-size:14px;font-weight:700;">' + memberName + ' — Last ' + trades.length + ' Trades</div>' +
+      '<a href="https://www.capitoltrades.com/politicians" target="_blank" style="font-size:11px;color:var(--blue);font-family:var(--font-mono);font-weight:700;">Full History ↗</a>';
+    container.appendChild(header);
+
+    trades.forEach(function(t) {
+      var isBuy = (t.type||'').toLowerCase().includes('purchase');
+      var txColor = isBuy ? 'var(--green)' : 'var(--red)';
+      var txBg = isBuy ? 'var(--green-dim)' : 'var(--red-dim)';
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--border);';
+      row.innerHTML =
+        '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);min-width:80px;">' + (t.date||'--') + '</div>' +
+        '<div style="flex:1;"><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + (t.ticker||'--') + '</div>' +
+        '<div style="font-size:10px;color:var(--text-muted);">' + (t.company||'') + '</div></div>' +
+        '<div style="padding:3px 10px;border-radius:var(--radius-sm);background:' + txBg + ';color:' + txColor + ';font-size:11px;font-weight:700;font-family:var(--font-mono);">' + (isBuy ? '▲ BUY' : '▼ SELL') + '</div>' +
+        '<div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);min-width:100px;">' + (t.amount||'--') + '</div>';
+      if (t.ticker) {
+        var btn = document.createElement('button');
+        btn.textContent = 'Chart';
+        btn.style.cssText = 'background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:4px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;';
+        btn.onclick = (function(s){ return function(){ goToChart(s); }; })(t.ticker);
+        row.appendChild(btn);
+      }
+      container.appendChild(row);
+    });
+
+    var note = document.createElement('div');
+    note.style.cssText = 'padding:8px 16px;font-size:10px;color:var(--text-muted);font-family:var(--font-mono);background:var(--surface-2);';
+    note.innerHTML = 'AI-researched · Verify at <a href="https://www.capitoltrades.com" target="_blank" style="color:var(--blue);">Capitol Trades ↗</a>';
+    container.appendChild(note);
+    tradesEl.appendChild(container);
+
+  } catch(e) {
+    loadingEl.style.display = 'none';
+    tradesEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:13px;">Could not load trades for ' + memberName + '. Try again.<br><a href="https://www.capitoltrades.com/politicians" target="_blank" style="color:var(--blue);">Search on Capitol Trades ↗</a></div>';
+  }
 }
 
 function setCongressFilter(filter) {
