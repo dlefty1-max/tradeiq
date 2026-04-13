@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_118.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TradeIQ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./index_files/css2" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #f0f2f5;
@@ -870,48 +871,48 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- MAIN -->
   <div class="sidebar-section">Main</div>
-  <div class="nav-item active" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
-  <div class="nav-item" onclick="switchPage(&#39;ai&#39;)" id="nav-ai"><div class="nav-icon">▲</div><div class="nav-label">AI Chat</div></div>
+  <div class="nav-item active" onclick="switchPage('home')" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
+  <div class="nav-item" onclick="switchPage('ai')" id="nav-ai"><div class="nav-icon">▲</div><div class="nav-label">AI Chat</div></div>
 
   <!-- MARKETS GROUP -->
   <div class="sidebar-section">Markets</div>
-  <div class="nav-group-header open" id="group-markets" onclick="toggleGroup(&#39;markets&#39;)">
+  <div class="nav-group-header open" id="group-markets" onclick="toggleGroup('markets')">
     <div class="nav-icon">◈</div>
     <div class="nav-label">Markets</div>
     <div class="section-arrow">▶</div>
   </div>
   <div class="nav-sub open" id="sub-markets">
-    <div class="nav-sub-item active" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
-    <div class="nav-sub-item" onclick="switchPage(&#39;news&#39;)" id="nav-news"><div class="nav-sub-dot"></div>News</div>
-    <div class="nav-sub-item" onclick="switchPage(&#39;alerts&#39;)" id="nav-alerts"><div class="nav-sub-dot"></div>Price Alerts <span class="nav-badge" id="alerts-badge" style="display:none;margin-left:4px;"></span></div>
-    <div class="nav-sub-item" onclick="switchPage(&#39;earnings&#39;)" id="nav-earnings"><div class="nav-sub-dot"></div>Earnings Calendar</div>
-    <div class="nav-sub-item" onclick="switchPage(&#39;congress&#39;)" id="nav-congress"><div class="nav-sub-dot"></div>Congress Trades</div>
+    <div class="nav-sub-item active" onclick="switchPage('search')" id="nav-search"><div class="nav-sub-dot"></div>Chart & Analysis</div>
+    <div class="nav-sub-item" onclick="switchPage('news')" id="nav-news"><div class="nav-sub-dot"></div>News</div>
+    <div class="nav-sub-item" onclick="switchPage('alerts')" id="nav-alerts"><div class="nav-sub-dot"></div>Price Alerts <span class="nav-badge" id="alerts-badge" style="display:none;margin-left:4px;"></span></div>
+    <div class="nav-sub-item" onclick="switchPage('earnings')" id="nav-earnings"><div class="nav-sub-dot"></div>Earnings Calendar</div>
+    <div class="nav-sub-item" onclick="switchPage('congress')" id="nav-congress"><div class="nav-sub-dot"></div>Congress Trades</div>
   </div>
 
   <!-- TRADING GROUP -->
   <div class="sidebar-section">Trading</div>
-  <div class="nav-group-header open" id="group-trading" onclick="toggleGroup(&#39;trading&#39;)">
+  <div class="nav-group-header open" id="group-trading" onclick="toggleGroup('trading')">
     <div class="nav-icon">▣</div>
     <div class="nav-label">Trading</div>
     <div class="section-arrow">▶</div>
   </div>
   <div class="nav-sub open" id="sub-trading">
-    <div class="nav-sub-item" onclick="switchPage(&#39;journal&#39;)" id="nav-journal"><div class="nav-sub-dot"></div>Journal</div>
+    <div class="nav-sub-item" onclick="switchPage('journal')" id="nav-journal"><div class="nav-sub-dot"></div>Journal</div>
     <div class="nav-sub-item" onclick="openTradeModal()" id="nav-logtrade"><div class="nav-sub-dot"></div>Log a Trade</div>
-    <div class="nav-sub-item" onclick="switchPage(&#39;watchlist&#39;)" id="nav-watchlist"><div class="nav-sub-dot"></div>Watchlist</div>
-    <div class="nav-sub-item" onclick="switchPage(&#39;portfolio&#39;)" id="nav-portfolio"><div class="nav-sub-dot"></div>Portfolio</div>
+    <div class="nav-sub-item" onclick="switchPage('watchlist')" id="nav-watchlist"><div class="nav-sub-dot"></div>Watchlist</div>
+    <div class="nav-sub-item" onclick="switchPage('portfolio')" id="nav-portfolio"><div class="nav-sub-dot"></div>Portfolio</div>
   </div>
 
   <!-- LEARN GROUP -->
   <div class="sidebar-section">Education</div>
-  <div class="nav-group-header open" id="group-learn" onclick="toggleGroup(&#39;learn&#39;)">
+  <div class="nav-group-header open" id="group-learn" onclick="toggleGroup('learn')">
     <div class="nav-icon">◉</div>
     <div class="nav-label">Learn</div>
     <div class="section-arrow">▶</div>
   </div>
   <div class="nav-sub open" id="sub-learn">
-    <div class="nav-sub-item" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
-    <div class="nav-sub-item" onclick="switchPage(&#39;papertrade&#39;)" id="nav-papertrade"><div class="nav-sub-dot"></div>Paper Trading</div>
+    <div class="nav-sub-item" onclick="switchPage('learn')" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
+    <div class="nav-sub-item" onclick="switchPage('papertrade')" id="nav-papertrade"><div class="nav-sub-dot"></div>Paper Trading</div>
   </div>
 
 
@@ -920,7 +921,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <!-- ACCOUNT (at bottom) -->
   <div style="margin-top:auto;">
     <div class="sidebar-section">Account</div>
-    <div class="nav-item" onclick="switchPage(&#39;settings&#39;)" id="nav-settings"><div class="nav-icon">⚙</div><div class="nav-label">Settings</div></div>
+    <div class="nav-item" onclick="switchPage('settings')" id="nav-settings"><div class="nav-icon">⚙</div><div class="nav-label">Settings</div></div>
   </div>
 
 </nav>
@@ -932,14 +933,14 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="topbar">
     <div class="topbar-search">
       <span class="topbar-search-icon">⌕</span>
-      <input type="text" id="tickerInput" placeholder="Search any stock — e.g. AAPL, TSLA, SPY..." onkeydown="if(event.key===&#39;Enter&#39;) doSearch()" oninput="this.value=this.value.toUpperCase()">
+      <input type="text" id="tickerInput" placeholder="Search any stock — e.g. AAPL, TSLA, SPY..." onkeydown="if(event.key==='Enter') doSearch()" oninput="this.value=this.value.toUpperCase()">
     </div>
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
       <div class="status-dot closed" id="market-dot"></div>
-      <span id="market-status-text">Closed — Weekend</span>
-      <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
+      <span id="market-status-text">Checking...</span>
+      <span style="margin-left:8px;cursor:pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
 
@@ -949,13 +950,13 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$47925.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.55%</div><div class="market-card-points down">-265.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6794.60</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.07%</div><div class="market-card-points down">-4.50 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24442.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.14%</div><div class="market-card-points up">+35.20 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2613.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.25%</div><div class="market-card-points down">-6.60 pts</div></div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"></div>
 
     <!-- AI CHAT FULL WIDTH BELOW MARKETS -->
     <div class="home-three-col">
       <div>
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMie0FVX3lxTE8ydTVxR1h6OEZrRThiOWhsZEJ5WHRzcGlSV3p5WHc5V3JBMTBQd1FiX3ZwdlhvQjQ4VXRGSE91eWtsTlA0WFg2dENEd3lZVUp1T09xTFdySVh4YUxHTE5OSEJsT3RHUXRJOVlJRWx1dTRMY3dtNHRmYjRGMA?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Dollar and oil rise, stocks slide as US-Iran peace talks collapse - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMisgFBVV95cUxQLTEydE80LTB0eU84NndTcUJkbFZhQWNhdGVjdk5OWWNiblhQY0RfVkR4MVF6U2hsTmRTbXpDUzdfV2ZUOFZJRnRaNzJIdXBneFJiZWRuM3dOcVJzWHI2ZktpdndfU2pOX2lYTUpTUUg1dE9MYVJFRnJVUEpMOWlBTlR4TGVxRU5kSXo0VzlmVUlhQy15cHMxSERvbm5zc3JQdnZ4TFFmTGxReUxSeVFwZjZB?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Oil jumps 8% to above $100 ahead of US blockade on Strait of Hormuz - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPX3I3U21xU29jUFBkX2loNlFCQ3NsaGhrMHByU2VCTGxuaVowU1JZVEUxNFBhempjenlHRFNOUlpNTml2cXItZGZxMGoyNzlDazhfbmN4d3ItN3otbDBqQkhKeTRwdk9FVTdlRVVJR1VYM1RSeU12MHJJRk1vMVVDRXA1NldxTzRULTJOd3JNZkxNOHJMYXh0OWVCNjU4cmo2?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says gas prices may remain high through November midterm election - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPdV91cmVZQ2dkbHhmUkg0cUtIcEYtOFRieUpmQnRVS0Y4QWVmMnVwejhqUTFMdFNXQTJ2QXdVZWhWeGZud2dCckhVbVhVVE9nc29nSmZaRXRKUU8zbGtveHVvSDlSdS1SeUl1R0RjaXdGUXJWaDk0TFdfRzg1anRCcEtBR1BJV2VQU21zd01vUnI1QWc5RGRtQXdQQzdXUmhnSmFxYWJkX3pCT2xnQkRlVDJpUVBNbXNwalc1b05R?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military says it will start blockade of all ships going to and from Iran on Monday - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMifkFVX3lxTFBVa1Y5VkktOERjcEtSR0xYQkVPSVJyckhVVDhwZDk0dnJXcGpFX1k2OHJrVDFxVTRiX2FEdkxZVHVaa2pCbEtSNlZIbXZPUjhtNHdrVl9sNE04eHV2U1NKT3dVdXE3MngydWctREx6UGU4OGpKVWEyUHRsdS1uQQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Dollar jumps as failed US/Iran peace talks spark fresh safe-haven push - Reuters</div><div class="news-time">5h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/12/jim-cramer-iran-war-software-stock-selloff-earnings-season-investing-club.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108262238-1770326804886-gettyimages-2259491558-US_STOCKS.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Why the stock market has stayed resilient despite the Iran war and software stock rout</div><div class="news-time">5h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><div style="padding:16px;text-align:center;color:var(--text-muted);font-size:12px;font-family:var(--font-mono);">Loading news...</div></div>
       </div>
       <div>
         <div class="section-label">AI Assistant</div>
@@ -971,17 +972,17 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
             </div>
           </div>
           <div class="quick-chips">
-            <div class="chip" onclick="sendChip(&#39;What are current market conditions?&#39;)">Market check</div>
-            <div class="chip" onclick="sendChip(&#39;I work a day job. Best strategy for me?&#39;)">Part-time strategy</div>
-            <div class="chip" onclick="sendChip(&#39;Analyze my recent trades&#39;)">Analyze trades</div>
-            <div class="chip" onclick="sendChip(&#39;How do I manage risk?&#39;)">Risk management</div>
+            <div class="chip" onclick="sendChip('What are current market conditions?')">Market check</div>
+            <div class="chip" onclick="sendChip('I work a day job. Best strategy for me?')">Part-time strategy</div>
+            <div class="chip" onclick="sendChip('Analyze my recent trades')">Analyze trades</div>
+            <div class="chip" onclick="sendChip('How do I manage risk?')">Risk management</div>
           </div>
           <div class="chat-input-wrap">
             <div class="chat-input-box">
-              <textarea id="chatInput" placeholder="Ask me anything..." rows="1" onkeydown="if(event.key===&#39;Enter&#39;&amp;&amp;!event.shiftKey){event.preventDefault();sendChat()}" oninput="this.style.height=&#39;auto&#39;;this.style.height=Math.min(this.scrollHeight,80)+&#39;px&#39;"></textarea>
+              <textarea id="chatInput" placeholder="Ask me anything..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
             </div>
             <button class="send-btn" id="sendBtn" onclick="sendChat()">
-              <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"></path></svg>
+              <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
             </button>
           </div>
         </div>
@@ -994,7 +995,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$47925.00</div><div class="market-card-change down">▼ 0.55%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6794.60</div><div class="market-card-change down">▼ 0.07%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24442.80</div><div class="market-card-change up">▲ 0.14%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2613.00</div><div class="market-card-change down">▼ 0.25%</div></div></div>
+      <div class="market-grid" id="market-grid-2"></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -1015,7 +1016,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <div class="chart-detail" id="r-detail"></div>
             </div>
             <div id="chart-body">
-              <iframe id="tv-chart" class="chart-embed" src="./index_files/saved_resource.html" frameborder="0" style="height:400px;"></iframe>
+              <iframe id="tv-chart" class="chart-embed" src="" frameborder="0" style="height:400px;"></iframe>
 
               <div class="chart-actions">
                 <button class="chart-action-btn" onclick="logResultTrade()">📝 Log Trade</button>
@@ -1110,18 +1111,20 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               </div>
             </div>
             <div class="quick-chips" style="padding:6px 10px;border-top:1px solid var(--border);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;">
-              <div class="chip" onclick="sendChartChip(&#39;Is this a good entry point right now?&#39;)">Good entry?</div>
-              <div class="chip" onclick="sendChartChip(&#39;What does the RSI tell me here?&#39;)">RSI meaning</div>
-              <div class="chip" onclick="sendChartChip(&#39;Where should I set my stop loss?&#39;)">Stop loss</div>
-              <div class="chip" onclick="sendChartChip(&#39;What is the overall trend?&#39;)">Trend?</div>
-              <div class="chip" onclick="sendChartChip(&#39;What are the risks of this trade?&#39;)">Risks</div>
+              <div class="chip" onclick="sendChartChip('Is this a good entry point right now?')">Good entry?</div>
+              <div class="chip" onclick="sendChartChip('What does the RSI tell me here?')">RSI meaning</div>
+              <div class="chip" onclick="sendChartChip('Where should I set my stop loss?')">Stop loss</div>
+              <div class="chip" onclick="sendChartChip('What is the overall trend?')">Trend?</div>
+              <div class="chip" onclick="sendChartChip('What are the risks of this trade?')">Risks</div>
             </div>
             <div class="chat-input-wrap" style="padding:8px 10px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:flex-end;">
               <div class="chat-input-box" style="flex:1;">
-                <textarea id="chartChatInput" placeholder="Ask about this chart..." rows="1" onkeydown="if(event.key===&#39;Enter&#39;&amp;&amp;!event.shiftKey){event.preventDefault();sendChartChat()}" oninput="this.style.height=&#39;auto&#39;;this.style.height=Math.min(this.scrollHeight,80)+&#39;px&#39;"></textarea>
+                <textarea id="chartChatInput" placeholder="Ask about this chart..." rows="1"
+                  onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChartChat()}"
+                  oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
               </div>
               <button class="send-btn" id="chartSendBtn" onclick="sendChartChat()">
-                <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"></path></svg>
+                <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
               </button>
             </div>
           </div>
@@ -1146,18 +1149,18 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
           </div>
         </div>
         <div class="quick-chips">
-          <div class="chip" onclick="sendChip2(&#39;What are current market conditions and should I be trading today?&#39;)">Market check</div>
-          <div class="chip" onclick="sendChip2(&#39;I work a day job. What strategy works best for me?&#39;)">Part-time strategy</div>
-          <div class="chip" onclick="sendChip2(&#39;Analyze my recent trades and tell me what patterns you see&#39;)">Analyze trades</div>
-          <div class="chip" onclick="sendChip2(&#39;What should I prepare for tomorrow?&#39;)">Plan tomorrow</div>
-          <div class="chip" onclick="sendChip2(&#39;How do I manage risk as a part-time trader?&#39;)">Risk management</div>
+          <div class="chip" onclick="sendChip2('What are current market conditions and should I be trading today?')">Market check</div>
+          <div class="chip" onclick="sendChip2('I work a day job. What strategy works best for me?')">Part-time strategy</div>
+          <div class="chip" onclick="sendChip2('Analyze my recent trades and tell me what patterns you see')">Analyze trades</div>
+          <div class="chip" onclick="sendChip2('What should I prepare for tomorrow?')">Plan tomorrow</div>
+          <div class="chip" onclick="sendChip2('How do I manage risk as a part-time trader?')">Risk management</div>
         </div>
         <div class="chat-input-wrap">
           <div class="chat-input-box">
-            <textarea id="chatInput2" placeholder="Ask me anything..." rows="1" onkeydown="if(event.key===&#39;Enter&#39;&amp;&amp;!event.shiftKey){event.preventDefault();sendChat2()}" oninput="this.style.height=&#39;auto&#39;;this.style.height=Math.min(this.scrollHeight,80)+&#39;px&#39;"></textarea>
+            <textarea id="chatInput2" placeholder="Ask me anything..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat2()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,80)+'px'"></textarea>
           </div>
           <button class="send-btn" id="sendBtn2" onclick="sendChat2()">
-            <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"></path></svg>
+            <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
           </button>
         </div>
       </div>
@@ -1210,16 +1213,16 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
             <input type="number" class="alert-input" id="alert-price" placeholder="Target price">
           </div>
           <div class="alert-dir-toggle">
-            <button class="alert-dir-btn active" id="alert-above-btn" onclick="setAlertDir(&#39;above&#39;)">▲ Above</button>
-            <button class="alert-dir-btn" id="alert-below-btn" onclick="setAlertDir(&#39;below&#39;)">▼ Below</button>
+            <button class="alert-dir-btn active" id="alert-above-btn" onclick="setAlertDir('above')">▲ Above</button>
+            <button class="alert-dir-btn" id="alert-below-btn" onclick="setAlertDir('below')">▼ Below</button>
           </div>
           <button class="add-alert-btn" onclick="addAlert()">Set Alert</button>
         </div>
       </div>
       <div>
         <div class="section-label">Active Alerts</div>
-        <div class="card"><div id="alerts-list"><div class="empty-state"><p>No alerts set.</p></div></div></div>
-        <div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);margin-top:8px;" id="alerts-active-label">0 active alerts — polled every 5 min</div>
+        <div class="card"><div id="alerts-list"></div></div>
+        <div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);margin-top:8px;" id="alerts-active-label"></div>
       </div>
     </div>
   </div>
@@ -1228,12 +1231,12 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page" id="page-journal">
     <div class="journal-stats">
       <div class="stat-card"><div class="stat-card-label">Win Rate</div><div class="stat-card-value green" id="j-winrate">--</div></div>
-      <div class="stat-card"><div class="stat-card-label">Total P&amp;L</div><div class="stat-card-value green" id="j-pnl">+$0.00</div></div>
+      <div class="stat-card"><div class="stat-card-label">Total P&L</div><div class="stat-card-value" id="j-pnl">$0</div></div>
       <div class="stat-card"><div class="stat-card-label">Trades</div><div class="stat-card-value" id="j-trades">0</div></div>
       <div class="stat-card"><div class="stat-card-label">Open</div><div class="stat-card-value" style="color:var(--amber)" id="j-open">0</div></div>
     </div>
     <button class="log-btn" onclick="openTradeModal()">+ Log New Trade</button>
-    <div id="journal-list"><div class="empty-state"><p>No trades yet. Log your first trade to start tracking.</p></div></div>
+    <div id="journal-list"></div>
   </div>
 
   <!-- WATCHLIST PAGE -->
@@ -1249,7 +1252,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page" id="page-portfolio">
     <h2 style="font-size:20px;font-weight:700;margin-bottom:20px;">Portfolio</h2>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">
-      <div class="stat-card"><div class="stat-card-label">Realized P&amp;L</div><div class="stat-card-value" id="port-pnl">$0.00</div><div class="stat-card-sub">Closed trades only</div></div>
+      <div class="stat-card"><div class="stat-card-label">Realized P&L</div><div class="stat-card-value" id="port-pnl">$0.00</div><div class="stat-card-sub">Closed trades only</div></div>
       <div class="stat-card"><div class="stat-card-label">Win Rate</div><div class="stat-card-value green" id="port-winrate">--</div><div class="stat-card-sub">Closed trades only</div></div>
       <div class="stat-card"><div class="stat-card-label">Closed Trades</div><div class="stat-card-value" id="port-trades">0</div><div class="stat-card-sub">With exit price</div></div>
       <div class="stat-card"><div class="stat-card-label">Open Positions</div><div class="stat-card-value" style="color:var(--amber)" id="port-open">0</div><div class="stat-card-sub">No exit yet</div></div>
@@ -1276,8 +1279,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
     <!-- Main tabs -->
     <div style="display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid var(--border);">
-      <button onclick="setCongressTab(&#39;recent&#39;)" id="ctab-recent" style="padding:10px 20px;background:transparent;border:none;border-bottom:2px solid var(--blue);margin-bottom:-2px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;color:var(--blue);text-transform:uppercase;letter-spacing:1px;">Recent Trades</button>
-      <button onclick="setCongressTab(&#39;top20&#39;)" id="ctab-top20" style="padding:10px 20px;background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">🏆 Top 20 Most Profitable</button>
+      <button onclick="setCongressTab('recent')" id="ctab-recent" style="padding:10px 20px;background:transparent;border:none;border-bottom:2px solid var(--blue);margin-bottom:-2px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;color:var(--blue);text-transform:uppercase;letter-spacing:1px;">Recent Trades</button>
+      <button onclick="setCongressTab('top20')" id="ctab-top20" style="padding:10px 20px;background:transparent;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">🏆 Top 20 Most Profitable</button>
     </div>
 
     <!-- Recent trades section -->
@@ -1292,10 +1295,10 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
       </div>
       <!-- Filter tabs -->
       <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;" id="congress-filters">
-        <button onclick="setCongressFilter(&#39;all&#39;)" id="cf-all" class="news-chip active">All Trades</button>
-        <button onclick="setCongressFilter(&#39;buy&#39;)" id="cf-buy" class="news-chip">Purchases Only</button>
-        <button onclick="setCongressFilter(&#39;sell&#39;)" id="cf-sell" class="news-chip">Sales Only</button>
-        <button onclick="setCongressFilter(&#39;watchlist&#39;)" id="cf-watchlist" class="news-chip">My Watchlist</button>
+        <button onclick="setCongressFilter('all')" id="cf-all" class="news-chip active">All Trades</button>
+        <button onclick="setCongressFilter('buy')" id="cf-buy" class="news-chip">Purchases Only</button>
+        <button onclick="setCongressFilter('sell')" id="cf-sell" class="news-chip">Sales Only</button>
+        <button onclick="setCongressFilter('watchlist')" id="cf-watchlist" class="news-chip">My Watchlist</button>
       </div>
       <div id="congress-loading" style="padding:40px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;display:none;">
         <div class="loading-dots"><span></span><span></span><span></span></div>
@@ -1319,29 +1322,29 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
       <div style="margin-bottom:12px;">
         <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);margin-bottom:10px;">🏆 Most Profitable</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
-          <button onclick="loadMemberTrades(&#39;Nancy Pelosi&#39;)" class="member-btn">Nancy Pelosi (D-CA)</button>
-          <button onclick="loadMemberTrades(&#39;Dan Crenshaw&#39;)" class="member-btn">Dan Crenshaw (R-TX)</button>
-          <button onclick="loadMemberTrades(&#39;Austin Scott&#39;)" class="member-btn">Austin Scott (R-GA)</button>
-          <button onclick="loadMemberTrades(&#39;Marjorie Taylor Greene&#39;)" class="member-btn">Marjorie Taylor Greene (R-GA)</button>
-          <button onclick="loadMemberTrades(&#39;Josh Gottheimer&#39;)" class="member-btn">Josh Gottheimer (D-NJ)</button>
-          <button onclick="loadMemberTrades(&#39;Michael McCaul&#39;)" class="member-btn">Michael McCaul (R-TX)</button>
-          <button onclick="loadMemberTrades(&#39;Brian Mast&#39;)" class="member-btn">Brian Mast (R-FL)</button>
-          <button onclick="loadMemberTrades(&#39;Tommy Tuberville&#39;)" class="member-btn">Tommy Tuberville (R-AL)</button>
-          <button onclick="loadMemberTrades(&#39;Ro Khanna&#39;)" class="member-btn">Ro Khanna (D-CA)</button>
-          <button onclick="loadMemberTrades(&#39;Pete Sessions&#39;)" class="member-btn">Pete Sessions (R-TX)</button>
+          <button onclick="loadMemberTrades('Nancy Pelosi')" class="member-btn">Nancy Pelosi (D-CA)</button>
+          <button onclick="loadMemberTrades('Dan Crenshaw')" class="member-btn">Dan Crenshaw (R-TX)</button>
+          <button onclick="loadMemberTrades('Austin Scott')" class="member-btn">Austin Scott (R-GA)</button>
+          <button onclick="loadMemberTrades('Marjorie Taylor Greene')" class="member-btn">Marjorie Taylor Greene (R-GA)</button>
+          <button onclick="loadMemberTrades('Josh Gottheimer')" class="member-btn">Josh Gottheimer (D-NJ)</button>
+          <button onclick="loadMemberTrades('Michael McCaul')" class="member-btn">Michael McCaul (R-TX)</button>
+          <button onclick="loadMemberTrades('Brian Mast')" class="member-btn">Brian Mast (R-FL)</button>
+          <button onclick="loadMemberTrades('Tommy Tuberville')" class="member-btn">Tommy Tuberville (R-AL)</button>
+          <button onclick="loadMemberTrades('Ro Khanna')" class="member-btn">Ro Khanna (D-CA)</button>
+          <button onclick="loadMemberTrades('Pete Sessions')" class="member-btn">Pete Sessions (R-TX)</button>
         </div>
         <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);margin-bottom:10px;">📊 Most Active</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">
-          <button onclick="loadMemberTrades(&#39;Mark Green&#39;)" class="member-btn">Mark Green (R-TN)</button>
-          <button onclick="loadMemberTrades(&#39;Sheldon Whitehouse&#39;)" class="member-btn">Sheldon Whitehouse (D-RI)</button>
-          <button onclick="loadMemberTrades(&#39;David Rouzer&#39;)" class="member-btn">David Rouzer (R-NC)</button>
-          <button onclick="loadMemberTrades(&#39;Virginia Foxx&#39;)" class="member-btn">Virginia Foxx (R-NC)</button>
-          <button onclick="loadMemberTrades(&#39;Bill Foster&#39;)" class="member-btn">Bill Foster (D-IL)</button>
-          <button onclick="loadMemberTrades(&#39;Kevin Hern&#39;)" class="member-btn">Kevin Hern (R-OK)</button>
-          <button onclick="loadMemberTrades(&#39;Debbie Wasserman Schultz&#39;)" class="member-btn">Debbie Wasserman Schultz (D-FL)</button>
-          <button onclick="loadMemberTrades(&#39;John Curtis&#39;)" class="member-btn">John Curtis (R-UT)</button>
-          <button onclick="loadMemberTrades(&#39;Greg Landsman&#39;)" class="member-btn">Greg Landsman (D-OH)</button>
-          <button onclick="loadMemberTrades(&#39;Patrick Fallon&#39;)" class="member-btn">Patrick Fallon (R-TX)</button>
+          <button onclick="loadMemberTrades('Mark Green')" class="member-btn">Mark Green (R-TN)</button>
+          <button onclick="loadMemberTrades('Sheldon Whitehouse')" class="member-btn">Sheldon Whitehouse (D-RI)</button>
+          <button onclick="loadMemberTrades('David Rouzer')" class="member-btn">David Rouzer (R-NC)</button>
+          <button onclick="loadMemberTrades('Virginia Foxx')" class="member-btn">Virginia Foxx (R-NC)</button>
+          <button onclick="loadMemberTrades('Bill Foster')" class="member-btn">Bill Foster (D-IL)</button>
+          <button onclick="loadMemberTrades('Kevin Hern')" class="member-btn">Kevin Hern (R-OK)</button>
+          <button onclick="loadMemberTrades('Debbie Wasserman Schultz')" class="member-btn">Debbie Wasserman Schultz (D-FL)</button>
+          <button onclick="loadMemberTrades('John Curtis')" class="member-btn">John Curtis (R-UT)</button>
+          <button onclick="loadMemberTrades('Greg Landsman')" class="member-btn">Greg Landsman (D-OH)</button>
+          <button onclick="loadMemberTrades('Patrick Fallon')" class="member-btn">Patrick Fallon (R-TX)</button>
         </div>
       </div>
 
@@ -1365,10 +1368,12 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         <!-- Search bar -->
         <div style="display:flex;align-items:center;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;gap:8px;min-width:220px;" id="earnings-search-wrap">
           <span style="color:var(--text-muted);font-size:13px;">⌕</span>
-          <input type="text" id="earnings-search" placeholder="Search ticker or company..." style="background:transparent;border:none;outline:none;font-family:var(--font-ui);font-size:13px;color:var(--text);width:100%;" oninput="if(this.value.trim().length&gt;=1)filterEarnings(this.value)" onkeydown="if(event.key===&#39;Enter&#39;)filterEarnings(this.value)">
+          <input type="text" id="earnings-search" placeholder="Search ticker or company..." 
+            style="background:transparent;border:none;outline:none;font-family:var(--font-ui);font-size:13px;color:var(--text);width:100%;"
+            oninput="if(this.value.trim().length>=1)filterEarnings(this.value)" onkeydown="if(event.key==='Enter')filterEarnings(this.value)">
         </div>
-        <button onclick="loadEarnings(&#39;week&#39;)" id="earn-btn-week" style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">This Week</button>
-        <button onclick="loadEarnings(&#39;month&#39;)" id="earn-btn-month" style="background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">This Month</button>
+        <button onclick="loadEarnings('week')" id="earn-btn-week" style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">This Week</button>
+        <button onclick="loadEarnings('month')" id="earn-btn-month" style="background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">This Month</button>
       </div>
     </div>
 
@@ -1433,7 +1438,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         <div class="stat-card-sub">Ready to trade</div>
       </div>
       <div class="stat-card">
-        <div class="stat-card-label">Total P&amp;L</div>
+        <div class="stat-card-label">Total P&L</div>
         <div class="stat-card-value" id="paper-pnl">$0.00</div>
         <div class="stat-card-sub" id="paper-pnl-pct">0.00%</div>
       </div>
@@ -1453,13 +1458,13 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
           <div class="form-group">
             <label>Direction</label>
             <div class="seg-control">
-              <button class="seg-btn active" id="paper-seg-long" onclick="setPaperDir(&#39;long&#39;)">▲ Buy (Long)</button>
-              <button class="seg-btn" id="paper-seg-short" onclick="setPaperDir(&#39;short&#39;)">▼ Sell Short</button>
+              <button class="seg-btn active" id="paper-seg-long" onclick="setPaperDir('long')">▲ Buy (Long)</button>
+              <button class="seg-btn" id="paper-seg-short" onclick="setPaperDir('short')">▼ Sell Short</button>
             </div>
           </div>
           <div class="form-group">
             <label>Ticker Symbol</label>
-            <input type="text" id="paper-symbol" placeholder="e.g. AAPL" style="text-transform:uppercase;font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:17px;font-weight:600;" oninput="this.value=this.value.toUpperCase()">
+            <input type="text" id="paper-symbol" placeholder="e.g. AAPL" style="text-transform:uppercase;font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;" oninput="this.value=this.value.toUpperCase()">
           </div>
           <div class="form-group">
             <label>Shares</label>
@@ -1658,8 +1663,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
     <div class="form-group"><label>Direction</label>
       <div class="seg-control">
-        <button class="seg-btn active" id="seg-long" onclick="setDir(&#39;long&#39;)">▲ Long (Buy)</button>
-        <button class="seg-btn" id="seg-short" onclick="setDir(&#39;short&#39;)">▼ Short (Sell)</button>
+        <button class="seg-btn active" id="seg-long" onclick="setDir('long')">▲ Long (Buy)</button>
+        <button class="seg-btn" id="seg-short" onclick="setDir('short')">▼ Short (Sell)</button>
       </div>
     </div>
 
@@ -1667,7 +1672,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="form-group">
       <label>Ticker Symbol</label>
       <div style="display:flex;gap:8px;">
-        <input type="text" id="t-symbol" placeholder="e.g. AAPL, SPY" oninput="this.value=this.value.toUpperCase()" style="text-transform:uppercase;font-family:&#39;IBM Plex Mono&#39;,monospace;font-size:17px;font-weight:600;flex:1;">
+        <input type="text" id="t-symbol" placeholder="e.g. AAPL, SPY" oninput="this.value=this.value.toUpperCase()" style="text-transform:uppercase;font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;flex:1;">
         <button onclick="lookupTradePrice()" style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:10px 14px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;text-transform:uppercase;letter-spacing:0.5px;">Get Price</button>
       </div>
     </div>
@@ -4607,6 +4612,5 @@ updateAlertsBadge();
 fetchAllPrices();
 setInterval(fetchAllPrices, 5*60*1000);
 </script>
-
-
-</body></html>
+</body>
+</html>
