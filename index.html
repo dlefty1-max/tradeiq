@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_112.html -->
+<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_113.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4332,6 +4332,7 @@ async function loadCongressTrades() {
         if (block.type === 'text') text += block.text;
       });
     }
+    console.log('Congress AI response:', text.slice(0, 300));
 
     document.getElementById('congress-loading').style.display = 'none';
 
