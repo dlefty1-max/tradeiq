@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_120.html -->
+<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_121.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -937,8 +937,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot closed" id="market-dot"></div>
-      <span id="market-status-text">Closed — Weekend</span>
+      <div class="status-dot open" id="market-dot"></div>
+      <span id="market-status-text">Market Open</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -949,13 +949,19 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$47925.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.55%</div><div class="market-card-points down">-265.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6794.60</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.07%</div><div class="market-card-points down">-4.50 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24442.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.14%</div><div class="market-card-points up">+35.20 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2613.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.25%</div><div class="market-card-points down">-6.60 pts</div></div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$48038.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.24%</div><div class="market-card-points up">+113.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6833.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.57%</div><div class="market-card-points up">+38.40 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24599.20</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.64%</div><div class="market-card-points up">+156.40 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2645.40</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.24%</div><div class="market-card-points up">+32.40 pts</div></div></div></div>
 
     <!-- AI CHAT FULL WIDTH BELOW MARKETS -->
     <div class="home-three-col">
       <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div class="section-label" style="margin:0;">Daily Scanner</div>
+          <button onclick="runDailyScanner()" id="scanner-btn" style="background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:6px 14px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">↻ Scan Now</button>
+        </div>
+        <div id="scanner-results" style="margin-bottom:20px;"><div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;color:var(--text-muted);font-size:12px;">Add your Twelve Data key in Settings to use the scanner.</div></div>
+
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMie0FVX3lxTE8ydTVxR1h6OEZrRThiOWhsZEJ5WHRzcGlSV3p5WHc5V3JBMTBQd1FiX3ZwdlhvQjQ4VXRGSE91eWtsTlA0WFg2dENEd3lZVUp1T09xTFdySVh4YUxHTE5OSEJsT3RHUXRJOVlJRWx1dTRMY3dtNHRmYjRGMA?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Dollar and oil rise, stocks slide as US-Iran peace talks collapse - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMisgFBVV95cUxQLTEydE80LTB0eU84NndTcUJkbFZhQWNhdGVjdk5OWWNiblhQY0RfVkR4MVF6U2hsTmRTbXpDUzdfV2ZUOFZJRnRaNzJIdXBneFJiZWRuM3dOcVJzWHI2ZktpdndfU2pOX2lYTUpTUUg1dE9MYVJFRnJVUEpMOWlBTlR4TGVxRU5kSXo0VzlmVUlhQy15cHMxSERvbm5zc3JQdnZ4TFFmTGxReUxSeVFwZjZB?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Oil jumps 8% to above $100 ahead of US blockade on Strait of Hormuz - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMioAFBVV95cUxPX3I3U21xU29jUFBkX2loNlFCQ3NsaGhrMHByU2VCTGxuaVowU1JZVEUxNFBhempjenlHRFNOUlpNTml2cXItZGZxMGoyNzlDazhfbmN4d3ItN3otbDBqQkhKeTRwdk9FVTdlRVVJR1VYM1RSeU12MHJJRk1vMVVDRXA1NldxTzRULTJOd3JNZkxNOHJMYXh0OWVCNjU4cmo2?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says gas prices may remain high through November midterm election - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPdV91cmVZQ2dkbHhmUkg0cUtIcEYtOFRieUpmQnRVS0Y4QWVmMnVwejhqUTFMdFNXQTJ2QXdVZWhWeGZud2dCckhVbVhVVE9nc29nSmZaRXRKUU8zbGtveHVvSDlSdS1SeUl1R0RjaXdGUXJWaDk0TFdfRzg1anRCcEtBR1BJV2VQU21zd01vUnI1QWc5RGRtQXdQQzdXUmhnSmFxYWJkX3pCT2xnQkRlVDJpUVBNbXNwalc1b05R?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military says it will start blockade of all ships going to and from Iran on Monday - Reuters</div><div class="news-time">4h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMifkFVX3lxTFBVa1Y5VkktOERjcEtSR0xYQkVPSVJyckhVVDhwZDk0dnJXcGpFX1k2OHJrVDFxVTRiX2FEdkxZVHVaa2pCbEtSNlZIbXZPUjhtNHdrVl9sNE04eHV2U1NKT3dVdXE3MngydWctREx6UGU4OGpKVWEyUHRsdS1uQQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Dollar jumps as failed US/Iran peace talks spark fresh safe-haven push - Reuters</div><div class="news-time">5h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/12/jim-cramer-iran-war-software-stock-selloff-earnings-season-investing-club.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108262238-1770326804886-gettyimages-2259491558-US_STOCKS.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Why the stock market has stayed resilient despite the Iran war and software stock rout</div><div class="news-time">5h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/13/the-indicator-guiding-our-next-move-as-stocks-shake-off-breakdown-in-peace-talks.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108288735-1775663880953-gettyimages-2269814440-AA_08042026_2729623.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">The indicator guiding our next move as stocks shake off breakdown in peace talks</div><div class="news-time">26m ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/13/irs-tax-on-tips-big-beautiful-bill.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108290028-1775850592183-gettyimages-1270694647-sc1064k0450.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">IRS publishes list of occupations that qualify for 'no tax on tips' provision</div><div class="news-time">49m ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/13/oracle-orcl-stock-rally-software-ai-risk.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108260818-1770138652072-Oracle-OB-Photo-20260203-KK-PRESS-011.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">Oracle pops 11%, leading bounce back rally in software stocks</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMirwFBVV95cUxPNnlHODRfWHZBSmRTd0hYTjBoVndLOTk4dm8tS1Q5WmVlQVZ5NEtoYU9wUFZKdXdMOXlYc0d4RU5jMEFyTUthSTZaMTlGMEJEaHdtNWh1YndGQnlRWjhQMnJzVmZFNTFhZ2FQX3JESzhxc1NaMXRiclVmNHlaZkIwT3dhWTJ6eFgtZ3ZQVDBZV2FoQ3RPWlRCbm5ZSDNSX2tqV0NjWE9EM0JLaENHRTNj?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Wall St indexes mixed as US-Iran concerns clash with bargain-hunting - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipAFBVV95cUxOVUt5eDRaWkRBTTAtbDVmZUFWVUVhcmR3WFVIRWZuemxyMzhYWVU2dVNvaXBhWjBMQTBPeFQzYjFJOElnZ2FvWldGMW9WcjhUZlBwODFBS1llajMyZHRvNENjSl8wYXRLVTA3ZFVNSk9rOUZDOHBlVjFtVGI0ek9vaGU5ZWo0Rl93NE9wUl9BeFVxM0Fxa0ROeHh0ZTZ0bk1YTkdpag?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">NATO allies refuse to join Trump's Iranian port blockade - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/13/wall-street-streaming-focus-future.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108209265-1759926468888-gettyimages-2239866412-dji_20251007134216_0033_d_atnuara6.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Wall Street still loves streaming, but are its affections well placed?</div><div class="news-time">2h ago</div></div></a></div>
       </div>
       <div>
         <div class="section-label">AI Assistant</div>
@@ -994,7 +1000,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$47925.00</div><div class="market-card-change down">▼ 0.55%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6794.60</div><div class="market-card-change down">▼ 0.07%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24442.80</div><div class="market-card-change up">▲ 0.14%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2613.00</div><div class="market-card-change down">▼ 0.25%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$48038.00</div><div class="market-card-change up">▲ 0.24%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6833.00</div><div class="market-card-change up">▲ 0.57%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24599.20</div><div class="market-card-change up">▲ 0.64%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2645.40</div><div class="market-card-change up">▲ 1.24%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -4589,6 +4595,154 @@ function renderCongressTrades(trades) {
   note.innerHTML = 'Source: Quiver Quant · ' + filtered.length + ' trades · <a href="https://www.capitoltrades.com" target="_blank" style="color:var(--blue);">View full history on Capitol Trades ↗</a>';
   header.appendChild(note);
   list.appendChild(header);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DAILY SCANNER
+var scannerRunning = false;
+
+// Watchlist of stocks to scan — uses watchlist + major stocks
+var SCAN_UNIVERSE = ['AAPL','MSFT','NVDA','TSLA','META','GOOGL','AMZN','AMD','PLTR','NFLX','JPM','BAC','V','MA','XOM','DIS','UBER','ABNB','COIN','SOFI','F','GM','BA','INTC','CSCO','PYPL','SNAP','RBLX','SHOP','DKNG'];
+
+async function runDailyScanner() {
+  if (scannerRunning) return;
+  scannerRunning = true;
+  var btn = document.getElementById('scanner-btn');
+  var results = document.getElementById('scanner-results');
+  if (btn) { btn.textContent = 'Scanning...'; btn.disabled = true; }
+  results.innerHTML = '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;color:var(--text-muted);font-family:var(--font-mono);font-size:12px;"><div class="loading-dots"><span></span><span></span><span></span></div><div style="margin-top:10px;">Scanning ' + SCAN_UNIVERSE.length + ' stocks for setups...</div></div>';
+
+  var tdKey = localStorage.getItem('tradeiq_td_key') || '';
+  if (!tdKey) {
+    results.innerHTML = '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;color:var(--text-muted);font-size:12px;">Add your Twelve Data key in Settings to use the scanner.</div>';
+    scannerRunning = false;
+    if (btn) { btn.textContent = '↻ Scan Now'; btn.disabled = false; }
+    return;
+  }
+
+  var setups = [];
+  var scanned = 0;
+
+  // Scan each stock — batch to avoid rate limits
+  for (var i = 0; i < SCAN_UNIVERSE.length; i++) {
+    var sym = SCAN_UNIVERSE[i];
+    try {
+      var url = 'https://api.twelvedata.com/time_series?symbol=' + sym + '&interval=1day&outputsize=60&apikey=' + tdKey;
+      var res = await fetch(url);
+      var data = await res.json();
+      if (!data.values || data.values.length < 25) continue;
+
+      var values = data.values.slice().reverse();
+      var closes = values.map(function(v) { return parseFloat(v.close); });
+      var volumes = values.map(function(v) { return parseFloat(v.volume||0); });
+      var price = closes[closes.length - 1];
+
+      // Calculate indicators
+      var rsiVal = calcRSI(closes);
+      var sma20val = sma(closes, 20);
+      var bb = calcBollingerBands(closes, 20, 2);
+      var ema12val = ema(closes, 12);
+      var ema26val = ema(closes, 26);
+      var macdVal = (ema12val && ema26val) ? ema12val - ema26val : null;
+      var avgVol = sma(volumes, 10);
+      var lastVol = volumes[volumes.length-1];
+      var volRatio = (avgVol && lastVol) ? lastVol / avgVol : 1;
+
+      // Detect setups
+      var setup = null;
+      var setupColor = 'var(--blue)';
+
+      if (rsiVal && rsiVal < 35 && bb && bb.percentB < 25) {
+        setup = 'Oversold + Near Lower BB';
+        setupColor = 'var(--green)';
+      } else if (rsiVal && rsiVal < 40 && sma20val && price > sma20val * 0.99 && price < sma20val * 1.01) {
+        setup = 'RSI Low + Testing 20MA';
+        setupColor = 'var(--green)';
+      } else if (bb && bb.percentB < 15) {
+        setup = 'At Lower Bollinger Band';
+        setupColor = 'var(--green)';
+      } else if (rsiVal && rsiVal > 30 && rsiVal < 45 && macdVal && macdVal > 0 && sma20val && price > sma20val) {
+        setup = 'Bullish MACD + Above 20MA';
+        setupColor = 'var(--blue)';
+      } else if (volRatio > 2 && rsiVal && rsiVal < 55) {
+        setup = 'High Volume + Not Overbought';
+        setupColor = 'var(--amber)';
+      }
+
+      if (setup) {
+        setups.push({
+          symbol: sym,
+          price: price,
+          setup: setup,
+          setupColor: setupColor,
+          rsi: rsiVal,
+          bbPct: bb ? bb.percentB : null,
+          sma20: sma20val
+        });
+      }
+
+      scanned++;
+      // Update progress
+      results.querySelector('div div:last-child').textContent = 'Scanning... ' + scanned + '/' + SCAN_UNIVERSE.length;
+
+    } catch(e) { /* skip failed */ }
+
+    // Small delay to avoid rate limiting
+    if (i % 5 === 4) await new Promise(function(r){ setTimeout(r, 500); });
+  }
+
+  scannerRunning = false;
+  if (btn) { btn.textContent = '↻ Scan Now'; btn.disabled = false; }
+
+  renderScannerResults(setups);
+}
+
+function renderScannerResults(setups) {
+  var results = document.getElementById('scanner-results');
+  if (!results) return;
+
+  if (!setups.length) {
+    results.innerHTML = '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;color:var(--text-muted);font-size:12px;font-family:var(--font-mono);">No notable setups found right now. Markets may be extended or consolidating.</div>';
+    return;
+  }
+
+  var container = document.createElement('div');
+  container.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;';
+
+  var header = document.createElement('div');
+  header.style.cssText = 'padding:10px 16px;background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;';
+  header.innerHTML = '<div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);">' + setups.length + ' Setup' + (setups.length !== 1 ? 's' : '') + ' Found</div>' +
+    '<div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);">Not buy recommendations — chart these yourself</div>';
+  container.appendChild(header);
+
+  setups.forEach(function(s) {
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.1s;gap:12px;';
+    row.onmouseover = function() { this.style.background = 'var(--surface-2)'; };
+    row.onmouseout = function() { this.style.background = ''; };
+    row.onclick = function() { document.getElementById('tickerInput').value = s.symbol; doSearch(); switchPage('search'); };
+
+    row.innerHTML =
+      '<div style="width:44px;height:44px;border-radius:var(--radius-sm);background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-family:var(--font-mono);color:var(--blue);flex-shrink:0;">' + s.symbol.slice(0,4) + '</div>' +
+      '<div style="flex:1;">' +
+        '<div style="font-size:14px;font-weight:700;font-family:var(--font-mono);">' + s.symbol + '</div>' +
+        '<div style="font-size:11px;margin-top:2px;display:inline-flex;align-items:center;padding:2px 8px;border-radius:100px;background:' + s.setupColor.replace(')', ',0.1)').replace('var(', 'rgba(').replace('--green','0,132,61').replace('--blue','0,48,135').replace('--amber','180,83,9') + ';color:' + s.setupColor + ';font-weight:700;font-family:var(--font-mono);">' + s.setup + '</div>' +
+      '</div>' +
+      '<div style="text-align:right;flex-shrink:0;">' +
+        '<div style="font-size:14px;font-weight:600;font-family:var(--font-mono);">$' + s.price.toFixed(2) + '</div>' +
+        '<div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);">RSI ' + (s.rsi||'--') + '</div>' +
+      '</div>';
+
+    container.appendChild(row);
+  });
+
+  var note = document.createElement('div');
+  note.style.cssText = 'padding:8px 16px;font-size:10px;color:var(--text-muted);font-family:var(--font-mono);background:var(--surface-2);';
+  note.textContent = 'Click any stock to open the chart. Always do your own analysis before trading.';
+  container.appendChild(note);
+
+  results.innerHTML = '';
+  results.appendChild(container);
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
