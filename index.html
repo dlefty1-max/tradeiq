@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_113.html -->
+<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_114.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4287,90 +4287,27 @@ async function loadCongressTrades() {
   document.getElementById('congress-list').innerHTML = '';
   document.getElementById('congress-empty').style.display = 'none';
 
-  if (!ANTHROPIC_KEY) {
-    document.getElementById('congress-loading').style.display = 'none';
-    document.getElementById('congress-empty').innerHTML =
-      '<div style="padding:30px;text-align:center;">' +
-      '<div style="font-size:32px;margin-bottom:12px;">🏛</div>' +
-      '<div style="font-size:15px;font-weight:700;margin-bottom:8px;">Add your Anthropic key in Settings</div>' +
-      '<div style="font-size:13px;color:var(--text-muted);">Required to load congressional trading data.</div>' +
-      '</div>';
-    document.getElementById('congress-empty').style.display = 'block';
-    return;
-  }
-
   try {
-    var today = new Date();
-    var todayStr = today.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});
-    var fiveDaysAgo = new Date(today);
-    fiveDaysAgo.setDate(today.getDate() - 5);
-    var fromStr = fiveDaysAgo.toLocaleDateString('en-US', {month:'long', day:'numeric'});
-
-    var prompt = 'Search capitoltrades.com or unusualwhales.com for the most recent US congressional stock trades disclosed in 2026. Find at least 10-15 recent trades. Return ONLY a JSON array like this example, no other text: [{"name":"Nancy Pelosi","party":"D","chamber":"House","ticker":"NVDA","company":"Nvidia Corp","type":"Purchase","amount":"$1,001-$15,000","date":"2026-04-08"}]. Use real names and real tickers from actual recent filings you find.';
-
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        system: 'You are a financial data assistant. Search for and return congressional stock trading disclosures. Return only JSON arrays, no other text.',
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
+    // Use corsproxy.io to access Unusual Whales public congress trades endpoint
+    var url = 'https://corsproxy.io/?' + encodeURIComponent('https://unusualwhales.com/api/congress/trades?limit=50&page=1');
+    var res = await fetch(url);
     var data = await res.json();
-    var text = '';
-    if (data.content) {
-      data.content.forEach(function(block) {
-        if (block.type === 'text') text += block.text;
-      });
-    }
-    console.log('Congress AI response:', text.slice(0, 300));
+    console.log('Congress trades UW response:', JSON.stringify(data).slice(0,200));
 
     document.getElementById('congress-loading').style.display = 'none';
 
-    // Check for rate limit
-    if (data.error && data.error.type === 'rate_limit_error') {
-      throw new Error('Rate limit — please wait 60 seconds and try again.');
-    }
-    // Parse JSON from response
-    var clean = text.replace(/```json|```/g, '').trim();
-    var arrStart = clean.indexOf('[');
-    var arrEnd = clean.lastIndexOf(']');
-    if (arrStart === -1 || arrEnd === -1) {
-      throw new Error('No JSON array found — try again in a moment.');
-    }
-    var trades = JSON.parse(clean.slice(arrStart, arrEnd + 1));
+    var trades = data.data || data.trades || data || [];
+    if (!Array.isArray(trades) || !trades.length) throw new Error('no data');
 
-    if (!trades.length) {
-      document.getElementById('congress-empty').innerHTML =
-        '<div style="padding:30px;text-align:center;">' +
-        '<div style="font-size:32px;margin-bottom:12px;">🏛</div>' +
-        '<div style="font-size:15px;font-weight:700;margin-bottom:8px;">No trades found in the last 5 days</div>' +
-        '<div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Congress members have up to 45 days to file — check back soon.</div>' +
-        '<a href="https://www.capitoltrades.com" target="_blank" style="color:var(--blue);font-weight:600;">View Capitol Trades ↗</a>' +
-        '</div>';
-      document.getElementById('congress-empty').style.display = 'block';
-      return;
-    }
-
-    // Map to our format
     allCongressTrades = trades.map(function(t) {
       return {
-        Representative: t.name || '--',
+        Representative: t.politician || t.member || t.name || '--',
         Chamber: t.chamber || '',
-        Ticker: t.ticker || '',
-        asset_description: t.company || '',
-        Transaction: t.type || '',
-        Amount: t.amount || '--',
-        Date: t.date || new Date().toISOString().split('T')[0],
+        Ticker: (t.ticker || t.symbol || '').toUpperCase(),
+        asset_description: t.asset || t.company || t.asset_description || '',
+        Transaction: t.transaction || t.type || t.trade_type || '',
+        Amount: t.amount || t.range || '--',
+        Date: t.date || t.filed_at || t.transaction_date || '--',
         party: t.party || ''
       };
     });
@@ -4378,18 +4315,35 @@ async function loadCongressTrades() {
     renderCongressTrades(allCongressTrades);
 
   } catch(e) {
-    console.log('Congress trades error:', e);
+    // Fallback — show helpful links and instructions
     document.getElementById('congress-loading').style.display = 'none';
-    var errMsg = e.message || 'Try again shortly.';
     document.getElementById('congress-empty').innerHTML =
       '<div style="padding:30px;text-align:center;">' +
-      '<div style="font-size:32px;margin-bottom:12px;">🏛</div>' +
-      '<div style="font-size:15px;font-weight:700;margin-bottom:8px;">Could not load trades</div>' +
-      '<div style="font-size:13px;color:var(--red);margin-bottom:8px;font-family:var(--font-mono);">' + errMsg + '</div>' +
-      '<div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">If you see a rate limit error, wait 60 seconds then try again.</div>' +
-      '<a href="https://www.capitoltrades.com" target="_blank" style="color:var(--blue);font-weight:600;font-size:13px;">View on Capitol Trades ↗</a>' +
+      '<div style="font-size:40px;margin-bottom:16px;">🏛</div>' +
+      '<div style="font-size:17px;font-weight:700;margin-bottom:12px;">Congressional Trading Data</div>' +
+      '<div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.7;max-width:500px;margin-left:auto;margin-right:auto;">The best free sources for congressional trades are below. Click any to view live data — these sites update within hours of new filings.</div>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:500px;margin:0 auto 20px;">' +
+        '<a href="https://www.capitoltrades.com" target="_blank" style="display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-decoration:none;">' +
+          '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Capitol Trades</div>' +
+          '<div style="font-size:12px;color:var(--text-muted);">Best overall — clean UI, all members, searchable</div>' +
+        '</a>' +
+        '<a href="https://unusualwhales.com/politics" target="_blank" style="display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-decoration:none;">' +
+          '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Unusual Whales</div>' +
+          '<div style="font-size:12px;color:var(--text-muted);">Best for analysis — shows patterns and top performers</div>' +
+        '</a>' +
+        '<a href="https://www.quiverquant.com/congresstrading/" target="_blank" style="display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-decoration:none;">' +
+          '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Quiver Quant</div>' +
+          '<div style="font-size:12px;color:var(--text-muted);">Good charts and historical data</div>' +
+        '</a>' +
+        '<a href="https://efts.sec.gov/LATEST/search-index?q=%22Form+4%22&dateRange=custom&startdt=' + new Date(Date.now()-5*86400000).toISOString().split('T')[0] + '&enddt=' + new Date().toISOString().split('T')[0] + '" target="_blank" style="display:block;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-decoration:none;">' +
+          '<div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">SEC EDGAR</div>' +
+          '<div style="font-size:12px;color:var(--text-muted);">Primary source — official government filings</div>' +
+        '</a>' +
+      '</div>' +
+      '<div style="font-size:11px;color:var(--text-dim);font-family:var(--font-mono);">Auto-load coming soon — use links above for now</div>' +
       '</div>';
     document.getElementById('congress-empty').style.display = 'block';
+    console.log('Congress trades fallback shown:', e.message);
   }
 }
 
