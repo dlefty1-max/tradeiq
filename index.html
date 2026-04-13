@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_116.html -->
+<!-- saved from url=(0049)file:///C:/Users/dleft/Downloads/TradeIQ_117.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -809,6 +809,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 .alert-toast-title { font-size: 12px; font-weight: 700; font-family: var(--font-mono); }
 .alert-toast-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; font-family: var(--font-mono); }
 .alert-toast-close { margin-left: auto; font-size: 14px; cursor: pointer; color: var(--text-muted); flex-shrink: 0; }
+.member-btn { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 12px;font-family:var(--font-mono);font-size:11px;font-weight:600;cursor:pointer;color:var(--text);transition:all 0.15s; }
+.member-btn:hover { background:var(--blue-dim);border-color:rgba(0,48,135,0.3);color:var(--blue); }
+.member-btn.active { background:var(--blue);color:white;border-color:var(--blue); }
 
 /* ═══════════════════════════════
    UTILS
@@ -1312,37 +1315,33 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </div>
       </div>
 
-      <!-- Member selector -->
-      <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;flex-wrap:wrap;">
-        <div style="flex:1;min-width:200px;">
-          <label style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);display:block;margin-bottom:6px;">Select Member</label>
-          <select id="congress-member-select" onchange="loadMemberTrades(this.value)" style="width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;font-family:var(--font-ui);font-size:14px;color:var(--text);outline:none;-webkit-appearance:none;cursor:pointer;">
-            <option value="">-- Choose a member --</option>
-            <optgroup label="🏆 Most Profitable">
-              <option value="Nancy Pelosi">Nancy Pelosi (D-CA) — House</option>
-              <option value="Dan Crenshaw">Dan Crenshaw (R-TX) — House</option>
-              <option value="Austin Scott">Austin Scott (R-GA) — House</option>
-              <option value="Marjorie Taylor Greene">Marjorie Taylor Greene (R-GA) — House</option>
-              <option value="Josh Gottheimer">Josh Gottheimer (D-NJ) — House</option>
-              <option value="Michael McCaul">Michael McCaul (R-TX) — House</option>
-              <option value="Brian Mast">Brian Mast (R-FL) — House</option>
-              <option value="Tommy Tuberville">Tommy Tuberville (R-AL) — Senate</option>
-              <option value="Ro Khanna">Ro Khanna (D-CA) — House</option>
-              <option value="Pete Sessions">Pete Sessions (R-TX) — House</option>
-            </optgroup>
-            <optgroup label="📊 Most Active Traders">
-              <option value="Mark Green">Mark Green (R-TN) — House</option>
-              <option value="Sheldon Whitehouse">Sheldon Whitehouse (D-RI) — Senate</option>
-              <option value="David Rouzer">David Rouzer (R-NC) — House</option>
-              <option value="Virginia Foxx">Virginia Foxx (R-NC) — House</option>
-              <option value="Bill Foster">Bill Foster (D-IL) — House</option>
-              <option value="Kevin Hern">Kevin Hern (R-OK) — House</option>
-              <option value="Debbie Wasserman Schultz">Debbie Wasserman Schultz (D-FL) — House</option>
-              <option value="John Curtis">John Curtis (R-UT) — Senate</option>
-              <option value="Greg Landsman">Greg Landsman (D-OH) — House</option>
-              <option value="Patrick Fallon">Patrick Fallon (R-TX) — House</option>
-            </optgroup>
-          </select>
+      <!-- Member buttons -->
+      <div style="margin-bottom:12px;">
+        <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);margin-bottom:10px;">🏆 Most Profitable</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+          <button onclick="loadMemberTrades(&#39;Nancy Pelosi&#39;)" class="member-btn">Nancy Pelosi (D-CA)</button>
+          <button onclick="loadMemberTrades(&#39;Dan Crenshaw&#39;)" class="member-btn">Dan Crenshaw (R-TX)</button>
+          <button onclick="loadMemberTrades(&#39;Austin Scott&#39;)" class="member-btn">Austin Scott (R-GA)</button>
+          <button onclick="loadMemberTrades(&#39;Marjorie Taylor Greene&#39;)" class="member-btn">Marjorie Taylor Greene (R-GA)</button>
+          <button onclick="loadMemberTrades(&#39;Josh Gottheimer&#39;)" class="member-btn">Josh Gottheimer (D-NJ)</button>
+          <button onclick="loadMemberTrades(&#39;Michael McCaul&#39;)" class="member-btn">Michael McCaul (R-TX)</button>
+          <button onclick="loadMemberTrades(&#39;Brian Mast&#39;)" class="member-btn">Brian Mast (R-FL)</button>
+          <button onclick="loadMemberTrades(&#39;Tommy Tuberville&#39;)" class="member-btn">Tommy Tuberville (R-AL)</button>
+          <button onclick="loadMemberTrades(&#39;Ro Khanna&#39;)" class="member-btn">Ro Khanna (D-CA)</button>
+          <button onclick="loadMemberTrades(&#39;Pete Sessions&#39;)" class="member-btn">Pete Sessions (R-TX)</button>
+        </div>
+        <div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);margin-bottom:10px;">📊 Most Active</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <button onclick="loadMemberTrades(&#39;Mark Green&#39;)" class="member-btn">Mark Green (R-TN)</button>
+          <button onclick="loadMemberTrades(&#39;Sheldon Whitehouse&#39;)" class="member-btn">Sheldon Whitehouse (D-RI)</button>
+          <button onclick="loadMemberTrades(&#39;David Rouzer&#39;)" class="member-btn">David Rouzer (R-NC)</button>
+          <button onclick="loadMemberTrades(&#39;Virginia Foxx&#39;)" class="member-btn">Virginia Foxx (R-NC)</button>
+          <button onclick="loadMemberTrades(&#39;Bill Foster&#39;)" class="member-btn">Bill Foster (D-IL)</button>
+          <button onclick="loadMemberTrades(&#39;Kevin Hern&#39;)" class="member-btn">Kevin Hern (R-OK)</button>
+          <button onclick="loadMemberTrades(&#39;Debbie Wasserman Schultz&#39;)" class="member-btn">Debbie Wasserman Schultz (D-FL)</button>
+          <button onclick="loadMemberTrades(&#39;John Curtis&#39;)" class="member-btn">John Curtis (R-UT)</button>
+          <button onclick="loadMemberTrades(&#39;Greg Landsman&#39;)" class="member-btn">Greg Landsman (D-OH)</button>
+          <button onclick="loadMemberTrades(&#39;Patrick Fallon&#39;)" class="member-btn">Patrick Fallon (R-TX)</button>
         </div>
       </div>
 
