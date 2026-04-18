@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_4.html -->
+<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_5.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -937,8 +937,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot closed" id="market-dot"></div>
-      <span id="market-status-text">Closed — Weekend</span>
+      <div class="status-dot premarket" id="market-dot"></div>
+      <span id="market-status-text">After-Hours</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -949,7 +949,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49422.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.77%</div><div class="market-card-points up">+859.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7101.40</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.21%</div><div class="market-card-points up">+84.80 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$25954.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.31%</div><div class="market-card-points up">+335.20 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2757.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 2.16%</div><div class="market-card-points up">+58.30 pts</div></div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$48213.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.60%</div><div class="market-card-points up">+288.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6861.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.98%</div><div class="market-card-points up">+66.40 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24700.28</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.05%</div><div class="market-card-points up">+257.48 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2650.70</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.44%</div><div class="market-card-points up">+37.70 pts</div></div></div></div>
 
     <!-- AI CHAT FULL WIDTH BELOW MARKETS -->
     <div class="home-three-col">
@@ -1002,7 +1002,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49422.00</div><div class="market-card-change up">▲ 1.77%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7101.40</div><div class="market-card-change up">▲ 1.21%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$25954.00</div><div class="market-card-change up">▲ 1.31%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2757.80</div><div class="market-card-change up">▲ 2.16%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$48213.00</div><div class="market-card-change up">▲ 0.60%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6861.00</div><div class="market-card-change up">▲ 0.98%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24700.28</div><div class="market-card-change up">▲ 1.05%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2650.70</div><div class="market-card-change up">▲ 1.44%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -3171,15 +3171,15 @@ function renderJournal() {
     var realIndex = trades.length - 1 - i;
     var div = document.createElement('div');
     div.className = 'trade-card';
-    div.onclick = function() {
-      sendMessage2('Analyze my ' + t.dir + ' trade on ' + t.symbol + ' — entry $' + t.entry + (t.exit ? ', exit $' + t.exit : ' (open)') + '. Reason: ' + (t.reason||'none') + '.');
-      switchPage('ai');
-    };
+    div.style.cssText = 'cursor:default;';
+
     var pnlText = t.pnl !== null ? (t.pnl >= 0 ? '+$' : '-$') + Math.abs(t.pnl).toFixed(2) : 'OPEN';
     var pnlClass = t.status === 'win' ? 'green' : t.status === 'loss' ? 'red' : 'muted';
-    var totalCost = t.entry && t.size ? (t.entry * t.size).toFixed(2) : '--';
+    var totalCost = t.entry && t.size ? '$' + (t.entry * t.size).toFixed(2) : '--';
     var exitLine = t.exit ? '$' + t.exit : 'Open';
-    var perSharePnl = t.pnl !== null && t.size ? (t.pnl / t.size).toFixed(2) : '--';
+    var pctMove = t.entry && t.exit ? ((t.exit - t.entry) / t.entry * 100).toFixed(2) + '%' : '--';
+    var feedbackId = 'feedback-' + realIndex;
+
     div.innerHTML =
       '<div class="trade-card-bar ' + t.status + '"></div>' +
       '<div style="padding:14px 16px;">' +
@@ -3191,7 +3191,7 @@ function renderJournal() {
           '</div>' +
           '<div style="text-align:right;">' +
             '<div class="trade-card-pnl ' + pnlClass + '" style="font-size:18px;">' + pnlText + '</div>' +
-            '<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:' + (t.status==='win'?'var(--green)':t.status==='loss'?'var(--red)':'var(--amber)') + ';font-family:var(--font-mono);">' + t.status + '</div>' +
+            '<div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:' + (t.status==='win'?'var(--green)':t.status==='loss'?'var(--red)':'var(--amber)') + ';font-family:var(--font-mono);">' + t.status + (t.exit ? ' · ' + pctMove : '') + '</div>' +
           '</div>' +
         '</div>' +
         // Row 2: Trade details grid
@@ -3199,33 +3199,164 @@ function renderJournal() {
           '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Entry</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">$' + (t.entry||'--') + '</div></div>' +
           '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Exit</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + exitLine + '</div></div>' +
           '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Shares</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + (t.size||'--') + '</div></div>' +
-          '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Total Cost</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">$' + totalCost + '</div></div>' +
+          '<div><div style="font-size:9px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:3px;">Cost Basis</div><div style="font-size:13px;font-weight:700;font-family:var(--font-mono);">' + totalCost + '</div></div>' +
         '</div>' +
-        // Row 3: Per share P&L + date + reason
+        // Row 3: Reason + date + action buttons
         '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">' +
-          '<div style="display:flex;gap:16px;">' +
-            (t.reason ? '<div style="font-size:11px;color:var(--text-muted);"><span style="font-weight:700;color:var(--text);">Why:</span> ' + t.reason + '</div>' : '') +
+          '<div style="display:flex;gap:16px;flex:1;">' +
+            (t.reason && t.reason !== 'Imported from Fidelity' && t.reason !== 'Imported from CSV' ? '<div style="font-size:11px;color:var(--text-muted);"><span style="font-weight:700;color:var(--text);">Why:</span> ' + t.reason + '</div>' : '') +
           '</div>' +
           '<div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);">' + t.date + '</div>' +
         '</div>' +
+        // Row 4: Action buttons
+        '<div style="display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">' +
+          '<button onclick="getTradeAIFeedback(' + realIndex + ', this)" style="flex:1;background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:8px 12px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">🤖 AI Feedback</button>' +
+          '<button class="chart-jump-btn" data-sym="' + t.symbol + '" style="background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">📈 Chart</button>' +
+          '<button onclick="deleteTrade(' + realIndex + ', event)" style="background:var(--red-dim);color:var(--red);border:1px solid rgba(200,16,46,0.2);border-radius:var(--radius-sm);padding:8px 12px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">Delete</button>' +
+        '</div>' +
+        // Feedback panel (hidden by default)
+        '<div id="' + feedbackId + '" style="display:none;margin-top:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;"></div>' +
       '</div>';
-    var deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.style.cssText = 'background:var(--red-dim);color:var(--red);border:1px solid rgba(200,16,46,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;';
-    deleteBtn.onclick = (function(idx) {
-      return function(e) {
-        e.stopPropagation();
-        if (confirm('Delete this trade? Cannot be undone.')) {
-          trades.splice(idx, 1);
-          localStorage.setItem('tradeiq_trades', JSON.stringify(trades));
-          updateStats();
-          renderJournal();
-        }
-      };
-    })(realIndex);
-    div.querySelector('.trade-card-body div:last-child').appendChild(deleteBtn);
+
     list.appendChild(div);
   });
+}
+
+function deleteTrade(idx, e) {
+  e.stopPropagation();
+  if (confirm('Delete this trade? Cannot be undone.')) {
+    trades.splice(idx, 1);
+    localStorage.setItem('tradeiq_trades', JSON.stringify(trades));
+    updateStats();
+    renderJournal();
+  }
+}
+
+// Event delegation for chart-jump buttons (avoids quote-nesting issues in innerHTML)
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.chart-jump-btn');
+  if (btn && btn.dataset.sym) {
+    e.stopPropagation();
+    goToChart(btn.dataset.sym);
+  }
+});
+
+async function getTradeAIFeedback(idx, btn) {
+  var t = trades[idx];
+  if (!t) return;
+
+  var feedbackId = 'feedback-' + idx;
+  var panel = document.getElementById(feedbackId);
+  if (!panel) return;
+
+  // Toggle off if already showing feedback
+  if (panel.style.display !== 'none' && panel.dataset.loaded === '1') {
+    panel.style.display = 'none';
+    btn.textContent = '🤖 AI Feedback';
+    return;
+  }
+
+  if (!ANTHROPIC_KEY) {
+    panel.style.display = 'block';
+    panel.innerHTML = '<div style="font-size:12px;color:var(--text-muted);">Add your Anthropic API key in Settings to get AI feedback.</div>';
+    return;
+  }
+
+  // Show loading state
+  panel.style.display = 'block';
+  panel.dataset.loaded = '0';
+  btn.textContent = '⏳ Analyzing...';
+  btn.disabled = true;
+  panel.innerHTML = '<div style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono);">Analyzing trade...</div>';
+
+  var pctMove = t.entry && t.exit ? ((t.exit - t.entry) / t.entry * 100).toFixed(2) : null;
+  var pnlStr = t.pnl !== null ? (t.pnl >= 0 ? '+$' : '-$') + Math.abs(t.pnl).toFixed(2) : null;
+
+  var prompt =
+    'You are a trading coach reviewing a specific trade. Give direct, actionable feedback.
+
+' +
+    'TRADE DETAILS:
+' +
+    '- Symbol: ' + t.symbol + '
+' +
+    '- Direction: ' + (t.dir || 'long') + '
+' +
+    '- Entry: $' + t.entry + '
+' +
+    (t.exit ? '- Exit: $' + t.exit + '
+' : '- Status: Still open
+') +
+    '- Shares: ' + t.size + '
+' +
+    '- Cost basis: $' + (t.entry * t.size).toFixed(2) + '
+' +
+    (pnlStr ? '- P&L: ' + pnlStr + ' (' + pctMove + '%)
+' : '') +
+    '- Outcome: ' + t.status + '
+' +
+    (t.reason && t.reason !== 'Imported from Fidelity' && t.reason !== 'Imported from CSV' ? '- Reason for trade: ' + t.reason + '
+' : '') +
+    (t.emotion ? '- Emotional state: ' + t.emotion + '
+' : '') +
+    '- Date: ' + t.date + '
+
+' +
+    'Provide feedback in exactly this format:
+' +
+    '**What went well:** (1-2 sentences — find something positive even in a loss)
+' +
+    '**What to improve:** (1-2 sentences — be specific about entry, exit, sizing, or timing)
+' +
+    '**One thing to do differently next time:** (1 concrete actionable sentence)
+' +
+    (t.status === 'open' ? '**Watch level:** (one specific price level to watch for this open position)
+' : '') +
+    'Be direct and specific. No fluff. Use plain English.';
+
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 350,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    var data = await res.json();
+    var text = data.content && data.content[0] ? data.content[0].text : null;
+
+    if (!text) throw new Error('No response');
+
+    // Render feedback with bold markdown parsed
+    var html = text
+      .replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--text);">$1</strong>')
+      .replace(/\n/g, '<br>')
+      .split('\n').join('<br>');
+
+    var pnlColor = t.status === 'win' ? 'var(--green)' : t.status === 'loss' ? 'var(--red)' : 'var(--amber)';
+    panel.innerHTML =
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">' +
+        '<div style="font-size:10px;font-weight:700;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;color:var(--blue);">🤖 AI Coach — ' + t.symbol + '</div>' +
+        '<div style="font-size:10px;font-weight:700;font-family:var(--font-mono);color:' + pnlColor + ';margin-left:auto;">' + (pnlStr || 'OPEN') + '</div>' +
+      '</div>' +
+      '<div style="font-size:12px;color:var(--text-muted);line-height:1.7;">' + html + '</div>';
+
+    panel.dataset.loaded = '1';
+    btn.textContent = '🤖 Hide Feedback';
+    btn.disabled = false;
+
+  } catch(e) {
+    panel.innerHTML = '<div style="font-size:12px;color:var(--red);">Could not get feedback. Check your Anthropic API key in Settings.</div>';
+    btn.textContent = '🤖 AI Feedback';
+    btn.disabled = false;
+  }
 }
 function updateStats() {
   var closedT = trades.filter(function(t){return t.status!=='open';}), winsT = closedT.filter(function(t){return t.status==='win';});
