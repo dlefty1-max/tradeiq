@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_6.html -->
+<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_7.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1597,58 +1597,90 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 <!-- TRADE MODAL -->
 <!-- WELCOME / ONBOARDING MODAL -->
 <div class="modal-overlay" id="welcomeModal" style="z-index:500;">
-  <div class="modal" style="max-width:540px;padding:0;overflow:hidden;">
+  <div class="modal" style="max-width:560px;padding:0;overflow:hidden;max-height:90vh;overflow-y:auto;">
 
     <!-- Header -->
-    <div style="background:linear-gradient(160deg,#001f5c 0%,#003087 100%);padding:32px 28px 24px;color:white;">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-        <div style="width:44px;height:44px;background:rgba(255,255,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;font-family:var(--font-mono);">T</div>
+    <div style="background:linear-gradient(160deg,#001f5c 0%,#003087 100%);padding:28px 28px 22px;color:white;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div style="width:44px;height:44px;background:rgba(255,255,255,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;font-family:var(--font-mono);flex-shrink:0;">T</div>
         <div>
           <div style="font-size:22px;font-weight:700;">Welcome to TradeIQ</div>
           <div style="font-size:13px;color:rgba(255,255,255,0.65);margin-top:2px;">Your AI-powered trading companion</div>
         </div>
       </div>
-      <p style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin:0;">TradeIQ helps you learn to trade, analyze stocks with AI, track your trades, and practice with paper money — all in one place. No real money needed to get started.</p>
+      <p style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin:0;">Analyze stocks with AI, track your trades, practice with paper money, and learn to trade — all in one place. Takes about 5 minutes to set up.</p>
     </div>
 
-    <!-- Steps -->
     <div style="padding:24px 28px;">
-      <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);margin-bottom:16px;">Get started in 3 steps</div>
 
-      <!-- Step 1 -->
-      <div style="display:flex;gap:14px;margin-bottom:18px;">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dim);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--blue);font-family:var(--font-mono);flex-shrink:0;">1</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:3px;">Add your free API keys in Settings</div>
-          <div style="font-size:12px;color:var(--text-muted);line-height:1.5;">You need three free keys to unlock all features. Go to <strong>Settings ⚙</strong> in the sidebar after closing this.<br><br>
-          <span style="color:var(--blue);font-family:var(--font-mono);font-size:11px;">finnhub.io</span> — live stock prices &amp; news<br>
-          <span style="color:var(--blue);font-family:var(--font-mono);font-size:11px;">twelvedata.com</span> — charts &amp; technical indicators (RSI, MACD, Bollinger Bands)<br>
-          <span style="color:var(--blue);font-family:var(--font-mono);font-size:11px;">console.anthropic.com</span> — AI chat &amp; trade analysis</div>
+      <!-- Section: API Keys -->
+      <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);margin-bottom:14px;">Step 1 — Get your free API keys (5 min)</div>
+
+      <!-- Key 1: Finnhub -->
+      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 14px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div style="font-size:13px;font-weight:700;">📈 Finnhub — Live Stock Prices</div>
+          <a href="https://finnhub.io/register" target="_blank" style="font-size:10px;font-weight:700;color:var(--blue);font-family:var(--font-mono);text-decoration:none;background:var(--blue-dim);padding:3px 8px;border-radius:4px;">Get Free Key ↗</a>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.6;">
+          1. Click <strong>Get Free Key</strong> → create a free account<br>
+          2. Copy your API key from the dashboard<br>
+          3. Paste it in <strong>Settings ⚙ → Finnhub API Key</strong>
         </div>
       </div>
 
-      <!-- Step 2 -->
-      <div style="display:flex;gap:14px;margin-bottom:18px;">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dim);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--blue);font-family:var(--font-mono);flex-shrink:0;">2</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:3px;">Search any stock to get AI analysis</div>
-          <div style="font-size:12px;color:var(--text-muted);line-height:1.5;">Type a ticker like <strong>AAPL</strong>, <strong>TSLA</strong>, or <strong>SPY</strong> in the search bar at the top and click Analyze. You'll get a live chart, technical indicators explained in plain English, and an AI chat to ask questions.</div>
+      <!-- Key 2: Twelve Data -->
+      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 14px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div style="font-size:13px;font-weight:700;">📊 Twelve Data — Charts &amp; Indicators</div>
+          <a href="https://twelvedata.com/register" target="_blank" style="font-size:10px;font-weight:700;color:var(--blue);font-family:var(--font-mono);text-decoration:none;background:var(--blue-dim);padding:3px 8px;border-radius:4px;">Get Free Key ↗</a>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.6;">
+          1. Click <strong>Get Free Key</strong> → sign up free (no credit card)<br>
+          2. Go to your <strong>API Keys</strong> section and copy your key<br>
+          3. Paste it in <strong>Settings ⚙ → Twelve Data API Key</strong>
         </div>
       </div>
 
-      <!-- Step 3 -->
-      <div style="display:flex;gap:14px;margin-bottom:24px;">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dim);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--blue);font-family:var(--font-mono);flex-shrink:0;">3</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;margin-bottom:3px;">Practice with Paper Trading</div>
-          <div style="font-size:12px;color:var(--text-muted);line-height:1.5;">Start with <strong>$10,000 of fake money</strong> in the Paper Trading section under Learn. Set a target and stop loss, and the app will automatically close your trade when either level is hit. AI gives you coaching feedback on every trade.</div>
+      <!-- Key 3: Anthropic -->
+      <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 14px;margin-bottom:18px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <div style="font-size:13px;font-weight:700;">🤖 Anthropic — AI Chat &amp; Analysis</div>
+          <a href="https://console.anthropic.com/settings/keys" target="_blank" style="font-size:10px;font-weight:700;color:var(--blue);font-family:var(--font-mono);text-decoration:none;background:var(--blue-dim);padding:3px 8px;border-radius:4px;">Get Key ↗</a>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.6;">
+          1. Click <strong>Get Key</strong> → log in or create an account<br>
+          2. Click <strong>Create Key</strong> — copy it (starts with <span style="font-family:var(--font-mono);">sk-ant-</span>)<br>
+          3. Paste it in <strong>Settings ⚙ → Anthropic API Key</strong><br>
+          <span style="color:var(--amber);font-weight:600;">⚠ Small cost per AI chat message (~$0.001). Add a $5 credit to get started.</span>
         </div>
       </div>
 
-      <!-- Tip box -->
-      <div style="background:var(--amber-dim);border:1px solid rgba(180,83,9,0.2);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:20px;">
-        <div style="font-size:11px;font-weight:700;color:var(--amber);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">💡 Pro tip</div>
-        <div style="font-size:12px;color:var(--text-muted);line-height:1.5;">Work through the <strong>Trading Lessons</strong> under the Learn section — 9 lessons that take you from complete beginner to placing your first real trade.</div>
+      <!-- Section: What you can do -->
+      <div style="font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-family:var(--font-mono);margin-bottom:14px;">Step 2 — Start exploring</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;">
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;">
+          <div style="font-size:12px;font-weight:700;margin-bottom:3px;">📈 Analyze a stock</div>
+          <div style="font-size:11px;color:var(--text-muted);">Type any ticker (AAPL, TSLA, SPY) in the search bar and hit Analyze</div>
+        </div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;">
+          <div style="font-size:12px;font-weight:700;margin-bottom:3px;">💰 Paper Trade</div>
+          <div style="font-size:11px;color:var(--text-muted);">Practice with $10,000 of fake money — no real money needed</div>
+        </div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;">
+          <div style="font-size:12px;font-weight:700;margin-bottom:3px;">📚 Learn to trade</div>
+          <div style="font-size:11px;color:var(--text-muted);">9 lessons from complete beginner to placing your first real trade</div>
+        </div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;">
+          <div style="font-size:12px;font-weight:700;margin-bottom:3px;">🏛 Congress Trades</div>
+          <div style="font-size:11px;color:var(--text-muted);">See what stocks members of Congress are buying and selling</div>
+        </div>
+      </div>
+
+      <!-- Tip -->
+      <div style="background:var(--amber-dim);border:1px solid rgba(180,83,9,0.2);border-radius:var(--radius-sm);padding:11px 14px;margin-bottom:20px;">
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.5;">💡 <strong>Your data stays private.</strong> All your trades, watchlist, and settings are stored only on your device — nothing is sent to any server.</div>
       </div>
 
       <button onclick="closeWelcome()" style="width:100%;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">Let's Go →</button>
