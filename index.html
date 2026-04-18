@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_1.html -->
+<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_2.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2911,11 +2911,13 @@ function buildSystemPrompt() {
 async function sendMessage(text) {
   if (!text || isChatLoading) return;
   isChatLoading = true; document.getElementById('sendBtn').disabled = true;
+  // Add user bubble to DOM FIRST so it's in history for future messages
+  addBubble('user', text, 'chat-messages');
   const typingId = addTyping('chat-messages');
   try {
-    // Get existing conversation BEFORE adding new user message
+    // Read history from DOM (user bubble is already there)
     const bubbles = Array.from(document.querySelectorAll('#chat-messages .bubble-wrap[data-role]'));
-    const recent = bubbles.slice(-8);
+    const recent = bubbles.slice(-10); // grab last 10 bubbles
     const history = [];
     recent.forEach(function(b) {
       const role = b.dataset.role === 'ai' ? 'assistant' : 'user';
@@ -2923,33 +2925,32 @@ async function sendMessage(text) {
       if (!msgContent) return;
       history.push({role: role, content: msgContent});
     });
-    // Add current message
-    history.push({role: 'user', content: text});
-    // Ensure alternating — remove consecutive same roles
+    // Ensure alternating roles — merge consecutive same roles
     var clean = [];
     history.forEach(function(msg) {
       if (clean.length && clean[clean.length-1].role === msg.role) {
-        clean[clean.length-1].content += ' ' + msg.content;
+        clean[clean.length-1].content += '\n' + msg.content;
       } else {
         clean.push(msg);
       }
     });
     // Must start with user
     while (clean.length && clean[0].role !== 'user') clean.shift();
+    // Must end with user
+    while (clean.length && clean[clean.length-1].role !== 'user') clean.pop();
+    if (!clean.length) clean = [{role:'user', content: text}];
 
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:800, system:'You are TradeIQ, an AI trading coach. Help the user with stock market questions. Be concise and practical.', messages:clean})
+      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:800, system:buildSystemPrompt(), messages:clean})
     });
     const data = await res.json();
     removeTyping(typingId);
-    const responseText = data.content && data.content[0] ? data.content[0].text : (data.error ? 'Error: ' + data.error.message : 'Something went wrong.');
-    addBubble('user', text, 'chat-messages');
+    const responseText = data.content && data.content[0] ? data.content[0].text : (data.error ? 'API error: ' + data.error.message : 'Something went wrong. Try again.');
     addBubble('ai', responseText, 'chat-messages');
   } catch(e) {
     removeTyping(typingId);
-    addBubble('user', text, 'chat-messages');
     addBubble('ai', 'Connection issue. Check your Anthropic API key in Settings.', 'chat-messages');
   }
   isChatLoading = false; document.getElementById('sendBtn').disabled = false;
@@ -3395,15 +3396,42 @@ function resetChartChat(sym, name, price) {
 
 async function sendMessage2(text) {
   if (!text || isChatLoading2) return;
+  // Add user bubble FIRST so it's captured in history
   addBubble('user', text, 'chat-messages-2');
   isChatLoading2 = true; document.getElementById('sendBtn2').disabled = true;
   const typingId = addTyping('chat-messages-2');
   try {
-    const bubbles = document.querySelectorAll('#chat-messages-2 .bubble-wrap[data-role]');
-    const history = []; bubbles.forEach(b => history.push({role:b.dataset.role, content:b.dataset.content}));
-    const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:buildSystemPrompt(),messages:history}) });
-    const data = await res.json(); removeTyping(typingId); addBubble('ai', data.content?.[0]?.text || 'Something went wrong.', 'chat-messages-2');
-  } catch { removeTyping(typingId); addBubble('ai', 'Connection issue. Check your Anthropic API key in Settings.', 'chat-messages-2'); }
+    const bubbles = Array.from(document.querySelectorAll('#chat-messages-2 .bubble-wrap[data-role]'));
+    const recent = bubbles.slice(-10);
+    var history = [];
+    recent.forEach(function(b) {
+      // Map "ai" → "assistant" — the Anthropic API requires "assistant" not "ai"
+      var role = b.dataset.role === 'ai' ? 'assistant' : 'user';
+      var msgContent = (b.dataset.content || '').trim();
+      if (!msgContent) return;
+      history.push({role: role, content: msgContent});
+    });
+    // Ensure alternating roles
+    var clean = [];
+    history.forEach(function(msg) {
+      if (clean.length && clean[clean.length-1].role === msg.role) {
+        clean[clean.length-1].content += '\n' + msg.content;
+      } else {
+        clean.push(msg);
+      }
+    });
+    while (clean.length && clean[0].role !== 'user') clean.shift();
+    while (clean.length && clean[clean.length-1].role !== 'user') clean.pop();
+    if (!clean.length) clean = [{role:'user', content: text}];
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:buildSystemPrompt(),messages:clean}) });
+    const data = await res.json();
+    removeTyping(typingId);
+    const responseText = data.content?.[0]?.text || (data.error ? 'API error: ' + data.error.message : 'Something went wrong. Try again.');
+    addBubble('ai', responseText, 'chat-messages-2');
+  } catch(e) {
+    removeTyping(typingId);
+    addBubble('ai', 'Connection issue. Check your Anthropic API key in Settings.', 'chat-messages-2');
+  }
   isChatLoading2 = false; document.getElementById('sendBtn2').disabled = false;
 }
 async function sendChat() { const input=document.getElementById('chatInput'); const text=input.value.trim(); if(!text)return; input.value=''; input.style.height='auto'; await sendMessage(text); }
