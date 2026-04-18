@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_13.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TradeIQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./index_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #f0f2f5;
@@ -937,8 +936,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot closed" id="market-dot"></div>
-      <span id="market-status-text">Closed — Weekend</span>
+      <div class="status-dot premarket" id="market-dot"></div>
+      <span id="market-status-text">After-Hours</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -949,7 +948,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49422.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.77%</div><div class="market-card-points up">+859.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7101.40</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.21%</div><div class="market-card-points up">+84.80 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$25954.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.31%</div><div class="market-card-points up">+335.20 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2757.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 2.16%</div><div class="market-card-points up">+58.30 pts</div></div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$48213.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.60%</div><div class="market-card-points up">+288.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6861.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.98%</div><div class="market-card-points up">+66.40 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24700.28</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.05%</div><div class="market-card-points up">+257.48 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2650.70</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.44%</div><div class="market-card-points up">+37.70 pts</div></div></div></div>
 
     <!-- AI CHAT FULL WIDTH BELOW MARKETS -->
     <div class="home-three-col">
@@ -963,7 +962,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </div>
 
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMivgFBVV95cUxNR2I5YVh3NkNkejg1bTg0NnZOM1Vyc2I5SGlNMUEtNWV4VzNPNEhoMGJZalhVWm92Y3RBUi0tdFlQT0U5Mmk5VHdMdzRsbmRuVklmNG9UQXRyVXQyNnhKelUwVFlBSTZubmtKSlpfekZiSHBTek4tOG00OHBLUkRhenVDSG9OZUFzempUQWFSTzNqZkFvNnRWMUwxZHgybkxpWlNtc0dmaUhQVDNYOG5xc05wLVc0SmFyLW96MnRB?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">India flags 'deep concerns' over attack on two Indian ships in Strait of Hormuz - Reuters</div><div class="news-time">7h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPSnlDT0RuaDRMaTA1STVRSDU3NzJOWnQxUmJFVzl4czJFZUpJclJzNGVIclc5YThaY0xpQ0YxM1BNaHRjRVRXQnp6MEV6YlBJZ0xpOTFSSzJkdjlTTV9Ha1dwRHBsV1lZc3cyVFUyYjFMMzhDZUxPcnRWTXZoSmthdUdpYVpEWDJ3UHowNXFZRjJGZ01tN3pHMGZFVUVOZFowQWRQZlZYdVhwbG5DWDdvZXlwT19wSlN1MWg4NWtEaw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US military prepares to board Iran-linked ships in coming days, WSJ reports - Reuters</div><div class="news-time">8h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixwFBVV95cUxOODhmdWlGZjBFM3BhZXJMWExEb3ZzdnIwUzlqay1tVENHSm5LM0xGRWx3SnI3c3BZbjNCb3NfSHNaNWhER0tQckF5YWlWdWprU1FGQUQxVnJrcEdMeVowNm5zcDlRQ0tYLUp0ODBpV3ZjSS1RWnM1T3VUWHFQQlB3cEpLUkM3RGdWdjdTdTBwb0lmak1hQmhINHV3aDhiWm5wZkUxWlpRREtPTEN4bXItUXZCRUVUa2p6T3A5RlEzNTJydHRFNW00?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Two Indian-flagged ships attacked while crossing Strait of Hormuz, government confirms - Reuters</div><div class="news-time">8h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/18/iran-war-gas-prices-consumer-spending-economy.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108291972-1776276274360-gettyimages-1243905926-PGCURFEW.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Iran war, $4 gas prices, took all the fun right out of the U.S. consumer economy</div><div class="news-time">9h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/18/child-psychologist-how-parents-can-help-kids-manage-anxiety.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/105843799-1554907883822studentstakingtest.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">Child psychologist: This common issue can hurt kids' future success, happiness—they won't just 'grow out of it'</div><div class="news-time">10h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/18/how-to-have-the-right-standards-when-youre-dating.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108293187-1776438118065-gettyimages-2262586560-dsc00067copy.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">How to tell if your dating standards are too high—or too low: Harvard-trained psychologist</div><div class="news-time">10h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><div style="padding:20px;text-align:center;color:var(--text-muted);font-size:13px;">Loading news...</div></div>
   </div>
 
   <!-- MARKETS -->
@@ -971,7 +970,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49422.00</div><div class="market-card-change up">▲ 1.77%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7101.40</div><div class="market-card-change up">▲ 1.21%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$25954.00</div><div class="market-card-change up">▲ 1.31%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2757.80</div><div class="market-card-change up">▲ 2.16%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$48213.00</div><div class="market-card-change up">▲ 0.60%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6861.00</div><div class="market-card-change up">▲ 0.98%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24700.28</div><div class="market-card-change up">▲ 1.05%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2650.70</div><div class="market-card-change up">▲ 1.44%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -992,7 +991,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <div class="chart-detail" id="r-detail"></div>
             </div>
             <div id="chart-body">
-              <iframe id="tv-chart" class="chart-embed" src="./index_files/saved_resource.html" frameborder="0" style="height:400px;"></iframe>
+              <iframe id="tv-chart" class="chart-embed" src="about:blank" frameborder="0" style="height:400px;"></iframe>
 
               <div class="chart-actions">
                 <button class="chart-action-btn" onclick="logResultTrade()">📝 Log Trade</button>
@@ -1674,8 +1673,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div style="padding:0 24px 8px;">
       <!-- Format tabs -->
       <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:20px;">
-        <button id="imp-tab-fidelity" onclick="setImportTab(&#39;fidelity&#39;)" style="flex:1;padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--blue);color:white;text-transform:uppercase;letter-spacing:1px;">Fidelity</button>
-        <button id="imp-tab-generic" onclick="setImportTab(&#39;generic&#39;)" style="flex:1;padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--surface);color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Generic CSV</button>
+        <button id="imp-tab-fidelity" onclick="setImportTab('fidelity')" style="flex:1;padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--blue);color:white;text-transform:uppercase;letter-spacing:1px;">Fidelity</button>
+        <button id="imp-tab-generic" onclick="setImportTab('generic')" style="flex:1;padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--surface);color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Generic CSV</button>
       </div>
 
       <!-- Fidelity instructions -->
@@ -1701,7 +1700,11 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
       </div>
 
       <!-- File drop zone -->
-      <div id="imp-dropzone" onclick="document.getElementById(&#39;imp-file-input&#39;).click()" style="border:2px dashed var(--border);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:border-color 0.2s;margin-bottom:16px;" ondragover="event.preventDefault();this.style.borderColor=&#39;var(--blue)&#39;" ondragleave="this.style.borderColor=&#39;var(--border)&#39;" ondrop="handleImportDrop(event)">
+      <div id="imp-dropzone" onclick="document.getElementById('imp-file-input').click()"
+        style="border:2px dashed var(--border);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:border-color 0.2s;margin-bottom:16px;"
+        ondragover="event.preventDefault();this.style.borderColor='var(--blue)'"
+        ondragleave="this.style.borderColor='var(--border)'"
+        ondrop="handleImportDrop(event)">
         <div style="font-size:28px;margin-bottom:8px;">📂</div>
         <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Drop your CSV file here</div>
         <div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);">or click to browse</div>
@@ -5341,4 +5344,4 @@ setInterval(fetchAllPrices, 5*60*1000);
 </script>
 
 
-</div></div></body></html>
+</body></html>
