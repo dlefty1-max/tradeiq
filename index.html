@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_5.html -->
+<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_6.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -937,8 +937,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot premarket" id="market-dot"></div>
-      <span id="market-status-text">After-Hours</span>
+      <div class="status-dot closed" id="market-dot"></div>
+      <span id="market-status-text">Closed — Weekend</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -949,7 +949,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$48213.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.60%</div><div class="market-card-points up">+288.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$6861.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.98%</div><div class="market-card-points up">+66.40 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$24700.28</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.05%</div><div class="market-card-points up">+257.48 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2650.70</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.44%</div><div class="market-card-points up">+37.70 pts</div></div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49422.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.77%</div><div class="market-card-points up">+859.00 pts</div></div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7101.40</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.21%</div><div class="market-card-points up">+84.80 pts</div></div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$25954.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.31%</div><div class="market-card-points up">+335.20 pts</div></div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2757.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 2.16%</div><div class="market-card-points up">+58.30 pts</div></div></div></div>
 
     <!-- AI CHAT FULL WIDTH BELOW MARKETS -->
     <div class="home-three-col">
@@ -1002,7 +1002,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$48213.00</div><div class="market-card-change up">▲ 0.60%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$6861.00</div><div class="market-card-change up">▲ 0.98%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$24700.28</div><div class="market-card-change up">▲ 1.05%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2650.70</div><div class="market-card-change up">▲ 1.44%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49422.00</div><div class="market-card-change up">▲ 1.77%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7101.40</div><div class="market-card-change up">▲ 1.21%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$25954.00</div><div class="market-card-change up">▲ 1.31%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2757.80</div><div class="market-card-change up">▲ 2.16%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -3272,46 +3272,24 @@ async function getTradeAIFeedback(idx, btn) {
   var pctMove = t.entry && t.exit ? ((t.exit - t.entry) / t.entry * 100).toFixed(2) : null;
   var pnlStr = t.pnl !== null ? (t.pnl >= 0 ? '+$' : '-$') + Math.abs(t.pnl).toFixed(2) : null;
 
-  var prompt =
-    'You are a trading coach reviewing a specific trade. Give direct, actionable feedback.
-
-' +
-    'TRADE DETAILS:
-' +
-    '- Symbol: ' + t.symbol + '
-' +
-    '- Direction: ' + (t.dir || 'long') + '
-' +
-    '- Entry: $' + t.entry + '
-' +
-    (t.exit ? '- Exit: $' + t.exit + '
-' : '- Status: Still open
-') +
-    '- Shares: ' + t.size + '
-' +
-    '- Cost basis: $' + (t.entry * t.size).toFixed(2) + '
-' +
-    (pnlStr ? '- P&L: ' + pnlStr + ' (' + pctMove + '%)
-' : '') +
-    '- Outcome: ' + t.status + '
-' +
-    (t.reason && t.reason !== 'Imported from Fidelity' && t.reason !== 'Imported from CSV' ? '- Reason for trade: ' + t.reason + '
-' : '') +
-    (t.emotion ? '- Emotional state: ' + t.emotion + '
-' : '') +
-    '- Date: ' + t.date + '
-
-' +
-    'Provide feedback in exactly this format:
-' +
-    '**What went well:** (1-2 sentences — find something positive even in a loss)
-' +
-    '**What to improve:** (1-2 sentences — be specific about entry, exit, sizing, or timing)
-' +
-    '**One thing to do differently next time:** (1 concrete actionable sentence)
-' +
-    (t.status === 'open' ? '**Watch level:** (one specific price level to watch for this open position)
-' : '') +
+  var prompt = 'You are a trading coach reviewing a specific trade. Give direct, actionable feedback.\n\n' +
+    'TRADE DETAILS:\n' +
+    '- Symbol: ' + t.symbol + '\n' +
+    '- Direction: ' + (t.dir || 'long') + '\n' +
+    '- Entry: $' + t.entry + '\n' +
+    (t.exit ? '- Exit: $' + t.exit + '\n' : '- Status: Still open\n') +
+    '- Shares: ' + t.size + '\n' +
+    '- Cost basis: $' + (t.entry * t.size).toFixed(2) + '\n' +
+    (pnlStr ? '- P&L: ' + pnlStr + ' (' + pctMove + '%)\n' : '') +
+    '- Outcome: ' + t.status + '\n' +
+    (t.reason && t.reason !== 'Imported from Fidelity' && t.reason !== 'Imported from CSV' ? '- Reason for trade: ' + t.reason + '\n' : '') +
+    (t.emotion ? '- Emotional state: ' + t.emotion + '\n' : '') +
+    '- Date: ' + t.date + '\n\n' +
+    'Provide feedback in exactly this format:\n' +
+    '**What went well:** (1-2 sentences)\n' +
+    '**What to improve:** (1-2 sentences — be specific about entry, exit, sizing, or timing)\n' +
+    '**One thing to do differently next time:** (1 concrete actionable sentence)\n' +
+    (t.status === 'open' ? '**Watch level:** (one specific price level to watch)\n' : '') +
     'Be direct and specific. No fluff. Use plain English.';
 
   try {
