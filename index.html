@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_2.html -->
+<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_3.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1240,7 +1240,10 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
       <div class="stat-card"><div class="stat-card-label">Trades</div><div class="stat-card-value" id="j-trades">0</div></div>
       <div class="stat-card"><div class="stat-card-label">Open</div><div class="stat-card-value" style="color:var(--amber)" id="j-open">0</div></div>
     </div>
-    <button class="log-btn" onclick="openTradeModal()">+ Log New Trade</button>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:4px;">
+      <button class="log-btn" onclick="openTradeModal()">+ Log New Trade</button>
+      <button onclick="openImportModal()" style="background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 18px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">↑ Import CSV</button>
+    </div>
     <div id="journal-list"><div class="empty-state"><p>No trades yet. Log your first trade to start tracking.</p></div></div>
   </div>
 
@@ -1654,6 +1657,68 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
           <input type="checkbox" id="welcome-dont-show" style="cursor:pointer;">
           Don't show this again
         </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CSV IMPORT MODAL -->
+<div class="modal-overlay" id="importModal">
+  <div class="modal" style="max-width:560px;">
+    <div class="modal-header">
+      <h3>Import Trades from CSV</h3>
+      <div class="modal-close" onclick="closeImportModal()">✕</div>
+    </div>
+
+    <div style="padding:0 24px 8px;">
+      <!-- Format tabs -->
+      <div style="display:flex;gap:0;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:20px;">
+        <button id="imp-tab-fidelity" onclick="setImportTab(&#39;fidelity&#39;)" style="flex:1;padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--blue);color:white;text-transform:uppercase;letter-spacing:1px;">Fidelity</button>
+        <button id="imp-tab-generic" onclick="setImportTab(&#39;generic&#39;)" style="flex:1;padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;border:none;background:var(--surface);color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Generic CSV</button>
+      </div>
+
+      <!-- Fidelity instructions -->
+      <div id="imp-instructions-fidelity">
+        <div style="background:var(--blue-dim);border:1px solid rgba(0,48,135,0.15);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;font-size:12px;color:var(--text-muted);line-height:1.7;">
+          <div style="font-weight:700;color:var(--blue);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">How to export from Fidelity</div>
+          1. Log in at <strong>fidelity.com</strong><br>
+          2. Go to <strong>Accounts &amp; Trade → History</strong><br>
+          3. Set your date range and click <strong>Download</strong><br>
+          4. Choose <strong>CSV</strong> format<br>
+          5. Upload the file below
+        </div>
+      </div>
+
+      <!-- Generic instructions -->
+      <div id="imp-instructions-generic" style="display:none;">
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;font-size:12px;color:var(--text-muted);line-height:1.7;">
+          <div style="font-weight:700;color:var(--text);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Required CSV columns</div>
+          Your CSV must have these column headers (case-insensitive):<br><br>
+          <span style="font-family:var(--font-mono);color:var(--blue);">Symbol, Action, Quantity, Price, Date</span><br><br>
+          <strong>Action</strong> should be <em>Buy</em> or <em>Sell</em>. Matching Buy+Sell pairs for the same ticker will be auto-paired as a round-trip trade.
+        </div>
+      </div>
+
+      <!-- File drop zone -->
+      <div id="imp-dropzone" onclick="document.getElementById(&#39;imp-file-input&#39;).click()" style="border:2px dashed var(--border);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:border-color 0.2s;margin-bottom:16px;" ondragover="event.preventDefault();this.style.borderColor=&#39;var(--blue)&#39;" ondragleave="this.style.borderColor=&#39;var(--border)&#39;" ondrop="handleImportDrop(event)">
+        <div style="font-size:28px;margin-bottom:8px;">📂</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Drop your CSV file here</div>
+        <div style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);">or click to browse</div>
+        <input type="file" id="imp-file-input" accept=".csv" style="display:none;" onchange="handleImportFile(this.files[0])">
+      </div>
+
+      <!-- Preview area -->
+      <div id="imp-preview" style="display:none;margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;" id="imp-preview-label"></div>
+        <div id="imp-preview-list" style="max-height:220px;overflow-y:auto;border:1px solid var(--border);border-radius:var(--radius-sm);"></div>
+      </div>
+
+      <!-- Error area -->
+      <div id="imp-error" style="display:none;background:var(--red-dim);border:1px solid rgba(220,38,38,0.2);border-radius:var(--radius-sm);padding:12px;font-size:12px;color:var(--red);margin-bottom:16px;"></div>
+
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeImportModal()" style="flex:1;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">Cancel</button>
+        <button id="imp-confirm-btn" onclick="confirmImport()" style="flex:2;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:12px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;display:none;">Import Trades →</button>
       </div>
     </div>
   </div>
@@ -2766,6 +2831,279 @@ function updateTradeCostEstimate() {
   document.getElementById('tce-risk').textContent = riskShares + ' shares';
 }
 function setDir(dir) { tradeDir = dir; document.getElementById('seg-long').classList.toggle('active', dir === 'long'); document.getElementById('seg-short').classList.toggle('active', dir === 'short'); }
+
+// ── CSV IMPORT ────────────────────────────────────────────────────────────────
+var importTab = 'fidelity';
+var importParsedTrades = [];
+
+function openImportModal() {
+  importParsedTrades = [];
+  document.getElementById('imp-preview').style.display = 'none';
+  document.getElementById('imp-error').style.display = 'none';
+  document.getElementById('imp-confirm-btn').style.display = 'none';
+  document.getElementById('imp-file-input').value = '';
+  document.getElementById('importModal').classList.add('open');
+}
+function closeImportModal() {
+  document.getElementById('importModal').classList.remove('open');
+}
+function setImportTab(tab) {
+  importTab = tab;
+  var tabs = ['fidelity','generic'];
+  tabs.forEach(function(t) {
+    var btn = document.getElementById('imp-tab-' + t);
+    var inst = document.getElementById('imp-instructions-' + t);
+    if (t === tab) {
+      btn.style.background = 'var(--blue)'; btn.style.color = 'white';
+      inst.style.display = 'block';
+    } else {
+      btn.style.background = 'var(--surface)'; btn.style.color = 'var(--text-muted)';
+      inst.style.display = 'none';
+    }
+  });
+  // Reset preview
+  importParsedTrades = [];
+  document.getElementById('imp-preview').style.display = 'none';
+  document.getElementById('imp-error').style.display = 'none';
+  document.getElementById('imp-confirm-btn').style.display = 'none';
+  document.getElementById('imp-file-input').value = '';
+}
+function handleImportDrop(e) {
+  e.preventDefault();
+  document.getElementById('imp-dropzone').style.borderColor = 'var(--border)';
+  var file = e.dataTransfer.files[0];
+  if (file) handleImportFile(file);
+}
+function handleImportFile(file) {
+  if (!file || !file.name.endsWith('.csv')) {
+    showImportError('Please upload a .csv file.');
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var text = e.target.result;
+    if (importTab === 'fidelity') {
+      parseFidelityCSV(text);
+    } else {
+      parseGenericCSV(text);
+    }
+  };
+  reader.readAsText(file);
+}
+function showImportError(msg) {
+  var el = document.getElementById('imp-error');
+  el.textContent = '⚠ ' + msg;
+  el.style.display = 'block';
+  document.getElementById('imp-preview').style.display = 'none';
+  document.getElementById('imp-confirm-btn').style.display = 'none';
+  importParsedTrades = [];
+}
+
+// ── Fidelity CSV parser ───────────────────────────────────────────────────────
+// Fidelity history CSV columns:
+// Run Date, Account, Action, Symbol, Description, Type, Quantity, Price, Commission, Amount, Settlement Date
+function parseFidelityCSV(text) {
+  document.getElementById('imp-error').style.display = 'none';
+  var lines = text.split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
+
+  // Find the header row
+  var headerIdx = -1;
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].toLowerCase().includes('run date') || lines[i].toLowerCase().includes('symbol') && lines[i].toLowerCase().includes('quantity')) {
+      headerIdx = i; break;
+    }
+  }
+  if (headerIdx === -1) {
+    showImportError('Could not find trade data in this file. Make sure you exported from Fidelity History as CSV.');
+    return;
+  }
+
+  var headers = parseCSVLine(lines[headerIdx]).map(function(h) { return h.toLowerCase().trim().replace(/[^a-z ]/g,''); });
+  var get = function(row, name) {
+    var idx = headers.findIndex(function(h) { return h.includes(name); });
+    return idx >= 0 ? (row[idx]||'').trim().replace(/^"|"$/g,'') : '';
+  };
+
+  // Collect all buy/sell rows
+  var buys = {}, sells = {};
+  for (var j = headerIdx + 1; j < lines.length; j++) {
+    var row = parseCSVLine(lines[j]);
+    if (row.length < 4) continue;
+    var action = get(row, 'action').toUpperCase();
+    var symbol = get(row, 'symbol').replace(/[^A-Z]/g,'');
+    var qty = parseFloat(get(row, 'quantity').replace(/,/g,''));
+    var price = parseFloat(get(row, 'price').replace(/[$,]/g,''));
+    var dateRaw = get(row, 'run date') || get(row, 'date');
+    var date = dateRaw ? new Date(dateRaw).toLocaleDateString() : new Date().toLocaleDateString();
+
+    if (!symbol || isNaN(qty) || isNaN(price) || qty === 0) continue;
+    var isBuy = action.includes('BUY') || action.includes('PURCHASE') || action.includes('REINVEST');
+    var isSell = action.includes('SELL');
+    if (!isBuy && !isSell) continue;
+
+    if (isBuy) {
+      if (!buys[symbol]) buys[symbol] = [];
+      buys[symbol].push({ price: price, qty: Math.abs(qty), date: date });
+    } else {
+      if (!sells[symbol]) sells[symbol] = [];
+      sells[symbol].push({ price: price, qty: Math.abs(qty), date: date });
+    }
+  }
+
+  // Pair buys with sells — FIFO
+  var paired = [];
+  Object.keys(buys).forEach(function(sym) {
+    var buyList = buys[sym].slice();
+    var sellList = (sells[sym] || []).slice();
+    buyList.forEach(function(b) {
+      if (sellList.length) {
+        var s = sellList.shift();
+        var pnl = (s.price - b.price) * b.qty;
+        paired.push({ symbol: sym, entry: b.price, exit: s.price, size: b.qty, dir: 'long',
+          pnl: parseFloat(pnl.toFixed(2)), status: pnl >= 0 ? 'win' : 'loss', date: b.date,
+          reason: 'Imported from Fidelity', emotion: '' });
+      } else {
+        // Open position — no exit yet
+        paired.push({ symbol: sym, entry: b.price, exit: null, size: b.qty, dir: 'long',
+          pnl: null, status: 'open', date: b.date, reason: 'Imported from Fidelity', emotion: '' });
+      }
+    });
+  });
+
+  if (!paired.length) {
+    showImportError('No buy/sell trades found in this file. Make sure the export includes trade history (not just account summary).');
+    return;
+  }
+
+  importParsedTrades = paired;
+  showImportPreview(paired, 'Fidelity');
+}
+
+// ── Generic CSV parser ────────────────────────────────────────────────────────
+// Expected: Symbol, Action (Buy/Sell), Quantity, Price, Date
+function parseGenericCSV(text) {
+  document.getElementById('imp-error').style.display = 'none';
+  var lines = text.split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
+  if (lines.length < 2) { showImportError('CSV appears to be empty.'); return; }
+
+  var headers = parseCSVLine(lines[0]).map(function(h) { return h.toLowerCase().trim().replace(/[^a-z]/g,''); });
+  var get = function(row, name) {
+    var idx = headers.findIndex(function(h) { return h.includes(name); });
+    return idx >= 0 ? (row[idx]||'').trim().replace(/^"|"$/g,'') : '';
+  };
+
+  var buys = {}, sells = {};
+  for (var j = 1; j < lines.length; j++) {
+    var row = parseCSVLine(lines[j]);
+    var symbol = (get(row,'symbol') || get(row,'ticker')).replace(/[^A-Z]/gi,'').toUpperCase();
+    var action = (get(row,'action') || get(row,'type') || get(row,'side')).toUpperCase();
+    var qty = parseFloat((get(row,'quantity') || get(row,'qty') || get(row,'shares')).replace(/,/g,''));
+    var price = parseFloat((get(row,'price')).replace(/[$,]/g,''));
+    var dateRaw = get(row,'date');
+    var date = dateRaw ? new Date(dateRaw).toLocaleDateString() : new Date().toLocaleDateString();
+    if (!symbol || isNaN(qty) || isNaN(price)) continue;
+    var isBuy = action.includes('BUY');
+    var isSell = action.includes('SELL');
+    if (!isBuy && !isSell) continue;
+    if (isBuy) { if (!buys[symbol]) buys[symbol] = []; buys[symbol].push({price,qty:Math.abs(qty),date}); }
+    else { if (!sells[symbol]) sells[symbol] = []; sells[symbol].push({price,qty:Math.abs(qty),date}); }
+  }
+
+  var paired = [];
+  Object.keys(buys).forEach(function(sym) {
+    var buyList = buys[sym].slice();
+    var sellList = (sells[sym]||[]).slice();
+    buyList.forEach(function(b) {
+      if (sellList.length) {
+        var s = sellList.shift();
+        var pnl = (s.price - b.price) * b.qty;
+        paired.push({symbol:sym, entry:b.price, exit:s.price, size:b.qty, dir:'long',
+          pnl:parseFloat(pnl.toFixed(2)), status:pnl>=0?'win':'loss', date:b.date,
+          reason:'Imported from CSV', emotion:''});
+      } else {
+        paired.push({symbol:sym, entry:b.price, exit:null, size:b.qty, dir:'long',
+          pnl:null, status:'open', date:b.date, reason:'Imported from CSV', emotion:''});
+      }
+    });
+  });
+
+  if (!paired.length) { showImportError('No matching Buy/Sell rows found. Check your column headers.'); return; }
+  importParsedTrades = paired;
+  showImportPreview(paired, 'CSV');
+}
+
+// ── Preview ───────────────────────────────────────────────────────────────────
+function showImportPreview(parsed, source) {
+  var label = document.getElementById('imp-preview-label');
+  var list = document.getElementById('imp-preview-list');
+  var existing = trades.map(function(t) { return t.symbol + '_' + t.entry + '_' + t.date; });
+
+  var newOnes = parsed.filter(function(t) {
+    return !existing.includes(t.symbol + '_' + t.entry + '_' + t.date);
+  });
+  var dupes = parsed.length - newOnes.length;
+
+  label.textContent = newOnes.length + ' new trade' + (newOnes.length !== 1 ? 's' : '') + ' found from ' + source +
+    (dupes ? ' (' + dupes + ' duplicate' + (dupes !== 1 ? 's' : '') + ' skipped)' : '');
+
+  list.innerHTML = '';
+  if (!newOnes.length) {
+    list.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text-muted);font-size:12px;">All trades already exist in your journal.</div>';
+    document.getElementById('imp-confirm-btn').style.display = 'none';
+  } else {
+    newOnes.slice(0, 20).forEach(function(t) {
+      var pnlText = t.pnl !== null ? (t.pnl >= 0 ? '+$' : '-$') + Math.abs(t.pnl).toFixed(2) : 'OPEN';
+      var pnlColor = t.status === 'win' ? 'var(--green)' : t.status === 'loss' ? 'var(--red)' : 'var(--amber)';
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid var(--border);font-size:12px;';
+      row.innerHTML =
+        '<div style="font-family:var(--font-mono);font-weight:700;min-width:52px;">' + t.symbol + '</div>' +
+        '<div style="color:var(--text-muted);min-width:80px;">$' + t.entry.toFixed(2) + (t.exit ? ' → $' + t.exit.toFixed(2) : ' (open)') + '</div>' +
+        '<div style="color:var(--text-muted);min-width:60px;">' + t.size + ' sh</div>' +
+        '<div style="font-weight:700;color:' + pnlColor + ';margin-left:auto;">' + pnlText + '</div>' +
+        '<div style="color:var(--text-muted);font-size:10px;min-width:80px;text-align:right;">' + t.date + '</div>';
+      list.appendChild(row);
+    });
+    if (newOnes.length > 20) {
+      var more = document.createElement('div');
+      more.style.cssText = 'padding:10px;text-align:center;color:var(--text-muted);font-size:11px;font-family:var(--font-mono);';
+      more.textContent = '+ ' + (newOnes.length - 20) + ' more trades...';
+      list.appendChild(more);
+    }
+    importParsedTrades = newOnes; // only import the non-dupes
+    document.getElementById('imp-confirm-btn').style.display = 'block';
+    document.getElementById('imp-confirm-btn').textContent = 'Import ' + newOnes.length + ' Trade' + (newOnes.length !== 1 ? 's' : '') + ' →';
+  }
+  document.getElementById('imp-preview').style.display = 'block';
+}
+
+function confirmImport() {
+  if (!importParsedTrades.length) return;
+  importParsedTrades.forEach(function(t) { trades.push(t); });
+  localStorage.setItem('tradeiq_trades', JSON.stringify(trades));
+  closeImportModal();
+  updateStats();
+  renderJournal();
+  switchPage('journal');
+  setTimeout(function() {
+    alert('✓ ' + importParsedTrades.length + ' trade' + (importParsedTrades.length !== 1 ? 's' : '') + ' imported successfully!');
+  }, 200);
+}
+
+// ── CSV line parser (handles quoted fields with commas) ───────────────────────
+function parseCSVLine(line) {
+  var result = [], cur = '', inQuote = false;
+  for (var i = 0; i < line.length; i++) {
+    var c = line[i];
+    if (c === '"') { inQuote = !inQuote; }
+    else if (c === ',' && !inQuote) { result.push(cur); cur = ''; }
+    else { cur += c; }
+  }
+  result.push(cur);
+  return result;
+}
+// ── END CSV IMPORT ────────────────────────────────────────────────────────────
+
 function saveTrade() {
   var symbol = document.getElementById('t-symbol').value.trim().toUpperCase();
   var entry = parseFloat(document.getElementById('t-entry').value);
