@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_3.html -->
+<!-- saved from url=(0045)file:///C:/Users/dleft/Downloads/index_4.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2900,78 +2900,109 @@ function showImportError(msg) {
 }
 
 // ── Fidelity CSV parser ───────────────────────────────────────────────────────
-// Fidelity history CSV columns:
-// Run Date, Account, Action, Symbol, Description, Type, Quantity, Price, Commission, Amount, Settlement Date
+// Fidelity Accounts_History CSV columns:
+// Run Date, Account, Account Number, Action, Symbol, Description, Type,
+// Exchange Quantity, Exchange Currency, Currency, Price, Quantity, Exchange Rate,
+// Commission, Fees, Accrued Interest, Amount, Settlement Date
+// Buys: Action contains "YOU BOUGHT", Quantity > 0
+// Sells: Action contains "YOU SOLD",  Quantity < 0
 function parseFidelityCSV(text) {
   document.getElementById('imp-error').style.display = 'none';
-  var lines = text.split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
 
-  // Find the header row
+  // Strip BOM and blank lines
+  var lines = text.replace(/^\uFEFF/, '').split('\n')
+    .map(function(l) { return l.trim(); }).filter(Boolean);
+
+  // Find header row — look for "Run Date"
   var headerIdx = -1;
   for (var i = 0; i < lines.length; i++) {
-    if (lines[i].toLowerCase().includes('run date') || lines[i].toLowerCase().includes('symbol') && lines[i].toLowerCase().includes('quantity')) {
-      headerIdx = i; break;
-    }
+    if (lines[i].toLowerCase().includes('run date')) { headerIdx = i; break; }
   }
   if (headerIdx === -1) {
-    showImportError('Could not find trade data in this file. Make sure you exported from Fidelity History as CSV.');
+    showImportError('Could not find the header row. Make sure this is a Fidelity Accounts History CSV.');
     return;
   }
 
-  var headers = parseCSVLine(lines[headerIdx]).map(function(h) { return h.toLowerCase().trim().replace(/[^a-z ]/g,''); });
-  var get = function(row, name) {
-    var idx = headers.findIndex(function(h) { return h.includes(name); });
-    return idx >= 0 ? (row[idx]||'').trim().replace(/^"|"$/g,'') : '';
+  var headers = parseCSVLine(lines[headerIdx]).map(function(h) {
+    return h.toLowerCase().trim().replace(/^"|"$/g, '');
+  });
+
+  var colIdx = function(name) {
+    // Exact match first to avoid 'exchange quantity' matching 'quantity'
+    var exact = headers.findIndex(function(h) { return h === name; });
+    if (exact >= 0) return exact;
+    // Fallback to startsWith
+    return headers.findIndex(function(h) { return h.startsWith(name); });
   };
 
-  // Collect all buy/sell rows
+  var iDate     = colIdx('run date');
+  var iAction   = colIdx('action');
+  var iSymbol   = colIdx('symbol');
+  var iPrice    = colIdx('price');
+  var iQty      = colIdx('quantity');
+
   var buys = {}, sells = {};
+
   for (var j = headerIdx + 1; j < lines.length; j++) {
     var row = parseCSVLine(lines[j]);
-    if (row.length < 4) continue;
-    var action = get(row, 'action').toUpperCase();
-    var symbol = get(row, 'symbol').replace(/[^A-Z]/g,'');
-    var qty = parseFloat(get(row, 'quantity').replace(/,/g,''));
-    var price = parseFloat(get(row, 'price').replace(/[$,]/g,''));
-    var dateRaw = get(row, 'run date') || get(row, 'date');
-    var date = dateRaw ? new Date(dateRaw).toLocaleDateString() : new Date().toLocaleDateString();
+    if (row.length < 5) continue;
 
-    if (!symbol || isNaN(qty) || isNaN(price) || qty === 0) continue;
-    var isBuy = action.includes('BUY') || action.includes('PURCHASE') || action.includes('REINVEST');
-    var isSell = action.includes('SELL');
+    var action  = (row[iAction]  || '').replace(/^"|"$/g,'').toUpperCase();
+    var symbol  = (row[iSymbol]  || '').replace(/^"|"$/g,'').trim().replace(/[^A-Z0-9]/gi,'').toUpperCase();
+    var priceRaw = (row[iPrice]  || '').replace(/^"|"$/g,'').replace(/[$,]/g,'');
+    var qtyRaw   = (row[iQty]    || '').replace(/^"|"$/g,'').replace(/,/g,'');
+    var dateRaw  = (row[iDate]   || '').replace(/^"|"$/g,'').trim();
+
+    var price = parseFloat(priceRaw);
+    var qty   = parseFloat(qtyRaw);
+    var date  = dateRaw ? new Date(dateRaw).toLocaleDateString() : new Date().toLocaleDateString();
+
+    if (!symbol || isNaN(price) || price <= 0 || isNaN(qty) || qty === 0) continue;
+
+    // Fidelity uses "YOU BOUGHT" and "YOU SOLD" in the Action field
+    var isBuy  = action.includes('YOU BOUGHT') || action.includes('PURCHASED') || action.includes('REINVESTMENT');
+    var isSell = action.includes('YOU SOLD');
     if (!isBuy && !isSell) continue;
+
+    // Sells have negative quantity — use absolute value
+    var absQty = Math.abs(qty);
 
     if (isBuy) {
       if (!buys[symbol]) buys[symbol] = [];
-      buys[symbol].push({ price: price, qty: Math.abs(qty), date: date });
+      buys[symbol].push({ price: price, qty: absQty, date: date });
     } else {
       if (!sells[symbol]) sells[symbol] = [];
-      sells[symbol].push({ price: price, qty: Math.abs(qty), date: date });
+      sells[symbol].push({ price: price, qty: absQty, date: date });
     }
   }
 
-  // Pair buys with sells — FIFO
+  // Pair buys with sells FIFO per symbol
   var paired = [];
   Object.keys(buys).forEach(function(sym) {
-    var buyList = buys[sym].slice();
+    var buyList  = buys[sym].slice();
     var sellList = (sells[sym] || []).slice();
     buyList.forEach(function(b) {
       if (sellList.length) {
         var s = sellList.shift();
-        var pnl = (s.price - b.price) * b.qty;
-        paired.push({ symbol: sym, entry: b.price, exit: s.price, size: b.qty, dir: 'long',
-          pnl: parseFloat(pnl.toFixed(2)), status: pnl >= 0 ? 'win' : 'loss', date: b.date,
-          reason: 'Imported from Fidelity', emotion: '' });
+        var pnl = parseFloat(((s.price - b.price) * b.qty).toFixed(2));
+        paired.push({
+          symbol: sym, entry: b.price, exit: s.price, size: b.qty, dir: 'long',
+          pnl: pnl, status: pnl >= 0 ? 'win' : 'loss',
+          date: b.date, reason: 'Imported from Fidelity', emotion: ''
+        });
       } else {
-        // Open position — no exit yet
-        paired.push({ symbol: sym, entry: b.price, exit: null, size: b.qty, dir: 'long',
-          pnl: null, status: 'open', date: b.date, reason: 'Imported from Fidelity', emotion: '' });
+        // Open position — no matching sell yet
+        paired.push({
+          symbol: sym, entry: b.price, exit: null, size: b.qty, dir: 'long',
+          pnl: null, status: 'open',
+          date: b.date, reason: 'Imported from Fidelity', emotion: ''
+        });
       }
     });
   });
 
   if (!paired.length) {
-    showImportError('No buy/sell trades found in this file. Make sure the export includes trade history (not just account summary).');
+    showImportError('No buy/sell trades found. This file has ' + (Object.keys(buys).length + Object.keys(sells).length) + ' symbols but no matching YOU BOUGHT/YOU SOLD pairs. Try downloading a longer date range.');
     return;
   }
 
