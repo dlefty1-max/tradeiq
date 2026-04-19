@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_28.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_29.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -5496,76 +5496,67 @@ async function loadCongressTrades(forceRefresh) {
   document.getElementById('congress-list').innerHTML = '';
   document.getElementById('congress-empty').style.display = 'none';
 
-  if (!ANTHROPIC_KEY) {
-    document.getElementById('congress-loading').style.display = 'none';
-    document.getElementById('congress-empty').innerHTML = '<div style="padding:30px;text-align:center;"><div style="font-size:32px;margin-bottom:12px;">🏛</div><div style="font-size:15px;font-weight:700;margin-bottom:8px;">Add your Anthropic key in Settings</div></div>';
-    document.getElementById('congress-empty').style.display = 'block';
-    return;
-  }
-
   try {
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 800,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        system: 'You are a financial data assistant. Search capitoltrades.com for recent congressional stock trades and return ONLY a valid JSON array starting with [ and ending with ]. No text before or after. No markdown.',
-        messages: [{ role: 'user', content: 'Search capitoltrades.com for the 10 most recently filed congressional stock trades. Return ONLY a JSON array, nothing else, no intro text: [{"name":"Full Name","party":"D or R","chamber":"House or Senate","ticker":"AAPL","company":"Company Name","type":"Purchase or Sale","amount":"$1,001-$15,000","date":"2026-04-01"}]. Keep it short - just 10 trades max.' }]
-      })
-    });
+    // ── Strategy 1: Senate Stock Watcher (free, no API key, real data) ──
+    var trades = [];
 
-    var data = await res.json();
-    var text = '';
-    if (data.content) {
-      data.content.forEach(function(block) {
-        if (block.type === 'text') text += block.text;
-      });
+    try {
+      var senateRes = await fetch('https://senate-stock-watcher-data.s3-us-west-2.amazonaws.com/aggregate/all_transactions.json');
+      if (senateRes.ok) {
+        var senateData = await senateRes.json();
+        // Sort by transaction_date descending, take top 20
+        var sorted = senateData
+          .filter(function(t) { return t.ticker && t.ticker !== '--' && t.ticker.length <= 5; })
+          .sort(function(a, b) { return new Date(b.transaction_date) - new Date(a.transaction_date); })
+          .slice(0, 25);
+
+        trades = sorted.map(function(t) {
+          return {
+            Representative: t.senator || '--',
+            Chamber: 'Senate',
+            Ticker: (t.ticker || '').toUpperCase().replace('$',''),
+            asset_description: t.asset_description || '',
+            Transaction: t.type || '',
+            Amount: t.amount || '--',
+            Date: t.transaction_date || '--',
+            party: t.party || ''
+          };
+        });
+      }
+    } catch(e) {
+      console.log('Senate Stock Watcher failed:', e.message);
     }
 
-    if (!text && data.error) throw new Error(data.error.message || 'API error');
+    // ── Strategy 2: Finnhub congressional trading (uses existing key) ──
+    if (!trades.length && FINNHUB_KEY) {
+      try {
+        var finnhubRes = await fetch('https://finnhub.io/api/v1/stock/congressional-trading?symbol=AAPL&token=' + FINNHUB_KEY);
+        if (finnhubRes.ok) {
+          var finnhubData = await finnhubRes.json();
+          if (finnhubData && finnhubData.data && finnhubData.data.length) {
+            trades = finnhubData.data.slice(0, 20).map(function(t) {
+              return {
+                Representative: t.name || '--',
+                Chamber: t.chamber || '',
+                Ticker: (t.symbol || '').toUpperCase(),
+                asset_description: t.assetDescription || '',
+                Transaction: t.transactionType || '',
+                Amount: t.amount || '--',
+                Date: t.transactionDate || '--',
+                party: ''
+              };
+            });
+          }
+        }
+      } catch(e) {
+        console.log('Finnhub congress failed:', e.message);
+      }
+    }
+
+    if (!trades.length) throw new Error('No data from any source');
 
     document.getElementById('congress-loading').style.display = 'none';
-
-    var clean = text.replace(/```json|```/g, '').trim();
-    var arrStart = clean.indexOf('[');
-    if (arrStart === -1) throw new Error('No data returned');
-    var arrEnd = clean.lastIndexOf(']');
-    
-    // If JSON is incomplete (no closing bracket), try to repair it
-    var jsonStr = '';
-    if (arrEnd === -1 || arrEnd < arrStart) {
-      // Find last complete object and close the array
-      var lastBrace = clean.lastIndexOf('}');
-      if (lastBrace === -1) throw new Error('Could not parse trades');
-      jsonStr = clean.slice(arrStart, lastBrace + 1) + ']';
-    } else {
-      jsonStr = clean.slice(arrStart, arrEnd + 1);
-    }
-    
-    var trades = JSON.parse(jsonStr);
-
-    if (!trades.length) throw new Error('No trades found');
-
-    allCongressTrades = trades.map(function(t) {
-      return {
-        Representative: t.name || '--',
-        Chamber: t.chamber || '',
-        Ticker: (t.ticker || '').toUpperCase(),
-        asset_description: t.company || '',
-        Transaction: t.type || '',
-        Amount: t.amount || '--',
-        Date: t.date || '--',
-        party: t.party || ''
-      };
-    });
-
+    allCongressTrades = trades;
     congressCachedTrades = allCongressTrades;
     renderCongressTrades(allCongressTrades);
     congressLoading = false;
