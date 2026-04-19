@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_22.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_23.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3878,7 +3878,7 @@ function renderBBConfirmation(bb, price, aiSignal) {
   // ── Conflict Resolution ─────────────────────────────────────────────────────
   // Determine the real situation when BB and indicators disagree
   var conflictHtml = '';
-  var isOverbought = percentB > 75;
+  var isOverbought = percentB > 70;
   var isOversold   = percentB < 25;
   var isBullish    = aiSignal === 'bullish';
   var isBearish    = aiSignal === 'bearish';
@@ -4032,7 +4032,7 @@ async function generateAILevels() {
   var bb = ind && ind.bb ? ind.bb : null;
   var bbStr = bb ? ', Bollinger Bands: price at ' + bb.percentB + '% of band range (0=lower band, 100=upper band), lower=$' + bb.lower + ', middle=$' + bb.middle + ', upper=$' + bb.upper : '';
   var bbConflictNote = '';
-  if (bb && bb.percentB > 75) {
+  if (bb && bb.percentB > 70) {
     bbConflictNote = ' IMPORTANT: Price is at ' + bb.percentB + '% of the Bollinger Band — near the upper band. isGoodEntry must be "wait" or "no" because of BB overbought condition regardless of other indicators. The pullback entry zone should be near the middle band $' + bb.middle + '.';
   } else if (bb && bb.percentB < 25) {
     bbConflictNote = ' NOTE: Price is near the lower Bollinger Band (' + bb.percentB + '%) which supports a buy entry.';
@@ -4065,7 +4065,7 @@ async function generateAILevels() {
     // If BB says overbought but AI said "yes", force it to "wait" so both agree
     var bbNow = window._lastIndicators && window._lastIndicators.bb ? window._lastIndicators.bb : null;
     if (bbNow) {
-      if (bbNow.percentB > 75 && levels.isGoodEntry === 'yes') {
+      if (bbNow.percentB > 70 && levels.isGoodEntry === 'yes') {
         levels.isGoodEntry = 'wait';
         levels.reasoning = 'Indicators are bullish but price is at ' + bbNow.percentB + '% of the Bollinger Band (near upper band). Wait for a pullback to the middle band (~$' + bbNow.middle + ') for a better entry with lower risk.';
         // Shift entry zone to middle band area instead of current price
