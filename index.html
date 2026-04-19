@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_33.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_34.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -829,27 +829,136 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
    MOBILE RESPONSIVE
 ═══════════════════════════════ */
 @media (max-width: 768px) {
-  .sidebar { width: 100%; height: var(--header-height); min-height: unset; flex-direction: row; position: fixed; bottom: 0; top: unset; left: 0; right: 0; border-right: none; border-top: 1px solid var(--border); padding: 0; z-index: 100; }
+  /* ── Bottom tab bar ── */
+  .sidebar {
+    width: 100%; height: 60px; min-height: unset;
+    flex-direction: row; position: fixed;
+    bottom: 0; top: unset; left: 0; right: 0;
+    border-right: none; border-top: 1px solid var(--border);
+    padding: 0; z-index: 100; overflow: visible;
+  }
   .sidebar-logo { display: none; }
   .sidebar-section { display: none; }
   .sidebar-market { display: none; }
-  .nav-item { flex-direction: column; gap: 3px; padding: 6px 8px; margin: 4px 2px; flex: 1; justify-content: center; }
-  .nav-label { font-size: 8px; letter-spacing: 0.5px; }
-  .nav-icon { width: auto; }
-  .main-content { margin-left: 0; padding-bottom: var(--header-height); }
+  .sidebar-toggle { display: none; }
+  .nav-group-header { display: none; }
+  .nav-sub { display: none !important; }
+
+  /* Show only 5 key nav items as bottom tabs */
+  .nav-item {
+    flex-direction: column; gap: 2px;
+    padding: 8px 4px; margin: 0;
+    flex: 1; justify-content: center;
+    align-items: center; border-radius: 0;
+    font-size: 9px;
+  }
+  .nav-item .nav-label { font-size: 9px; letter-spacing: 0; white-space: nowrap; }
+  .nav-item .nav-icon { font-size: 18px; width: auto; }
+  .nav-item.active { background: var(--blue-dim); }
+
+  /* Hide nav items we don't want in bottom bar — show only 5 */
+  #nav-news, #nav-alerts, #nav-earnings, #nav-congress { display: none; }
+
+  /* More button to access hidden pages */
+  .mobile-more-btn {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 2px; padding: 8px 4px; cursor: pointer;
+    color: var(--text-muted); font-size: 9px;
+    border: none; background: transparent;
+  }
+  .mobile-more-btn .nav-icon { font-size: 18px; }
+
+  /* Mobile more menu */
+  .mobile-more-menu {
+    position: fixed; bottom: 60px; left: 0; right: 0;
+    background: var(--surface); border-top: 1px solid var(--border);
+    z-index: 200; padding: 8px;
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  }
+  .mobile-more-menu.open { display: grid; }
+  .mobile-more-item {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; padding: 12px 8px; border-radius: var(--radius-sm);
+    cursor: pointer; background: var(--surface-2);
+    font-size: 10px; color: var(--text-muted); font-weight: 600;
+    border: 1px solid var(--border);
+  }
+  .mobile-more-item:active { background: var(--blue-dim); color: var(--blue); }
+  .mobile-more-item .icon { font-size: 20px; }
+
+  /* Main content */
+  .main-content { margin-left: 0; padding-bottom: 70px; }
+
+  /* Topbar — compact */
+  .topbar { padding: 0 12px; gap: 8px; }
+  .topbar-search { max-width: none; flex: 1; }
+  .topbar-btn.secondary { display: none; }
+  .topbar-market-status span { display: none; }
+  .topbar-market-status { gap: 4px; }
+
+  /* Page area */
+  .page-area { padding: 12px; }
+
+  /* Market cards — 2 per row */
+  .market-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  #market-grid { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+  .market-card { padding: 14px 12px; }
+  .market-card-price { font-size: 20px; }
+
+  /* Home grids */
   .home-grid { grid-template-columns: 1fr 1fr; }
-  .market-grid { grid-template-columns: 1fr 1fr; }
-  .chart-layout { grid-template-columns: 1fr; }
-  .learn-layout { grid-template-columns: 1fr; }
-  .alerts-layout { grid-template-columns: 1fr; }
-  .journal-layout { grid-template-columns: 1fr; }
-  .news-layout { grid-template-columns: 1fr; }
   .home-two-col { grid-template-columns: 1fr; }
   .home-three-col { grid-template-columns: 1fr; }
-  .chat-panel { height: calc(100vh - 200px); position: static; }
+  .stat-card { padding: 12px 14px; }
+  .stat-card-value { font-size: 20px; }
+
+  /* Chart page */
+  .chart-layout { flex-direction: column; }
+  .chart-sidebar-panel { width: 100% !important; padding-left: 0; margin-top: 12px; }
+  #chart-col-handle { display: none; }
+  .chart-embed { height: 300px !important; }
+  .chat-panel { height: 400px; position: static; }
+
+  /* Journal */
+  .journal-layout { grid-template-columns: 1fr; }
+  .journal-stats { grid-template-columns: 1fr 1fr; }
+
+  /* Trade card — stack details */
+  .trade-card [style*="grid-template-columns:repeat(4"] { grid-template-columns: 1fr 1fr !important; }
+
+  /* Learn */
+  .learn-layout { grid-template-columns: 1fr; }
   .lesson-detail-panel { max-height: unset; }
-  .topbar { padding: 0 16px; }
-  .page-area { padding: 16px; }
+
+  /* Alerts */
+  .alerts-layout { grid-template-columns: 1fr; }
+
+  /* News */
+  .news-layout { grid-template-columns: 1fr; }
+
+  /* Settings */
+  .settings-layout { max-width: 100%; }
+
+  /* Paper trading */
+  #page-papertrade [style*="grid-template-columns:340px"] { grid-template-columns: 1fr !important; }
+  #page-papertrade [style*="grid-template-columns:repeat(4"] { grid-template-columns: 1fr 1fr !important; }
+
+  /* Portfolio */
+  #page-portfolio [style*="grid-template-columns:repeat(4"] { grid-template-columns: 1fr 1fr !important; }
+
+  /* Morning briefing */
+  #morning-briefing-panel .briefing-header { flex-direction: column; gap: 8px; }
+
+  /* Modal */
+  .modal { padding: 16px; margin: 0; border-radius: var(--radius) var(--radius) 0 0; }
+  .modal-overlay { align-items: flex-end; padding: 0; }
+
+  /* Index components panel */
+  #components-grid { grid-template-columns: repeat(3, 1fr) !important; }
 }
 </style>
 </head>
@@ -921,9 +1030,28 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div style="margin-top:auto;">
     <div class="sidebar-section">Account</div>
     <div class="nav-item" onclick="switchPage(&#39;settings&#39;)" id="nav-settings"><div class="nav-icon">⚙</div><div class="nav-label">Settings</div></div>
+    <!-- Mobile More button — only shows on mobile -->
+    <button class="mobile-more-btn" onclick="toggleMobileMore()" id="mobile-more-btn">
+      <div class="nav-icon">⋯</div>
+      <div>More</div>
+    </button>
   </div>
 
 </nav>
+
+<!-- Mobile More Menu -->
+<div class="mobile-more-menu" id="mobile-more-menu">
+  <div class="mobile-more-item" onclick="mobileNav(&#39;search&#39;)"><div class="icon">📈</div>Charts</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;news&#39;)"><div class="icon">📰</div>News</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;alerts&#39;)"><div class="icon">🔔</div>Alerts</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;earnings&#39;)"><div class="icon">📅</div>Earnings</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;congress&#39;)"><div class="icon">🏛</div>Congress</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;watchlist&#39;)"><div class="icon">★</div>Watchlist</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;portfolio&#39;)"><div class="icon">💼</div>Portfolio</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;papertrade&#39;)"><div class="icon">📝</div>Paper</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;learn&#39;)"><div class="icon">📚</div>Learn</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;settings&#39;)"><div class="icon">⚙</div>Settings</div>
+</div>
 
 <!-- MAIN -->
 <div class="main-content">
@@ -983,7 +1111,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </div>
 
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMixwFBVV95cUxNMHluTkd2OFoza29ZMUhBUzlPYmdSVUFYRFhxb3NpSFVSa1hzY2V6RmJsaXBUWkZrUnNBTTV4RUNqeGNQZFhTbkt4TVFqajVQcDRxTi1hdWN1eWxUU1JlUldVb1NWUnd1S0lzQ3dLZ25nRDhDR1daR0R3UGFSRjdvMnVkZWgweTJ6TF91dU9mSzhUQjlLZHpPaExpX01pZXozTk1LblkxTnkyUUF6dWhrWEU5TkZaNnh3a0V0TTlvWDQ3VkhkdjNR?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Allies fear a rushed US–Iran framework deal could backfire, leaving technical deadlock - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixgFBVV95cUxNTE1MWnhTa0ZIVE14eWF6eGhsb21IdEY0V01YcEN3R2FKRzNlQ1NXQ2pON1gxTFNUejVTcFRsVXMtdGhud2VRZzQ2dUtrbmg0clpMMlZVa20yNm9kLVBFazBsQkFkREJzaHdmNHJVQ2xTQndPQm1ObmZXQ0JZVTF2bmhnT1NGelFjMWg2TERhcXh2enVGdHEtZkxmOC1WWDZKb3UzN2VYcGEwNUdSXzRrME9BRWc2eDdnZDNOZjIyMzFaZEtIQnc?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Two foreigners arrested in Iran for importing Starlink technology, Tasnim reports - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixgFBVV95cUxQaXZmWnQzcWFEOElFSmNNUF9lNENIQ2J4Yy1sMVRhVlZBZ2F6cFpranJuSkxIOW5CNWNfWFpDWmhpenA2T0Y2RHQ4XzRvQ3lGamI2ejF6ZEpEX0s2Ylo3TklPZFVtc0lnLUpIYnM0ZzgtTEJVVXB2bkZ4Q3dNSC01WGZVY0JXbG9fMkxQcDRpdHZ0LWNlWHQ5clE2TWdCQjJjUUREVU05bFpwZzI3RldsanQ1elFRRmx3RnlySUc3YVhrYmpSd2c?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran replenishes launchers at higher rate than pre-war, guards commander says - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitwFBVV95cUxOZ2dRUmdKTGV0UnZ5NjBfREctVTdadThHZ3diQnV2RXpPOHo0OWdLUk1jZjZJbW5rOHZyajZTQ055Mnp1Z1VRdUJoZng3QXpaOWY0ZjhscGp6TEt5YThVd3FXV1RIODVnUHZ3bTdzUnlGQ2hyUE9oUlpQYmFLS05FMHI3SE1qOF96eTZxd3dyN3Q4dEZhd2lnalFwTU1QQ0R2WVVKb1FST3FNQkJTNHlHM0xpWWdUaFk?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iranian President insists on country's nuclear rights, ISNA reports - Reuters</div><div class="news-time">5h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiygFBVV95cUxQYVAtc1JHT1lhYjZwQ2JnWGhraTZ1cjNOdUlhVENaeUREUHFpYUYyaFhqMG5DWnJNZkFobkh4eHYyU19ER2daSTZGRldTQklRUWhEamhrMW5wSkk1UlNpTmxGRXdLeHNpZTdwM0RqdFFVbm9wNXF4OGg3LUNyTVBjWEI3Z0YzdjZFcHV4bEs0ejd3U0lqR3FkYnk4RzdxaDBjMkJTcjRyTmxOeTRKdGJqQl83VGVXYnhBUVc1UkppVVdfdnBnUXBIZ2JR?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Bangladesh raises fuel prices as Iran war drives up costs - Reuters</div><div class="news-time">11h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitgFBVV95cUxPMFlSNGRjVmROeDJHeE80THl5bmJtaXk4YlhsY2hIOVVORUxab282Mk8tX2ZNRmx3SHFZUFppb3Rjd0Iwekt5SXZDcTRmY2Y3WnBGRlNnaWtTeWhQdWU3eUJVX3pnbHFVZll6XzdYVHV3XzBhLVdOYmItaER1ZWZmTU10d1M3MkZyQVhaaHJFM25NTWxFYmtTc01Rb3ByUlRja1lJUWV4ck9nWnR3Y2hUdVpmMnVqdw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Strait of Hormuz blocked as gaps remain on Iran peace talks - Reuters</div><div class="news-time">11h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><div style="padding:16px;text-align:center;color:var(--text-muted);font-size:12px;">No news available.</div></div>
       </div>
     </div>
   </div>
@@ -1976,6 +2104,38 @@ function renderPortfolioPage() {
     list.appendChild(outer);
   });
 }
+
+
+// ── MOBILE MORE MENU ─────────────────────────────────────────────────────────
+function toggleMobileMore() {
+  var menu = document.getElementById('mobile-more-menu');
+  var btn = document.getElementById('mobile-more-btn');
+  if (!menu) return;
+  var isOpen = menu.classList.contains('open');
+  menu.classList.toggle('open');
+  btn.style.color = isOpen ? '' : 'var(--blue)';
+}
+
+function mobileNav(page) {
+  var menu = document.getElementById('mobile-more-menu');
+  if (menu) menu.classList.remove('open');
+  var btn = document.getElementById('mobile-more-btn');
+  if (btn) btn.style.color = '';
+  switchPage(page);
+}
+
+// Close more menu when tapping outside
+document.addEventListener('click', function(e) {
+  var menu = document.getElementById('mobile-more-menu');
+  var btn = document.getElementById('mobile-more-btn');
+  if (menu && menu.classList.contains('open')) {
+    if (!menu.contains(e.target) && (!btn || !btn.contains(e.target))) {
+      menu.classList.remove('open');
+      if (btn) btn.style.color = '';
+    }
+  }
+});
+// ── END MOBILE MORE MENU ──────────────────────────────────────────────────────
 
 function toggleSidebar() {
   var sidebar = document.getElementById('sidebar');
