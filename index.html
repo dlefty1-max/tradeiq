@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_40.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_41.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1010,6 +1010,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="nav-sub open" id="sub-learn">
     <div class="nav-sub-item" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;papertrade&#39;)" id="nav-papertrade"><div class="nav-sub-dot"></div>Paper Trading</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;riskcalc&#39;)" id="nav-riskcalc"><div class="nav-sub-dot"></div>Risk Calculator</div>
   </div>
 
 
@@ -1039,6 +1040,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="mobile-more-item" onclick="mobileNav(&#39;portfolio&#39;)"><div class="icon">💼</div>Portfolio</div>
   <div class="mobile-more-item" onclick="mobileNav(&#39;papertrade&#39;)"><div class="icon">📝</div>Paper</div>
   <div class="mobile-more-item" onclick="mobileNav(&#39;learn&#39;)"><div class="icon">📚</div>Learn</div>
+  <div class="mobile-more-item" onclick="mobileNav(&#39;riskcalc&#39;)"><div class="icon">🧮</div>Risk Calc</div>
   <div class="mobile-more-item" onclick="mobileNav(&#39;settings&#39;)"><div class="icon">⚙</div>Settings</div>
 </div>
 
@@ -1646,6 +1648,66 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   </div>
 
   <!-- SETTINGS -->
+
+  <!-- RISK CALCULATOR PAGE -->
+  <div class="page" id="page-riskcalc">
+    <div class="section-label">Position Size Calculator</div>
+    <div style="max-width:600px;">
+
+      <!-- Intro card -->
+      <div style="background:var(--blue-dim);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;">
+        <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:6px;">The 1-2% Rule</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">Never risk more than 1-2% of your account on a single trade. This calculator tells you exactly how many shares to buy based on your entry, stop loss, and account size — so one bad trade never wipes you out.</div>
+      </div>
+
+      <!-- Inputs -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;">
+        <div style="padding:14px 16px;background:var(--surface-2);border-bottom:1px solid var(--border);">
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;">Your Trade Setup</div>
+        </div>
+        <div style="padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <label style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Account Size ($)</label>
+            <input type="number" id="rc-account" placeholder="25000" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-mono);color:var(--text);outline:none;box-sizing:border-box;" oninput="calcRisk()">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Risk Per Trade</label>
+            <div style="display:flex;gap:6px;">
+              <button onclick="setRiskPct(1)" id="rc-pct-1" style="flex:1;padding:10px;border:1px solid var(--blue);border-radius:var(--radius-sm);background:var(--blue);color:white;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;">1%</button>
+              <button onclick="setRiskPct(1.5)" id="rc-pct-1.5" style="flex:1;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--text-muted);font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;">1.5%</button>
+              <button onclick="setRiskPct(2)" id="rc-pct-2" style="flex:1;padding:10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);color:var(--text-muted);font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;">2%</button>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Entry Price ($)</label>
+            <input type="number" id="rc-entry" placeholder="50.00" step="0.01" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-mono);color:var(--text);outline:none;box-sizing:border-box;" oninput="calcRisk()">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Stop Loss ($)</label>
+            <input type="number" id="rc-stop" placeholder="47.50" step="0.01" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-mono);color:var(--text);outline:none;box-sizing:border-box;" oninput="calcRisk()">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Target Price ($) <span style="color:var(--text-dim);font-weight:400;">(optional)</span></label>
+            <input type="number" id="rc-target" placeholder="57.00" step="0.01" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-mono);color:var(--text);outline:none;box-sizing:border-box;" oninput="calcRisk()">
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;">Ticker <span style="color:var(--text-dim);font-weight:400;">(optional)</span></label>
+            <input type="text" id="rc-ticker" placeholder="AAPL" style="width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font-mono);color:var(--text);outline:none;box-sizing:border-box;text-transform:uppercase;" oninput="calcRisk()">
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="rc-results" style="display:none;"></div>
+
+      <!-- Save to account -->
+      <div style="margin-top:12px;">
+        <button onclick="saveRCAccount()" style="background:transparent;border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 16px;font-family:var(--font-mono);font-size:11px;color:var(--text-muted);cursor:pointer;">💾 Save account size for next time</button>
+      </div>
+
+    </div>
+  </div>
+
   <div class="page" id="page-settings">
     <div class="settings-layout">
       <div class="settings-section">
@@ -2961,6 +3023,141 @@ async function fetchMultiTimeframe(symbol) {
   }
 }
 // ── END MULTI-TIMEFRAME ───────────────────────────────────────────────────────
+
+
+// ── RISK CALCULATOR ───────────────────────────────────────────────────────────
+var rcRiskPct = 1;
+
+function setRiskPct(pct) {
+  rcRiskPct = pct;
+  [1, 1.5, 2].forEach(function(p) {
+    var btn = document.getElementById('rc-pct-' + p);
+    if (!btn) return;
+    if (p === pct) {
+      btn.style.background = 'var(--blue)';
+      btn.style.color = 'white';
+      btn.style.borderColor = 'var(--blue)';
+    } else {
+      btn.style.background = 'var(--surface-2)';
+      btn.style.color = 'var(--text-muted)';
+      btn.style.borderColor = 'var(--border)';
+    }
+  });
+  calcRisk();
+}
+
+function saveRCAccount() {
+  var acc = document.getElementById('rc-account').value;
+  if (acc) {
+    localStorage.setItem('tradeiq_rc_account', acc);
+    showToast('Account size saved');
+  }
+}
+
+function calcRisk() {
+  var account = parseFloat(document.getElementById('rc-account').value);
+  var entry   = parseFloat(document.getElementById('rc-entry').value);
+  var stop    = parseFloat(document.getElementById('rc-stop').value);
+  var target  = parseFloat(document.getElementById('rc-target').value);
+  var ticker  = (document.getElementById('rc-ticker').value || '').toUpperCase();
+  var results = document.getElementById('rc-results');
+
+  if (!account || !entry || !stop || isNaN(account) || isNaN(entry) || isNaN(stop)) {
+    results.style.display = 'none';
+    return;
+  }
+
+  if (stop >= entry) {
+    results.style.display = 'block';
+    results.innerHTML = '<div style="background:var(--red-dim);border:1px solid rgba(200,16,46,0.2);border-radius:var(--radius);padding:14px 16px;font-size:12px;color:var(--red);">Stop loss must be below entry price for a long trade.</div>';
+    return;
+  }
+
+  var maxRiskDollars = account * (rcRiskPct / 100);
+  var riskPerShare   = entry - stop;
+  var shares         = Math.floor(maxRiskDollars / riskPerShare);
+  var totalCost      = shares * entry;
+  var totalRisk      = shares * riskPerShare;
+  var stopPct        = ((riskPerShare / entry) * 100).toFixed(1);
+  var positionPct    = ((totalCost / account) * 100).toFixed(1);
+
+  // Risk/reward if target provided
+  var rrHtml = '';
+  if (target && !isNaN(target) && target > entry) {
+    var reward = shares * (target - entry);
+    var rr = ((target - entry) / riskPerShare).toFixed(2);
+    var rrColor = parseFloat(rr) >= 2 ? 'var(--green)' : parseFloat(rr) >= 1.5 ? 'var(--amber)' : 'var(--red)';
+    var rrVerdict = parseFloat(rr) >= 3 ? 'Excellent' : parseFloat(rr) >= 2 ? 'Good' : parseFloat(rr) >= 1.5 ? 'Acceptable' : 'Poor — consider a better target';
+    rrHtml =
+      '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;">' +
+        '<div style="padding:12px 16px;background:var(--surface-2);border-bottom:1px solid var(--border);">' +
+          '<div style="font-size:11px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;">Risk / Reward</div>' +
+        '</div>' +
+        '<div style="padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;">' +
+          '<div><div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;margin-bottom:4px;">Potential Gain</div><div style="font-size:20px;font-weight:700;color:var(--green);font-family:var(--font-mono);">+$' + reward.toFixed(0) + '</div></div>' +
+          '<div><div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;margin-bottom:4px;">R:R Ratio</div><div style="font-size:20px;font-weight:700;color:' + rrColor + ';font-family:var(--font-mono);">' + rr + ':1</div></div>' +
+          '<div><div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;margin-bottom:4px;">Verdict</div><div style="font-size:13px;font-weight:700;color:' + rrColor + ';">' + rrVerdict + '</div></div>' +
+        '</div>' +
+        '<div style="padding:0 16px 14px;font-size:12px;color:var(--text-muted);line-height:1.6;">' +
+          'If target is hit: <strong style="color:var(--green);">+$' + reward.toFixed(2) + '</strong> profit on a <strong style="color:var(--red);">$' + totalRisk.toFixed(2) + '</strong> risk. ' +
+          (parseFloat(rr) < 2 ? 'Consider moving your target to $' + (entry + riskPerShare * 2).toFixed(2) + ' for a 2:1 ratio.' : 'This is a solid setup from a risk/reward perspective.') +
+        '</div>' +
+      '</div>';
+  }
+
+  // Warning if position is too large
+  var posWarning = '';
+  if (parseFloat(positionPct) > 20) {
+    posWarning = '<div style="background:var(--amber-dim);border:1px solid rgba(180,83,9,0.2);border-radius:var(--radius-sm);padding:10px 14px;font-size:12px;color:var(--amber);margin-top:10px;">⚠ This position is ' + positionPct + '% of your account. Even with proper stop sizing, concentration risk is high if the stock gaps down overnight.</div>';
+  }
+
+  results.style.display = 'block';
+  results.innerHTML =
+    // Main result
+    '<div style="background:var(--surface);border:2px solid var(--blue);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;">' +
+      '<div style="padding:14px 20px;background:var(--blue);display:flex;align-items:center;justify-content:space-between;">' +
+        '<div style="font-size:13px;font-weight:700;color:white;">' + (ticker || 'Your Trade') + ' — Position Size</div>' +
+        '<div style="font-size:11px;color:rgba(255,255,255,0.7);font-family:var(--font-mono);">Risking ' + rcRiskPct + '% of account</div>' +
+      '</div>' +
+      '<div style="padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">' +
+        '<div style="text-align:center;padding:16px;background:var(--blue-dim);border-radius:var(--radius-sm);">' +
+          '<div style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Buy This Many Shares</div>' +
+          '<div style="font-size:48px;font-weight:700;color:var(--blue);font-family:var(--font-mono);line-height:1;">' + shares + '</div>' +
+          '<div style="font-size:11px;color:var(--text-muted);margin-top:6px;">shares of ' + (ticker || 'stock') + '</div>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr;gap:10px;">' +
+          '<div style="background:var(--surface-2);border-radius:var(--radius-sm);padding:12px;">' +
+            '<div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;margin-bottom:3px;">Max Loss</div>' +
+            '<div style="font-size:18px;font-weight:700;color:var(--red);font-family:var(--font-mono);">-$' + totalRisk.toFixed(2) + '</div>' +
+            '<div style="font-size:10px;color:var(--text-muted);">= ' + rcRiskPct + '% of $' + account.toLocaleString() + '</div>' +
+          '</div>' +
+          '<div style="background:var(--surface-2);border-radius:var(--radius-sm);padding:12px;">' +
+            '<div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;margin-bottom:3px;">Total Cost</div>' +
+            '<div style="font-size:18px;font-weight:700;color:var(--text);font-family:var(--font-mono);">$' + totalCost.toLocaleString() + '</div>' +
+            '<div style="font-size:10px;color:var(--text-muted);">' + positionPct + '% of account</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      // Trade summary line
+      '<div style="padding:12px 20px;background:var(--surface-2);border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);line-height:1.7;">' +
+        'Buy <strong>' + shares + ' shares</strong> at <strong>$' + entry + '</strong> · ' +
+        'Stop at <strong style="color:var(--red);">$' + stop + '</strong> (' + stopPct + '% below entry) · ' +
+        'Risk per share: <strong>$' + riskPerShare.toFixed(2) + '</strong>' +
+      '</div>' +
+    '</div>' +
+    rrHtml +
+    posWarning;
+}
+
+// Load saved account size on page load
+(function() {
+  var saved = localStorage.getItem('tradeiq_rc_account');
+  if (saved) {
+    var el = document.getElementById('rc-account');
+    if (el) el.value = saved;
+  }
+})();
+// ── END RISK CALCULATOR ───────────────────────────────────────────────────────
 
 function renderMarketGrids() {
   var symbols = MARKET_SYMBOLS;
