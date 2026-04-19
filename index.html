@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_46.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_47.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -3744,7 +3744,7 @@ async function doSearch() {
 
   const aiText = await getAIAnalysis(sym, result, indicators, overallSignal);
   document.getElementById('analysis-body').innerHTML = aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-  document.getElementById('analysis-sub').textContent = sym + ' · Live Analysis';
+  document.getElementById('analysis-sub').textContent = sym + ' Analysis Summary';
   window._lastIndicators = indicators;
   window._lastOverallSignal = overallSignal;
   window._lastIntradayContext = null; // reset — will fetch fresh below
@@ -3874,10 +3874,17 @@ async function fetchIndicators(symbol) {
 }
 async function getAIAnalysis(symbol, priceData, indicators, signal) {
   try {
-    const prompt = `Analyze ${symbol} in plain English for a part-time trader. Price: $${priceData.price.toFixed(2)} (${priceData.changePct.toFixed(2)}% today). RSI: ${indicators.rsi}, MACD: ${indicators.macd}, vs 20MA: ${indicators.currentPrice > indicators.sma20 ? 'ABOVE' : 'BELOW'} ($${indicators.sma20}), Volume: ${indicators.volRatio}x, Signal: ${signal}. Write 3 short plain English paragraphs: what indicators show, what to watch for entry, key risk. Use **bold** for key terms.`;
-    const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:350,messages:[{role:'user',content:prompt}]}) });
-    const data = await res.json(); return data.content?.[0]?.text || 'Analysis unavailable.';
-  } catch { return 'Could not load AI analysis. Check your Anthropic API key in Settings.'; }
+    var bb = indicators.bb;
+    var bbStr = bb ? ', BB at ' + bb.percentB + '% of band (lower $' + bb.lower + ', middle $' + bb.middle + ', upper $' + bb.upper + ')' : '';
+    var intradayStr = '';
+    if (window._lastIntradayContext) {
+      var ctx = window._lastIntradayContext;
+      intradayStr = ' Intraday: ' + ctx.trend + ' trend, ' + ctx.momentum + (ctx.nearestSupport ? ', support $' + ctx.nearestSupport : '') + (ctx.nearestResistance ? ', resistance $' + ctx.nearestResistance : '') + '.';
+    }
+    var prompt = symbol + ' Analysis Summary\n\nPrice: $' + priceData.price.toFixed(2) + ' (' + (priceData.changePct >= 0 ? '+' : '') + priceData.changePct.toFixed(2) + '% today)\nRSI: ' + indicators.rsi + ', MACD: ' + (indicators.macd > 0 ? 'bullish' : 'bearish') + ', 20MA: $' + indicators.sma20 + ' (price ' + (priceData.price > indicators.sma20 ? 'above' : 'below') + '), Volume: ' + indicators.volRatio + 'x normal' + bbStr + '\nSignal: ' + signal + intradayStr + '\n\nWrite exactly 3 short paragraphs:\n1. What the indicators say about ' + symbol + ' right now\n2. Whether this is a good entry, what price to wait for, or what to avoid — be specific with dollar amounts\n3. The main risk and where to put a stop loss\n\nBe direct and specific to ' + symbol + '. Use **bold** for key price levels. No generic advice.';
+    var res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,messages:[{role:'user',content:prompt}]}) });
+    var data = await res.json(); return (data.content && data.content[0]) ? data.content[0].text : 'Analysis unavailable.';
+  } catch(e) { return 'Could not load AI analysis. Check your Anthropic API key in Settings.'; }
 }
 
 function askAboutResult() {
