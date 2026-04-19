@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_25.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_26.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2716,6 +2716,8 @@ function ema(arr, period) {
   for (let i=period;i<arr.length;i++) val = arr[i]*k + val*(1-k); return val;
 }
 async function fetchIndicators(symbol) {
+  // Index symbols (^DJI etc) not supported by Twelve Data — skip
+  if (!symbol || symbol.startsWith('^')) return null;
   try {
     var closes = null;
     var volumes = null;
@@ -5658,9 +5660,9 @@ var scannerRunning = false;
 // User can add stocks to their watchlist to control what gets scanned
 var SCAN_UNIVERSE = (function() {
   var base = ['AAPL','MSFT','NVDA','TSLA','META','GOOGL','AMZN','AMD','PLTR','NFLX','JPM','BAC','XOM','DIS','COIN','SOFI'];
-  // Add watchlist stocks too, deduplicated
+  // Add watchlist stocks too, deduplicated — skip index symbols
   var wl = JSON.parse(localStorage.getItem('tradeiq_watchlist') || '[]');
-  wl.forEach(function(s) { if (!base.includes(s)) base.push(s); });
+  wl.forEach(function(s) { if (!base.includes(s) && !s.startsWith('^')) base.push(s); });
   return base;
 })();
 
