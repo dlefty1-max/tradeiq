@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_20.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_21.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2559,6 +2559,11 @@ async function fetchIndicators(symbol) {
     console.log('Twelve Data response:', data.status, 'values count:', data.values ? data.values.length : 0);
     if (!data.values || !data.values.length) {
       console.log('Twelve Data failed:', JSON.stringify(data).slice(0,200));
+      // Rate limited — wait and signal caller
+      if (data.code === 429) {
+        console.log('Rate limited — waiting 60s before retry');
+        await new Promise(function(r){ setTimeout(r, 60000); });
+      }
       return null;
     }
     // Twelve Data returns newest first — reverse to chronological
@@ -5448,7 +5453,15 @@ function renderCongressTrades(trades) {
 var scannerRunning = false;
 
 // Watchlist of stocks to scan — uses watchlist + major stocks
-var SCAN_UNIVERSE = ['AAPL','MSFT','NVDA','TSLA','META','GOOGL','AMZN','AMD','PLTR','NFLX','JPM','BAC','V','MA','XOM','DIS','UBER','ABNB','COIN','SOFI','F','GM','BA','INTC','CSCO','PYPL','SNAP','RBLX','SHOP','DKNG'];
+// Free tier = 8 req/min — scan watchlist + a small universe
+// User can add stocks to their watchlist to control what gets scanned
+var SCAN_UNIVERSE = (function() {
+  var base = ['AAPL','MSFT','NVDA','TSLA','META','GOOGL','AMZN','AMD','PLTR','NFLX','JPM','BAC','XOM','DIS','COIN','SOFI'];
+  // Add watchlist stocks too, deduplicated
+  var wl = JSON.parse(localStorage.getItem('tradeiq_watchlist') || '[]');
+  wl.forEach(function(s) { if (!base.includes(s)) base.push(s); });
+  return base;
+})();
 
 async function runDailyScanner() {
   if (scannerRunning) return;
@@ -5560,7 +5573,8 @@ async function runDailyScanner() {
     } catch(e) { /* skip failed */ }
 
     // Small delay to avoid rate limiting
-    if (i % 5 === 4) await new Promise(function(r){ setTimeout(r, 500); });
+    // Twelve Data free tier = 8 req/min — pause 8s every 2 stocks to stay under limit
+    await new Promise(function(r){ setTimeout(r, 8000); });
   }
 
   scannerRunning = false;
