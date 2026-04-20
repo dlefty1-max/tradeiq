@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_47.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_48.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1056,8 +1056,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot closed" id="market-dot"></div>
-      <span id="market-status-text">Closed — Weekend</span>
+      <div class="status-dot open" id="market-dot"></div>
+      <span id="market-status-text">Market Open</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -1068,7 +1068,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49424.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.77%</div><div class="market-card-points up">+861.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7101.60</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.21%</div><div class="market-card-points up">+85.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$25954.80</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.31%</div><div class="market-card-points up">+336.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2758.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 2.17%</div><div class="market-card-points up">+58.50 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49402.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.04%</div><div class="market-card-points down">-20.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7084.70</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.24%</div><div class="market-card-points down">-16.70 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$25864.40</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.35%</div><div class="market-card-points down">-89.60 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2775.20</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.63%</div><div class="market-card-points up">+17.40 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
     <!-- INDEX COMPONENTS PANEL -->
     <div id="index-components-panel" style="display:none;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"></div>
 
@@ -1102,7 +1102,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </div>
 
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMitgFBVV95cUxPMFlSNGRjVmROeDJHeE80THl5bmJtaXk4YlhsY2hIOVVORUxab282Mk8tX2ZNRmx3SHFZUFppb3Rjd0Iwekt5SXZDcTRmY2Y3WnBGRlNnaWtTeWhQdWU3eUJVX3pnbHFVZll6XzdYVHV3XzBhLVdOYmItaER1ZWZmTU10d1M3MkZyQVhaaHJFM25NTWxFYmtTc01Rb3ByUlRja1lJUWV4ck9nWnR3Y2hUdVpmMnVqdw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says US delegation to go to Pakistan for Iran talks, threatens new strikes - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxQdkp0YTRsVnR6LTdRMmxhMFhUVDkzVXdvNjBZbjIzQ1YwV1dRaHdwc0YyNEJxSUNVS2NOQkliUlFoVHhya292andqVTdRRUlLWW1MZ0hWN1NOdDBTNlRqLVMzbjdreXV3Z1lwQXZtX3ZJbDcza1J4dnA3Ym50TEY4Sy1McEh0M2VoMkI1N2dCZHdSRGdXRWRtT1JpTk9mMjQ0Q0JwRkxJcXJiYzA?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">UK police examine Iran links to arson attacks on Jewish targets - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/19/amazon-usps-package-delivery-costs-rural-america.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108293653-1776601365851-gettyimages-1356039651-grose51919.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Amazon, USPS and the risk of a widening delivery divide in rural America</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNaGZ4cm5iSVRwckFQbEZ1cGlqTFNzdUJ0cnE3NFBBLXZvSFRtSlRIOVJoeVMyOXR6RTFPYTNJRkRpNERPaDJaaTJBbFIxMUJNTWdCc2lqZjNUTzFFeEdaeDRkZ0R1eEZxNklQZ0hEOGFkamQ3MFVKMGx6TE82S2JQVFFKbmlQeWhDZWM3Mk1rbktGVEY4bkRIQkl6SWpmc0NWTFI4OVVmTVFEcVdTU2taLXFtaWU4YjZCV3h4UUFYNllGdmFoNFNDYw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran currently has no decision to send a negotiating delegation to Pakistan, Tasnim reports - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/19/psychologist-who-studies-couples-people-in-the-happiest-relationships-do-5-things-on-sundays.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108293665-1776604769916-CNBC_Sundays_Blue_v2.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">I'm a psychologist who studies couples: People in the happiest relationships do 5 things on Sundays—that most neglect</div><div class="news-time">4h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixwFBVV95cUxNMHluTkd2OFoza29ZMUhBUzlPYmdSVUFYRFhxb3NpSFVSa1hzY2V6RmJsaXBUWkZrUnNBTTV4RUNqeGNQZFhTbkt4TVFqajVQcDRxTi1hdWN1eWxUU1JlUldVb1NWUnd1S0lzQ3dLZ25nRDhDR1daR0R3UGFSRjdvMnVkZWgweTJ6TF91dU9mSzhUQjlLZHpPaExpX01pZXozTk1LblkxTnkyUUF6dWhrWEU5TkZaNnh3a0V0TTlvWDQ3VkhkdjNR?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Allies fear a rushed US–Iran framework deal could backfire, leaving technical deadlock - Reuters</div><div class="news-time">4h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/20/hormuz-china-christmas-capital-holiday-spending.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108294060-1776701454240-gettyimages-2236714582-115_20250611-chine-usines-0135.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Hormuz disruptions hit China’s Christmas capital — and holiday spending</div><div class="news-time">14m ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/20/eli-lilly-taps-into-its-glp-1-windfall-while-honeywell-sheds-a-lower-margin-unit.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108222575-1762455192681-gettyimages-2244850883-AFP_83BB78P.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Eli Lilly taps into its GLP-1 windfall, while Honeywell sheds a lower-margin unit</div><div class="news-time">28m ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/20/were-starting-a-position-in-a-chip-designer-poised-to-roar-in-the-era-of-ai-agents.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108293406-1776452715631-CNBC_INVESTINAMERICA_AC_041526_0307.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">We're starting a position in a chip designer poised to roar in the era of AI agents</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxPdVI0c1lVZEsyNDRVVmZFVlJVbUtjdzZ0RFlVRkpEUVk5elNsYVlsaFZxSHA5QzJWMnEwWmFPZTFTNUZ2c3gzSWJvYTVrUEc0QkpwM3lTekpqWFVZTzVtQm0yVmFEUGJIdXdkQ2NObFhKVmRNMlZsc1hVMFdMcElBbGdCTldtcUZiUExib2x4b3JYSXI1TTltaDgzUF9tNWNJcDFjV1dYYUVNbmhELTFwbndVallrLUpsU1BDajZkM0RoQ2s?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says energy chief 'wrong,' expects lower gas prices as soon as Iran war ends - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxQZklJTEJXMTV5c3o3REtYRTJCTmFRRVFWZEYzY2p2OEtGSTc2S3BnUVBLcmVDanltVGpvUVR1OWUydnJONTdETElIampPT1pCeXpiaVM0bXl4Tnk4YWtLQTdGM04tekZDUlg2SHdXX0lCNHBGSjlteUpJR05HbXRCV0NXNFZVNkpTay1sTGxoZXJ3ckhVRG5ZOVM0NWNTTDlybUdsbnlJTE1nMHdIZmpJbXJvbHF5VmNZZ1NwUEppOG8?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Hormuz shipping again near standstill after shots and seizure - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiogFBVV95cUxPRXVNaUZTSGZ2bUlXdG1kX205ejJ4TTBXU3RvRnVDVUNSWGVodU9vV0lTOHdwMENyMG9xbE9hMFZ2NGNDb01FQjRuV2dvbDlfNl9oaFNrNjlEalRQcmZiSVdxMk5McUxvTENkSTViYkVqNFJXQmVvTHRhTXQ5X1NYZFhHd3VLYWpUdThxOU9hMVNfRUE2aHRNd2lRaEZBVkZqVXc?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">European shares slide on concerns of US-Iran ceasefire collapse - Reuters</div><div class="news-time">2h ago</div></div></a></div>
       </div>
     </div>
   </div>
@@ -1112,7 +1112,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49424.00</div><div class="market-card-change up">▲ 1.77%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7101.60</div><div class="market-card-change up">▲ 1.21%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$25954.80</div><div class="market-card-change up">▲ 1.31%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2758.00</div><div class="market-card-change up">▲ 2.17%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49402.00</div><div class="market-card-change down">▼ 0.04%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7084.70</div><div class="market-card-change down">▼ 0.24%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$25864.40</div><div class="market-card-change down">▼ 0.35%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2775.20</div><div class="market-card-change up">▲ 0.63%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -3411,6 +3411,37 @@ async function detectCandlePatterns(symbol) {
 }
 // ── END CANDLESTICK PATTERNS ──────────────────────────────────────────────────
 
+
+// ── WEB SEARCH HELPER ────────────────────────────────────────────────────────
+function needsWebSearch(text) {
+  // Detect questions about current events, news, prices, reasons for moves
+  var triggers = [
+    'why is', 'why is', 'why did', 'what happened', 'what is happening',
+    'news', 'today', 'this week', 'recently', 'latest', 'right now',
+    'down today', 'up today', 'dropped', 'falling', 'surging', 'rally',
+    'earnings', 'announced', 'report', 'guidance', 'analyst', 'upgrade',
+    'downgrade', 'price target', 'sec filing', 'fda', 'merger', 'acquisition',
+    'catalyst', 'what caused', 'reason', 'why the', 'whats going on',
+    'find out', 'search', 'look up', 'current price', 'stock price'
+  ];
+  var lower = text.toLowerCase();
+  return triggers.some(function(t) { return lower.indexOf(t) !== -1; });
+}
+
+function buildRequestWithSearch(model, maxTokens, system, messages, useSearch) {
+  var body = {
+    model: useSearch ? 'claude-sonnet-4-20250514' : model,
+    max_tokens: useSearch ? 800 : maxTokens,
+    messages: messages
+  };
+  if (system) body.system = system;
+  if (useSearch) {
+    body.tools = [{ type: 'web_search_20250305', name: 'web_search' }];
+  }
+  return body;
+}
+// ── END WEB SEARCH HELPER ─────────────────────────────────────────────────────
+
 function renderMarketGrids() {
   var symbols = MARKET_SYMBOLS;
 
@@ -5068,19 +5099,22 @@ async function sendChartMessage(text) {
       lastResult
     );
 
+    var useSearch = needsWebSearch(text);
     var systemPrompt = 'You are an expert trading coach with access to live chart data. ' +
       'You have real-time intraday candle data, support/resistance levels, trend analysis, and technical indicators. ' +
+      (useSearch ? 'When asked about news or current events, search the web and summarize what you find clearly. ' : '') +
       'When asked about entries, give SPECIFIC price levels with clear reasoning based on the data provided. ' +
-      'Format entry suggestions like: "Entry zone: $X–$Y because [reason]. Stop loss: $Z (below [level]). Target: $T ([ratio] risk/reward)." ' +
+      'Format entry suggestions like: "Entry zone: $X-$Y because [reason]. Stop loss: $Z (below [level]). Target: $T ([ratio] risk/reward)." ' +
       'Be direct and specific. Plain English. 2-4 short paragraphs max. Never guarantee returns.' +
       (liveContext ? '\n\nLIVE CHART DATA:\n' + liveContext : '');
+    var requestBody = buildRequestWithSearch('claude-sonnet-4-20250514', 600, systemPrompt, history, useSearch);
     var res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body: JSON.stringify({model:'claude-sonnet-4-20250514', max_tokens:600, system:systemPrompt, messages:history})
+      body: JSON.stringify(requestBody)
     });
     var data = await res.json();
-    console.log('Chart AI status:', res.status, 'data:', JSON.stringify(data).slice(0,200));
+    console.log('Chart AI status:', res.status, 'web search:', useSearch, 'data:', JSON.stringify(data).slice(0,200));
     removeTypingById(typingId);
     var responseText = '';
     if (data.content && data.content.length) {
@@ -5521,11 +5555,17 @@ async function sendMessage2(text) {
     while (clean.length && clean[0].role !== 'user') clean.shift();
     while (clean.length && clean[clean.length-1].role !== 'user') clean.pop();
     if (!clean.length) clean = [{role:'user', content: text}];
-    const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:buildSystemPrompt(),messages:clean}) });
+    var useSearch2 = needsWebSearch(text);
+    var reqBody2 = buildRequestWithSearch('claude-sonnet-4-20250514', 1000, buildSystemPrompt(), clean, useSearch2);
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify(reqBody2) });
     const data = await res.json();
     removeTyping(typingId);
-    const responseText = data.content?.[0]?.text || (data.error ? 'API error: ' + data.error.message : 'Something went wrong. Try again.');
-    addBubble('ai', responseText, 'chat-messages-2');
+    var responseText2 = '';
+    if (data.content && data.content.length) {
+      data.content.forEach(function(block) { if (block.type === 'text') responseText2 += block.text; });
+    }
+    if (!responseText2) responseText2 = data.error ? 'API error: ' + data.error.message : 'Something went wrong. Try again.';
+    addBubble('ai', responseText2, 'chat-messages-2');
   } catch(e) {
     removeTyping(typingId);
     addBubble('ai', 'Connection issue. Check your Anthropic API key in Settings.', 'chat-messages-2');
