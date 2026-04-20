@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/dleft/Downloads/chart_preview_3.html -->
+<!-- saved from url=(0053)file:///C:/Users/dleft/Downloads/chart_preview_4.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -532,14 +532,16 @@ function initCharts() {
   var chartEl = document.getElementById('chart-container');
   var volEl = document.getElementById('volume-container');
 
+  var chartW = chartEl.offsetWidth || window.innerWidth - 300;
+  var chartH = chartEl.offsetHeight || Math.floor(window.innerHeight * 0.55);
   mainChart = LightweightCharts.createChart(chartEl, {
     layout: { background: { color: '#0a0e1a' }, textColor: '#64748b' },
     grid: { vertLines: { color: '#1e2d45' }, horzLines: { color: '#1e2d45' } },
     crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
     rightPriceScale: { borderColor: '#1e2d45', textColor: '#64748b' },
     timeScale: { borderColor: '#1e2d45', timeVisible: true, secondsVisible: false },
-    width: chartEl.offsetWidth,
-    height: chartEl.offsetHeight,
+    width: chartW,
+    height: chartH,
   });
 
   candleSeries = mainChart.addCandlestickSeries({
@@ -560,13 +562,14 @@ function initCharts() {
     color: 'rgba(245,158,11,0.5)', lineWidth: 1, lineStyle: 2, priceLineVisible: false, lastValueVisible: false,
   });
 
+  var volW = volEl.offsetWidth || chartW;
   volumeChart = LightweightCharts.createChart(volEl, {
     layout: { background: { color: '#0a0e1a' }, textColor: '#64748b' },
     grid: { vertLines: { color: 'transparent' }, horzLines: { color: '#1e2d45' } },
     rightPriceScale: { borderColor: '#1e2d45', textColor: '#64748b', scaleMargins: { top: 0, bottom: 0 } },
     timeScale: { visible: false },
-    width: volEl.offsetWidth,
-    height: volEl.offsetHeight,
+    width: volW,
+    height: 80,
   });
 
   volSeries = volumeChart.addHistogramSeries({
@@ -862,13 +865,15 @@ async function generateAISummary(sym, price, rsi, macd, ma20, volRatio, bbPct, b
   }
 }
 
-// Init on window load to ensure LightweightCharts is ready
+// Init after full render with delay to ensure layout is complete
 window.onload = function() {
-  if (typeof LightweightCharts === 'undefined') {
-    document.getElementById('loading-overlay').querySelector('.loading-text').textContent = 'Chart library failed to load — check your internet connection';
-    return;
-  }
-  initCharts();
+  setTimeout(function() {
+    if (typeof LightweightCharts === 'undefined') {
+      document.getElementById('loading-overlay').querySelector('.loading-text').textContent = 'Chart library failed to load — check internet connection';
+      return;
+    }
+    initCharts();
+  }, 300);
 };
 
 // Load example on start
