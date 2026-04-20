@@ -1,1 +1,876 @@
 
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///C:/Users/dleft/Downloads/chart_preview_2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradeIQ — Chart Preview</title>
+<script src="./chart_preview_files/lightweight-charts.standalone.production.js.download"></script>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface-2: #1a2235;
+    --border: #1e2d45;
+    --text: #e2e8f0;
+    --text-muted: #64748b;
+    --text-dim: #334155;
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,0.12);
+    --green: #10b981;
+    --green-dim: rgba(16,185,129,0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.12);
+    --amber: #f59e0b;
+    --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 2px;
+  }
+
+  .ticker-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+  }
+
+  .ticker-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    width: 80px;
+    text-transform: uppercase;
+  }
+
+  .ticker-input::placeholder { color: var(--text-dim); }
+
+  .search-btn {
+    background: var(--blue);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+
+  .search-btn:hover { background: #2563eb; }
+
+  /* Timeframe buttons */
+  .tf-btns {
+    display: flex;
+    gap: 4px;
+    margin-left: 8px;
+  }
+
+  .tf-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .tf-btn:hover { background: var(--surface-2); color: var(--text); }
+  .tf-btn.active { background: var(--blue-dim); color: var(--blue); border-color: var(--blue); }
+
+  /* Price display */
+  .price-display {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .price-sym { font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
+  .price-val { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--text); }
+  .price-chg { font-family: var(--mono); font-size: 12px; font-weight: 700; }
+  .price-chg.up { color: var(--green); }
+  .price-chg.down { color: var(--red); }
+
+  /* Main layout */
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Chart area */
+  .chart-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #chart-container {
+    flex: 1;
+    position: relative;
+  }
+
+  /* Volume chart */
+  #volume-container {
+    height: 80px;
+    flex-shrink: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Indicators row */
+  .indicators-row {
+    display: flex;
+    gap: 1px;
+    background: var(--border);
+    flex-shrink: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .ind-cell {
+    background: var(--surface);
+    padding: 6px 14px;
+    flex: 1;
+  }
+
+  .ind-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .ind-val {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .ind-sub {
+    font-family: var(--mono);
+    font-size: 9px;
+    margin-top: 1px;
+  }
+
+  /* Side panel */
+  .side-panel {
+    width: 300px;
+    flex-shrink: 0;
+    border-left: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .panel-section {
+    border-bottom: 1px solid var(--border);
+    padding: 14px 16px;
+  }
+
+  .panel-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  /* Signal cards */
+  .signal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .signal-card {
+    background: var(--surface-2);
+    border-radius: 6px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+  }
+
+  .signal-card.bull { border-color: rgba(16,185,129,0.3); background: var(--green-dim); }
+  .signal-card.bear { border-color: rgba(239,68,68,0.3); background: var(--red-dim); }
+  .signal-card.neutral { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.08); }
+
+  .signal-name { font-family: var(--mono); font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .signal-val { font-family: var(--mono); font-size: 14px; font-weight: 700; }
+  .signal-card.bull .signal-val { color: var(--green); }
+  .signal-card.bear .signal-val { color: var(--red); }
+  .signal-card.neutral .signal-val { color: var(--amber); }
+  .signal-desc { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+  /* S/R levels */
+  .level-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .level-row:last-child { border-bottom: none; }
+  .level-type { font-family: var(--mono); font-size: 10px; font-weight: 700; }
+  .level-type.res { color: var(--red); }
+  .level-type.sup { color: var(--green); }
+  .level-price { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text); }
+  .level-dist { font-family: var(--mono); font-size: 10px; color: var(--text-muted); }
+
+  /* AI Summary */
+  .ai-summary {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .ai-summary strong { color: var(--text); }
+
+  .ai-verdict {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .ai-verdict.buy { background: var(--green-dim); border-left: 3px solid var(--green); color: var(--green); }
+  .ai-verdict.wait { background: rgba(245,158,11,0.1); border-left: 3px solid var(--amber); color: var(--amber); }
+  .ai-verdict.avoid { background: var(--red-dim); border-left: 3px solid var(--red); color: var(--red); }
+
+  /* BB Bar */
+  .bb-bar-wrap {
+    position: relative;
+    height: 28px;
+    background: linear-gradient(to right, rgba(16,185,129,0.2), rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.05) 70%, rgba(239,68,68,0.2));
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin: 8px 0;
+  }
+
+  .bb-marker {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 8px currentColor;
+    transition: left 0.5s ease;
+  }
+
+  .bb-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--text-dim);
+  }
+
+  /* Loading state */
+  .loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 10;
+  }
+
+  .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border);
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text { font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
+
+  /* Pattern badge */
+  .pattern-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    width: 100%;
+  }
+
+  .pattern-badge.bull { background: var(--green-dim); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .pattern-badge.bear { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+  .pattern-badge.neutral { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .preview-badge {
+    background: linear-gradient(135deg, var(--blue), #8b5cf6);
+    color: white;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="logo">TRADEIQ</div>
+  <span class="preview-badge">Chart Preview</span>
+
+  <div class="ticker-input-wrap" style="margin-left:12px;">
+    <input class="ticker-input" id="tickerInput" placeholder="AAPL" maxlength="6">
+    <button class="search-btn" onclick="loadChart()">ANALYZE</button>
+  </div>
+
+  <div class="tf-btns">
+    <button class="tf-btn" onclick="changeTF(&#39;1min&#39;)">1m</button>
+    <button class="tf-btn" onclick="changeTF(&#39;5min&#39;)">5m</button>
+    <button class="tf-btn" onclick="changeTF(&#39;15min&#39;)">15m</button>
+    <button class="tf-btn" onclick="changeTF(&#39;1h&#39;)">1H</button>
+    <button class="tf-btn active" id="tf-1day" onclick="changeTF(&#39;1day&#39;)">D</button>
+    <button class="tf-btn" onclick="changeTF(&#39;1week&#39;)">W</button>
+  </div>
+
+  <div class="price-display">
+    <span class="price-sym" id="hdr-sym">--</span>
+    <span class="price-val" id="hdr-price">$--</span>
+    <span class="price-chg" id="hdr-chg">--</span>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Chart -->
+  <div class="chart-area">
+    <div id="chart-container">
+      <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Enter a ticker and click Analyze</div>
+      </div>
+    <div class="tv-lightweight-charts" style="overflow: hidden; width: 98px; height: 533px; user-select: none; -webkit-tap-highlight-color: transparent;"><table cellspacing="0" style="height: 533px; width: 98px;"><tr><td style="padding: 0px;"></td><td style="padding: 0px; position: relative; width: 46px; height: 507px;"><div style="width: 100%; height: 100%; position: relative; overflow: hidden;"><canvas width="57" height="633" style="width: 46px; height: 507px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas width="57" height="633" style="width: 46px; height: 507px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas></div></td><td style="padding: 0px;"><div style="height: 507px; overflow: hidden; width: 52px; left: 0px; position: relative; min-width: 52px;"><canvas width="65" height="633" style="width: 52px; height: 507px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas width="65" height="633" style="width: 52px; height: 507px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas></div></td></tr><tr><td style="padding: 0px;"></td><td style="height: 26px; padding: 0px; width: 46px;"><div style="width: 100%; height: 100%; position: relative; overflow: hidden;"><canvas width="57" height="32" style="width: 46px; height: 26px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas width="57" height="32" style="width: 46px; height: 26px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas></div></td><td style="padding: 0px;"><div style="width: 52px; height: 26px; overflow: hidden; min-width: 52px;"><canvas width="65" height="32" style="width: 52px; height: 26px;"></canvas></div></td></tr></table></div></div>
+    <div id="volume-container"><div class="tv-lightweight-charts" style="overflow: hidden; width: 98px; height: 80px; user-select: none; -webkit-tap-highlight-color: transparent;"><table cellspacing="0" style="height: 80px; width: 98px;"><tr><td style="padding: 0px;"></td><td style="padding: 0px; position: relative; width: 46px; height: 80px;"><div style="width: 100%; height: 100%; position: relative; overflow: hidden;"><canvas width="57" height="100" style="width: 46px; height: 80px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas width="57" height="100" style="width: 46px; height: 80px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas></div></td><td style="padding: 0px;"><div style="height: 80px; overflow: hidden; width: 52px; left: 0px; position: relative; min-width: 52px;"><canvas width="65" height="100" style="width: 52px; height: 80px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas width="65" height="100" style="width: 52px; height: 80px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas></div></td></tr><tr style="display: none;"><td style="padding: 0px;"></td><td style="height: 25px; padding: 0px;"><div style="width: 100%; height: 100%; position: relative; overflow: hidden;"><canvas width="20" height="20" style="width: 16px; height: 16px; position: absolute; z-index: 1; left: 0px; top: 0px;"></canvas><canvas width="20" height="20" style="width: 16px; height: 16px; position: absolute; z-index: 2; left: 0px; top: 0px;"></canvas></div></td><td style="padding: 0px;"><div style="width: 25px; height: 100%; overflow: hidden;"><canvas width="20" height="20" style="width: 16px; height: 16px;"></canvas></div></td></tr></table></div></div>
+    <div class="indicators-row" id="ind-row">
+      <div class="ind-cell">
+        <div class="ind-label">RSI (14)</div>
+        <div class="ind-val" id="ind-rsi" style="color:var(--text-muted);">--</div>
+        <div class="ind-sub" id="ind-rsi-sub" style="color:var(--text-dim);">--</div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-label">MACD</div>
+        <div class="ind-val" id="ind-macd" style="color:var(--text-muted);">--</div>
+        <div class="ind-sub" id="ind-macd-sub" style="color:var(--text-dim);">--</div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-label">20 MA</div>
+        <div class="ind-val" id="ind-ma" style="color:var(--text-muted);">--</div>
+        <div class="ind-sub" id="ind-ma-sub" style="color:var(--text-dim);">--</div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-label">Volume</div>
+        <div class="ind-val" id="ind-vol" style="color:var(--text-muted);">--</div>
+        <div class="ind-sub" id="ind-vol-sub" style="color:var(--text-dim);">--</div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-label">BB %</div>
+        <div class="ind-val" id="ind-bb" style="color:var(--text-muted);">--</div>
+        <div class="ind-sub" id="ind-bb-sub" style="color:var(--text-dim);">--</div>
+      </div>
+      <div class="ind-cell">
+        <div class="ind-label">Signal</div>
+        <div class="ind-val" id="ind-sig" style="color:var(--text-muted);">--</div>
+        <div class="ind-sub" id="ind-sig-sub" style="color:var(--text-dim);">--</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Side panel -->
+  <div class="side-panel">
+
+    <!-- Signals -->
+    <div class="panel-section">
+      <div class="panel-title">Indicator Signals</div>
+      <div class="signal-grid" id="signal-grid">
+        <div class="signal-card neutral"><div class="signal-name">RSI</div><div class="signal-val">--</div><div class="signal-desc">Waiting</div></div>
+        <div class="signal-card neutral"><div class="signal-name">MACD</div><div class="signal-val">--</div><div class="signal-desc">Waiting</div></div>
+        <div class="signal-card neutral"><div class="signal-name">20 MA</div><div class="signal-val">--</div><div class="signal-desc">Waiting</div></div>
+        <div class="signal-card neutral"><div class="signal-name">Volume</div><div class="signal-val">--</div><div class="signal-desc">Waiting</div></div>
+      </div>
+    </div>
+
+    <!-- BB Position -->
+    <div class="panel-section">
+      <div class="panel-title">Bollinger Band Position</div>
+      <div class="bb-bar-wrap">
+        <div class="bb-marker" id="bb-marker" style="left:50%;color:var(--amber);background:var(--amber);"></div>
+      </div>
+      <div class="bb-labels">
+        <span style="color:var(--green);">Lower</span>
+        <span>Middle</span>
+        <span style="color:var(--red);">Upper</span>
+      </div>
+    </div>
+
+    <!-- Support / Resistance -->
+    <div class="panel-section">
+      <div class="panel-title">Support &amp; Resistance</div>
+      <div id="sr-levels">
+        <div style="font-size:11px;color:var(--text-dim);">Load a stock to see levels</div>
+      </div>
+    </div>
+
+    <!-- Candlestick Pattern -->
+    <div class="panel-section" id="pattern-section">
+      <div class="panel-title">Candlestick Pattern</div>
+      <div id="pattern-content" style="font-size:11px;color:var(--text-dim);">Load a stock to detect patterns</div>
+    </div>
+
+    <!-- AI Summary -->
+    <div class="panel-section">
+      <div class="panel-title">AI Analysis</div>
+      <div id="ai-content" class="ai-summary" style="color:var(--text-dim);font-size:11px;">Enter a ticker and click Analyze to get AI insights.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+// Try multiple key names since the main app may store them differently
+var TD_KEY = localStorage.getItem('tradeiq_td_key') || localStorage.getItem('td_key') || '';
+var ANTHROPIC_KEY = localStorage.getItem('tradeiq_anthropic_key') || localStorage.getItem('tradeiq_key') || '';
+
+// If keys not found, ask user
+if (!TD_KEY) {
+  TD_KEY = prompt('Enter your Twelve Data API key (from twelvedata.com — free at twelvedata.com/register):') || '';
+  if (TD_KEY) localStorage.setItem('tradeiq_td_key', TD_KEY);
+}
+if (!ANTHROPIC_KEY) {
+  ANTHROPIC_KEY = prompt('Enter your Anthropic API key (from console.anthropic.com):') || '';
+  if (ANTHROPIC_KEY) localStorage.setItem('tradeiq_anthropic_key', ANTHROPIC_KEY);
+}
+
+// Show key status
+console.log('TD Key:', TD_KEY ? 'Found (' + TD_KEY.slice(0,8) + '...)' : 'MISSING');
+console.log('Anthropic Key:', ANTHROPIC_KEY ? 'Found' : 'MISSING (AI summary will be skipped)');
+
+var currentSymbol = '';
+var currentTF = '1day';
+var mainChart = null;
+var candleSeries = null;
+var volumeChart = null;
+var volSeries = null;
+var maSeries = null;
+var bbUpperSeries = null;
+var bbLowerSeries = null;
+
+// ── INIT CHARTS ───────────────────────────────────────────────────────────────
+function initCharts() {
+  var chartEl = document.getElementById('chart-container');
+  var volEl = document.getElementById('volume-container');
+
+  mainChart = LightweightCharts.createChart(chartEl, {
+    layout: { background: { color: '#0a0e1a' }, textColor: '#64748b' },
+    grid: { vertLines: { color: '#1e2d45' }, horzLines: { color: '#1e2d45' } },
+    crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+    rightPriceScale: { borderColor: '#1e2d45', textColor: '#64748b' },
+    timeScale: { borderColor: '#1e2d45', timeVisible: true, secondsVisible: false },
+    width: chartEl.offsetWidth,
+    height: chartEl.offsetHeight,
+  });
+
+  candleSeries = mainChart.addCandlestickSeries({
+    upColor: '#10b981', downColor: '#ef4444',
+    borderUpColor: '#10b981', borderDownColor: '#ef4444',
+    wickUpColor: '#10b981', wickDownColor: '#ef4444',
+  });
+
+  maSeries = mainChart.addLineSeries({
+    color: '#3b82f6', lineWidth: 2, priceLineVisible: false, lastValueVisible: false,
+  });
+
+  bbUpperSeries = mainChart.addLineSeries({
+    color: 'rgba(245,158,11,0.5)', lineWidth: 1, lineStyle: 2, priceLineVisible: false, lastValueVisible: false,
+  });
+
+  bbLowerSeries = mainChart.addLineSeries({
+    color: 'rgba(245,158,11,0.5)', lineWidth: 1, lineStyle: 2, priceLineVisible: false, lastValueVisible: false,
+  });
+
+  volumeChart = LightweightCharts.createChart(volEl, {
+    layout: { background: { color: '#0a0e1a' }, textColor: '#64748b' },
+    grid: { vertLines: { color: 'transparent' }, horzLines: { color: '#1e2d45' } },
+    rightPriceScale: { borderColor: '#1e2d45', textColor: '#64748b', scaleMargins: { top: 0, bottom: 0 } },
+    timeScale: { visible: false },
+    width: volEl.offsetWidth,
+    height: volEl.offsetHeight,
+  });
+
+  volSeries = volumeChart.addHistogramSeries({
+    priceFormat: { type: 'volume' },
+    priceScaleId: '',
+    scaleMargins: { top: 0.1, bottom: 0 },
+  });
+
+  // Sync time scales
+  mainChart.timeScale().subscribeVisibleLogicalRangeChange(function(range) {
+    if (range) volumeChart.timeScale().setVisibleLogicalRange(range);
+  });
+
+  window.addEventListener('resize', function() {
+    mainChart.applyOptions({ width: chartEl.offsetWidth, height: chartEl.offsetHeight });
+    volumeChart.applyOptions({ width: volEl.offsetWidth });
+  });
+}
+
+// ── LOAD CHART ────────────────────────────────────────────────────────────────
+async function loadChart() {
+  var sym = document.getElementById('tickerInput').value.trim().toUpperCase();
+  if (!sym) return;
+  currentSymbol = sym;
+
+  document.getElementById('loading-overlay').style.display = 'flex';
+  document.getElementById('loading-overlay').querySelector('.loading-text').textContent = 'Fetching ' + sym + ' data...';
+
+  try {
+    var res = await fetch('https://api.twelvedata.com/time_series?symbol=' + sym + '&interval=' + currentTF + '&outputsize=120&apikey=' + TD_KEY);
+    var json = await res.json();
+
+    if (!json.values || json.values.length < 10) {
+      var overlay = document.getElementById('loading-overlay');
+      overlay.querySelector('.loading-text').textContent = json.message || ('No data found for ' + sym + '. Check the ticker symbol.');
+      overlay.style.display = 'flex';
+      return;
+    }
+
+    var candles = json.values.slice().reverse().map(function(v) {
+      return { time: v.datetime.split(' ')[0] || v.datetime, open: parseFloat(v.open), high: parseFloat(v.high), low: parseFloat(v.low), close: parseFloat(v.close), volume: parseFloat(v.volume || 0) };
+    });
+
+    // Fix duplicate times for intraday
+    var seen = {};
+    candles = candles.filter(function(c) {
+      if (seen[c.time]) return false;
+      seen[c.time] = true;
+      return true;
+    });
+
+    candleSeries.setData(candles);
+
+    // Volume
+    var volData = candles.map(function(c) {
+      return { time: c.time, value: c.volume, color: c.close >= c.open ? 'rgba(16,185,129,0.5)' : 'rgba(239,68,68,0.5)' };
+    });
+    volSeries.setData(volData);
+
+    // Calculate indicators
+    var closes = candles.map(function(c) { return c.close; });
+    var n = closes.length;
+    var price = closes[n-1];
+
+    // 20 MA
+    var ma20Data = [];
+    for (var i = 19; i < n; i++) {
+      var sum = 0;
+      for (var j = i-19; j <= i; j++) sum += closes[j];
+      ma20Data.push({ time: candles[i].time, value: sum / 20 });
+    }
+    maSeries.setData(ma20Data);
+    var ma20 = ma20Data[ma20Data.length-1].value;
+
+    // Bollinger Bands (20,2)
+    var bbUpper = [], bbLower = [];
+    for (var i = 19; i < n; i++) {
+      var sum = 0;
+      for (var j = i-19; j <= i; j++) sum += closes[j];
+      var mean = sum / 20;
+      var variance = 0;
+      for (var j = i-19; j <= i; j++) variance += Math.pow(closes[j] - mean, 2);
+      var std = Math.sqrt(variance / 20);
+      bbUpper.push({ time: candles[i].time, value: mean + 2*std });
+      bbLower.push({ time: candles[i].time, value: mean - 2*std });
+    }
+    bbUpperSeries.setData(bbUpper);
+    bbLowerSeries.setData(bbLower);
+
+    var bbU = bbUpper[bbUpper.length-1].value;
+    var bbL = bbLower[bbLower.length-1].value;
+    var bbPct = Math.round(((price - bbL) / (bbU - bbL)) * 100);
+
+    // RSI
+    var gains = 0, losses = 0;
+    for (var i = n-14; i < n; i++) {
+      var diff = closes[i] - closes[i-1];
+      if (diff > 0) gains += diff; else losses += Math.abs(diff);
+    }
+    var rsi = losses === 0 ? 100 : Math.round(100 - (100 / (1 + (gains/14)/(losses/14))));
+
+    // MACD (12,26,9)
+    function ema(data, period) {
+      var k = 2/(period+1), result = [data[0]];
+      for (var i = 1; i < data.length; i++) result.push(data[i]*k + result[i-1]*(1-k));
+      return result;
+    }
+    var ema12 = ema(closes, 12);
+    var ema26 = ema(closes, 26);
+    var macdLine = ema12[n-1] - ema26[n-1];
+
+    // Volume ratio
+    var avgVol = 0;
+    for (var i = n-20; i < n-1; i++) avgVol += candles[i].volume;
+    avgVol /= 19;
+    var volRatio = (candles[n-1].volume / avgVol).toFixed(1);
+
+    // Support / Resistance clusters
+    var allPrices = [];
+    candles.slice(-60).forEach(function(c) { allPrices.push(c.high, c.low, c.close); });
+    allPrices.sort(function(a,b){return a-b;});
+    var clusters = [];
+    var range = price * 0.008;
+    var i = 0;
+    while (i < allPrices.length) {
+      var cluster = [allPrices[i]], j = i+1;
+      while (j < allPrices.length && allPrices[j] - allPrices[i] < range) { cluster.push(allPrices[j]); j++; }
+      if (cluster.length >= 4) clusters.push(parseFloat((cluster.reduce(function(a,b){return a+b;},0)/cluster.length).toFixed(2)));
+      i = j;
+    }
+    var supports = clusters.filter(function(v){return v < price*0.999;}).slice(-3);
+    var resistances = clusters.filter(function(v){return v > price*1.001;}).slice(0,3);
+
+    // Update UI
+    document.getElementById('loading-overlay').style.display = 'none';
+    updateHeader(sym, price, closes[n-2]);
+    updateIndicators(rsi, macdLine, ma20, price, volRatio, bbPct);
+    updateSignalCards(rsi, macdLine, ma20, price, volRatio, bbPct);
+    updateBBBar(bbPct);
+    updateSRLevels(supports, resistances, price);
+    detectPatterns(candles);
+    generateAISummary(sym, price, rsi, macdLine, ma20, volRatio, bbPct, bbU, bbL, supports, resistances);
+
+  } catch(e) {
+    var overlay = document.getElementById('loading-overlay');
+    overlay.querySelector('.loading-text').textContent = 'Error loading ' + sym + ': ' + e.message;
+    overlay.style.display = 'flex';
+    console.error('Chart load error:', e);
+  }
+}
+
+function changeTF(tf) {
+  currentTF = tf;
+  document.querySelectorAll('.tf-btn').forEach(function(b) { b.classList.remove('active'); });
+  event.target.classList.add('active');
+  if (currentSymbol) loadChart();
+}
+
+function updateHeader(sym, price, prevClose) {
+  var chg = ((price - prevClose) / prevClose * 100).toFixed(2);
+  document.getElementById('hdr-sym').textContent = sym;
+  document.getElementById('hdr-price').textContent = '$' + price.toFixed(2);
+  var chgEl = document.getElementById('hdr-chg');
+  chgEl.textContent = (chg >= 0 ? '▲ +' : '▼ ') + chg + '%';
+  chgEl.className = 'price-chg ' + (chg >= 0 ? 'up' : 'down');
+}
+
+function updateIndicators(rsi, macd, ma20, price, volRatio, bbPct) {
+  var rsiEl = document.getElementById('ind-rsi');
+  rsiEl.textContent = rsi;
+  rsiEl.style.color = rsi > 70 ? '#ef4444' : rsi < 30 ? '#10b981' : '#e2e8f0';
+  document.getElementById('ind-rsi-sub').textContent = rsi > 70 ? 'Overbought' : rsi < 30 ? 'Oversold' : 'Neutral';
+
+  var macdEl = document.getElementById('ind-macd');
+  macdEl.textContent = macd.toFixed(3);
+  macdEl.style.color = macd > 0 ? '#10b981' : '#ef4444';
+  document.getElementById('ind-macd-sub').textContent = macd > 0 ? 'Bullish' : 'Bearish';
+
+  var maEl = document.getElementById('ind-ma');
+  maEl.textContent = '$' + ma20.toFixed(2);
+  maEl.style.color = price > ma20 ? '#10b981' : '#ef4444';
+  document.getElementById('ind-ma-sub').textContent = price > ma20 ? 'Price Above' : 'Price Below';
+
+  document.getElementById('ind-vol').textContent = volRatio + 'x';
+  document.getElementById('ind-vol').style.color = volRatio > 1.5 ? '#f59e0b' : '#e2e8f0';
+  document.getElementById('ind-vol-sub').textContent = volRatio > 2 ? 'Spike!' : volRatio > 1.5 ? 'Above Avg' : 'Normal';
+
+  var bbEl = document.getElementById('ind-bb');
+  bbEl.textContent = bbPct + '%';
+  bbEl.style.color = bbPct > 70 ? '#ef4444' : bbPct < 30 ? '#10b981' : '#f59e0b';
+  document.getElementById('ind-bb-sub').textContent = bbPct > 70 ? 'Near Upper' : bbPct < 30 ? 'Near Lower' : 'Mid Range';
+
+  var bulls = [rsi < 60 && rsi > 40, macd > 0, price > ma20, bbPct < 65].filter(Boolean).length;
+  var sigEl = document.getElementById('ind-sig');
+  sigEl.textContent = bulls >= 3 ? 'Bullish' : bulls <= 1 ? 'Bearish' : 'Mixed';
+  sigEl.style.color = bulls >= 3 ? '#10b981' : bulls <= 1 ? '#ef4444' : '#f59e0b';
+  document.getElementById('ind-sig-sub').textContent = bulls + '/4 signals';
+}
+
+function updateSignalCards(rsi, macd, ma20, price, volRatio, bbPct) {
+  var grid = document.getElementById('signal-grid');
+  var signals = [
+    { name: 'RSI', val: rsi, desc: rsi > 70 ? 'Overbought' : rsi < 30 ? 'Oversold' : 'Neutral', bull: rsi >= 30 && rsi <= 60, bear: rsi > 70 },
+    { name: 'MACD', val: macd > 0 ? 'Bull' : 'Bear', desc: macd.toFixed(3), bull: macd > 0, bear: macd < 0 },
+    { name: '20 MA', val: price > ma20 ? 'Above' : 'Below', desc: '$' + ma20.toFixed(2), bull: price > ma20, bear: price < ma20 },
+    { name: 'Volume', val: volRatio + 'x', desc: volRatio > 2 ? 'Spike' : volRatio > 1.5 ? 'High' : 'Normal', bull: volRatio > 1.5, bear: false },
+  ];
+
+  grid.innerHTML = signals.map(function(s) {
+    var cls = s.bull ? 'bull' : s.bear ? 'bear' : 'neutral';
+    return '<div class="signal-card ' + cls + '"><div class="signal-name">' + s.name + '</div><div class="signal-val">' + s.val + '</div><div class="signal-desc">' + s.desc + '</div></div>';
+  }).join('');
+}
+
+function updateBBBar(bbPct) {
+  var marker = document.getElementById('bb-marker');
+  var clamped = Math.max(3, Math.min(97, bbPct));
+  marker.style.left = clamped + '%';
+  marker.style.color = bbPct > 70 ? '#ef4444' : bbPct < 30 ? '#10b981' : '#f59e0b';
+  marker.style.background = bbPct > 70 ? '#ef4444' : bbPct < 30 ? '#10b981' : '#f59e0b';
+}
+
+function updateSRLevels(supports, resistances, price) {
+  var html = '';
+  resistances.slice().reverse().forEach(function(r) {
+    var dist = ((r - price) / price * 100).toFixed(1);
+    html += '<div class="level-row"><span class="level-type res">R</span><span class="level-price">$' + r + '</span><span class="level-dist">+' + dist + '%</span></div>';
+  });
+  html += '<div class="level-row" style="background:rgba(59,130,246,0.1);"><span class="level-type" style="color:var(--blue);">NOW</span><span class="level-price" style="color:var(--blue);">$' + price.toFixed(2) + '</span><span class="level-dist" style="color:var(--blue);">Current</span></div>';
+  supports.slice().reverse().forEach(function(s) {
+    var dist = ((price - s) / price * 100).toFixed(1);
+    html += '<div class="level-row"><span class="level-type sup">S</span><span class="level-price">$' + s + '</span><span class="level-dist">-' + dist + '%</span></div>';
+  });
+  document.getElementById('sr-levels').innerHTML = html || '<div style="font-size:11px;color:var(--text-dim);">No clear levels found</div>';
+}
+
+function detectPatterns(candles) {
+  var n = candles.length;
+  var cur = candles[n-1], prev = candles[n-2], prev2 = candles[n-3];
+  function body(c) { return Math.abs(c.close-c.open); }
+  function range(c) { return c.high-c.low; }
+  function upper(c) { return c.high-Math.max(c.open,c.close); }
+  function lower(c) { return Math.min(c.open,c.close)-c.low; }
+  var patterns = [];
+
+  if (lower(cur) >= body(cur)*2 && upper(cur) <= body(cur)*0.5 && cur.close < cur.open) patterns.push({name:'🔨 Hammer', type:'bull', desc:'Buyers rejected lower prices — potential bounce'});
+  if (upper(cur) >= body(cur)*2 && lower(cur) <= body(cur)*0.5 && cur.close > prev.close) patterns.push({name:'💫 Shooting Star', type:'bear', desc:'Buyers rejected at highs — reversal warning'});
+  if (body(cur)/range(cur) < 0.1) patterns.push({name:'➕ Doji', type:'neutral', desc:'Indecision — watch next candle for direction'});
+  if (cur.close > cur.open && prev.close < prev.open && cur.open < prev.close && cur.close > prev.open && body(cur) > body(prev)) patterns.push({name:'🟢 Bullish Engulfing', type:'bull', desc:'Buyers overwhelmed sellers — strong reversal'});
+  if (cur.close < cur.open && prev.close > prev.open && cur.open > prev.close && cur.close < prev.open && body(cur) > body(prev)) patterns.push({name:'🔴 Bearish Engulfing', type:'bear', desc:'Sellers overwhelmed buyers — strong reversal'});
+  if (prev2.close < prev2.open && body(prev)/range(prev) < 0.3 && cur.close > cur.open && cur.close > (prev2.open+prev2.close)/2) patterns.push({name:'🌅 Morning Star', type:'bull', desc:'3-candle bottom reversal — high confidence'});
+
+  var content = document.getElementById('pattern-content');
+  if (!patterns.length) {
+    content.innerHTML = '<div style="font-size:11px;color:var(--text-dim);">No significant patterns in last 3 candles</div>';
+    return;
+  }
+  content.innerHTML = patterns.map(function(p) {
+    return '<div class="pattern-badge ' + p.type + '">' + p.name + '</div><div style="font-size:11px;color:var(--text-muted);margin-bottom:8px;">' + p.desc + '</div>';
+  }).join('');
+}
+
+async function generateAISummary(sym, price, rsi, macd, ma20, volRatio, bbPct, bbU, bbL, supports, resistances) {
+  var aiEl = document.getElementById('ai-content');
+  aiEl.innerHTML = '<div style="color:var(--text-dim);">Generating AI analysis...</div>';
+
+  if (!ANTHROPIC_KEY) {
+    aiEl.innerHTML = '<div style="color:var(--text-dim);">Add Anthropic key to see AI analysis</div>';
+    return;
+  }
+
+  var sup = supports.length ? '$' + supports[supports.length-1] : 'none detected';
+  var res = resistances.length ? '$' + resistances[0] : 'none detected';
+  var prompt = sym + ' Analysis:\nPrice: $' + price.toFixed(2) + '\nRSI: ' + rsi + ', MACD: ' + (macd > 0 ? 'bullish' : 'bearish') + ', 20MA: $' + ma20.toFixed(2) + ' (price ' + (price > ma20 ? 'above' : 'below') + '), BB: ' + bbPct + '% of range (upper $' + bbU.toFixed(2) + ', lower $' + bbL.toFixed(2) + '), Volume: ' + volRatio + 'x normal\nNearest support: ' + sup + ', nearest resistance: ' + res + '\n\nWrite 2 short paragraphs: (1) what the indicators say, (2) specific entry/wait recommendation with price levels. Bold key prices.';
+
+  try {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 300, messages: [{ role: 'user', content: prompt }] })
+    });
+    var data = await response.json();
+    var text = data.content && data.content[0] ? data.content[0].text : 'Analysis unavailable';
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--text);">$1</strong>').replace(/\n/g, '<br>');
+
+    var bulls = [rsi < 65, macd > 0, price > ma20, bbPct < 70].filter(Boolean).length;
+    var verdictClass = bulls >= 3 ? 'buy' : bulls <= 1 ? 'avoid' : 'wait';
+    var verdictText = bulls >= 3 ? '✓ Signals aligned — worth considering an entry' : bulls <= 1 ? '✗ Multiple signals bearish — avoid long entry' : '⚡ Mixed signals — wait for better alignment';
+
+    aiEl.innerHTML = '<div class="ai-summary">' + text + '</div><div class="ai-verdict ' + verdictClass + '">' + verdictText + '</div>';
+  } catch(e) {
+    aiEl.innerHTML = '<div style="color:var(--red);font-size:11px;">AI error: ' + e.message + '</div>';
+  }
+}
+
+// Init
+initCharts();
+
+// Load example on start
+document.getElementById('tickerInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') loadChart();
+});
+</script>
+
+
+</body></html>
