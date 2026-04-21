@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_57.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_58.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1056,8 +1056,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot closed" id="market-dot"></div>
-      <span id="market-status-text">Market Closed</span>
+      <div class="status-dot premarket" id="market-dot"></div>
+      <span id="market-status-text">After-Hours</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -1068,7 +1068,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49433.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.02%</div><div class="market-card-points up">+11.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7087.20</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.20%</div><div class="market-card-points down">-14.20 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$25871.60</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.32%</div><div class="market-card-points down">-82.40 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2773.50</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.57%</div><div class="market-card-points up">+15.70 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49136.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.60%</div><div class="market-card-points down">-297.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7040.80</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.65%</div><div class="market-card-points down">-46.40 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$25773.20</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.38%</div><div class="market-card-points down">-98.40 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2745.10</div><div class="market-card-change-row"><div class="market-card-change down">▼ 1.02%</div><div class="market-card-points down">-28.40 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
     <!-- INDEX COMPONENTS PANEL -->
     <div id="index-components-panel" style="display:none;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"></div>
 
@@ -1103,7 +1103,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </div>
 
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/21/oil-price-iran-war-strait-hormuz-tanker-ceasefire-peace-talks.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108292227-1776308110730-gettyimages-2269603615-AFP_A6WU9KF.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Oil falls as investors assess mixed messaging on Iran peace talks ahead of ceasefire deadline</div><div class="news-time">44m ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiyAFBVV95cUxNV2E5TGZFUmJXMVJMRmo5TXFoaExfbnR4TkZuRm5mcU05WmtnNTFxdjhUbm53d0JJSGhNSTcwUEJBYjRxNzE5Sk9CWV8zWENnV0x2dW9GNW1FX0Y3R0pkdmJmcFRIc1JoOTU2a2cwTmlsbzZ5MEo5c3ZOT2pFVjBTa2pUUnQ3cXplSnNOVEVFejFpSDVobWJxYkItNjZ6b0x4UEIxYUI1cTBwbDBnVlZoR3RSZ1F3b01WbTlQNGlQTlQ1NFZhd2plcQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Seized Iranian ship likely carrying equipment deemed dual-use by US, sources say - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPMjU2TlFwQnBjVlAzdFJFUENydUg2ZmFkc3dtVnRtOHhfZDVKNkN6SnZzdE9iOG45Mm01UUJnbVU4RHFjNUFZMVlicFZwMks0OTNOMDFiQWZfM3BfZm1tSVNRakg4ZWh6REtwNVRIQ1NLOGhSMDA5VE5nM3FGRTFkXy14Q09HZ0VNc0ZuQVNPRmZ3TE14UkhvbnNJTmliTlR4RWVn?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Wall Street closes slightly down on renewed tensions between US, Iran - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiywFBVV95cUxPOThCMFBkZUFNNnZvMldLMHNuZ1lmZ05tUUw4MUhoLVlsQWFpZkVVemtVS1hSSGM1RF93Sm81VDZhMjdRUjl1VDBwQnkyWTNXMDlUbUUtN2pJRGZnNkhsdy1GcExsdk5YMVlHRWI0QVhtc2hJejBjRnlXZ0hwR1JsQlVWaEpHRExSQ2w4MmhXal94em43Mm92c0l3VmFrMkdpbDZ1NXpFWDFLUUFCOUJhWWNPLWd3b3huWG9OTi1MUVNpYlh5Qk5ndVJZNA?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Oil falls on expectations US-Iran talks likely to proceed, opening supply - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxQTzE3RUdaX2ZiLUllM1ozbloyczlNQ0F4VWMtTXFXaTFCMUhtSVZzUnBJd3YwWXdya3hMV2t1amZOTnAyaG1YdFMtQ3lYOFFKc0tubjlSODhkeGRKNElBdl9tUmlTMWxuczZid0p5YU5Vck83Y0t0RlZtUVZXQVloT0VaaFFwQkUzbzZxNm40VTg4cG13YTJsZVVyYVduN04tVUlBWXZ6SWI2eWo2eGZJWWxKUUNYc3FnaUhr?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">JetBlue CEO rules out bankruptcy this year despite surging fuel costs amid Iran war - Reuters</div><div class="news-time">5h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitwFBVV95cUxQc1EtUC1KOU1jd0lOaXZwVFB0V2x3MEx3YWxwcTJLdXNfQjJBTXY5RjEwQk4yWmtIRWNrOEhOeU5iZzlINTZkeU5JT2dRM3I4eWg2WnJCbmJLQUpEREdfclBSR2FacGJVenRFSW5WcmFHU0hpR3FMdXlzaVBfckgyZnYzNEkybzdJdFdQSi0xTTNzTm5YUElqeVkyZW1GTDFsdXM2T2lIZ0ZJMWRhZUZMZW10WXQzSnc?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Gulf worries US-Iran talks may cement Tehran's 'golden' grip on Hormuz - Reuters</div><div class="news-time">7h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/21/polymarket-launches-trading-of-heavily-leveraged-perps-contracts.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108263237-1770644039922-gettyimages-2260143497-kokovlis-notitle260209_npD1L.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Polymarket launches trading of heavily leveraged 'perps' contracts</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMizAFBVV95cUxOdEFveWcxX3c2U3JlWG9YT05ZVnJsWmxiZDNWVUpSMnVpdC1hTXZpLTB4TUNFZ1BLUlZHU3VDTWhmNDl6NEg3c0RpYW5UalRPU0FTNGQ3dlVMaUxWOHRvSU1jS0NUTXRCVmN3ZTRxc1JLVzdfZVA1NjBEUVZCZW9FNENxSzF1UjZXcEI4TS1USnUxbzY5U1dET2IyUHM0WnVkWmdaNzBvX2Q0bUYyWEJ3bzlyZ3YtZFJCaDB4djNDeWNEYWc1N0xrcWMxSFk?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says US will extend ceasefire until Iranian proposal submitted, discussions concluded - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/21/how-warsh-can-give-trump-rate-cuts-keep-fed-independent-and-make-the-market-happy.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108294832-1776795436340-gettyimages-2271844059-WARSH_CONFIRMATION.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">How Warsh can give Trump rate cuts, keep Fed independent, and make the market happy</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixgFBVV95cUxOTnY4bFZzaGt1d2hPZWNIcHlVZVRLODVoUGtMVHBSTTh5SDJUVWVxaUhXUzNOYm1pZDk0RVhLRUw3ajhCLUl3a21sUXpoU05EM0FGNUF1SE8xOWRNZy1iUGNEckcwV1JuUlk5eGZwYWlTaW5iQWEzOWhqak9SWklnVVBkVDZrdEZhTGc3dzRJcy04dTB5T09BaGk4T002amJWYmIwMlBlN0FCZDIxSnQyVEV0VV9tZHRQUnQ1c2lmdVdaczBaQVE?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran rejects talks with U.S. under pressure and aimed at surrender, senior Iranian official says - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMivgFBVV95cUxNVW91WEhjZW1XUEtyTmV2UlZ4WjhNVVJhQXJJN1NQS0ZGZ3RMZXkyS1k4RDhURHA4WlRRWDR2RndBSTRGZkt6cWlYSmNveWpkclplVkVMTFRIUmc3d0pSOGlQaS1rUkpDekdzeXJ1VklYV0JKRzh1LTNfVlhJZ2FWRFFrRF9yLUpoSmE0SWdxSTBkMm1zNmcwUkNvTXlDLVVLbDFPSkxiS1ZEeEVtNUdoU18yckNjNjl6VUxJdWtn?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran's foreign minister says US blockade of Iranian ports is an 'act of war' - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMitAFBVV95cUxPY0g5MGlvQXhWclhPX0I3Rm5vU1hyWkhzNGVSLVN4T1dpYkxMTmNoLWQ5WDhzRFJkLVp5dGRTV0x2SjFzU0Q4SGFscmxGUWJudDlVNktQTGM5d05NdDRyRmNQenZMY3BDVGoyczR3MzJuX1BZaVVIeHluQ2tfeDh2QXBiOWljNXRtZEhndUdWUTdPZ04tbnVRa0tHVmxzRUZqUUw3LUFnR0VfZkczbjYtUkpfM2o?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">US imposes new sanctions against suppliers of weapons to Iran - Reuters</div><div class="news-time">4h ago</div></div></a></div>
       </div>
     </div>
   </div>
@@ -1113,7 +1113,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49433.00</div><div class="market-card-change up">▲ 0.02%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7087.20</div><div class="market-card-change down">▼ 0.20%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$25871.60</div><div class="market-card-change down">▼ 0.32%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2773.50</div><div class="market-card-change up">▲ 0.57%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49136.00</div><div class="market-card-change down">▼ 0.60%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7040.80</div><div class="market-card-change down">▼ 0.65%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$25773.20</div><div class="market-card-change down">▼ 0.38%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2745.10</div><div class="market-card-change down">▼ 1.02%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -2098,6 +2098,31 @@ function removeFromWatchlist(sym) {
   renderSidebarMarket();
 }
 
+// ── WATCHLIST INDICATOR CACHE ────────────────────────────────────────────────
+window._watchlistIndicators = window._watchlistIndicators || {};
+
+async function refreshWatchlistSignals() {
+  if (!watchlist.length) return;
+  // Fetch indicators for each watchlist stock in background
+  for (var i = 0; i < watchlist.length; i++) {
+    var sym = watchlist[i];
+    if (sym.startsWith('^') || (sym.length === 5 && sym.endsWith('X'))) continue;
+    try {
+      var ind = await fetchIndicators(sym);
+      if (ind) {
+        window._watchlistIndicators[sym] = ind;
+        // Re-render if watchlist page is active
+        if (document.getElementById('page-watchlist').classList.contains('active')) {
+          renderWatchlistPage();
+        }
+      }
+    } catch(e) {}
+    // Small delay between fetches
+    await new Promise(function(r){ setTimeout(r, 8000); });
+  }
+}
+// ── END WATCHLIST SIGNALS ─────────────────────────────────────────────────────
+
 function renderWatchlistPage() {
   var list = document.getElementById('watchlist-page-list');
   if (!list) return;
@@ -2115,8 +2140,44 @@ function renderWatchlistPage() {
     var changeClass = pct === null ? 'neutral-pill' : pct >= 0 ? 'up-pill' : 'down-pill';
     var changeStr = pct !== null ? (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%' : '...';
     var symName = NAMES[sym] || (data && data.name) || sym;
+
+    // ── Signal color based on cached indicators ──────────────────────────────
+    var signalBg = '';
+    var signalLabel = '';
+    var signalDot = '';
+    var cachedInd = window._watchlistIndicators && window._watchlistIndicators[sym];
+    if (cachedInd) {
+      var rsi = cachedInd.rsi;
+      var bbPct = cachedInd.bb ? cachedInd.bb.percentB : 50;
+      var macd = cachedInd.macd;
+      var aboveMA = data && cachedInd.sma20 && data.price > cachedInd.sma20;
+
+      if (bbPct < 30 && rsi < 45 && macd > 0) {
+        signalBg = 'background:rgba(0,132,61,0.08);border-left:3px solid var(--green);';
+        signalLabel = '<span style="font-size:9px;font-weight:700;color:var(--green);font-family:var(--font-mono);background:var(--green-dim);padding:2px 6px;border-radius:3px;margin-left:6px;">✓ READY</span>';
+        signalDot = '🟢';
+      } else if (bbPct < 40 && rsi < 50) {
+        signalBg = 'background:rgba(0,132,61,0.04);border-left:3px solid rgba(0,132,61,0.4);';
+        signalLabel = '<span style="font-size:9px;font-weight:700;color:var(--green);font-family:var(--font-mono);background:var(--green-dim);padding:2px 6px;border-radius:3px;margin-left:6px;">WATCH</span>';
+        signalDot = '🟡';
+      } else if (bbPct > 70 && rsi > 65) {
+        signalBg = 'border-left:3px solid rgba(200,16,46,0.3);';
+        signalLabel = '<span style="font-size:9px;font-weight:700;color:var(--red);font-family:var(--font-mono);background:var(--red-dim);padding:2px 6px;border-radius:3px;margin-left:6px;">OVERBOUGHT</span>';
+        signalDot = '🔴';
+      } else if (rsi < 35 || bbPct < 25) {
+        signalBg = 'background:rgba(0,132,61,0.06);border-left:3px solid var(--green);';
+        signalLabel = '<span style="font-size:9px;font-weight:700;color:var(--green);font-family:var(--font-mono);background:var(--green-dim);padding:2px 6px;border-radius:3px;margin-left:6px;">OVERSOLD</span>';
+        signalDot = '🟢';
+      } else {
+        signalBg = 'border-left:3px solid var(--border);';
+        signalLabel = '';
+        signalDot = '⚪';
+      }
+    }
+
+    row.style.cssText = signalBg;
     row.innerHTML = '<div class="ticker-icon">' + sym.slice(0,3) + '</div>' +
-      '<div style="flex:1;min-width:0;"><div class="ticker-sym">' + sym + '</div><div class="ticker-name">' + symName + '</div></div>' +
+      '<div style="flex:1;min-width:0;"><div class="ticker-sym">' + sym + signalLabel + '</div><div class="ticker-name">' + symName + '</div></div>' +
       '<div class="ticker-price" style="margin-right:12px;">' + priceStr + '</div>' +
       '<div class="change-pill ' + changeClass + '" style="margin-right:12px;">' + changeStr + '</div>';
     var chartBtn = document.createElement('button');
@@ -2302,7 +2363,7 @@ function switchPage(page) {
   if (page === 'alerts') renderAlerts();
   if (page === 'learn') renderLearn();
   if (page === 'settings') initSettingsPage();
-  if (page === 'watchlist') renderWatchlistPage();
+  if (page === 'watchlist') { renderWatchlistPage(); refreshWatchlistSignals(); }
   if (page === 'earnings') showEarningsSearchPrompt();
   if (page === 'congress') loadCongressTrades();
   if (page === 'portfolio') renderPortfolioPage();
