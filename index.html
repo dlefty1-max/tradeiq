@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_69.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_70.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1056,8 +1056,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot open" id="market-dot"></div>
-      <span id="market-status-text">Market Open</span>
+      <div class="status-dot premarket" id="market-dot"></div>
+      <span id="market-status-text">After-Hours</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -1068,7 +1068,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49462.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.66%</div><div class="market-card-points up">+326.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7111.10</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.00%</div><div class="market-card-points up">+70.30 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$26208.00</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.69%</div><div class="market-card-points up">+434.80 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2760.90</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.58%</div><div class="market-card-points up">+15.80 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49300.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.36%</div><div class="market-card-points down">-176.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7084.50</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.39%</div><div class="market-card-points down">-27.60 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$26056.80</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.56%</div><div class="market-card-points down">-147.60 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2755.20</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.35%</div><div class="market-card-points down">-9.60 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
     <!-- INDEX COMPONENTS PANEL -->
     <div id="index-components-panel" style="display:none;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"></div>
 
@@ -1103,7 +1103,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </div>
 
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/22/were-adding-a-speculative-stock-to-our-bullpen-that-can-benefit-from-the-ai-boom.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108185265-1755089130634-gettyimages-1232777110-PGONCHAR_W8239.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">We're adding a speculative stock to our Bullpen that can benefit from the AI data center boom</div><div class="news-time">52m ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipwFBVV95cUxOTE1IRDNDTDNBUmcwZFVXOW40dldfSmc0YzU3WHZGb3pxZzJCY1RVWmotelJHa0g4SURfUHQwdFh3cTk5LTUwR283Z2NxWE5IdjVrUnNScERKaU56TkpnbkhaTk5ucGZCWHpDVVRmdUpGMjRDUjBHV3BSSGdDSFdrbzB4NVd3T0doSnhzajQwMWFYdjRRRVpxLU4tSm04R05WR0IzbUNTNA?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Wall Street rises on Iran ceasefire extension and solid earnings - Reuters</div><div class="news-time">57m ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipAFBVV95cUxOek56STB6bE5kUE9aLUU4RmtzZmxhTmM1SFRSWHRlMF8xbWFiQlR0MUI1QldvdUZmbGlrYmpucWVvWEVxWi01d1pzSDVzU3E2WDlod3ppRTZIcnBlc09vd0ROSDVBNkk3V1BjaFBBQ0ZuQ3B4aE90Rm9TUWZxeWxUeFhKRkMtS3lmNzMxdFB3WHdnOTdoUGVuMEJxQVBJUkJxSm1TTg?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran seizes two container ships attempting to leave Gulf - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/22/rivian-r2-ev.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108295572-1776879789590-Rivian_R2_RJ_Scaringe.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">Rivian hits production milestone for R2 EV ahead of customer deliveries</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMisAFBVV95cUxQdVFJUVI0OFBPRU9CUEpUY3JTVV9EaVh4MWtTVnFnNVIwaHZJeUQtaUFfbjY1MGZuQkRfa1RLUXl4RHdXWVFjM3ZuZTdLLXk2QmVXRFpKSnU2R0lYUlRINkxOZnUtM1pNREQ4ZG1QTGtoaVg5V3p4UEJrdXhveHFaTWttY25LYXRKS2tWa1hwVldnc29UWGp4QVhINm8wM280QlR5SnEyRGZvcWRfQ2ptWA?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump administration explores Spirit rescue as Iran war fuel shock hits airlines - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/22/were-raising-ge-vernova-price-target-as-ai-fuels-monster-quarter.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108293426-1776453839693-CNBC_INVESTINAMERICA_AC_041526_0357.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">We're raising our price target on GE Vernova as AI fuels another monster quarter</div><div class="news-time">2h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://www.cnbc.com/2026/04/23/trump-israel-lebanon-ceasefire-iran-war.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108296540-1776978222218-gettyimages-2272096266-TRUMP_REGENERON.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Trump says Israel-Lebanon ceasefire extended by three weeks</div><div class="news-time">4m ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/23/what-cannabis-reclassification-means-for-investors.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/104747102-marijuana_farmer.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">What the Trump administration's move to reclassify marijuana means for investors</div><div class="news-time">47m ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/23/nyc-mayor-mamdani-knocked-ken-griffin-in-pied-a-terre-tax-promo-his-firm-calls-the-move-shameful.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108135558-1745428607076-gettyimages-2211628098-331a5346_y1p05dqx.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">NYC Mayor Mamdani knocked Ken Griffin in pied-a-terre tax promo. His firm calls the move 'shameful'</div><div class="news-time">50m ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMirgFBVV95cUxOWU45T2l3LUNwR2dVRTk4QVdua0dNclhRV2RrY3pYSnF4Rk51QzV0cFZReEZwUUZoUjZ3TGxFVDBvblpjNnJlcjE2QnM4ZTRkbnFPWFlBSElUNFM1ZU9vSXplYUd1NXV5VEtEejVPZS12Vmx4TGh2OEJMRVMwN0NBS3VwTFNwWHBHSjlKT0RjRVBzWjczRkNEbXJ0UnlQYlRqakQwa0ROSS1VaU9qUUE?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says US will not use nuclear weapon in Iran war - Reuters</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/23/regeneron-inks-drug-pricing-deal-with-trump-will-offer-hearing-loss-therapy-for-free.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108296466-1776971900781-gettyimages-2272810843-aw1a7892_0njgvday.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Regeneron inks drug pricing deal with Trump, will offer new hearing-loss therapy for free</div><div class="news-time">1h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiowFBVV95cUxOc09RTW5BS211ZlFNcWU3bEN5YkZwUWdNcUd4NEhpeldpUEhOa2tpaFNuenNwSjR0azBNZ0xoS1hRNW12RTlnLW53SGJuRE5zTG0zOVhma3gwYXZfSFJZdl9tVjgta0N2VlQzU2FlZ1RFZE95czZmRUhrNzFMZ0hGRk4zVklOZE9DM28wMFhmSzV2bmZfZ3ZUamZWVE1kSVVBbTNr?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Stocks weaken on dimming hopes for Iran deal, mixed quarterly earnings - Reuters</div><div class="news-time">2h ago</div></div></a></div>
       </div>
     </div>
   </div>
@@ -1113,7 +1113,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49462.00</div><div class="market-card-change up">▲ 0.66%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7111.10</div><div class="market-card-change up">▲ 1.00%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$26208.00</div><div class="market-card-change up">▲ 1.69%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2760.90</div><div class="market-card-change up">▲ 0.58%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49300.00</div><div class="market-card-change down">▼ 0.36%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7084.50</div><div class="market-card-change down">▼ 0.39%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$26056.80</div><div class="market-card-change down">▼ 0.56%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2755.20</div><div class="market-card-change down">▼ 0.35%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -1199,6 +1199,15 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <div class="visual-indicators" id="indicator-row"></div>
               <div class="analysis-body" id="analysis-body" style="border-top:1px solid var(--border);"></div>
             </div>
+          </div>
+
+          <!-- Competitors Panel -->
+          <div class="card" id="competitors-panel" style="display:none;">
+            <div class="card-header">
+              <div class="card-title">⚔️ Top Competitors</div>
+              <div id="competitors-subtitle" style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);"></div>
+            </div>
+            <div id="competitors-list" style="padding:0;"></div>
           </div>
 
           <!-- News — collapsed below analysis -->
@@ -3989,6 +3998,131 @@ async function checkAIBalance() {
 }
 // ── END AI BALANCE ────────────────────────────────────────────────────────────
 
+
+// ── COMPETITORS ───────────────────────────────────────────────────────────────
+var COMPETITORS = {
+  // Mega cap tech
+  'AAPL':['MSFT','GOOGL','SAMSUNG'],  'MSFT':['AAPL','GOOGL','ORCL'],
+  'GOOGL':['MSFT','META','AAPL'],     'META':['SNAP','GOOGL','PINS'],
+  'AMZN':['WMT','SHOP','BABA'],       'NVDA':['AMD','INTC','QCOM'],
+  'AMD':['NVDA','INTC','QCOM'],       'TSLA':['F','GM','RIVN'],
+  'NFLX':['DIS','PARA','WBD'],        'PLTR':['CRM','NOW','SNOW'],
+  // Software & cloud
+  'CRM':['NOW','MSFT','ORCL'],        'NOW':['CRM','MSFT','ORCL'],
+  'ORCL':['MSFT','CRM','SAP'],        'ADBE':['CRM','MSFT','FIGMA'],
+  'SNOW':['DDOG','MDB','PLTR'],       'SHOP':['AMZN','WMT','BIGC'],
+  'NET':['FSLY','AKAM','DDOG'],       'TWLO':['BAND','MSFT','GOOGL'],
+  // Fintech & payments
+  'V':['MA','PYPL','AXP'],            'MA':['V','PYPL','AXP'],
+  'PYPL':['V','MA','SQ'],             'SQ':['PYPL','V','AFRM'],
+  'COIN':['HOOD','MSTR','BITF'],      'SOFI':['HOOD','AFRM','LDI'],
+  'HOOD':['COIN','SOFI','SCHW'],
+  // Banks & financials
+  'JPM':['BAC','GS','WFC'],           'BAC':['JPM','WFC','C'],
+  'GS':['MS','JPM','BLK'],            'MS':['GS','JPM','BLK'],
+  'WFC':['JPM','BAC','USB'],          'C':['JPM','BAC','WFC'],
+  'AXP':['V','MA','DFS'],             'BLK':['SCHW','GS','MS'],
+  'SCHW':['ETFC','AMP','BLK'],        'COF':['DFS','SYF','AXP'],
+  // Energy
+  'XOM':['CVX','COP','SLB'],          'CVX':['XOM','COP','EOG'],
+  'OXY':['DVN','COP','MRO'],          'SLB':['HAL','BKR','NOV'],
+  'COP':['XOM','CVX','EOG'],          'EOG':['PXD','DVN','COP'],
+  // Healthcare & pharma
+  'UNH':['CVS','CI','HUM'],           'LLY':['NVO','PFE','ABBV'],
+  'ABBV':['MRK','JNJ','BMY'],         'MRK':['ABBV','PFE','JNJ'],
+  'JNJ':['ABBV','MRK','BMY'],         'PFE':['MRK','ABBV','JNJ'],
+  'AMGN':['REGN','BIIB','GILD'],      'GILD':['AMGN','BIIB','ABBV'],
+  'VKTX':['NOVO','LLY','AMGN'],       'TMO':['DHR','A','BIO'],
+  'ISRG':['MZOR','SWAV','NVCR'],      'MRNA':['BNTX','PFE','NVAX'],
+  'REGN':['AMGN','BIIB','SGEN'],
+  // Consumer
+  'WMT':['TGT','COST','AMZN'],        'TGT':['WMT','COST','KR'],
+  'COST':['WMT','TGT','BJ'],          'HD':['LOW','AMZN','BLDR'],
+  'LOW':['HD','AMZN','BLDR'],         'NKE':['ADDYY','UAA','LULU'],
+  'MCD':['YUM','QSR','SBUX'],         'SBUX':['MCD','DNKN','BROS'],
+  'PG':['KMB','CL','UL'],             'KO':['PEP','MNST','KDP'],
+  'PEP':['KO','MNST','KDP'],
+  // Travel & ride share
+  'UBER':['LYFT','DASH','ABNB'],      'LYFT':['UBER','DASH','BIRD'],
+  'ABNB':['BKNG','EXPE','TRIP'],      'BKNG':['EXPE','ABNB','TRIP'],
+  'DASH':['UBER','GRUB','CART'],
+  // Semis
+  'INTC':['AMD','NVDA','QCOM'],       'QCOM':['INTC','AMD','MRVL'],
+  'MU':['WDC','STX','KIOXIA'],        'AVGO':['MRVL','QCOM','INTC'],
+  'AMAT':['KLAC','LRCX','TEL'],       'KLAC':['AMAT','LRCX','ONTO'],
+  'LRCX':['AMAT','KLAC','TEL'],       'ARM':['INTC','QCOM','MRVL'],
+  // Industrials
+  'CAT':['DE','CNHI','AGCO'],         'DE':['CAT','CNHI','AGCO'],
+  'BA':['AIR','RTX','LMT'],           'LMT':['RTX','NOC','GD'],
+  'RTX':['LMT','NOC','GD'],           'GE':['HON','MMM','EMR'],
+  'HON':['GE','MMM','EMR'],           'UPS':['FDX','ODFL','XPO'],
+  'FDX':['UPS','ODFL','XPO'],
+  // ETFs — show sector peers
+  'SPY':['QQQ','IWM','DIA'],          'QQQ':['SPY','XLK','IWM'],
+  'IWM':['SPY','MDY','VXF'],          'GLD':['SLV','GDX','GOLD'],
+  'TLT':['IEF','SHY','BND'],          'XLE':['XOM','CVX','COP'],
+  'XLF':['JPM','BAC','GS'],           'XLK':['AAPL','MSFT','NVDA'],
+  'XLV':['UNH','JNJ','LLY'],          'XLI':['GE','HON','UPS'],
+  // AI & quantum
+  'IONQ':['RGTI','IBM','GOOGL'],      'RGTI':['IONQ','IBM','MSFT'],
+  'AI':['PLTR','SNOW','CRM'],         'PATH':['UI','PLTR','CRM'],
+  'SMCI':['HPE','DELL','NTAP'],
+};
+
+async function loadCompetitors(sym) {
+  var panel = document.getElementById('competitors-panel');
+  var list = document.getElementById('competitors-list');
+  var subtitle = document.getElementById('competitors-subtitle');
+  if (!panel || !list) return;
+
+  var comps = COMPETITORS[sym];
+  if (!comps || !comps.length) {
+    panel.style.display = 'none';
+    return;
+  }
+
+  panel.style.display = 'block';
+  subtitle.textContent = 'vs ' + comps.join(', ');
+  list.innerHTML = '<div style="padding:12px 16px;font-size:11px;color:var(--text-muted);font-family:var(--font-mono);">Loading competitor data...</div>';
+
+  var rows = '';
+  for (var i = 0; i < comps.length; i++) {
+    var c = comps[i];
+    try {
+      var data = await fetchPrice(c);
+      if (!data || !data.success) continue;
+      var chg = data.changePct || 0;
+      var chgColor = chg >= 0 ? 'var(--green)' : 'var(--red)';
+      var chgStr = (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%';
+      var chgArrow = chg >= 0 ? '▲' : '▼';
+      var name = data.name || c;
+      if (name.length > 25) name = name.substring(0, 24) + '...';
+      rows += '<div data-sym="' + c + '" style="display:flex;align-items:center;padding:10px 16px;border-bottom:1px solid var(--border);cursor:pointer;">' +
+        '<div style="width:36px;height:36px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--text-muted);flex-shrink:0;">' + c.slice(0,3) + '</div>' +
+        '<div style="flex:1;margin-left:10px;min-width:0;">' +
+          '<div style="font-family:var(--font-mono);font-size:12px;font-weight:700;">' + c + '</div>' +
+          '<div style="font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + name + '</div>' +
+        '</div>' +
+        '<div style="text-align:right;flex-shrink:0;">' +
+          '<div style="font-family:var(--font-mono);font-size:13px;font-weight:700;">$' + data.price.toFixed(2) + '</div>' +
+          '<div style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:' + chgColor + ';">' + chgArrow + ' ' + chgStr + '</div>' +
+        '</div>' +
+        '<div style="margin-left:10px;color:var(--text-muted);font-size:12px;">›</div>' +
+      '</div>';
+    } catch(e) {}
+  }
+
+  list.innerHTML = rows || '<div style="padding:12px 16px;font-size:11px;color:var(--text-muted);">Could not load competitor data.</div>';
+  // Add click handlers
+  list.querySelectorAll('[data-sym]').forEach(function(el) {
+    var s = el.getAttribute('data-sym');
+    el.addEventListener('mouseover', function(){ this.style.background='var(--surface-2)'; });
+    el.addEventListener('mouseout', function(){ this.style.background='transparent'; });
+    el.addEventListener('click', function(){ goToChart(s); });
+  });
+}
+// ── END COMPETITORS ───────────────────────────────────────────────────────────
+
 function renderMarketGrids() {
   var symbols = MARKET_SYMBOLS;
 
@@ -4112,6 +4246,7 @@ async function doSearch() {
   document.getElementById('analysis-body').innerHTML = '';
   document.getElementById('stockNews').style.display = 'none';
   document.getElementById('stockNewsList').innerHTML = '';
+  var compPanel = document.getElementById('competitors-panel'); if (compPanel) compPanel.style.display = 'none';
   // Reset AI levels panel — fully wipe all content so old stock data never shows
   document.getElementById('ai-levels-panel').style.display = 'none';
   document.getElementById('ai-levels-content').style.display = 'none';
@@ -4152,6 +4287,9 @@ async function doSearch() {
   changeEl.textContent = `${result.changePct >= 0 ? '▲' : '▼'} ${Math.abs(result.changePct).toFixed(2)}% today`;
   changeEl.className = `chart-change ${result.changePct >= 0 ? 'green' : 'red'}`;
   document.getElementById('r-detail').innerHTML = `<span><div>Open</div><strong>$${result.open.toFixed(2)}</strong></span><span><div>High</div><strong class="green">$${result.high.toFixed(2)}</strong></span><span><div>Low</div><strong class="red">$${result.low.toFixed(2)}</strong></span><span><div>Prev Close</div><strong>$${result.prev.toFixed(2)}</strong></span><span><div>20 MA</div><strong id="r-ma20" style="color:var(--text-muted);">...</strong></span>`;
+
+  // Load competitors
+  loadCompetitors(sym);
 
   // Load TradingView chart
   var tvChart = document.getElementById('tv-chart');
