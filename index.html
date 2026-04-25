@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_78.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_79.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -938,7 +938,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
 <!-- MOBILE BOTTOM NAV — hidden on desktop, shown on mobile via CSS -->
 <div id="mobile-nav" style="display:none;">
-  <div onclick="switchPage(&#39;home&#39;)" id="mnav-home" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:4px;color:var(--blue);font-size:9px;font-weight:700;">
+  <div onclick="switchPage(&#39;home&#39;)" id="mnav-home" style="flex: 1 1 0%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; padding: 4px; color: var(--text-muted); font-size: 9px; font-weight: 700;">
     <div style="font-size:20px;">⌂</div><div>Home</div>
   </div>
   <div onclick="switchPage(&#39;search&#39;)" id="mnav-search" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:4px;color:var(--text-muted);font-size:9px;font-weight:700;">
@@ -950,7 +950,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div onclick="switchPage(&#39;ai&#39;)" id="mnav-ai" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:4px;color:var(--text-muted);font-size:9px;font-weight:700;">
     <div style="font-size:20px;">🤖</div><div>AI Chat</div>
   </div>
-  <div onclick="toggleMobileMore()" id="mnav-more" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:4px;color:var(--text-muted);font-size:9px;font-weight:700;">
+  <div onclick="toggleMobileMore()" id="mnav-more" style="flex: 1 1 0%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; padding: 4px; color: var(--blue); font-size: 9px; font-weight: 700;">
     <div style="font-size:20px;">⋯</div><div>More</div>
   </div>
 </div>
@@ -968,7 +968,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- MAIN -->
   <div class="sidebar-section">Main</div>
-  <div class="nav-item active" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
+  <div class="nav-item" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
   <div class="nav-item" onclick="switchPage(&#39;ai&#39;)" id="nav-ai"><div class="nav-icon">▲</div><div class="nav-label">AI Chat</div></div>
 
   <!-- MARKETS GROUP -->
@@ -979,7 +979,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="section-arrow">▶</div>
   </div>
   <div class="nav-sub" id="sub-markets">
-    <div class="nav-sub-item active" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
+    <div class="nav-sub-item" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;news&#39;)" id="nav-news"><div class="nav-sub-dot"></div>News</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;alerts&#39;)" id="nav-alerts"><div class="nav-sub-dot"></div>Price Alerts <span class="nav-badge" id="alerts-badge" style="display: inline-block; margin-left: 4px;">5</span></div>
     <div class="nav-sub-item" onclick="switchPage(&#39;earnings&#39;)" id="nav-earnings"><div class="nav-sub-dot"></div>Earnings Calendar</div>
@@ -1003,13 +1003,13 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- LEARN GROUP -->
   <div class="sidebar-section">Education</div>
-  <div class="nav-group-header open" id="group-learn" onclick="toggleGroup(&#39;learn&#39;)">
+  <div class="nav-group-header" id="group-learn" onclick="toggleGroup(&#39;learn&#39;)">
     <div class="nav-icon">◉</div>
     <div class="nav-label">Learn</div>
     <div class="section-arrow">▶</div>
   </div>
-  <div class="nav-sub" id="sub-learn">
-    <div class="nav-sub-item" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
+  <div class="nav-sub open" id="sub-learn">
+    <div class="nav-sub-item active" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;papertrade&#39;)" id="nav-papertrade"><div class="nav-sub-dot"></div>Paper Trading</div>
   </div>
 
@@ -1056,8 +1056,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot premarket" id="market-dot"></div>
-      <span id="market-status-text">After-Hours</span>
+      <div class="status-dot closed" id="market-dot"></div>
+      <span id="market-status-text">Closed — Weekend</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -1065,10 +1065,10 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page-area">
 
   <!-- HOME -->
-  <div class="page active" id="page-home">
+  <div class="page" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
-    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49300.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.36%</div><div class="market-card-points down">-176.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7084.50</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.39%</div><div class="market-card-points down">-27.60 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$26056.80</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.56%</div><div class="market-card-points down">-147.60 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2755.20</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.35%</div><div class="market-card-points down">-9.60 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
+    <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49221.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.16%</div><div class="market-card-points down">-79.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7139.40</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.77%</div><div class="market-card-points up">+54.90 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$26555.20</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.91%</div><div class="market-card-points up">+498.40 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2766.50</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.41%</div><div class="market-card-points up">+11.30 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
     <!-- INDEX COMPONENTS PANEL -->
     <div id="index-components-panel" style="display:none;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;"></div>
 
@@ -1120,7 +1120,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </div>
 
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMirgFBVV95cUxOWU45T2l3LUNwR2dVRTk4QVdua0dNclhRV2RrY3pYSnF4Rk51QzV0cFZReEZwUUZoUjZ3TGxFVDBvblpjNnJlcjE2QnM4ZTRkbnFPWFlBSElUNFM1ZU9vSXplYUd1NXV5VEtEejVPZS12Vmx4TGh2OEJMRVMwN0NBS3VwTFNwWHBHSjlKT0RjRVBzWjczRkNEbXJ0UnlQYlRqakQwa0ROSS1VaU9qUUE?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says US will not use nuclear weapon in Iran war - Reuters</div><div class="news-time">26m ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMirAFBVV95cUxNZFlpeHJMUzU4UEhJeHJnQTdaV2NkRktEcENrMC0tNXl0ZUl4NlFWWkxrQkRiNmtaOVp6X3lrNjB4cU85THBDTmpUbVhveGRCYTJtQ1UyTlVqUGpjMHhCN1Z3X1RSTzQybXNvOXhPMDNWMzJkamd1ZGZIa012UlVQTWF4S0dNVjZJWV84MkdiVm9rckxTalBDWjFLSWxNNTRaX1MxZkdLeUtldjRu?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Pope condemns killing of protesters in Iran, reaffirms stance against war - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/23/trump-israel-lebanon-ceasefire-iran-war.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108296540-1776978222218-gettyimages-2272096266-TRUMP_REGENERON.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">Trump says Israel-Lebanon ceasefire extended by three weeks</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMipwFBVV95cUxQWUlMWGtuQjJnNndadUZGNlQwdlRWM2xyTUEtZUJoc202VzktYTR4QUpMWGVFNm5ZcTdnNHczcmNJNFNHdnNJQXJvQ3hYN0tLZ0ticDNhdWY0dmVINHFtNUg5NTkxUzJUdlhaeEZ3Z1o4azY0YWV1eTNrcV8tSWlOR2NDd09MOTRxUnQwYS1PTFRPODFYT0YycGxpcjZHVl9ieTQwSGNVRQ?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran fast-boat swarms add to Hormuz threats for shipping - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiowFBVV95cUxOc09RTW5BS211ZlFNcWU3bEN5YkZwUWdNcUd4NEhpeldpUEhOa2tpaFNuenNwSjR0azBNZ0xoS1hRNW12RTlnLW53SGJuRE5zTG0zOVhma3gwYXZfSFJZdl9tVjgta0N2VlQzU2FlZ1RFZE95czZmRUhrNzFMZ0hGRk4zVklOZE9DM28wMFhmSzV2bmZfZ3ZUamZWVE1kSVVBbTNr?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Stocks close lower on fading hopes for quick Iran deal, mixed quarterly earnings - Reuters</div><div class="news-time">2h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/23/what-cannabis-reclassification-means-for-investors.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/104747102-marijuana_farmer.jpg"><div><div class="news-source">CNBC</div><div class="news-headline">What the Trump administration's move to reclassify marijuana means for investors</div><div class="news-time">3h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPYWx5a2x6Zkd3TlVGa3RfNC1tWjlidXBuV2E2YVFJQzAxTTFkaUZoRGtPdVo5Mkd5LWV2a2JWOUJWQzV4SWRPTjdpSTdkVHFWLTdLc25RSi1oVTZmMWRWendLWktNRFg1enI2VWJiX05XLWRoNFRxN1ZQVHM0cl93OXJXVUtoZUxTalJOS1R1RmRYWEwzTWxVRUFoNndFUXp6WFNhWHUzX0xTR1ZWajNsVllXQVNFbkIteV9ablJTdw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran talks, Jerome Powell and the White House Correspondents' Dinner - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMizwFBVV95cUxPOUNLQW9pQXUzUlhFWlVxXzNmaUtEQWQzSmRvdzBxcXFpalRnZUI3Q2Q2SmVKeTVIQmtHOGFNX25mb0dUZmQzZkE4QV85aXRrSEo5U1d6SGQwRkNacHdnNGxrUkxnZktmYm43MUFOUW1MZjZCVHg0OWZBcTk1Q01kRkVhMEYxLUFPdjgzVTZqREJXLXR5SnZXOXVkTGxqRDFEX0pac1BLR2F2U3NBTTc2Wlc4V0NlZTFDLWRUcVhQWGQ5T19Xcmt1U3VBLUNBOVE?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says he canceled US negotiators' trip to Pakistan for Iran talks, Fox News reports - Reuters</div><div class="news-time">7h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/25/3-forces-that-drove-another-historic-yet-volatile-week-for-the-sp-500.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108295605-1776882436050-gettyimages-2271950406-AFP_A8NJ9Y9.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">3 forces that drove another historic – yet volatile – week for the S&amp;P 500</div><div class="news-time">7h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixgFBVV95cUxQak1SNlRWX3RCamRXXzF4SlNtTmNjaUt1UW1kVkZxcjhwbEtMMkdaRGlqa1pNanFGZTJqNzI0VWt2ZnZOOFk2LTd3VHJGNDNLeTMxVlFNTkZjZ2hrWGN3X0hSZTlrb0VRWllCSk02V2VoYUZwczdRc3ZLbkVwYkVzWWdleDI2SmRFOXBJSHh3NE9MNlBFM0gxdjFsN0lfVjRrZXZGMmMwUlNGNHhmallibGN2RW9nMkJ3VlpNdEtaMENoNU5qTGc?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Turkey may consider role in Hormuz demining after Iran-US deal, minister says - Reuters</div><div class="news-time">15h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixwFBVV95cUxQRFRNQmhxQ0NZTHpUX3RUb3FIUDFDMVRkNUptZjZkRWg4LTJzd1JLN3Q1Z2gtME5Bc3RHYzB3dFJ4TkFra1pvVU9iMzFfeEV4YlB1bnhJM1ZHdi1sYl8zWGJvZFcxaURLa1FpdGpSLUo5NDRiQjR2N2NFMlMwZVBJTENiRlFHZWtxUWxlckZENlRaYXNtbHQxYlB3cjktUlZtcGZ3VmhjSUFybXFyY3J1eENlQXZNS1k3cDRnQ1F0VUNraVR6ekUw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran says it has hanged agent working for Israel over sabotage in protests - Tasnim - Reuters</div><div class="news-time">16h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxQX1l3OXozS3NuMlR6czlyeGgtU3lnQ25mMEUxT3c0SUFHTzgwTXAzdmxiX2E1YjVkVVU3UjZoTHd2VHFDNzI2ZjQwUlRJQ2dfWG9aU3B2dndDQ29lSmxwMWlReWl6Znk3U0tuOWthNzRmZE9WcmZwYWY4TEFyYU52Z21RSzdocWZ0bldKbzRZb1ZsS0hYMy1aV2s4MVljdGl3US04QXozQU90RTg?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump cancels envoys' Pakistan trip, in blow to hopes for Iran war breakthrough - Reuters</div><div class="news-time">18h ago</div></div></a></div>
       </div>
     </div>
   </div>
@@ -1130,7 +1130,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="search-error" id="searchError">Ticker not found. Check the symbol and try again.</div>
     <div id="markets-content">
       <div class="section-label">Market Overview</div>
-      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49300.00</div><div class="market-card-change down">▼ 0.36%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7084.50</div><div class="market-card-change down">▼ 0.39%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$26056.80</div><div class="market-card-change down">▼ 0.56%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2755.20</div><div class="market-card-change down">▼ 0.35%</div></div></div>
+      <div class="market-grid" id="market-grid-2"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name" style="font-size:12px;">Dow Jones Ind.</div><div class="market-card-price" style="font-size:20px;">$49221.00</div><div class="market-card-change down">▼ 0.16%</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name" style="font-size:12px;">S&amp;P 500</div><div class="market-card-price" style="font-size:20px;">$7139.40</div><div class="market-card-change up">▲ 0.77%</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name" style="font-size:12px;">Nasdaq Composite</div><div class="market-card-price" style="font-size:20px;">$26555.20</div><div class="market-card-change up">▲ 1.91%</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name" style="font-size:12px;">Russell 2000</div><div class="market-card-price" style="font-size:20px;">$2766.50</div><div class="market-card-change up">▲ 0.41%</div></div></div>
       <div style="color:var(--text-muted);font-size:13px;text-align:center;padding:40px;font-family:var(--font-mono);">Search a ticker above to load the chart and AI analysis.</div>
     </div>
     <div id="chart-content" style="display:none;">
@@ -1238,9 +1238,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_78.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_78.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_78.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_79.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_79.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_79.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1349,17 +1349,38 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   </div>
 
   <!-- LEARN -->
-  <div class="page" id="page-learn">
+  <div class="page active" id="page-learn">
     <div class="learn-layout">
       <div class="learn-sidebar">
-        <div class="learn-hero-card">
-          <div class="learn-hero-label">30-Day Roadmap</div>
-          <div class="learn-hero-title">Learn To Trade — Step By Step</div>
-          <div class="learn-hero-sub">From beginner to first real trade. No jargon. Real visuals.</div>
-          <div class="learn-progress-track"><div class="learn-progress-fill" id="learn-progress-fill" style="width:0%"></div></div>
-          <div class="learn-progress-label" id="learn-progress-label">0 of 9 completed</div>
+        <!-- Learn section tabs -->
+        <div style="display:flex;gap:6px;margin-bottom:10px;">
+          <button onclick="switchLearnTab(&#39;trading&#39;,this)" id="learn-tab-trading" style="flex: 1 1 0%; padding: 8px; border-radius: var(--radius-sm); border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; background: transparent; color: var(--text-muted); font-family: var(--font-mono); font-size: 10px; font-weight: 700; cursor: pointer;">📈 How to Trade</button>
+          <button onclick="switchLearnTab(&#39;app&#39;,this)" id="learn-tab-app" style="flex: 1 1 0%; padding: 8px; border-radius: var(--radius-sm); border-color: var(--blue); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; background: var(--blue); color: white; font-family: var(--font-mono); font-size: 10px; font-weight: 700; cursor: pointer;">🧭 How to Use TradeIQ</button>
         </div>
-        <div id="lessons-list"></div>
+
+        <!-- Trading lessons -->
+        <div id="learn-tab-content-trading" style="display: none;">
+          <div class="learn-hero-card">
+            <div class="learn-hero-label">30-Day Roadmap</div>
+            <div class="learn-hero-title">Learn To Trade — Step By Step</div>
+            <div class="learn-hero-sub">From beginner to first real trade. No jargon. Real visuals.</div>
+            <div class="learn-progress-track"><div class="learn-progress-fill" id="learn-progress-fill" style="width:0%"></div></div>
+            <div class="learn-progress-label" id="learn-progress-label">0 of 9 completed</div>
+          </div>
+          <div id="lessons-list"><div class="lesson-card active-lesson"><div class="lesson-card-body"><div class="lesson-num current">1</div><div style="flex:1;"><div class="lesson-title">What Trading Actually Is</div><div class="lesson-sub">Step 1 of 9 · 5 min</div></div><div class="lesson-badge" style="color:var(--blue);">▶</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">2</div><div style="flex:1;"><div class="lesson-title">Setting Your Risk Rules</div><div class="lesson-sub">Step 2 of 9 · 7 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">3</div><div style="flex:1;"><div class="lesson-title">Reading Your First Chart</div><div class="lesson-sub">Step 3 of 9 · 8 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">4</div><div style="flex:1;"><div class="lesson-title">Picking Your First Stock</div><div class="lesson-sub">Step 4 of 9 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">5</div><div style="flex:1;"><div class="lesson-title">Your First $5,000</div><div class="lesson-sub">Step 5 of 9 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">6</div><div style="flex:1;"><div class="lesson-title">Making Your First Trade</div><div class="lesson-sub">Step 6 of 9 · 7 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">7</div><div style="flex:1;"><div class="lesson-title">After Hours &amp; Futures</div><div class="lesson-sub">Step 7 of 9 · 5 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">8</div><div style="flex:1;"><div class="lesson-title">Managing Your Emotions</div><div class="lesson-sub">Step 8 of 9 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">9</div><div style="flex:1;"><div class="lesson-title">You're Ready — First Real Trade</div><div class="lesson-sub">Step 9 of 9 · 5 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div></div>
+        </div>
+
+        <!-- App guide lessons -->
+        <div id="learn-tab-content-app" style="display: block;">
+          <div class="learn-hero-card" style="background:linear-gradient(135deg,#003087 0%,#1d4ed8 100%);">
+            <div class="learn-hero-label" style="color:rgba(255,255,255,0.7);">App Guide</div>
+            <div class="learn-hero-title" style="color:white;">Master TradeIQ — Feature by Feature</div>
+            <div class="learn-hero-sub" style="color:rgba(255,255,255,0.8);">Learn every tool in the app and how to use them together for better trades.</div>
+            <div class="learn-progress-track"><div class="learn-progress-fill" id="app-progress-fill" style="width:0%"></div></div>
+            <div class="learn-progress-label" id="app-progress-label">0 of 8 completed</div>
+          </div>
+          <div id="app-lessons-list"><div class="lesson-card active-lesson"><div class="lesson-card-body"><div class="lesson-num current">a1</div><div style="flex:1;"><div class="lesson-title">Your Morning Routine</div><div class="lesson-sub">Guide 1 of 8 · 4 min</div></div><div class="lesson-badge" style="color:var(--blue);">▶</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a2</div><div style="flex:1;"><div class="lesson-title">Using the Daily Scanner</div><div class="lesson-sub">Guide 2 of 8 · 5 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a3</div><div style="flex:1;"><div class="lesson-title">The Should I Buy Button</div><div class="lesson-sub">Guide 3 of 8 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a4</div><div style="flex:1;"><div class="lesson-title">Reading the Watchlist Colors</div><div class="lesson-sub">Guide 4 of 8 · 4 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a5</div><div style="flex:1;"><div class="lesson-title">The Risk Calculator</div><div class="lesson-sub">Guide 5 of 8 · 5 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a6</div><div style="flex:1;"><div class="lesson-title">AI Levels and Chart Chat</div><div class="lesson-sub">Guide 6 of 8 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a7</div><div style="flex:1;"><div class="lesson-title">Logging Trades and the Journal</div><div class="lesson-sub">Guide 7 of 8 · 4 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a8</div><div style="flex:1;"><div class="lesson-title">The Full Workflow — Start to Finish</div><div class="lesson-sub">Guide 8 of 8 · 7 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div></div>
+        </div>
       </div>
       <div>
         <div id="lesson-placeholder" style="display:flex;align-items:center;justify-content:center;height:300px;color:var(--text-muted);font-family:var(--font-mono);font-size:13px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);">Select a lesson to begin</div>
@@ -4454,6 +4475,162 @@ async function runOptionsScanner() {
   btn.textContent = '↻ Scan Now';
 }
 // ── END OPTIONS SCANNER ───────────────────────────────────────────────────────
+
+
+// ── APP GUIDE LESSONS ─────────────────────────────────────────────────────────
+var activeLearnTab = 'trading';
+
+function switchLearnTab(tab, btn) {
+  activeLearnTab = tab;
+  document.getElementById('learn-tab-trading').style.background = tab === 'trading' ? 'var(--blue)' : 'transparent';
+  document.getElementById('learn-tab-trading').style.color = tab === 'trading' ? 'white' : 'var(--text-muted)';
+  document.getElementById('learn-tab-trading').style.borderColor = tab === 'trading' ? 'var(--blue)' : 'var(--border)';
+  document.getElementById('learn-tab-app').style.background = tab === 'app' ? 'var(--blue)' : 'transparent';
+  document.getElementById('learn-tab-app').style.color = tab === 'app' ? 'white' : 'var(--text-muted)';
+  document.getElementById('learn-tab-app').style.borderColor = tab === 'app' ? 'var(--blue)' : 'var(--border)';
+  document.getElementById('learn-tab-content-trading').style.display = tab === 'trading' ? 'block' : 'none';
+  document.getElementById('learn-tab-content-app').style.display = tab === 'app' ? 'block' : 'none';
+  if (tab === 'app') renderAppLessons();
+}
+
+const APP_LESSONS = [
+  { id:'a1', title:'Your Morning Routine', subtitle:'How to start every trading day with TradeIQ', duration:'4 min', step:'Guide 1 of 8' },
+  { id:'a2', title:'Using the Daily Scanner', subtitle:'Find the best setups before the market opens', duration:'5 min', step:'Guide 2 of 8' },
+  { id:'a3', title:'The Should I Buy Button', subtitle:'How the AI decision engine works and when to trust it', duration:'6 min', step:'Guide 3 of 8' },
+  { id:'a4', title:'Reading the Watchlist Colors', subtitle:'What green, amber, and red actually mean', duration:'4 min', step:'Guide 4 of 8' },
+  { id:'a5', title:'The Risk Calculator', subtitle:'How to size every position correctly using the 1% rule', duration:'5 min', step:'Guide 5 of 8' },
+  { id:'a6', title:'AI Levels and Chart Chat', subtitle:'Getting the most out of the AI on the chart page', duration:'6 min', step:'Guide 6 of 8' },
+  { id:'a7', title:'Logging Trades and the Journal', subtitle:'Why tracking every trade makes you a better trader', duration:'4 min', step:'Guide 7 of 8' },
+  { id:'a8', title:'The Full Workflow — Start to Finish', subtitle:'How all the pieces connect into one system', duration:'7 min', step:'Guide 8 of 8' },
+];
+
+const APP_LESSON_CONTENT = {
+'a1': () => `
+<div class="lesson-hero-block"><div class="lesson-hero-step">Guide 1 of 8 · 4 min read</div><div class="lesson-hero-title">Your Morning Routine with TradeIQ</div><div class="lesson-hero-meta"><span class="lesson-hero-tag">Daily Habit</span><span class="lesson-hero-tag">4 min</span></div></div>
+<div class="lesson-section"><h3>The 15-minute morning check</h3><p>The best traders don't wing it — they have a routine. TradeIQ is designed around a 15-minute morning check before the market opens at 9:30am. Here is exactly what to do every morning.</p></div>
+<div class="lesson-section"><h3>Step 1 — Morning Briefing (2 min)</h3><p>Open the app and go to the <strong>Home</strong> page. Tap <strong>Generate Briefing</strong>. The AI reads your open positions, your watchlist, and the market overnight and gives you a personalized summary. It will flag anything you need to know before trading starts — earnings warnings, price levels to watch, overnight moves.</p></div>
+<div class="lesson-section"><h3>Step 2 — Run the Scanner (5 min)</h3><p>Tap the <strong>Scan Now</strong> button on the home page. While it runs (about 90 seconds with the paid Twelve Data plan) check your open positions. When the scan finishes look for ⭐ setups first — those are the highest priority.</p></div>
+<div class="lesson-section"><h3>Step 3 — Check Your Watchlist (3 min)</h3><p>Open the <strong>Watchlist</strong> page. Look for any stocks showing <strong style="color:var(--green);">✓ READY</strong> — those are in the buy zone with all signals aligned. Tap each one and run <strong>Should I Buy?</strong> to confirm.</p></div>
+<div class="lesson-section"><h3>Step 4 — Check Your Alerts (2 min)</h3><p>Open <strong>Alerts</strong> and see if anything triggered overnight. The auto-alerts set by the watchlist are the most important — if a stock crossed above its 20MA that is your signal to go analyze it immediately.</p></div>
+<div class="lesson-section"><h3>Step 5 — Size Your Trades (3 min)</h3><p>For any trade you are considering, always go to the <strong>Risk Calculator</strong> first. Enter your account size, type the ticker, and let it auto-fill the entry, stop, and target. Never skip this step — sizing kills more accounts than bad stock picks.</p></div>`,
+
+'a2': () => `
+<div class="lesson-hero-block"><div class="lesson-hero-step">Guide 2 of 8 · 5 min read</div><div class="lesson-hero-title">Using the Daily Scanner</div><div class="lesson-hero-meta"><span class="lesson-hero-tag">Scanner</span><span class="lesson-hero-tag">5 min</span></div></div>
+<div class="lesson-section"><h3>What the scanner actually does</h3><p>The scanner checks 142 stocks every morning and scores them based on technical indicators. It is not a buy signal — it is a shortlist. Think of it like a filter that takes 142 stocks down to 5-10 worth looking at more closely.</p></div>
+<div class="lesson-section"><h3>Understanding the setup labels</h3><p><strong>⭐ High Confidence</strong> — RSI oversold, BB near lower band, MACD bullish. All three agree. This is the best setup type. Go straight to the chart and run Should I Buy.<br><br><strong>👀 Watch for Pullback</strong> — Stock is strong but extended. Do not buy now. Add to your watchlist and wait for it to pull back to the 20MA.<br><br><strong>📉 Below 20MA</strong> — Potential bounce but still in a downtrend. Risky. Only act if Should I Buy confirms.<br><br><strong>⚡ Volume Spike</strong> — Something is happening. Could go either direction. Investigate before acting.</p></div>
+<div class="lesson-section"><h3>When the scanner finds nothing</h3><p>This is actually important information. When the whole market is overbought — like after a big rally — the scanner correctly finds no setups. That is the app telling you to sit on your hands. Do not force a trade when there are no setups. The best trade is sometimes no trade.</p></div>
+<div class="lesson-section"><h3>The Options Scanner tab</h3><p>Switch to the <strong>📈 Options</strong> tab and scan for call and put candidates. These are stocks near key support or resistance levels where buying an option could make sense. Each result shows why it was flagged — use this as a starting point then check the options chain on Yahoo Finance or thinkorswim.</p></div>`,
+
+'a3': () => `
+<div class="lesson-hero-block"><div class="lesson-hero-step">Guide 3 of 8 · 6 min read</div><div class="lesson-hero-title">The Should I Buy / Should I Sell Button</div><div class="lesson-hero-meta"><span class="lesson-hero-tag">AI Features</span><span class="lesson-hero-tag">6 min</span></div></div>
+<div class="lesson-section"><h3>What data it uses</h3><p>This is the most powerful feature in the app. When you tap Should I Buy it analyzes everything at once — RSI, MACD, 20MA, Bollinger Bands, volume, intraday trend, timeframe alignment across weekly/daily/4H, candlestick patterns, and previously calculated AI Levels. It takes all of that and gives you one clear answer.</p></div>
+<div class="lesson-section"><h3>Understanding the three answers</h3><p><strong style="color:var(--green);">✓ YES — BUY</strong> — Multiple signals align. The AI gives you a specific entry zone, stop loss, and target. This is not a guarantee — it is the AI saying conditions are favorable right now.<br><br><strong style="color:var(--amber);">⏳ WAIT — NOT YET</strong> — The setup is interesting but something is not right. Usually price is below the 20MA, or timeframes are not aligned, or volume is too low. The AI tells you exactly what to wait for.<br><br><strong style="color:var(--red);">✗ NO — AVOID</strong> — Multiple red flags. Do not buy. The AI explains what is wrong with the setup right now.</p></div>
+<div class="lesson-section"><h3>When to trust it and when to question it</h3><p>Trust it most when it says YES after you have already run AI Levels and the intraday analysis has loaded. The more data it has the better the answer. If you just searched a stock and immediately hit Should I Buy without letting the intraday data load the answer is less reliable.</p><p>Question it when the market is doing something unusual — a big news event, earnings day, or a market-wide selloff. The AI analyzes technical data and may not fully account for a breaking news catalyst.</p></div>
+<div class="lesson-section"><h3>The Should I Sell button</h3><p>Use this when you are already in a trade and wondering whether to exit. It looks at the same data but from the perspective of protecting profits. It will tell you if the stock is showing distribution (institutions selling), if you are near resistance, or if it makes sense to hold for more upside.</p></div>`,
+
+'a4': () => `
+<div class="lesson-hero-block"><div class="lesson-hero-step">Guide 4 of 8 · 4 min read</div><div class="lesson-hero-title">Reading the Watchlist Colors</div><div class="lesson-hero-meta"><span class="lesson-hero-tag">Watchlist</span><span class="lesson-hero-tag">4 min</span></div></div>
+<div class="lesson-section"><h3>What the colors mean</h3><p>When you open your watchlist each stock shows a colored signal based on live indicator data. These update automatically when you open the page.</p></div>
+<div class="lesson-section"><h3>Signal guide</h3><p><strong style="color:var(--green);">✓ READY</strong> — BB below 30%, RSI below 45, MACD bullish, AND price above 20MA. All signals agree. Tap the stock and run Should I Buy immediately — this is your highest priority.<br><br><strong style="color:var(--green);">WATCH</strong> — BB below 40%, RSI below 50. Getting interesting. Keep an eye on it. Run Should I Buy to see if it qualifies.<br><br><strong style="color:var(--amber);">OVERSOLD — Wait for 20MA</strong> — RSI or BB is very low but price is still below the 20MA. The stock looks cheap but the trend is still down. Wait for it to reclaim the 20MA before buying.<br><br><strong style="color:var(--red);">OVERBOUGHT</strong> — BB above 70%, RSI above 65. Not a buy zone. Could be a put candidate. Do not buy calls here.</p></div>
+<div class="lesson-section"><h3>Auto-alerts</h3><p>When a stock shows WATCH or OVERSOLD and is below its 20MA, the app automatically sets a price alert at the 20MA level. You will see these in your Alerts page with an <strong>AUTO</strong> badge. When one of those alerts triggers it means the stock just crossed above its 20MA — that is your signal to go analyze it.</p></div>`,
+
+'a5': () => `
+<div class="lesson-hero-block"><div class="lesson-hero-step">Guide 5 of 8 · 5 min read</div><div class="lesson-hero-title">The Risk Calculator</div><div class="lesson-hero-meta"><span class="lesson-hero-tag">Risk Management</span><span class="lesson-hero-tag">5 min</span></div></div>
+<div class="lesson-section"><h3>The most important feature in the app</h3><p>More traders blow up their accounts from bad position sizing than from bad stock picks. The risk calculator makes sure you never risk more than 1-2% of your account on a single trade — which means even 10 losing trades in a row only costs you 10-20% of your account. That is recoverable. Betting everything on one trade is not.</p></div>
+<div class="lesson-section"><h3>How to use it</h3><p>1. Enter your account size<br>2. Pick your risk percentage (start with 1%)<br>3. Type the ticker and hit Load Price — entry fills automatically from live data<br>4. Check the stop loss — auto-filled from the BB lower band or today's low<br>5. Check the target — auto-set at 2:1 risk/reward<br>6. The share count calculates automatically</p></div>
+<div class="lesson-section"><h3>Editing the share count</h3><p>The suggested share count is mathematically optimal. But you can change it — just type a different number and everything recalculates instantly. The risk percentage will update to show you exactly how much of your account you are risking. If it turns red you are over 2% — consider reducing your shares.</p></div>
+<div class="lesson-section"><h3>The math explained</h3><p>Account $10,000 × 1% = $100 max loss. Entry $35, stop $33.50 = $1.50 risk per share. $100 ÷ $1.50 = 66 shares. If the trade hits your stop you lose exactly $100 — 1% of your account. A bad trade hurts but it does not end you.</p></div>`,
+
+'a6': () => `
+<div class="lesson-hero-block"><div class="lesson-hero-step">Guide 6 of 8 · 6 min read</div><div class="lesson-hero-title">AI Levels and Chart Chat</div><div class="lesson-hero-meta"><span class="lesson-hero-tag">AI Features</span><span class="lesson-hero-tag">6 min</span></div></div>
+<div class="lesson-section"><h3>AI Levels</h3><p>Tap the <strong>▲ AI Levels</strong> button after searching any stock. The AI analyzes all the indicator data and calculates specific entry zones, stop loss levels, and price targets. It shows whether the current price is in a good entry zone or not. These levels feed directly into the Should I Buy button — so always run AI Levels first for the most accurate recommendation.</p></div>
+<div class="lesson-section"><h3>Chart Chat — asking about the chart</h3><p>The chat panel on the right side of the chart page knows everything about the stock — every candle, the RSI, MACD, support and resistance levels, BB position. You can ask it anything:<br><br>• "Is this a good entry point?"<br>• "What does the MACD crossover mean here?"<br>• "Where is the next resistance level?"<br>• "Why is RSI so high right now?"</p></div>
+<div class="lesson-section"><h3>Historical questions</h3><p>If you ask about a historical event — like "why did this stock drop in 2024?" — the chat automatically searches the web to find the answer. Look for the 🔍 indicator showing it is searching. This means you can ask about any news event or catalyst and get a real answer.</p></div>
+<div class="lesson-section"><h3>Options Analysis</h3><p>Scroll down below the chart to find the <strong>📊 Options Analysis</strong> card. Use the quick links to open the options chain on Yahoo Finance or Barchart. Copy the relevant data — strike, expiration, IV, bid/ask — and paste it into the box. Hit Analyze Call or Analyze Put and the AI combines the options data with the stock technicals to tell you if the option is fairly priced and worth buying.</p></div>`,
+
+'a7': () => `
+<div class="lesson-hero-block"><div class="lesson-hero-step">Guide 7 of 8 · 4 min read</div><div class="lesson-hero-title">Logging Trades and the Journal</div><div class="lesson-hero-meta"><span class="lesson-hero-tag">Journal</span><span class="lesson-hero-tag">4 min</span></div></div>
+<div class="lesson-section"><h3>Why journaling matters</h3><p>The traders who improve fastest are the ones who review their trades. Without a record you cannot see your patterns — do you always sell too early? Do you hold losers too long? Do you trade better in the morning or afternoon? The journal answers all of this.</p></div>
+<div class="lesson-section"><h3>Importing from Fidelity</h3><p>Go to Fidelity, download your trade history as a CSV, and import it on the Journal page. The app automatically categorizes your trades and calculates your P&L. You can import as often as you want — duplicates are handled automatically.</p></div>
+<div class="lesson-section"><h3>Clicking on a trade for AI feedback</h3><p>Tap any trade in your portfolio and the AI automatically gets all the details — entry price, exit price, shares, P&L — and gives you feedback. For open trades it tells you whether to hold or exit. For closed trades it tells you what you did well and what you could have done differently.</p></div>
+<div class="lesson-section"><h3>Paper trading</h3><p>Use paper trading to practice the full workflow with fake money before risking real money. Log a paper trade exactly like a real one — ticker, entry, stop, target, shares. Then watch it play out over days or weeks. Check in daily, use Should I Sell when it is time to exit, and learn how the app works in real market conditions with zero financial risk.</p></div>`,
+
+'a8': () => `
+<div class="lesson-hero-block"><div class="lesson-hero-step">Guide 8 of 8 · 7 min read</div><div class="lesson-hero-title">The Full Workflow — Start to Finish</div><div class="lesson-hero-meta"><span class="lesson-hero-tag">Complete System</span><span class="lesson-hero-tag">7 min</span></div></div>
+<div class="lesson-section"><h3>How everything connects</h3><p>TradeIQ is not a collection of random tools — it is a complete trading system. Here is how all the pieces fit together from Monday morning to a closed trade.</p></div>
+<div class="lesson-section"><h3>Step 1 — Find (Scanner)</h3><p>Every morning run the Daily Scanner. It scans 142 stocks and flags the ones worth looking at. ⭐ setups go to the top of your list. This takes the decision of "what should I look at today" completely off your plate.</p></div>
+<div class="lesson-section"><h3>Step 2 — Confirm (Chart + Should I Buy)</h3><p>For each ⭐ setup open the chart page. Let the full analysis load — AI Levels, intraday data, timeframe alignment. Then hit Should I Buy. If it says YES you have a trade. If it says WAIT or NO move on to the next setup. Never force a trade on a NO.</p></div>
+<div class="lesson-section"><h3>Step 3 — Size (Risk Calculator)</h3><p>Before touching your brokerage account go to the Risk Calculator. Type the ticker and load the price. Adjust the stop loss if needed. Check the share count. Make sure your risk percentage is 1-2%. Only then go place the order in Fidelity.</p></div>
+<div class="lesson-section"><h3>Step 4 — Monitor (Watchlist + Alerts)</h3><p>After entering the trade add the stock to your watchlist. Set a price alert at your stop loss level in both the app AND in Fidelity as a GTC stop order. Check the watchlist color each morning — if it turns red the momentum is fading and you should consider exiting.</p></div>
+<div class="lesson-section"><h3>Step 5 — Exit (Should I Sell)</h3><p>When the stock approaches your target or you are unsure whether to hold, tap Should I Sell. It looks at all the current data and tells you whether to take profits, hold for more, or exit immediately. Then log the closed trade in the journal and review what happened.</p></div>
+<div class="lesson-section"><h3>The complete loop</h3><p>Scanner → Chart → Should I Buy → Risk Calculator → Trade → Watchlist → Should I Sell → Journal → Repeat. Every trade you make goes through this same process. Over time the journal shows you your patterns, your win rate, your average gain and loss. That data makes you a better trader.</p></div>`,
+};
+
+function renderAppLessons() {
+  var list = document.getElementById('app-lessons-list');
+  if (!list) return;
+  var completedApp = JSON.parse(localStorage.getItem('tradeiq_app_lessons') || '[]');
+  var total = APP_LESSONS.length;
+  var done = completedApp.length;
+
+  var fill = document.getElementById('app-progress-fill');
+  var label = document.getElementById('app-progress-label');
+  if (fill) fill.style.width = (done/total*100) + '%';
+  if (label) label.textContent = done + ' of ' + total + ' completed';
+
+  list.innerHTML = '';
+  APP_LESSONS.forEach(function(lesson, i) {
+    var isDone = completedApp.includes(lesson.id);
+    var isCurrent = !isDone && (i === 0 || completedApp.includes(APP_LESSONS[i-1] ? APP_LESSONS[i-1].id : ''));
+    var card = document.createElement('div');
+    card.className = 'lesson-card' + (isDone ? ' completed' : isCurrent ? ' active-lesson' : ' locked');
+    var numClass = isDone ? 'lesson-num done' : isCurrent ? 'lesson-num current' : 'lesson-num';
+    card.innerHTML = '<div class="lesson-card-body"><div class="' + numClass + '">' + (isDone ? '✓' : lesson.id) + '</div><div style="flex:1;"><div class="lesson-title">' + lesson.title + '</div><div class="lesson-sub">' + lesson.step + ' · ' + lesson.duration + '</div></div><div class="lesson-badge" style="color:' + (isDone ? 'var(--green)' : isCurrent ? 'var(--blue)' : 'var(--text-dim)') + ';">' + (isDone ? '✓' : isCurrent ? '▶' : '▣') + '</div></div>';
+    card.onclick = function() { openAppLesson(lesson); };
+    list.appendChild(card);
+  });
+}
+
+function openAppLesson(lesson) {
+  var detail = document.getElementById('lessonDetail');
+  var placeholder = document.getElementById('lesson-placeholder');
+  var content = document.getElementById('lesson-full-content');
+  var headerStep = document.getElementById('lesson-header-step');
+  var headerTitle = document.getElementById('lesson-header-title');
+
+  if (!detail || !content) return;
+  placeholder.style.display = 'none';
+  detail.classList.add('open');
+  headerStep.textContent = lesson.step;
+  headerTitle.textContent = lesson.title;
+
+  var completedApp = JSON.parse(localStorage.getItem('tradeiq_app_lessons') || '[]');
+  var isDone = completedApp.includes(lesson.id);
+  var lessonHTML = APP_LESSON_CONTENT[lesson.id] ? APP_LESSON_CONTENT[lesson.id]() : '<div class="lesson-section"><p>Content coming soon.</p></div>';
+
+  content.innerHTML = '<div style="padding-bottom:24px;">' + lessonHTML +
+    '<div class="ls"></div>' +
+    '<div class="lesson-actions">' +
+      '<button class="ask-ai-lesson-btn" onclick="askAIAboutLesson(this.dataset.t)" data-t="' + lesson.title.replace(/"/g, '') + '">Ask AI about this</button>' +
+      '<button class="lesson-complete-btn ' + (isDone ? 'done' : '') + '" onclick="completeAppLesson(this.dataset.id)" data-id="' + lesson.id + '">' + (isDone ? 'Completed' : 'Mark Complete & Continue →') + '</button>' +
+    '</div>' +
+    '<div style="height:24px;"></div></div>';
+}
+
+function completeAppLesson(id) {
+  var completed = JSON.parse(localStorage.getItem('tradeiq_app_lessons') || '[]');
+  if (!completed.includes(id)) completed.push(id);
+  localStorage.setItem('tradeiq_app_lessons', JSON.stringify(completed));
+  renderAppLessons();
+  // Auto advance
+  var idx = APP_LESSONS.findIndex(function(l){ return l.id === id; });
+  if (idx < APP_LESSONS.length - 1) {
+    setTimeout(function(){ openAppLesson(APP_LESSONS[idx + 1]); }, 300);
+  } else {
+    closeLesson();
+  }
+}
+// ── END APP GUIDE ─────────────────────────────────────────────────────────────
 
 function renderMarketGrids() {
   var symbols = MARKET_SYMBOLS;
