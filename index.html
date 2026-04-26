@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_79.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_80.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -938,7 +938,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
 <!-- MOBILE BOTTOM NAV — hidden on desktop, shown on mobile via CSS -->
 <div id="mobile-nav" style="display:none;">
-  <div onclick="switchPage(&#39;home&#39;)" id="mnav-home" style="flex: 1 1 0%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; padding: 4px; color: var(--text-muted); font-size: 9px; font-weight: 700;">
+  <div onclick="switchPage(&#39;home&#39;)" id="mnav-home" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:4px;color:var(--blue);font-size:9px;font-weight:700;">
     <div style="font-size:20px;">⌂</div><div>Home</div>
   </div>
   <div onclick="switchPage(&#39;search&#39;)" id="mnav-search" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:4px;color:var(--text-muted);font-size:9px;font-weight:700;">
@@ -950,7 +950,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div onclick="switchPage(&#39;ai&#39;)" id="mnav-ai" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:4px;color:var(--text-muted);font-size:9px;font-weight:700;">
     <div style="font-size:20px;">🤖</div><div>AI Chat</div>
   </div>
-  <div onclick="toggleMobileMore()" id="mnav-more" style="flex: 1 1 0%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; padding: 4px; color: var(--blue); font-size: 9px; font-weight: 700;">
+  <div onclick="toggleMobileMore()" id="mnav-more" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:4px;color:var(--text-muted);font-size:9px;font-weight:700;">
     <div style="font-size:20px;">⋯</div><div>More</div>
   </div>
 </div>
@@ -968,7 +968,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- MAIN -->
   <div class="sidebar-section">Main</div>
-  <div class="nav-item" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
+  <div class="nav-item active" onclick="switchPage(&#39;home&#39;)" id="nav-home"><div class="nav-icon">⌂</div><div class="nav-label">Dashboard</div></div>
   <div class="nav-item" onclick="switchPage(&#39;ai&#39;)" id="nav-ai"><div class="nav-icon">▲</div><div class="nav-label">AI Chat</div></div>
 
   <!-- MARKETS GROUP -->
@@ -979,7 +979,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <div class="section-arrow">▶</div>
   </div>
   <div class="nav-sub" id="sub-markets">
-    <div class="nav-sub-item" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
+    <div class="nav-sub-item active" onclick="switchPage(&#39;search&#39;)" id="nav-search"><div class="nav-sub-dot"></div>Chart &amp; Analysis</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;news&#39;)" id="nav-news"><div class="nav-sub-dot"></div>News</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;alerts&#39;)" id="nav-alerts"><div class="nav-sub-dot"></div>Price Alerts <span class="nav-badge" id="alerts-badge" style="display: inline-block; margin-left: 4px;">5</span></div>
     <div class="nav-sub-item" onclick="switchPage(&#39;earnings&#39;)" id="nav-earnings"><div class="nav-sub-dot"></div>Earnings Calendar</div>
@@ -1003,13 +1003,13 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
   <!-- LEARN GROUP -->
   <div class="sidebar-section">Education</div>
-  <div class="nav-group-header" id="group-learn" onclick="toggleGroup(&#39;learn&#39;)">
+  <div class="nav-group-header open" id="group-learn" onclick="toggleGroup(&#39;learn&#39;)">
     <div class="nav-icon">◉</div>
     <div class="nav-label">Learn</div>
     <div class="section-arrow">▶</div>
   </div>
-  <div class="nav-sub open" id="sub-learn">
-    <div class="nav-sub-item active" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
+  <div class="nav-sub" id="sub-learn">
+    <div class="nav-sub-item" onclick="switchPage(&#39;learn&#39;)" id="nav-learn"><div class="nav-sub-dot"></div>Trading Lessons</div>
     <div class="nav-sub-item" onclick="switchPage(&#39;papertrade&#39;)" id="nav-papertrade"><div class="nav-sub-dot"></div>Paper Trading</div>
   </div>
 
@@ -1065,7 +1065,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page-area">
 
   <!-- HOME -->
-  <div class="page" id="page-home">
+  <div class="page active" id="page-home">
     <!-- BIG MARKET OVERVIEW -->
     <div class="section-label">Market Overview</div>
     <div id="market-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;"><div class="market-card"><div class="market-card-sym">DJIA</div><div class="market-card-name">Dow Jones Ind.</div><div class="market-card-price">$49221.00</div><div class="market-card-change-row"><div class="market-card-change down">▼ 0.16%</div><div class="market-card-points down">-79.00 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">S&amp;P 500</div><div class="market-card-name">S&amp;P 500</div><div class="market-card-price">$7139.40</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.77%</div><div class="market-card-points up">+54.90 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">NASDAQ</div><div class="market-card-name">Nasdaq Composite</div><div class="market-card-price">$26555.20</div><div class="market-card-change-row"><div class="market-card-change up">▲ 1.91%</div><div class="market-card-points up">+498.40 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div><div class="market-card"><div class="market-card-sym">RUT</div><div class="market-card-name">Russell 2000</div><div class="market-card-price">$2766.50</div><div class="market-card-change-row"><div class="market-card-change up">▲ 0.41%</div><div class="market-card-points up">+11.30 pts</div></div><div style="font-size:9px;color:var(--text-dim);font-family:var(--font-mono);margin-top:8px;">Click to see components ▾</div></div></div>
@@ -1120,7 +1120,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </div>
 
         <div class="section-label">Market News</div>
-        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPYWx5a2x6Zkd3TlVGa3RfNC1tWjlidXBuV2E2YVFJQzAxTTFkaUZoRGtPdVo5Mkd5LWV2a2JWOUJWQzV4SWRPTjdpSTdkVHFWLTdLc25RSi1oVTZmMWRWendLWktNRFg1enI2VWJiX05XLWRoNFRxN1ZQVHM0cl93OXJXVUtoZUxTalJOS1R1RmRYWEwzTWxVRUFoNndFUXp6WFNhWHUzX0xTR1ZWajNsVllXQVNFbkIteV9ablJTdw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran talks, Jerome Powell and the White House Correspondents' Dinner - Reuters</div><div class="news-time">3h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMizwFBVV95cUxPOUNLQW9pQXUzUlhFWlVxXzNmaUtEQWQzSmRvdzBxcXFpalRnZUI3Q2Q2SmVKeTVIQmtHOGFNX25mb0dUZmQzZkE4QV85aXRrSEo5U1d6SGQwRkNacHdnNGxrUkxnZktmYm43MUFOUW1MZjZCVHg0OWZBcTk1Q01kRkVhMEYxLUFPdjgzVTZqREJXLXR5SnZXOXVkTGxqRDFEX0pac1BLR2F2U3NBTTc2Wlc4V0NlZTFDLWRUcVhQWGQ5T19Xcmt1U3VBLUNBOVE?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says he canceled US negotiators' trip to Pakistan for Iran talks, Fox News reports - Reuters</div><div class="news-time">7h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/25/3-forces-that-drove-another-historic-yet-volatile-week-for-the-sp-500.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108295605-1776882436050-gettyimages-2271950406-AFP_A8NJ9Y9.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">3 forces that drove another historic – yet volatile – week for the S&amp;P 500</div><div class="news-time">7h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixgFBVV95cUxQak1SNlRWX3RCamRXXzF4SlNtTmNjaUt1UW1kVkZxcjhwbEtMMkdaRGlqa1pNanFGZTJqNzI0VWt2ZnZOOFk2LTd3VHJGNDNLeTMxVlFNTkZjZ2hrWGN3X0hSZTlrb0VRWllCSk02V2VoYUZwczdRc3ZLbkVwYkVzWWdleDI2SmRFOXBJSHh3NE9MNlBFM0gxdjFsN0lfVjRrZXZGMmMwUlNGNHhmallibGN2RW9nMkJ3VlpNdEtaMENoNU5qTGc?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Turkey may consider role in Hormuz demining after Iran-US deal, minister says - Reuters</div><div class="news-time">15h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixwFBVV95cUxQRFRNQmhxQ0NZTHpUX3RUb3FIUDFDMVRkNUptZjZkRWg4LTJzd1JLN3Q1Z2gtME5Bc3RHYzB3dFJ4TkFra1pvVU9iMzFfeEV4YlB1bnhJM1ZHdi1sYl8zWGJvZFcxaURLa1FpdGpSLUo5NDRiQjR2N2NFMlMwZVBJTENiRlFHZWtxUWxlckZENlRaYXNtbHQxYlB3cjktUlZtcGZ3VmhjSUFybXFyY3J1eENlQXZNS1k3cDRnQ1F0VUNraVR6ekUw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran says it has hanged agent working for Israel over sabotage in protests - Tasnim - Reuters</div><div class="news-time">16h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxQX1l3OXozS3NuMlR6czlyeGgtU3lnQ25mMEUxT3c0SUFHTzgwTXAzdmxiX2E1YjVkVVU3UjZoTHd2VHFDNzI2ZjQwUlRJQ2dfWG9aU3B2dndDQ29lSmxwMWlReWl6Znk3U0tuOWthNzRmZE9WcmZwYWY4TEFyYU52Z21RSzdocWZ0bldKbzRZb1ZsS0hYMy1aV2s4MVljdGl3US04QXozQU90RTg?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump cancels envoys' Pakistan trip, in blow to hopes for Iran war breakthrough - Reuters</div><div class="news-time">18h ago</div></div></a></div>
+        <div class="card" id="home-news-list" style="margin-bottom:0;"><a class="news-item" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPYWx5a2x6Zkd3TlVGa3RfNC1tWjlidXBuV2E2YVFJQzAxTTFkaUZoRGtPdVo5Mkd5LWV2a2JWOUJWQzV4SWRPTjdpSTdkVHFWLTdLc25RSi1oVTZmMWRWendLWktNRFg1enI2VWJiX05XLWRoNFRxN1ZQVHM0cl93OXJXVUtoZUxTalJOS1R1RmRYWEwzTWxVRUFoNndFUXp6WFNhWHUzX0xTR1ZWajNsVllXQVNFbkIteV9ablJTdw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran talks, Jerome Powell and the White House Correspondents' Dinner - Reuters</div><div class="news-time">4h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMizwFBVV95cUxPOUNLQW9pQXUzUlhFWlVxXzNmaUtEQWQzSmRvdzBxcXFpalRnZUI3Q2Q2SmVKeTVIQmtHOGFNX25mb0dUZmQzZkE4QV85aXRrSEo5U1d6SGQwRkNacHdnNGxrUkxnZktmYm43MUFOUW1MZjZCVHg0OWZBcTk1Q01kRkVhMEYxLUFPdjgzVTZqREJXLXR5SnZXOXVkTGxqRDFEX0pac1BLR2F2U3NBTTc2Wlc4V0NlZTFDLWRUcVhQWGQ5T19Xcmt1U3VBLUNBOVE?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump says he canceled US negotiators' trip to Pakistan for Iran talks, Fox News reports - Reuters</div><div class="news-time">8h ago</div></div></a><a class="news-item" href="https://www.cnbc.com/2026/04/25/3-forces-that-drove-another-historic-yet-volatile-week-for-the-sp-500.html" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/108295605-1776882436050-gettyimages-2271950406-AFP_A8NJ9Y9.jpeg"><div><div class="news-source">CNBC</div><div class="news-headline">3 forces that drove another historic – yet volatile – week for the S&amp;P 500</div><div class="news-time">8h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixgFBVV95cUxQak1SNlRWX3RCamRXXzF4SlNtTmNjaUt1UW1kVkZxcjhwbEtMMkdaRGlqa1pNanFGZTJqNzI0VWt2ZnZOOFk2LTd3VHJGNDNLeTMxVlFNTkZjZ2hrWGN3X0hSZTlrb0VRWllCSk02V2VoYUZwczdRc3ZLbkVwYkVzWWdleDI2SmRFOXBJSHh3NE9MNlBFM0gxdjFsN0lfVjRrZXZGMmMwUlNGNHhmallibGN2RW9nMkJ3VlpNdEtaMENoNU5qTGc?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Turkey may consider role in Hormuz demining after Iran-US deal, minister says - Reuters</div><div class="news-time">16h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMixwFBVV95cUxQRFRNQmhxQ0NZTHpUX3RUb3FIUDFDMVRkNUptZjZkRWg4LTJzd1JLN3Q1Z2gtME5Bc3RHYzB3dFJ4TkFra1pvVU9iMzFfeEV4YlB1bnhJM1ZHdi1sYl8zWGJvZFcxaURLa1FpdGpSLUo5NDRiQjR2N2NFMlMwZVBJTENiRlFHZWtxUWxlckZENlRaYXNtbHQxYlB3cjktUlZtcGZ3VmhjSUFybXFyY3J1eENlQXZNS1k3cDRnQ1F0VUNraVR6ekUw?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Iran says it has hanged agent working for Israel over sabotage in protests - Tasnim - Reuters</div><div class="news-time">17h ago</div></div></a><a class="news-item" href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxQX1l3OXozS3NuMlR6czlyeGgtU3lnQ25mMEUxT3c0SUFHTzgwTXAzdmxiX2E1YjVkVVU3UjZoTHd2VHFDNzI2ZjQwUlRJQ2dfWG9aU3B2dndDQ29lSmxwMWlReWl6Znk3U0tuOWthNzRmZE9WcmZwYWY4TEFyYU52Z21RSzdocWZ0bldKbzRZb1ZsS0hYMy1aV2s4MVljdGl3US04QXozQU90RTg?oc=5" target="_blank" rel="noopener noreferrer"><img class="news-thumb" src="./index_files/reuters_logo.jpeg"><div><div class="news-source">Reuters</div><div class="news-headline">Trump cancels envoys' Pakistan trip, in blow to hopes for Iran war breakthrough - Reuters</div><div class="news-time">19h ago</div></div></a></div>
       </div>
     </div>
   </div>
@@ -1238,9 +1238,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_79.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_79.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_79.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_80.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_80.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_80.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1349,17 +1349,17 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   </div>
 
   <!-- LEARN -->
-  <div class="page active" id="page-learn">
+  <div class="page" id="page-learn">
     <div class="learn-layout">
       <div class="learn-sidebar">
         <!-- Learn section tabs -->
         <div style="display:flex;gap:6px;margin-bottom:10px;">
-          <button onclick="switchLearnTab(&#39;trading&#39;,this)" id="learn-tab-trading" style="flex: 1 1 0%; padding: 8px; border-radius: var(--radius-sm); border-color: var(--border); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; background: transparent; color: var(--text-muted); font-family: var(--font-mono); font-size: 10px; font-weight: 700; cursor: pointer;">📈 How to Trade</button>
-          <button onclick="switchLearnTab(&#39;app&#39;,this)" id="learn-tab-app" style="flex: 1 1 0%; padding: 8px; border-radius: var(--radius-sm); border-color: var(--blue); border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; background: var(--blue); color: white; font-family: var(--font-mono); font-size: 10px; font-weight: 700; cursor: pointer;">🧭 How to Use TradeIQ</button>
+          <button onclick="switchLearnTab(&#39;trading&#39;,this)" id="learn-tab-trading" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:1px solid var(--blue);background:var(--blue);color:white;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;">📈 How to Trade</button>
+          <button onclick="switchLearnTab(&#39;app&#39;,this)" id="learn-tab-app" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;">🧭 How to Use TradeIQ</button>
         </div>
 
         <!-- Trading lessons -->
-        <div id="learn-tab-content-trading" style="display: none;">
+        <div id="learn-tab-content-trading">
           <div class="learn-hero-card">
             <div class="learn-hero-label">30-Day Roadmap</div>
             <div class="learn-hero-title">Learn To Trade — Step By Step</div>
@@ -1367,11 +1367,11 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
             <div class="learn-progress-track"><div class="learn-progress-fill" id="learn-progress-fill" style="width:0%"></div></div>
             <div class="learn-progress-label" id="learn-progress-label">0 of 9 completed</div>
           </div>
-          <div id="lessons-list"><div class="lesson-card active-lesson"><div class="lesson-card-body"><div class="lesson-num current">1</div><div style="flex:1;"><div class="lesson-title">What Trading Actually Is</div><div class="lesson-sub">Step 1 of 9 · 5 min</div></div><div class="lesson-badge" style="color:var(--blue);">▶</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">2</div><div style="flex:1;"><div class="lesson-title">Setting Your Risk Rules</div><div class="lesson-sub">Step 2 of 9 · 7 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">3</div><div style="flex:1;"><div class="lesson-title">Reading Your First Chart</div><div class="lesson-sub">Step 3 of 9 · 8 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">4</div><div style="flex:1;"><div class="lesson-title">Picking Your First Stock</div><div class="lesson-sub">Step 4 of 9 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">5</div><div style="flex:1;"><div class="lesson-title">Your First $5,000</div><div class="lesson-sub">Step 5 of 9 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">6</div><div style="flex:1;"><div class="lesson-title">Making Your First Trade</div><div class="lesson-sub">Step 6 of 9 · 7 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">7</div><div style="flex:1;"><div class="lesson-title">After Hours &amp; Futures</div><div class="lesson-sub">Step 7 of 9 · 5 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">8</div><div style="flex:1;"><div class="lesson-title">Managing Your Emotions</div><div class="lesson-sub">Step 8 of 9 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num locked">9</div><div style="flex:1;"><div class="lesson-title">You're Ready — First Real Trade</div><div class="lesson-sub">Step 9 of 9 · 5 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div></div>
+          <div id="lessons-list"></div>
         </div>
 
         <!-- App guide lessons -->
-        <div id="learn-tab-content-app" style="display: block;">
+        <div id="learn-tab-content-app" style="display:none;">
           <div class="learn-hero-card" style="background:linear-gradient(135deg,#003087 0%,#1d4ed8 100%);">
             <div class="learn-hero-label" style="color:rgba(255,255,255,0.7);">App Guide</div>
             <div class="learn-hero-title" style="color:white;">Master TradeIQ — Feature by Feature</div>
@@ -1379,7 +1379,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
             <div class="learn-progress-track"><div class="learn-progress-fill" id="app-progress-fill" style="width:0%"></div></div>
             <div class="learn-progress-label" id="app-progress-label">0 of 8 completed</div>
           </div>
-          <div id="app-lessons-list"><div class="lesson-card active-lesson"><div class="lesson-card-body"><div class="lesson-num current">a1</div><div style="flex:1;"><div class="lesson-title">Your Morning Routine</div><div class="lesson-sub">Guide 1 of 8 · 4 min</div></div><div class="lesson-badge" style="color:var(--blue);">▶</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a2</div><div style="flex:1;"><div class="lesson-title">Using the Daily Scanner</div><div class="lesson-sub">Guide 2 of 8 · 5 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a3</div><div style="flex:1;"><div class="lesson-title">The Should I Buy Button</div><div class="lesson-sub">Guide 3 of 8 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a4</div><div style="flex:1;"><div class="lesson-title">Reading the Watchlist Colors</div><div class="lesson-sub">Guide 4 of 8 · 4 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a5</div><div style="flex:1;"><div class="lesson-title">The Risk Calculator</div><div class="lesson-sub">Guide 5 of 8 · 5 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a6</div><div style="flex:1;"><div class="lesson-title">AI Levels and Chart Chat</div><div class="lesson-sub">Guide 6 of 8 · 6 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a7</div><div style="flex:1;"><div class="lesson-title">Logging Trades and the Journal</div><div class="lesson-sub">Guide 7 of 8 · 4 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div><div class="lesson-card locked"><div class="lesson-card-body"><div class="lesson-num">a8</div><div style="flex:1;"><div class="lesson-title">The Full Workflow — Start to Finish</div><div class="lesson-sub">Guide 8 of 8 · 7 min</div></div><div class="lesson-badge" style="color:var(--text-dim);">▣</div></div></div></div>
+          <div id="app-lessons-list"></div>
         </div>
       </div>
       <div>
@@ -1817,6 +1817,16 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
   <div class="page" id="page-settings">
     <div class="settings-layout">
 
+      <!-- Legal Disclaimer -->
+      <div class="settings-section" style="border-left:3px solid var(--red);">
+        <div class="settings-section-title" style="color:var(--red);">⚠️ Legal Disclaimer</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.7;padding:4px 0;">
+          TradeIQ is provided for <strong>educational and informational purposes only</strong>. Nothing in this application constitutes financial advice, investment advice, trading advice, or any other type of advice. The AI-generated analysis, buy/sell recommendations, price levels, and signals are algorithmic outputs for educational use only and should not be relied upon as a basis for making investment decisions.<br><br>
+          Trading securities involves substantial risk of loss and is not appropriate for all investors. Past performance is not indicative of future results. You are solely responsible for your own investment decisions. Always conduct your own research and consult with a qualified, licensed financial professional before making any investment decisions.<br><br>
+          By using TradeIQ you acknowledge that you have read, understood, and agree to this disclaimer.
+        </div>
+      </div>
+
       <!-- AI Credits Balance -->
       <div class="settings-section">
         <div class="settings-section-title">AI Credits</div>
@@ -1981,7 +1991,17 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         <div style="font-size:11px;color:var(--text-muted);line-height:1.5;">💡 <strong>Your data stays private.</strong> All your trades, watchlist, and settings are stored only on your device — nothing is sent to any server.</div>
       </div>
 
-      <button onclick="closeWelcome()" style="width:100%;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;">Let's Go →</button>
+      <!-- Disclaimer -->
+      <div style="background:rgba(200,16,46,0.06);border:1px solid rgba(200,16,46,0.2);border-radius:6px;padding:12px 14px;margin-bottom:12px;">
+        <div style="font-size:10px;font-weight:700;color:#c8102e;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;">⚠️ Not Financial Advice</div>
+        <div style="font-size:11px;color:#374151;line-height:1.6;">TradeIQ is for educational purposes only. AI analysis is not financial advice. Trading involves risk of loss. You are solely responsible for your investment decisions.</div>
+        <label style="display:flex;align-items:flex-start;gap:8px;margin-top:8px;cursor:pointer;">
+          <input type="checkbox" id="disclaimer-check" style="margin-top:2px;flex-shrink:0;" onchange="document.getElementById(&#39;lets-go-btn&#39;).style.opacity=this.checked?&#39;1&#39;:&#39;0.5&#39;;document.getElementById(&#39;lets-go-btn&#39;).disabled=!this.checked;">
+          <span style="font-size:11px;color:#374151;font-weight:600;">I understand TradeIQ is not financial advice and I trade at my own risk.</span>
+        </label>
+      </div>
+
+      <button id="lets-go-btn" onclick="closeWelcome()" style="width: 100%; background: var(--blue); color: white; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; border-radius: var(--radius-sm); padding: 14px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; opacity: 1;">Let's Go →</button>
       <div style="text-align:center;margin-top:10px;">
         <label style="font-size:11px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
           <input type="checkbox" id="welcome-dont-show" style="cursor:pointer;">
@@ -4009,7 +4029,7 @@ async function askTradeDecision(direction) {
           '</div>' +
         '</div>' +
         '<div style="font-size:13px;color:var(--text);line-height:1.7;"><p>' + formatted + '</p></div>' +
-        '<div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.08);font-size:10px;color:var(--text-muted);font-style:italic;">Not financial advice. Always manage your risk.</div>' +
+        '<div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(0,0,0,0.08);font-size:10px;color:var(--text-muted);font-style:italic;">⚠️ Not financial advice. This is AI-generated educational analysis only. You are solely responsible for your investment decisions. Trading involves risk of loss.</div>' +
       '</div>';
 
   } catch(e) {
@@ -8315,4 +8335,8 @@ if (!localStorage.getItem('tradeiq_welcomed')) {
 </script>
 
 
+  <!-- DISCLAIMER FOOTER -->
+  <div style="padding:8px 20px;background:var(--surface-2);border-top:1px solid var(--border);text-align:center;font-size:10px;color:var(--text-muted);line-height:1.6;flex-shrink:0;">
+    ⚠️ <strong>Not Financial Advice</strong> — TradeIQ is for educational purposes only. AI analysis is informational only. Trading involves risk of loss. You are solely responsible for all investment decisions.
+  </div>
 </body></html>
