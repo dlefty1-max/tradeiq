@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_81.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_82.html -->
+
+
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1238,9 +1240,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_81.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_81.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_81.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_82.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_82.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_82.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -2684,12 +2686,10 @@ async function fetchNews(symbol) {
 }
 async function fetchGeneralNews() {
   try {
-    // Add timestamp to bust any caching
-    var ts = Math.floor(Date.now() / 1000);
-    var data = await finnhub('news?category=general&minId=' + (ts - 604800)); // last 7 days
+    var data = await finnhub('news?category=general');
     if (Array.isArray(data) && data.length > 0) return data.slice(0, 18);
-    // Fallback without minId filter
-    var data2 = await finnhub('news?category=general');
+    // Try forex news as fallback
+    var data2 = await finnhub('news?category=forex');
     return Array.isArray(data2) ? data2.slice(0, 18) : [];
   } catch(e) { console.log('News error:', e); return []; }
 }
