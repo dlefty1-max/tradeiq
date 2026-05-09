@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_84.html -->
+<!-- saved from url=(0046)file:///C:/Users/dleft/Downloads/index_85.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1238,9 +1238,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_84.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_84.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_84.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_85.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_85.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_85.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -3021,7 +3021,7 @@ async function runMorningBriefing() {
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-haiku-4-5',
         max_tokens: 600,
         messages: [{ role: 'user', content: prompt }]
       })
@@ -4187,7 +4187,7 @@ async function loadCompetitors(sym) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
         body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
+          model: 'claude-haiku-4-5',
           max_tokens: 60,
           messages: [{ role: 'user', content: 'What are the top 3 publicly traded competitors of ' + sym + '? Reply with ONLY the ticker symbols separated by commas, nothing else. Example: AAPL,MSFT,GOOGL' }]
         })
@@ -5169,7 +5169,7 @@ async function getAIAnalysis(symbol, priceData, indicators, signal) {
       intradayStr = ' Intraday: ' + ctx.trend + ' trend, ' + ctx.momentum + (ctx.nearestSupport ? ', support $' + ctx.nearestSupport : '') + (ctx.nearestResistance ? ', resistance $' + ctx.nearestResistance : '') + '.';
     }
     var prompt = symbol + ' Analysis Summary\n\nPrice: $' + priceData.price.toFixed(2) + ' (' + (priceData.changePct >= 0 ? '+' : '') + priceData.changePct.toFixed(2) + '% today)\nRSI: ' + indicators.rsi + ', MACD: ' + (indicators.macd > 0 ? 'bullish' : 'bearish') + ', 20MA: $' + indicators.sma20 + ' (price ' + (priceData.price > indicators.sma20 ? 'above' : 'below') + '), Volume: ' + indicators.volRatio + 'x normal' + bbStr + '\nSignal: ' + signal + intradayStr + '\n\nWrite exactly 3 short paragraphs:\n1. What the indicators say about ' + symbol + ' right now\n2. Whether this is a good entry, what price to wait for, or what to avoid — be specific with dollar amounts\n3. The main risk and where to put a stop loss\n\nBe direct and specific to ' + symbol + '. Use **bold** for key price levels. No generic advice.';
-    var res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,messages:[{role:'user',content:prompt}]}) });
+    var res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify({model:'claude-haiku-4-5',max_tokens:400,messages:[{role:'user',content:prompt}]}) });
     var data = await res.json(); return (data.content && data.content[0]) ? data.content[0].text : 'Analysis unavailable.';
   } catch(e) { return 'Could not load AI analysis. Check your Anthropic API key in Settings.'; }
 }
@@ -5910,7 +5910,7 @@ async function getTradeAIFeedback(idx, btn) {
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-haiku-4-5',
         max_tokens: 350,
         messages: [{ role: 'user', content: prompt }]
       })
@@ -6635,7 +6635,7 @@ async function generateAILevels() {
       method: 'POST',
       headers: {'Content-Type':'application/json','x-api-key':ANTHROPIC_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-haiku-4-5',
         max_tokens: 250,
         system: 'You are a trading assistant. The user wants trade levels. BB position MUST override isGoodEntry — if price is above 75% of the BB range, isGoodEntry must be "wait" and entryZoneLow/High should reflect a pullback entry near the middle band, not current price. Return ONLY the JSON object. No extra text.',
         messages: [{role:'user', content: prompt}]
@@ -7189,7 +7189,7 @@ async function analyzePaperTrade(trade) {
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-haiku-4-5',
         max_tokens: 200,
         messages: [{ role: 'user', content: prompt }]
       })
@@ -7786,7 +7786,7 @@ async function loadMemberTrades(memberName) {
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-haiku-4-5',
         max_tokens: 400,
         system: 'You are a financial data assistant. Return ONLY a valid JSON array. No markdown, no explanation, no extra text.',
         messages: [{ role: 'user', content: 'List up to 5 notable stock trades by US Congress member ' + memberName + ' as a JSON array: [{"ticker":"AAPL","company":"Apple Inc","type":"Purchase or Sale","amount":"$1,001-$15,000","date":"2024-01-15","notes":"brief note"}]' }]
