@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_127.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_128.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_127.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_127.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_127.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_128.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_128.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_128.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1976,7 +1976,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               </select>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-              <span style="font-size:12px;color:var(--text-muted);">Max new trades per cycle:</span>
+              <span style="font-size:12px;color:var(--text-muted);">Max new trades per DAY:</span>
               <input type="number" id="bot-max-trades" value="3" min="1" max="10" onchange="localStorage.setItem(&#39;tradeiq_bot_max_trades&#39;, this.value)" style="width:60px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);text-align:right;">
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
@@ -5637,8 +5637,31 @@ async function runBotCycle() {
 
   logBotEvent('Bot cycle started — checking ' + symbolsToScan.length + ' stocks' + (useExpanded ? ' (⭐ SCHEDULED EXPANDED SCAN)' : ' (watchlist)'));
 
-  var maxTradesPerCycle = parseInt(localStorage.getItem('tradeiq_bot_max_trades') || '3');
+  var maxTradesPerDay = parseInt(localStorage.getItem('tradeiq_bot_max_trades') || '3');
+
+  // Track trades placed TODAY (resets automatically on a new date)
+  var todayStr = new Date().toLocaleDateString();
+  var storedTradeDay = localStorage.getItem('tradeiq_bot_trades_today_date');
+  var tradesPlacedToday = (storedTradeDay === todayStr) ? parseInt(localStorage.getItem('tradeiq_bot_trades_today_count') || '0') : 0;
+
+  var atDailyCap = tradesPlacedToday >= maxTradesPerDay;
+  var EXCEPTIONAL_SCORE_THRESHOLD = 90;
+  var MAX_BONUS_TRADES_PER_DAY = 2; // hard ceiling even for exceptional setups
+
+  var storedBonusDay = localStorage.getItem('tradeiq_bot_bonus_today_date');
+  var bonusTradesUsedToday = (storedBonusDay === todayStr) ? parseInt(localStorage.getItem('tradeiq_bot_bonus_today_count') || '0') : 0;
+
+  if (atDailyCap && bonusTradesUsedToday >= MAX_BONUS_TRADES_PER_DAY) {
+    logBotEvent('Daily trade limit reached (' + maxTradesPerDay + ' + ' + MAX_BONUS_TRADES_PER_DAY + ' bonus) — no more trades today, still monitoring');
+    return;
+  }
+
+  var remainingTradesToday = atDailyCap ? 0 : (maxTradesPerDay - tradesPlacedToday);
   var tradesThisCycle = 0;
+
+  if (atDailyCap) {
+    logBotEvent('At daily limit (' + tradesPlacedToday + '/' + maxTradesPerDay + ') — still scanning for EXCEPTIONAL setups only (score 90+), ' + (MAX_BONUS_TRADES_PER_DAY - bonusTradesUsedToday) + ' bonus slot(s) left');
+  }
 
   // Get current open positions to avoid duplicate entries
   var posRes = await fetch('https://paper-api.alpaca.markets/v2/positions', {
@@ -5690,14 +5713,24 @@ async function runBotCycle() {
   // ── PHASE 2: Rank candidates by quality score, execute only the best ───────
   if (candidates.length) {
     candidates.sort(function(a, b){ return b.score - a.score; });
-    logBotEvent('📊 Found ' + candidates.length + ' YES candidates — ranking by quality score, top ' + maxTradesPerCycle + ' will trade');
-    logBotEvent('Rankings: ' + candidates.map(function(c){ return c.symbol + '(' + c.score + ')'; }).join(', '));
 
-    var topCandidates = candidates.slice(0, maxTradesPerCycle);
+    var topCandidates;
+    if (atDailyCap) {
+      // Only exceptional setups (score 90+) qualify, limited to remaining bonus slots
+      var bonusRemaining = MAX_BONUS_TRADES_PER_DAY - bonusTradesUsedToday;
+      var exceptional = candidates.filter(function(c){ return c.score >= EXCEPTIONAL_SCORE_THRESHOLD; });
+      topCandidates = exceptional.slice(0, bonusRemaining);
+      logBotEvent('📊 Found ' + candidates.length + ' YES candidates, ' + exceptional.length + ' are EXCEPTIONAL (90+) — ' + topCandidates.length + ' will trade as bonus');
+    } else {
+      logBotEvent('📊 Found ' + candidates.length + ' YES candidates — ' + remainingTradesToday + ' trade slot(s) left today, ranking by quality score');
+      topCandidates = candidates.slice(0, remainingTradesToday);
+    }
+    if (candidates.length) logBotEvent('Rankings: ' + candidates.map(function(c){ return c.symbol + '(' + c.score + ')'; }).join(', '));
 
     for (var j = 0; j < topCandidates.length; j++) {
       var decision = topCandidates[j];
       var sym = decision.symbol;
+      var isBonus = atDailyCap;
 
       var shares = calcAutoTradeShares(accountSize, riskPct, decision.price, decision.stopLoss);
       if (shares < 1) { logBotEvent(sym + ': score ' + decision.score + ' but position size too small, skipping'); continue; }
@@ -5705,7 +5738,17 @@ async function runBotCycle() {
       var result = await placeAlpacaOrder(sym, shares, 'buy', decision.stopLoss, decision.target);
       if (result.success) {
         tradesThisCycle++;
-        logBotEvent('✓ BOUGHT ' + shares + ' shares of ' + sym + ' (score ' + decision.score + '/100) @ ~$' + decision.price.toFixed(2) + ' — ' + decision.reason);
+        if (isBonus) {
+          bonusTradesUsedToday++;
+          localStorage.setItem('tradeiq_bot_bonus_today_date', todayStr);
+          localStorage.setItem('tradeiq_bot_bonus_today_count', bonusTradesUsedToday.toString());
+          logBotEvent('⭐ BONUS TRADE (exceptional score ' + decision.score + '/100) — BOUGHT ' + shares + ' shares of ' + sym + ' @ ~$' + decision.price.toFixed(2) + ' — ' + decision.reason + ' [bonus ' + bonusTradesUsedToday + '/' + MAX_BONUS_TRADES_PER_DAY + ']');
+        } else {
+          tradesPlacedToday++;
+          localStorage.setItem('tradeiq_bot_trades_today_date', todayStr);
+          localStorage.setItem('tradeiq_bot_trades_today_count', tradesPlacedToday.toString());
+          logBotEvent('✓ BOUGHT ' + shares + ' shares of ' + sym + ' (score ' + decision.score + '/100) @ ~$' + decision.price.toFixed(2) + ' — ' + decision.reason + ' [' + tradesPlacedToday + '/' + maxTradesPerDay + ' trades today]');
+        }
 
         var trade = {
           symbol: sym, entry: decision.price, exit: null, size: shares, dir: 'long',
@@ -5722,13 +5765,13 @@ async function runBotCycle() {
       await new Promise(function(r){ setTimeout(r, 1500); });
     }
 
-    if (candidates.length > maxTradesPerCycle) {
-      var skipped = candidates.slice(maxTradesPerCycle).map(function(c){ return c.symbol; }).join(', ');
-      logBotEvent('Skipped lower-ranked candidates (limit reached): ' + skipped);
+    if (candidates.length > topCandidates.length) {
+      var skipped = candidates.slice(topCandidates.length).map(function(c){ return c.symbol; }).join(', ');
+      logBotEvent('Skipped lower-ranked candidates: ' + skipped);
     }
   }
 
-  logBotEvent('Bot cycle complete — ' + tradesThisCycle + ' trade(s) placed');
+  logBotEvent('Bot cycle complete — ' + tradesThisCycle + ' trade(s) placed this cycle, ' + tradesPlacedToday + '/' + maxTradesPerDay + ' regular + ' + bonusTradesUsedToday + '/' + MAX_BONUS_TRADES_PER_DAY + ' bonus today');
   if (document.getElementById('page-watchlist') && document.getElementById('page-watchlist').classList.contains('active')) {
     renderWatchlistPage();
   }
