@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_126.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_127.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_126.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_126.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_126.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_127.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_127.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_127.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -5514,6 +5514,14 @@ async function forceTestCycle() {
     var sym = symbolsToScan[i];
     if (i > 0) await new Promise(function(r){ setTimeout(r, 1200); });
 
+    // Update button text live so you can see it's working
+    btn.textContent = '🧪 Scanning... ' + (i+1) + '/' + symbolsToScan.length + ' (' + sym + ')';
+
+    // Periodic progress log every 25 stocks
+    if (i > 0 && i % 25 === 0) {
+      logBotEvent('🧪 ...still scanning, ' + i + '/' + symbolsToScan.length + ' checked so far (' + yesCount + ' YES so far)');
+    }
+
     var decision = await getAutoTradeDecision(sym);
     if (!decision) { errorCount++; continue; }
 
@@ -5664,6 +5672,10 @@ async function runBotCycle() {
 
     // Space out indicator fetches to respect Twelve Data rate limit (55/min)
     if (i > 0) await new Promise(function(r){ setTimeout(r, 1200); });
+
+    if (i > 0 && i % 25 === 0) {
+      logBotEvent('...scanning, ' + i + '/' + symbolsToScan.length + ' checked so far (' + candidates.length + ' YES so far)');
+    }
 
     var decision = await getAutoTradeDecision(sym);
     if (!decision) { logBotEvent(sym + ': could not get decision'); continue; }
