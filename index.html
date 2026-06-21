@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_122.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_123.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_122.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_122.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_122.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_123.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_123.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_123.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1973,6 +1973,10 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
                 <option value="false" selected="">My Watchlist Only</option>
                 <option value="true">Expanded (~200 stocks)</option>
               </select>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="font-size:12px;color:var(--text-muted);">Max new trades per cycle:</span>
+              <input type="number" id="bot-max-trades" value="3" min="1" max="10" onchange="localStorage.setItem(&#39;tradeiq_bot_max_trades&#39;, this.value)" style="width:60px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);text-align:right;">
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
               <span style="font-size:12px;color:var(--text-muted);">Simulated account size:</span>
@@ -2720,7 +2724,7 @@ function switchPage(page) {
   if (page === 'news') loadNews();
   if (page === 'alerts') renderAlerts();
   if (page === 'learn') renderLearn();
-  if (page === 'settings') { initSettingsPage(); updateBotStatusUI(); updateBotLogUI(); var riskSel = document.getElementById('bot-risk-select'); if (riskSel) riskSel.value = localStorage.getItem('tradeiq_bot_risk_pct') || '1'; var acctSize = document.getElementById('bot-account-size'); if (acctSize) acctSize.value = localStorage.getItem('tradeiq_bot_account_size') || '6000'; var intervalSel = document.getElementById('bot-interval-select'); if (intervalSel) intervalSel.value = localStorage.getItem('tradeiq_bot_interval_min') || '30'; }
+  if (page === 'settings') { initSettingsPage(); updateBotStatusUI(); updateBotLogUI(); var riskSel = document.getElementById('bot-risk-select'); if (riskSel) riskSel.value = localStorage.getItem('tradeiq_bot_risk_pct') || '1'; var acctSize = document.getElementById('bot-account-size'); if (acctSize) acctSize.value = localStorage.getItem('tradeiq_bot_account_size') || '6000'; var intervalSel = document.getElementById('bot-interval-select'); if (intervalSel) intervalSel.value = localStorage.getItem('tradeiq_bot_interval_min') || '30'; var maxTradesEl = document.getElementById('bot-max-trades'); if (maxTradesEl) maxTradesEl.value = localStorage.getItem('tradeiq_bot_max_trades') || '3'; }
   if (page === 'watchlist') { renderWatchlistPage(); refreshWatchlistSignals(); }
   if (page === 'earnings') showEarningsSearchPrompt();
   if (page === 'congress') loadCongressTrades();
@@ -5426,7 +5430,7 @@ async function getAutoTradeDecision(sym) {
       earlySignals.length ? 'EARLY SIGNALS DETECTED: ' + earlySignals.join('; ') : 'No early signals'
     ];
 
-    var systemPrompt = 'You are an automated trading decision engine. Say YES if EITHER: (A) the standard setup is met — RSI below 65, MACD bullish, price above 20MA, BB not extended above 75%, OR (B) a genuine early signal is present — BB squeeze (compression before breakout), MACD curl (turning up from below zero), or volume anomaly (high volume with minimal price move suggesting accumulation) AND RSI is not overbought (below 65) AND price is not in a clear downtrend. Be moderately strict but do not require perfection — early signals are valid entry triggers on their own. Respond with ONLY one word first: YES, NO, or WAIT. Then a colon and a one-sentence reason citing which condition was met.';
+    var systemPrompt = 'You are an automated trading decision engine. PRICE MUST BE ABOVE THE 20MA — this is non-negotiable for both paths, no exceptions, ever. Say YES only if price is above 20MA AND EITHER: (A) the standard setup is met — RSI below 60, MACD bullish, BB not extended above 70%, OR (B) a genuine early signal is present — BB squeeze (compression before breakout), MACD curl (turning up from below zero), or volume anomaly (high volume with minimal price move) AND RSI is between 35-55 (not overbought, not deeply oversold) AND MACD is not strongly negative. If price is below the 20MA, the answer is automatically NO regardless of any other signal. Be strict — this bot risks real capital. Respond with ONLY one word first: YES, NO, or WAIT. Then a colon and a one-sentence reason.';
 
     var prompt = 'Should I BUY ' + sym + ' right now? Data: ' + dataLines.join(' | ');
 
@@ -5562,6 +5566,9 @@ async function runBotCycle() {
 
   logBotEvent('Bot cycle started — checking ' + symbolsToScan.length + ' stocks' + (useExpanded ? ' (expanded universe)' : ' (watchlist only)'));
 
+  var maxTradesPerCycle = parseInt(localStorage.getItem('tradeiq_bot_max_trades') || '3');
+  var tradesThisCycle = 0;
+
   // Get current open positions to avoid duplicate entries
   var posRes = await fetch('https://paper-api.alpaca.markets/v2/positions', {
     headers: { 'APCA-API-KEY-ID': ALPACA_KEY, 'APCA-API-SECRET-KEY': ALPACA_SECRET }
@@ -5596,11 +5603,17 @@ async function runBotCycle() {
     if (!decision) { logBotEvent(sym + ': could not get decision'); continue; }
 
     if (decision.verdict === 'YES') {
+      if (tradesThisCycle >= maxTradesPerCycle) {
+        logBotEvent(sym + ': YES but daily trade limit (' + maxTradesPerCycle + ') reached — skipping');
+        continue;
+      }
+
       var shares = calcAutoTradeShares(accountSize, riskPct, decision.price, decision.stopLoss);
       if (shares < 1) { logBotEvent(sym + ': YES but position size too small, skipping'); continue; }
 
       var result = await placeAlpacaOrder(sym, shares, 'buy', decision.stopLoss, decision.target);
       if (result.success) {
+        tradesThisCycle++;
         logBotEvent('✓ BOUGHT ' + shares + ' shares of ' + sym + ' @ ~$' + decision.price.toFixed(2) + ' — ' + decision.reason);
 
         // Log to journal
