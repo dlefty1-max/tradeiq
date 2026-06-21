@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_114.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_115.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1194,7 +1194,11 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
                 <button class="chart-action-btn" onclick="generateAILevels()" id="ai-levels-btn" style="background:var(--blue);color:white;border-color:var(--blue);">▲ AI Levels</button>
                 <button class="chart-action-btn" onclick="askShouldIBuy()" id="buy-btn" style="background:var(--green);color:white;border-color:var(--green);font-weight:700;">✓ Should I Buy?</button>
                 <button class="chart-action-btn" onclick="askShouldISell()" id="sell-btn" style="background:var(--red);color:white;border-color:var(--red);font-weight:700;">✗ Should I Sell?</button>
+                <button class="chart-action-btn" onclick="openAlpacaTestOrder()" id="alpaca-test-btn" style="background:var(--amber);color:white;border-color:var(--amber);font-weight:700;">⚡ Test Alpaca Order</button>
               </div>
+
+              <!-- Alpaca Test Order Panel -->
+              <div id="alpaca-order-panel" style="display:none;border-top:1px solid var(--border);padding:16px 18px;background:var(--amber-dim);"></div>
 
               <!-- Should I Buy/Sell Panel -->
               <div id="trade-decision-panel" style="display:none;border-top:1px solid var(--border);"></div>
@@ -1272,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_114.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_114.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_114.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_115.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_115.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_115.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1977,7 +1981,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
 
 <!-- TRADE MODAL -->
 <!-- WELCOME / ONBOARDING MODAL -->
-<div class="modal-overlay" id="welcomeModal" style="z-index:500;">
+<div class="modal-overlay open" id="welcomeModal" style="z-index:500;">
   <div class="modal" style="max-width:560px;padding:0;overflow:hidden;max-height:90vh;overflow-y:auto;">
 
     <!-- Header -->
@@ -2074,7 +2078,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
         </label>
       </div>
 
-      <button id="lets-go-btn" onclick="closeWelcome()" style="width: 100%; background: var(--blue); color: white; border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; border-radius: var(--radius-sm); padding: 14px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; opacity: 1;">Let's Go →</button>
+      <button id="lets-go-btn" onclick="closeWelcome()" disabled="" style="width:100%;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:14px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:1px;opacity:0.5;">Let's Go →</button>
       <div style="text-align:center;margin-top:10px;">
         <label style="font-size:11px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
           <input type="checkbox" id="welcome-dont-show" style="cursor:pointer;">
@@ -5076,6 +5080,61 @@ async function runEarlyScanner() {
   btn.textContent = '↻ Scan Now';
 }
 // ── END EARLY SCANNER ─────────────────────────────────────────────────────────
+
+
+// ── ALPACA TEST ORDER ─────────────────────────────────────────────────────────
+function openAlpacaTestOrder() {
+  var panel = document.getElementById('alpaca-order-panel');
+  if (!panel || !lastResult) return;
+
+  if (!ALPACA_KEY || !ALPACA_SECRET) {
+    alert('Add your Alpaca API keys in Settings first.');
+    return;
+  }
+
+  var isOpen = panel.style.display !== 'none';
+  if (isOpen) { panel.style.display = 'none'; return; }
+
+  panel.style.display = 'block';
+  var price = lastResult.price;
+  var defaultStop = (price * 0.97).toFixed(2);
+  var defaultTarget = (price * 1.06).toFixed(2);
+
+  panel.innerHTML =
+    '<div style="font-size:11px;font-weight:700;color:var(--amber);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">⚡ Place Test Order (Paper Trading) — ' + lastResult.symbol + '</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;">' +
+      '<div><label style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);display:block;margin-bottom:4px;">SHARES</label>' +
+      '<input type="number" id="alpaca-qty" value="1" min="1" style="width:100%;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:13px;"></div>' +
+      '<div><label style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);display:block;margin-bottom:4px;">STOP LOSS</label>' +
+      '<input type="number" id="alpaca-stop" value="' + defaultStop + '" step="0.01" style="width:100%;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:13px;"></div>' +
+      '<div><label style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);display:block;margin-bottom:4px;">TARGET</label>' +
+      '<input type="number" id="alpaca-target" value="' + defaultTarget + '" step="0.01" style="width:100%;padding:8px;background:var(--surface);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:13px;"></div>' +
+    '</div>' +
+    '<div style="display:flex;gap:8px;">' +
+      '<button onclick="submitAlpacaTestOrder(\'buy\')" style="flex:1;background:var(--green);color:white;border:none;border-radius:6px;padding:10px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;">BUY ' + lastResult.symbol + ' @ Market</button>' +
+    '</div>' +
+    '<div id="alpaca-order-result" style="margin-top:10px;"></div>' +
+    '<div style="margin-top:10px;font-size:10px;color:var(--text-muted);font-style:italic;">This places a real order in your Alpaca PAPER account. No real money is used.</div>';
+}
+
+async function submitAlpacaTestOrder(side) {
+  var resultEl = document.getElementById('alpaca-order-result');
+  var qty = parseInt(document.getElementById('alpaca-qty').value);
+  var stop = parseFloat(document.getElementById('alpaca-stop').value);
+  var target = parseFloat(document.getElementById('alpaca-target').value);
+  var sym = lastResult.symbol;
+
+  resultEl.innerHTML = '<div style="font-size:12px;color:var(--text-muted);">Placing order...</div>';
+
+  var result = await placeAlpacaOrder(sym, qty, side, stop, target);
+
+  if (result.success) {
+    resultEl.innerHTML = '<div style="background:var(--green-dim);border:1px solid var(--green);border-radius:6px;padding:10px;font-size:12px;color:var(--green);"><strong>✓ Order placed!</strong><br>' + qty + ' shares of ' + sym + ' — Order ID: ' + result.order.id.substring(0,8) + '...<br>Status: ' + result.order.status + '</div>';
+  } else {
+    resultEl.innerHTML = '<div style="background:var(--red-dim);border:1px solid var(--red);border-radius:6px;padding:10px;font-size:12px;color:var(--red);"><strong>✗ Order failed</strong><br>' + result.error + '</div>';
+  }
+}
+// ── END ALPACA TEST ORDER ─────────────────────────────────────────────────────
 
 function renderMarketGrids() {
   var symbols = MARKET_SYMBOLS;
