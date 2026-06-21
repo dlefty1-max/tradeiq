@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_117.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_118.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_117.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_117.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_117.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_118.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_118.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_118.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1968,6 +1968,10 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <span id="bot-watchlist-display" style="font-family:var(--font-mono);font-size:11px;color:var(--text);">None selected</span>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="font-size:12px;color:var(--text-muted);">Simulated account size:</span>
+              <input type="number" id="bot-account-size" value="6000" onchange="localStorage.setItem(&#39;tradeiq_bot_account_size&#39;, this.value)" style="width:90px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);text-align:right;">
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
               <span style="font-size:12px;color:var(--text-muted);">Risk per trade:</span>
               <select id="bot-risk-select" onchange="localStorage.setItem(&#39;tradeiq_bot_risk_pct&#39;, this.value)" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);">
                 <option value="0.5">0.5%</option>
@@ -1986,6 +1990,19 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
           <div id="bot-log-display" style="max-height:200px;overflow-y:auto;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;">
             <div style="color:var(--text-muted);font-size:11px;">No activity yet.</div>
           </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-title">Backup Your Keys</div>
+        <div class="settings-row">
+          <div class="settings-desc">Your browser is clearing saved data periodically. Export your keys to a file as backup — you can quickly re-import them if this happens again.</div>
+          <div style="display:flex;gap:8px;margin-top:8px;">
+            <button onclick="exportKeys()" style="flex:1;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;">↓ Export Keys</button>
+            <button onclick="document.getElementById(&#39;import-keys-file&#39;).click()" style="flex:1;background:var(--surface-2);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;">↑ Import Keys</button>
+            <input type="file" id="import-keys-file" accept=".json" style="display:none;" onchange="importKeys(this.files[0])">
+          </div>
+          <div id="keys-backup-status" style="font-size:11px;margin-top:8px;"></div>
         </div>
       </div>
 
@@ -2396,6 +2413,20 @@ function renderWatchlistPage() {
     list.innerHTML = '<div class="empty-state"><p>No stocks on your watchlist yet. Click + Add Stock to get started.</p></div>';
     return;
   }
+
+  // Fetch any missing prices in the background, then re-render
+  var missing = watchlist.filter(function(sym){ return !marketData[sym]; });
+  if (missing.length) {
+    missing.forEach(function(sym) {
+      fetchPrice(sym).then(function(result) {
+        if (result && result.success) {
+          marketData[sym] = { price: result.price, changePct: result.changePct, name: result.name };
+          renderWatchlistPage(); // re-render once price arrives
+        }
+      });
+    });
+  }
+
   list.innerHTML = '';
   watchlist.forEach(function(sym) {
     var data = marketData[sym];
@@ -2672,7 +2703,7 @@ function switchPage(page) {
   if (page === 'news') loadNews();
   if (page === 'alerts') renderAlerts();
   if (page === 'learn') renderLearn();
-  if (page === 'settings') { initSettingsPage(); updateBotStatusUI(); updateBotLogUI(); var riskSel = document.getElementById('bot-risk-select'); if (riskSel) riskSel.value = localStorage.getItem('tradeiq_bot_risk_pct') || '1'; }
+  if (page === 'settings') { initSettingsPage(); updateBotStatusUI(); updateBotLogUI(); var riskSel = document.getElementById('bot-risk-select'); if (riskSel) riskSel.value = localStorage.getItem('tradeiq_bot_risk_pct') || '1'; var acctSize = document.getElementById('bot-account-size'); if (acctSize) acctSize.value = localStorage.getItem('tradeiq_bot_account_size') || '6000'; }
   if (page === 'watchlist') { renderWatchlistPage(); refreshWatchlistSignals(); }
   if (page === 'earnings') showEarningsSearchPrompt();
   if (page === 'congress') loadCongressTrades();
@@ -5388,7 +5419,7 @@ async function runBotCycle() {
     logBotEvent('Could not reach Alpaca account — skipping cycle');
     return;
   }
-  var accountSize = parseFloat(account.cash);
+  var accountSize = parseFloat(localStorage.getItem('tradeiq_bot_account_size') || '6000');
   var riskPct = parseFloat(localStorage.getItem('tradeiq_bot_risk_pct') || '1');
 
   logBotEvent('Bot cycle started — checking ' + window._autoTradeList.length + ' stocks');
@@ -5485,6 +5516,64 @@ function updateBotLogUI() {
   }).join('');
 }
 // ── END AUTONOMOUS BOT ────────────────────────────────────────────────────────
+
+
+// ── KEY BACKUP / RESTORE ──────────────────────────────────────────────────────
+function exportKeys() {
+  var keys = {
+    finnhub: localStorage.getItem('tradeiq_finnhub_key') || '',
+    twelvedata: localStorage.getItem('tradeiq_td_key') || '',
+    anthropic: localStorage.getItem('tradeiq_anthropic_key') || '',
+    alpaca_key: localStorage.getItem('tradeiq_alpaca_key') || '',
+    alpaca_secret: localStorage.getItem('tradeiq_alpaca_secret') || '',
+    exported: new Date().toISOString()
+  };
+
+  var blob = new Blob([JSON.stringify(keys, null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'tradeiq-keys-backup.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  var statusEl = document.getElementById('keys-backup-status');
+  if (statusEl) {
+    statusEl.textContent = '✓ Keys exported — keep this file safe, it contains sensitive API keys';
+    statusEl.style.color = 'var(--green)';
+  }
+}
+
+function importKeys(file) {
+  if (!file) return;
+  var statusEl = document.getElementById('keys-backup-status');
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var keys = JSON.parse(e.target.result);
+      if (keys.finnhub) { localStorage.setItem('tradeiq_finnhub_key', keys.finnhub); FINNHUB_KEY = keys.finnhub; }
+      if (keys.twelvedata) { localStorage.setItem('tradeiq_td_key', keys.twelvedata); }
+      if (keys.anthropic) { localStorage.setItem('tradeiq_anthropic_key', keys.anthropic); ANTHROPIC_KEY = keys.anthropic; }
+      if (keys.alpaca_key) { localStorage.setItem('tradeiq_alpaca_key', keys.alpaca_key); ALPACA_KEY = keys.alpaca_key; }
+      if (keys.alpaca_secret) { localStorage.setItem('tradeiq_alpaca_secret', keys.alpaca_secret); ALPACA_SECRET = keys.alpaca_secret; }
+
+      if (statusEl) {
+        statusEl.textContent = '✓ Keys restored successfully! Refresh the page to apply.';
+        statusEl.style.color = 'var(--green)';
+      }
+      setTimeout(function(){ location.reload(); }, 1500);
+    } catch(err) {
+      if (statusEl) {
+        statusEl.textContent = '✗ Invalid backup file: ' + err.message;
+        statusEl.style.color = 'var(--red)';
+      }
+    }
+  };
+  reader.readAsText(file);
+}
+// ── END KEY BACKUP ─────────────────────────────────────────────────────────────
 
 function renderMarketGrids() {
   var symbols = MARKET_SYMBOLS;
