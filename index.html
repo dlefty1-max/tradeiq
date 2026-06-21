@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_124.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_125.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_124.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_124.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_124.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_125.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_125.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_125.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -5445,11 +5445,30 @@ async function getAutoTradeDecision(sym) {
 
     var verdict = text.toUpperCase().startsWith('YES') ? 'YES' : text.toUpperCase().startsWith('NO') ? 'NO' : 'WAIT';
 
+    // ── Quality score (0-100) — used to rank multiple YES candidates ──────────
+    var score = 0;
+    if (verdict === 'YES') {
+      // RSI closer to 45-50 sweet spot scores higher (not too hot, not too cold)
+      score += Math.max(0, 25 - Math.abs(rsi - 47));
+      // Stronger bullish MACD scores higher (capped)
+      score += Math.min(20, Math.max(0, macd * 4));
+      // Distance above 20MA — modest cushion is good, too far is overextended
+      var maDist = sma20 ? ((price - sma20) / sma20) * 100 : 0;
+      score += Math.max(0, 15 - Math.abs(maDist - 1.5) * 3);
+      // BB position — sweet spot 40-65%, not extended, not deeply oversold
+      score += Math.max(0, 20 - Math.abs(bbPct - 52) * 0.5);
+      // Volume confirmation — higher volume = more conviction (capped)
+      score += Math.min(20, vr * 6);
+      score = Math.round(Math.max(0, Math.min(100, score)));
+    }
+
     return {
       symbol: sym,
       verdict: verdict,
       reason: text,
       price: price,
+      score: score,
+      earlySignalCount: earlySignals.length,
       stopLoss: bb ? bb.lower : price * 0.97,
       target: bb ? price + (price - bb.lower) * 2 : price * 1.06
     };
@@ -5489,6 +5508,7 @@ async function forceTestCycle() {
   logBotEvent('🧪 TEST CYCLE STARTED — checking ' + symbolsToScan.length + ' stocks (DRY RUN, no real orders will be placed)');
 
   var yesCount = 0, noCount = 0, waitCount = 0, errorCount = 0;
+  var testCandidates = [];
 
   for (var i = 0; i < symbolsToScan.length; i++) {
     var sym = symbolsToScan[i];
@@ -5499,12 +5519,19 @@ async function forceTestCycle() {
 
     if (decision.verdict === 'YES') {
       yesCount++;
-      logBotEvent('🧪 TEST: ' + sym + ' would have been YES — ' + decision.reason);
+      testCandidates.push(decision);
     } else if (decision.verdict === 'NO') {
       noCount++;
     } else {
       waitCount++;
     }
+  }
+
+  if (testCandidates.length) {
+    testCandidates.sort(function(a, b){ return b.score - a.score; });
+    var maxTrades = parseInt(localStorage.getItem('tradeiq_bot_max_trades') || '3');
+    logBotEvent('🧪 RANKED RESULTS: ' + testCandidates.map(function(c){ return c.symbol + ' (score ' + c.score + ')'; }).join(', '));
+    logBotEvent('🧪 With current max trades setting (' + maxTrades + '), the bot WOULD HAVE BOUGHT: ' + testCandidates.slice(0, maxTrades).map(function(c){ return c.symbol; }).join(', '));
   }
 
   logBotEvent('🧪 TEST CYCLE COMPLETE — ' + yesCount + ' YES, ' + noCount + ' NO, ' + waitCount + ' WAIT, ' + errorCount + ' errors out of ' + symbolsToScan.length + ' stocks. Check console.anthropic.com for cost.');
@@ -5624,6 +5651,9 @@ async function runBotCycle() {
   var journalOpenAlpacaSymbols = trades.filter(function(t){ return t.source === 'alpaca' && t.status === 'open'; }).map(function(t){ return t.symbol; });
   heldSymbols = heldSymbols.concat(journalOpenAlpacaSymbols);
 
+  // ── PHASE 1: Scan everything, collect all YES candidates with scores ──────
+  var candidates = [];
+
   for (var i = 0; i < symbolsToScan.length; i++) {
     var sym = symbolsToScan[i];
 
@@ -5639,23 +5669,35 @@ async function runBotCycle() {
     if (!decision) { logBotEvent(sym + ': could not get decision'); continue; }
 
     if (decision.verdict === 'YES') {
-      if (tradesThisCycle >= maxTradesPerCycle) {
-        logBotEvent(sym + ': YES but daily trade limit (' + maxTradesPerCycle + ') reached — skipping');
-        continue;
-      }
+      candidates.push(decision);
+    } else {
+      logBotEvent(sym + ': ' + decision.verdict + ' — ' + decision.reason);
+    }
+  }
+
+  // ── PHASE 2: Rank candidates by quality score, execute only the best ───────
+  if (candidates.length) {
+    candidates.sort(function(a, b){ return b.score - a.score; });
+    logBotEvent('📊 Found ' + candidates.length + ' YES candidates — ranking by quality score, top ' + maxTradesPerCycle + ' will trade');
+    logBotEvent('Rankings: ' + candidates.map(function(c){ return c.symbol + '(' + c.score + ')'; }).join(', '));
+
+    var topCandidates = candidates.slice(0, maxTradesPerCycle);
+
+    for (var j = 0; j < topCandidates.length; j++) {
+      var decision = topCandidates[j];
+      var sym = decision.symbol;
 
       var shares = calcAutoTradeShares(accountSize, riskPct, decision.price, decision.stopLoss);
-      if (shares < 1) { logBotEvent(sym + ': YES but position size too small, skipping'); continue; }
+      if (shares < 1) { logBotEvent(sym + ': score ' + decision.score + ' but position size too small, skipping'); continue; }
 
       var result = await placeAlpacaOrder(sym, shares, 'buy', decision.stopLoss, decision.target);
       if (result.success) {
         tradesThisCycle++;
-        logBotEvent('✓ BOUGHT ' + shares + ' shares of ' + sym + ' @ ~$' + decision.price.toFixed(2) + ' — ' + decision.reason);
+        logBotEvent('✓ BOUGHT ' + shares + ' shares of ' + sym + ' (score ' + decision.score + '/100) @ ~$' + decision.price.toFixed(2) + ' — ' + decision.reason);
 
-        // Log to journal
         var trade = {
           symbol: sym, entry: decision.price, exit: null, size: shares, dir: 'long',
-          reason: 'Auto-bot: ' + decision.reason, emotion: 'Automated', pnl: null, status: 'open',
+          reason: 'Auto-bot (score ' + decision.score + '): ' + decision.reason, emotion: 'Automated', pnl: null, status: 'open',
           date: new Date().toLocaleDateString(), stopLoss: decision.stopLoss, target: decision.target,
           alpacaOrderId: result.order.id, source: 'alpaca'
         };
@@ -5664,15 +5706,17 @@ async function runBotCycle() {
       } else {
         logBotEvent('✗ Order failed for ' + sym + ': ' + result.error);
       }
-    } else {
-      logBotEvent(sym + ': ' + decision.verdict + ' — ' + decision.reason);
+
+      await new Promise(function(r){ setTimeout(r, 1500); });
     }
 
-    // Small delay between symbols to respect rate limits
-    await new Promise(function(r){ setTimeout(r, 2000); });
+    if (candidates.length > maxTradesPerCycle) {
+      var skipped = candidates.slice(maxTradesPerCycle).map(function(c){ return c.symbol; }).join(', ');
+      logBotEvent('Skipped lower-ranked candidates (limit reached): ' + skipped);
+    }
   }
 
-  logBotEvent('Bot cycle complete');
+  logBotEvent('Bot cycle complete — ' + tradesThisCycle + ' trade(s) placed');
   if (document.getElementById('page-watchlist') && document.getElementById('page-watchlist').classList.contains('active')) {
     renderWatchlistPage();
   }
