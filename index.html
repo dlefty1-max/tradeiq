@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_121.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_122.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_121.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_121.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_121.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_122.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_122.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_122.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -2000,6 +2000,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <button id="bot-start-btn" onclick="startBot()" style="flex:1;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;">▶ Start Bot</button>
               <button id="bot-stop-btn" onclick="stopBot()" disabled="" style="flex:1;background:var(--red);color:white;border:none;border-radius:var(--radius-sm);padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;opacity:0.5;">■ Stop Bot</button>
             </div>
+            <button onclick="forceTestCycle()" id="bot-test-btn" style="width:100%;margin-top:8px;background:var(--surface);color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;">🧪 Force Run Once (testing — bypasses market hours, places NO real trades)</button>
           </div>
 
           <div style="font-size:10px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Activity Log</div>
@@ -5461,6 +5462,51 @@ function calcAutoTradeShares(accountSize, riskPct, entry, stop) {
   if (riskPerShare <= 0) return 0;
   return Math.max(1, Math.floor(riskAmount / riskPerShare));
 }
+
+
+// ── FORCE TEST CYCLE (bypasses market hours, dry-run — no real orders) ────────
+async function forceTestCycle() {
+  var btn = document.getElementById('bot-test-btn');
+  btn.disabled = true;
+  btn.textContent = 'Running test cycle...';
+
+  var useExpanded = localStorage.getItem('tradeiq_bot_use_expanded') === 'true';
+  var symbolsToScan = useExpanded ? getBotUniverse() : window._autoTradeList;
+
+  if (!symbolsToScan.length) {
+    logBotEvent('🧪 TEST: No stocks to scan');
+    btn.disabled = false;
+    btn.textContent = '🧪 Force Run Once (testing — bypasses market hours, places NO real trades)';
+    return;
+  }
+
+  logBotEvent('🧪 TEST CYCLE STARTED — checking ' + symbolsToScan.length + ' stocks (DRY RUN, no real orders will be placed)');
+
+  var yesCount = 0, noCount = 0, waitCount = 0, errorCount = 0;
+
+  for (var i = 0; i < symbolsToScan.length; i++) {
+    var sym = symbolsToScan[i];
+    if (i > 0) await new Promise(function(r){ setTimeout(r, 1200); });
+
+    var decision = await getAutoTradeDecision(sym);
+    if (!decision) { errorCount++; continue; }
+
+    if (decision.verdict === 'YES') {
+      yesCount++;
+      logBotEvent('🧪 TEST: ' + sym + ' would have been YES — ' + decision.reason);
+    } else if (decision.verdict === 'NO') {
+      noCount++;
+    } else {
+      waitCount++;
+    }
+  }
+
+  logBotEvent('🧪 TEST CYCLE COMPLETE — ' + yesCount + ' YES, ' + noCount + ' NO, ' + waitCount + ' WAIT, ' + errorCount + ' errors out of ' + symbolsToScan.length + ' stocks. Check console.anthropic.com for cost.');
+
+  btn.disabled = false;
+  btn.textContent = '🧪 Force Run Once (testing — bypasses market hours, places NO real trades)';
+}
+// ── END FORCE TEST CYCLE ──────────────────────────────────────────────────────
 
 // ── MAIN BOT LOOP ───────────────────────────────────────────────────────────────
 function isMarketHours() {
