@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_123.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_124.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_123.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_123.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_123.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_124.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_124.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_124.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1969,9 +1969,10 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
               <span style="font-size:12px;color:var(--text-muted);">Scan universe:</span>
-              <select id="bot-universe-select" onchange="localStorage.setItem(&#39;tradeiq_bot_use_expanded&#39;, this.value); updateBotStatusUI();" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);">
-                <option value="false" selected="">My Watchlist Only</option>
-                <option value="true">Expanded (~200 stocks)</option>
+              <select id="bot-universe-select" onchange="localStorage.setItem(&#39;tradeiq_bot_schedule_mode&#39;, this.value); updateBotStatusUI();" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);">
+                <option value="scheduled" selected="">Watchlist + Expanded @ Open/11am/2pm</option>
+                <option value="always_watchlist">My Watchlist Only (cheapest)</option>
+                <option value="always_expanded">Always Expanded (~200, priciest)</option>
               </select>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
@@ -5474,7 +5475,8 @@ async function forceTestCycle() {
   btn.disabled = true;
   btn.textContent = 'Running test cycle...';
 
-  var useExpanded = localStorage.getItem('tradeiq_bot_use_expanded') === 'true';
+  var scheduleMode = localStorage.getItem('tradeiq_bot_schedule_mode') || 'scheduled';
+  var useExpanded = scheduleMode === 'always_expanded' || (scheduleMode === 'scheduled' && isExpandedScanTime());
   var symbolsToScan = useExpanded ? getBotUniverse() : window._autoTradeList;
 
   if (!symbolsToScan.length) {
@@ -5532,6 +5534,31 @@ function isMarketHours() {
   return totalMins >= startMins && totalMins < endMins;
 }
 
+// Returns true if current time is within 15 minutes of a scheduled expanded-scan time
+// Scheduled times: market open (9:30), 11:00 AM, 2:00 PM ET
+function isExpandedScanTime() {
+  var now = new Date();
+  var etString = now.toLocaleString('en-US', { timeZone: 'America/New_York' });
+  var et = new Date(etString);
+  var hours = et.getHours();
+  var mins = et.getMinutes();
+  var totalMins = hours * 60 + mins;
+
+  var scheduledTimes = [
+    9 * 60 + 30,   // 9:30 AM - market open
+    11 * 60,       // 11:00 AM
+    14 * 60        // 2:00 PM
+  ];
+
+  // Within 15 minutes after any scheduled time counts as a match
+  // (so whatever interval you picked, the next cycle after a scheduled time triggers it)
+  for (var i = 0; i < scheduledTimes.length; i++) {
+    var diff = totalMins - scheduledTimes[i];
+    if (diff >= 0 && diff <= 29) return true; // window covers up to a 30-min poll interval
+  }
+  return false;
+}
+
 async function runBotCycle() {
   if (!isMarketHours()) {
     // Only log this once per hour to avoid spamming the log overnight
@@ -5555,8 +5582,17 @@ async function runBotCycle() {
   var accountSize = parseFloat(localStorage.getItem('tradeiq_bot_account_size') || '6000');
   var riskPct = parseFloat(localStorage.getItem('tradeiq_bot_risk_pct') || '1');
 
-  // Use expanded universe if enabled, otherwise just the manual watchlist
-  var useExpanded = localStorage.getItem('tradeiq_bot_use_expanded') === 'true';
+  // Schedule logic: watchlist every cycle, expanded universe at 3 scheduled times (open, 11am, 2pm)
+  var scheduleMode = localStorage.getItem('tradeiq_bot_schedule_mode') || 'scheduled'; // 'scheduled' | 'always_watchlist' | 'always_expanded'
+  var useExpanded = false;
+
+  if (scheduleMode === 'always_expanded') {
+    useExpanded = true;
+  } else if (scheduleMode === 'scheduled') {
+    useExpanded = isExpandedScanTime();
+  }
+  // 'always_watchlist' leaves useExpanded as false
+
   var symbolsToScan = useExpanded ? getBotUniverse() : window._autoTradeList;
 
   if (!symbolsToScan.length) {
@@ -5564,7 +5600,7 @@ async function runBotCycle() {
     return;
   }
 
-  logBotEvent('Bot cycle started — checking ' + symbolsToScan.length + ' stocks' + (useExpanded ? ' (expanded universe)' : ' (watchlist only)'));
+  logBotEvent('Bot cycle started — checking ' + symbolsToScan.length + ' stocks' + (useExpanded ? ' (⭐ SCHEDULED EXPANDED SCAN)' : ' (watchlist)'));
 
   var maxTradesPerCycle = parseInt(localStorage.getItem('tradeiq_bot_max_trades') || '3');
   var tradesThisCycle = 0;
@@ -5669,18 +5705,24 @@ function updateBotStatusUI() {
   }
   if (startBtn) startBtn.disabled = window._botRunning;
   if (stopBtn) stopBtn.disabled = !window._botRunning;
+
+  var scheduleMode = localStorage.getItem('tradeiq_bot_schedule_mode') || 'scheduled';
   var listEl = document.getElementById('bot-watchlist-display');
-  var useExpanded = localStorage.getItem('tradeiq_bot_use_expanded') === 'true';
   if (listEl) {
-    if (useExpanded) {
+    var wlCount = window._autoTradeList.length;
+    var wlText = wlCount ? window._autoTradeList.join(', ') : 'None selected';
+    if (scheduleMode === 'always_expanded') {
       var universeSize = typeof getBotUniverse === 'function' ? getBotUniverse().length : '~200';
-      listEl.textContent = 'Expanded universe (' + universeSize + ' stocks)';
+      listEl.textContent = 'Always expanded (' + universeSize + ' stocks)';
+    } else if (scheduleMode === 'always_watchlist') {
+      listEl.textContent = wlText + ' (watchlist only)';
     } else {
-      listEl.textContent = window._autoTradeList.length ? window._autoTradeList.join(', ') : 'None selected';
+      var nextExpanded = isExpandedScanTime() ? 'EXPANDED NOW' : 'next: 9:30/11am/2pm ET';
+      listEl.textContent = wlText + ' + scheduled expanded (' + nextExpanded + ')';
     }
   }
   var universeSel = document.getElementById('bot-universe-select');
-  if (universeSel) universeSel.value = useExpanded ? 'true' : 'false';
+  if (universeSel) universeSel.value = scheduleMode;
 }
 
 function updateBotLogUI() {
