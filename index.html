@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_116.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_117.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_116.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_116.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_116.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_117.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_117.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_117.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1952,6 +1952,41 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
           <div id="alpaca-connection-status" style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono);margin-top:4px;">Not tested yet</div>
           <button onclick="testAlpacaConnection()" style="margin-top:8px;background:var(--blue);color:white;border:none;border-radius:var(--radius-sm);padding:7px 14px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;">Test Connection</button>
         </div>
+
+        <!-- BOT CONTROL PANEL -->
+        <div class="settings-row" style="border-top:1px solid var(--border);padding-top:16px;margin-top:8px;">
+          <div class="settings-label">🤖 Auto-Trading Bot</div>
+          <div class="settings-desc" style="margin-bottom:10px;">The bot checks your auto-trade list every 5 minutes and places trades automatically when Should I Buy logic says YES. <strong style="color:var(--red);">Requires this tab to stay open.</strong></div>
+
+          <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:10px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="font-size:12px;color:var(--text-muted);">Status:</span>
+              <span id="bot-status-indicator" style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--text-muted);">⚪ STOPPED</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="font-size:12px;color:var(--text-muted);">Auto-trade list:</span>
+              <span id="bot-watchlist-display" style="font-family:var(--font-mono);font-size:11px;color:var(--text);">None selected</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="font-size:12px;color:var(--text-muted);">Risk per trade:</span>
+              <select id="bot-risk-select" onchange="localStorage.setItem(&#39;tradeiq_bot_risk_pct&#39;, this.value)" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);">
+                <option value="0.5">0.5%</option>
+                <option value="1" selected="">1%</option>
+                <option value="1.5">1.5%</option>
+                <option value="2">2%</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button id="bot-start-btn" onclick="startBot()" style="flex:1;background:var(--green);color:white;border:none;border-radius:var(--radius-sm);padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;">▶ Start Bot</button>
+              <button id="bot-stop-btn" onclick="stopBot()" disabled="" style="flex:1;background:var(--red);color:white;border:none;border-radius:var(--radius-sm);padding:9px;font-family:var(--font-mono);font-size:11px;font-weight:700;cursor:pointer;opacity:0.5;">■ Stop Bot</button>
+            </div>
+          </div>
+
+          <div style="font-size:10px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Activity Log</div>
+          <div id="bot-log-display" style="max-height:200px;overflow-y:auto;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;">
+            <div style="color:var(--text-muted);font-size:11px;">No activity yet.</div>
+          </div>
+        </div>
       </div>
 
       <div class="settings-section">
@@ -2424,6 +2459,14 @@ function renderWatchlistPage() {
       '<div style="flex:1;min-width:0;"><div class="ticker-sym">' + sym + signalLabel + '</div><div class="ticker-name">' + symName + '</div></div>' +
       '<div class="ticker-price" style="margin-right:12px;">' + priceStr + '</div>' +
       '<div class="change-pill ' + changeClass + '" style="margin-right:12px;">' + changeStr + '</div>';
+    var autoBtn = document.createElement('button');
+    var isAuto = isAutoTradeEnabled(sym);
+    autoBtn.textContent = isAuto ? '⚡ Auto ON' : '⚡ Auto OFF';
+    autoBtn.style.cssText = isAuto
+      ? 'background:var(--amber);color:white;border:1px solid var(--amber);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;margin-right:6px;'
+      : 'background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;margin-right:6px;';
+    autoBtn.title = isAuto ? 'Bot will auto-trade this stock' : 'Click to enable auto-trading';
+    autoBtn.onclick = (function(s){ return function(e){ e.stopPropagation(); toggleAutoTrade(s); }; })(sym);
     var chartBtn = document.createElement('button');
     chartBtn.textContent = 'Chart';
     chartBtn.style.cssText = 'background:var(--blue-dim);color:var(--blue);border:1px solid rgba(0,48,135,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;margin-right:6px;';
@@ -2432,6 +2475,7 @@ function renderWatchlistPage() {
     removeBtn.textContent = 'Remove';
     removeBtn.style.cssText = 'background:var(--red-dim);color:var(--red);border:1px solid rgba(200,16,46,0.2);border-radius:var(--radius-sm);padding:5px 10px;font-family:var(--font-mono);font-size:10px;font-weight:700;cursor:pointer;';
     removeBtn.onclick = (function(s){ return function(e){ e.stopPropagation(); removeFromWatchlist(s); }; })(sym);
+    row.appendChild(autoBtn);
     row.appendChild(chartBtn);
     row.appendChild(removeBtn);
     list.appendChild(row);
@@ -2628,7 +2672,7 @@ function switchPage(page) {
   if (page === 'news') loadNews();
   if (page === 'alerts') renderAlerts();
   if (page === 'learn') renderLearn();
-  if (page === 'settings') initSettingsPage();
+  if (page === 'settings') { initSettingsPage(); updateBotStatusUI(); updateBotLogUI(); var riskSel = document.getElementById('bot-risk-select'); if (riskSel) riskSel.value = localStorage.getItem('tradeiq_bot_risk_pct') || '1'; }
   if (page === 'watchlist') { renderWatchlistPage(); refreshWatchlistSignals(); }
   if (page === 'earnings') showEarningsSearchPrompt();
   if (page === 'congress') loadCongressTrades();
@@ -5227,6 +5271,220 @@ async function syncAlpacaTrades() {
   }
 }
 // ── END ALPACA JOURNAL SYNC ───────────────────────────────────────────────────
+
+
+// ── AUTONOMOUS TRADING BOT ─────────────────────────────────────────────────────
+window._autoTradeList = JSON.parse(localStorage.getItem('tradeiq_autotrade_list') || '[]');
+window._botRunning = false;
+window._botLog = JSON.parse(localStorage.getItem('tradeiq_bot_log') || '[]');
+var BOT_POLL_INTERVAL_MS = 5 * 60 * 1000; // check every 5 minutes
+var botIntervalHandle = null;
+
+function isAutoTradeEnabled(sym) {
+  return window._autoTradeList.includes(sym);
+}
+
+function toggleAutoTrade(sym) {
+  var idx = window._autoTradeList.indexOf(sym);
+  if (idx === -1) {
+    window._autoTradeList.push(sym);
+    logBotEvent('Added ' + sym + ' to auto-trade list');
+  } else {
+    window._autoTradeList.splice(idx, 1);
+    logBotEvent('Removed ' + sym + ' from auto-trade list');
+  }
+  localStorage.setItem('tradeiq_autotrade_list', JSON.stringify(window._autoTradeList));
+  if (typeof renderWatchlistPage === 'function') renderWatchlistPage();
+  updateBotStatusUI();
+}
+
+function logBotEvent(msg) {
+  window._botLog.unshift({ time: new Date().toLocaleString(), msg: msg });
+  window._botLog = window._botLog.slice(0, 100); // keep last 100
+  localStorage.setItem('tradeiq_bot_log', JSON.stringify(window._botLog));
+  updateBotLogUI();
+}
+
+// ── HEADLESS DECISION ENGINE ───────────────────────────────────────────────────
+// Same logic as askTradeDecision but works on any symbol without touching chart UI
+async function getAutoTradeDecision(sym) {
+  if (!ANTHROPIC_KEY) return null;
+
+  try {
+    var ind = (window._indicatorCache && window._indicatorCache[sym]) ? window._indicatorCache[sym].data : await fetchIndicators(sym);
+    if (!ind) return null;
+
+    var priceData = await fetchPrice(sym);
+    if (!priceData || !priceData.success) return null;
+    var price = priceData.price;
+
+    var bb = ind.bb;
+    var bbPct = bb ? bb.percentB : 50;
+    var rsi = ind.rsi;
+    var macd = ind.macd;
+    var sma20 = ind.sma20;
+    var aboveMA = sma20 && price > sma20;
+
+    var dataLines = [
+      'Symbol: ' + sym,
+      'Price: $' + price.toFixed(2),
+      'RSI(14): ' + rsi + (rsi > 70 ? ' (OVERBOUGHT)' : rsi < 30 ? ' (OVERSOLD)' : ' (neutral)'),
+      'MACD: ' + macd.toFixed(3) + (macd > 0 ? ' (bullish)' : ' (bearish)'),
+      '20MA: $' + sma20 + ' — price is ' + (aboveMA ? 'ABOVE' : 'BELOW'),
+      'BB position: ' + bbPct + '% of range' + (bbPct > 75 ? ' (extended)' : bbPct < 25 ? ' (oversold)' : ''),
+      'Volume: ' + (ind.volRatio || 1) + 'x normal'
+    ];
+
+    var systemPrompt = 'You are an automated trading decision engine. Be strict. Only say YES if RSI is below 65, MACD is bullish, price is above 20MA, and BB is not extended above 75%. If any condition fails, say NO or WAIT. Respond with ONLY one word first: YES, NO, or WAIT. Then a colon and a one-sentence reason.';
+
+    var prompt = 'Should I BUY ' + sym + ' right now? Data: ' + dataLines.join(' | ');
+
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': ANTHROPIC_KEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 150, system: systemPrompt, messages: [{ role: 'user', content: prompt }] })
+    });
+    var data = await res.json();
+    var text = data.content && data.content[0] ? data.content[0].text.trim() : '';
+
+    var verdict = text.toUpperCase().startsWith('YES') ? 'YES' : text.toUpperCase().startsWith('NO') ? 'NO' : 'WAIT';
+
+    return {
+      symbol: sym,
+      verdict: verdict,
+      reason: text,
+      price: price,
+      stopLoss: bb ? bb.lower : price * 0.97,
+      target: bb ? price + (price - bb.lower) * 2 : price * 1.06
+    };
+
+  } catch(e) {
+    console.log('Auto-trade decision error for ' + sym + ':', e);
+    return null;
+  }
+}
+
+// ── POSITION SIZING (reuses risk calculator logic) ─────────────────────────────
+function calcAutoTradeShares(accountSize, riskPct, entry, stop) {
+  var riskAmount = accountSize * (riskPct / 100);
+  var riskPerShare = entry - stop;
+  if (riskPerShare <= 0) return 0;
+  return Math.max(1, Math.floor(riskAmount / riskPerShare));
+}
+
+// ── MAIN BOT LOOP ───────────────────────────────────────────────────────────────
+async function runBotCycle() {
+  if (!window._autoTradeList.length) {
+    logBotEvent('No stocks on auto-trade list — skipping cycle');
+    return;
+  }
+  if (!ALPACA_KEY || !ALPACA_SECRET) {
+    logBotEvent('Alpaca not connected — cannot trade');
+    return;
+  }
+
+  var account = await getAlpacaAccount();
+  if (!account) {
+    logBotEvent('Could not reach Alpaca account — skipping cycle');
+    return;
+  }
+  var accountSize = parseFloat(account.cash);
+  var riskPct = parseFloat(localStorage.getItem('tradeiq_bot_risk_pct') || '1');
+
+  logBotEvent('Bot cycle started — checking ' + window._autoTradeList.length + ' stocks');
+
+  // Get current open positions to avoid duplicate entries
+  var posRes = await fetch('https://paper-api.alpaca.markets/v2/positions', {
+    headers: { 'APCA-API-KEY-ID': ALPACA_KEY, 'APCA-API-SECRET-KEY': ALPACA_SECRET }
+  });
+  var positions = posRes.ok ? await posRes.json() : [];
+  var heldSymbols = positions.map(function(p){ return p.symbol; });
+
+  for (var i = 0; i < window._autoTradeList.length; i++) {
+    var sym = window._autoTradeList[i];
+
+    if (heldSymbols.includes(sym)) {
+      logBotEvent(sym + ': already holding position, skipping');
+      continue;
+    }
+
+    var decision = await getAutoTradeDecision(sym);
+    if (!decision) { logBotEvent(sym + ': could not get decision'); continue; }
+
+    if (decision.verdict === 'YES') {
+      var shares = calcAutoTradeShares(accountSize, riskPct, decision.price, decision.stopLoss);
+      if (shares < 1) { logBotEvent(sym + ': YES but position size too small, skipping'); continue; }
+
+      var result = await placeAlpacaOrder(sym, shares, 'buy', decision.stopLoss, decision.target);
+      if (result.success) {
+        logBotEvent('✓ BOUGHT ' + shares + ' shares of ' + sym + ' @ ~$' + decision.price.toFixed(2) + ' — ' + decision.reason);
+
+        // Log to journal
+        var trade = {
+          symbol: sym, entry: decision.price, exit: null, size: shares, dir: 'long',
+          reason: 'Auto-bot: ' + decision.reason, emotion: 'Automated', pnl: null, status: 'open',
+          date: new Date().toLocaleDateString(), stopLoss: decision.stopLoss, target: decision.target,
+          alpacaOrderId: result.order.id, source: 'alpaca'
+        };
+        trades.push(trade);
+        localStorage.setItem('tradeiq_trades', JSON.stringify(trades));
+      } else {
+        logBotEvent('✗ Order failed for ' + sym + ': ' + result.error);
+      }
+    } else {
+      logBotEvent(sym + ': ' + decision.verdict + ' — ' + decision.reason);
+    }
+
+    // Small delay between symbols to respect rate limits
+    await new Promise(function(r){ setTimeout(r, 2000); });
+  }
+
+  logBotEvent('Bot cycle complete');
+  if (document.getElementById('page-watchlist') && document.getElementById('page-watchlist').classList.contains('active')) {
+    renderWatchlistPage();
+  }
+}
+
+function startBot() {
+  if (window._botRunning) return;
+  window._botRunning = true;
+  logBotEvent('🟢 Bot STARTED — polling every ' + (BOT_POLL_INTERVAL_MS / 60000) + ' minutes');
+  runBotCycle(); // run immediately once
+  botIntervalHandle = setInterval(runBotCycle, BOT_POLL_INTERVAL_MS);
+  updateBotStatusUI();
+}
+
+function stopBot() {
+  if (!window._botRunning) return;
+  window._botRunning = false;
+  clearInterval(botIntervalHandle);
+  logBotEvent('🔴 Bot STOPPED');
+  updateBotStatusUI();
+}
+
+function updateBotStatusUI() {
+  var statusEl = document.getElementById('bot-status-indicator');
+  var startBtn = document.getElementById('bot-start-btn');
+  var stopBtn = document.getElementById('bot-stop-btn');
+  if (statusEl) {
+    statusEl.textContent = window._botRunning ? '🟢 RUNNING' : '⚪ STOPPED';
+    statusEl.style.color = window._botRunning ? 'var(--green)' : 'var(--text-muted)';
+  }
+  if (startBtn) startBtn.disabled = window._botRunning;
+  if (stopBtn) stopBtn.disabled = !window._botRunning;
+  var listEl = document.getElementById('bot-watchlist-display');
+  if (listEl) listEl.textContent = window._autoTradeList.length ? window._autoTradeList.join(', ') : 'None selected';
+}
+
+function updateBotLogUI() {
+  var logEl = document.getElementById('bot-log-display');
+  if (!logEl) return;
+  if (!window._botLog.length) { logEl.innerHTML = '<div style="color:var(--text-muted);font-size:11px;">No activity yet.</div>'; return; }
+  logEl.innerHTML = window._botLog.slice(0, 30).map(function(entry) {
+    return '<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:11px;font-family:var(--font-mono);"><span style="color:var(--text-muted);">' + entry.time + '</span><br>' + entry.msg + '</div>';
+  }).join('');
+}
+// ── END AUTONOMOUS BOT ────────────────────────────────────────────────────────
 
 function renderMarketGrids() {
   var symbols = MARKET_SYMBOLS;
