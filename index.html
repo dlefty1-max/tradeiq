@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_118.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_119.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_118.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_118.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_118.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_119.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_119.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_119.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1978,6 +1978,15 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
                 <option value="1" selected="">1%</option>
                 <option value="1.5">1.5%</option>
                 <option value="2">2%</option>
+              </select>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="font-size:12px;color:var(--text-muted);">Check every:</span>
+              <select id="bot-interval-select" onchange="updateBotPollInterval(this.value)" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);">
+                <option value="5">5 min (high cost)</option>
+                <option value="15">15 min</option>
+                <option value="30" selected="">30 min (recommended)</option>
+                <option value="60">60 min (low cost)</option>
               </select>
             </div>
             <div style="display:flex;gap:8px;">
@@ -2703,7 +2712,7 @@ function switchPage(page) {
   if (page === 'news') loadNews();
   if (page === 'alerts') renderAlerts();
   if (page === 'learn') renderLearn();
-  if (page === 'settings') { initSettingsPage(); updateBotStatusUI(); updateBotLogUI(); var riskSel = document.getElementById('bot-risk-select'); if (riskSel) riskSel.value = localStorage.getItem('tradeiq_bot_risk_pct') || '1'; var acctSize = document.getElementById('bot-account-size'); if (acctSize) acctSize.value = localStorage.getItem('tradeiq_bot_account_size') || '6000'; }
+  if (page === 'settings') { initSettingsPage(); updateBotStatusUI(); updateBotLogUI(); var riskSel = document.getElementById('bot-risk-select'); if (riskSel) riskSel.value = localStorage.getItem('tradeiq_bot_risk_pct') || '1'; var acctSize = document.getElementById('bot-account-size'); if (acctSize) acctSize.value = localStorage.getItem('tradeiq_bot_account_size') || '6000'; var intervalSel = document.getElementById('bot-interval-select'); if (intervalSel) intervalSel.value = localStorage.getItem('tradeiq_bot_interval_min') || '30'; }
   if (page === 'watchlist') { renderWatchlistPage(); refreshWatchlistSignals(); }
   if (page === 'earnings') showEarningsSearchPrompt();
   if (page === 'congress') loadCongressTrades();
@@ -5308,7 +5317,20 @@ async function syncAlpacaTrades() {
 window._autoTradeList = JSON.parse(localStorage.getItem('tradeiq_autotrade_list') || '[]');
 window._botRunning = false;
 window._botLog = JSON.parse(localStorage.getItem('tradeiq_bot_log') || '[]');
-var BOT_POLL_INTERVAL_MS = 5 * 60 * 1000; // check every 5 minutes
+var BOT_POLL_INTERVAL_MS = parseInt(localStorage.getItem('tradeiq_bot_interval_min') || '30') * 60 * 1000;
+
+function updateBotPollInterval(minutes) {
+  localStorage.setItem('tradeiq_bot_interval_min', minutes);
+  BOT_POLL_INTERVAL_MS = parseInt(minutes) * 60 * 1000;
+  logBotEvent('Poll interval changed to ' + minutes + ' minutes');
+
+  // If bot is running, restart with new interval
+  if (window._botRunning) {
+    clearInterval(botIntervalHandle);
+    botIntervalHandle = setInterval(runBotCycle, BOT_POLL_INTERVAL_MS);
+    logBotEvent('Bot restarted with new interval');
+  }
+}
 var botIntervalHandle = null;
 
 function isAutoTradeEnabled(sym) {
