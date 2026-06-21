@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_119.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_120.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_119.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_119.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_119.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_120.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_120.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_120.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -1966,6 +1966,13 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
               <span style="font-size:12px;color:var(--text-muted);">Auto-trade list:</span>
               <span id="bot-watchlist-display" style="font-family:var(--font-mono);font-size:11px;color:var(--text);">None selected</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="font-size:12px;color:var(--text-muted);">Scan universe:</span>
+              <select id="bot-universe-select" onchange="localStorage.setItem(&#39;tradeiq_bot_use_expanded&#39;, this.value); updateBotStatusUI();" style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 8px;font-family:var(--font-mono);font-size:11px;color:var(--text);">
+                <option value="false" selected="">My Watchlist Only</option>
+                <option value="true">Expanded (~200 stocks)</option>
+              </select>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
               <span style="font-size:12px;color:var(--text-muted);">Simulated account size:</span>
@@ -5315,6 +5322,21 @@ async function syncAlpacaTrades() {
 
 // ── AUTONOMOUS TRADING BOT ─────────────────────────────────────────────────────
 window._autoTradeList = JSON.parse(localStorage.getItem('tradeiq_autotrade_list') || '[]');
+
+// Build combined bot universe: SCAN_UNIVERSE + all INDEX_COMPONENTS, deduplicated
+function getBotUniverse() {
+  var all = SCAN_UNIVERSE.slice();
+  if (typeof INDEX_COMPONENTS !== 'undefined') {
+    Object.keys(INDEX_COMPONENTS).forEach(function(idx) {
+      INDEX_COMPONENTS[idx].forEach(function(pair) {
+        var sym = pair[0];
+        if (sym && !sym.includes('.') && !all.includes(sym)) all.push(sym); // skip BRK.B style tickers for now
+      });
+    });
+  }
+  return all;
+}
+
 window._botRunning = false;
 window._botLog = JSON.parse(localStorage.getItem('tradeiq_bot_log') || '[]');
 var BOT_POLL_INTERVAL_MS = parseInt(localStorage.getItem('tradeiq_bot_interval_min') || '30') * 60 * 1000;
@@ -5365,10 +5387,10 @@ async function getAutoTradeDecision(sym) {
 
   try {
     var ind = (window._indicatorCache && window._indicatorCache[sym]) ? window._indicatorCache[sym].data : await fetchIndicators(sym);
-    if (!ind) return null;
+    if (!ind) { logBotEvent(sym + ': failed to fetch indicators (rate limit or no data)'); return null; }
 
     var priceData = await fetchPrice(sym);
-    if (!priceData || !priceData.success) return null;
+    if (!priceData || !priceData.success) { logBotEvent(sym + ': failed to fetch live price'); return null; }
     var price = priceData.price;
 
     var bb = ind.bb;
@@ -5377,6 +5399,20 @@ async function getAutoTradeDecision(sym) {
     var macd = ind.macd;
     var sma20 = ind.sma20;
     var aboveMA = sma20 && price > sma20;
+    var vr = ind.volRatio || 1;
+
+    // ── Early signal detection (same logic as Early Signals scanner) ──────────
+    var earlySignals = [];
+    if (bb) {
+      var bandwidth = ((bb.upper - bb.lower) / bb.middle) * 100;
+      if (bandwidth < 8 && rsi > 35 && rsi < 65) earlySignals.push('BB SQUEEZE (bandwidth ' + bandwidth.toFixed(1) + '% — breakout loading)');
+    }
+    if (macd !== null && macd > -0.5 && macd < 0.1 && rsi > 35 && rsi < 55) {
+      earlySignals.push('MACD CURL (turning up from below zero — early momentum shift)');
+    }
+    if (vr > 2.0 && bb && bb.percentB > 30 && bb.percentB < 65 && rsi > 40 && rsi < 60) {
+      earlySignals.push('VOLUME ANOMALY (' + vr.toFixed(1) + 'x normal with minimal price move — possible accumulation)');
+    }
 
     var dataLines = [
       'Symbol: ' + sym,
@@ -5385,10 +5421,11 @@ async function getAutoTradeDecision(sym) {
       'MACD: ' + macd.toFixed(3) + (macd > 0 ? ' (bullish)' : ' (bearish)'),
       '20MA: $' + sma20 + ' — price is ' + (aboveMA ? 'ABOVE' : 'BELOW'),
       'BB position: ' + bbPct + '% of range' + (bbPct > 75 ? ' (extended)' : bbPct < 25 ? ' (oversold)' : ''),
-      'Volume: ' + (ind.volRatio || 1) + 'x normal'
+      'Volume: ' + vr + 'x normal',
+      earlySignals.length ? 'EARLY SIGNALS DETECTED: ' + earlySignals.join('; ') : 'No early signals'
     ];
 
-    var systemPrompt = 'You are an automated trading decision engine. Be strict. Only say YES if RSI is below 65, MACD is bullish, price is above 20MA, and BB is not extended above 75%. If any condition fails, say NO or WAIT. Respond with ONLY one word first: YES, NO, or WAIT. Then a colon and a one-sentence reason.';
+    var systemPrompt = 'You are an automated trading decision engine. Say YES if EITHER: (A) the standard setup is met — RSI below 65, MACD bullish, price above 20MA, BB not extended above 75%, OR (B) a genuine early signal is present — BB squeeze (compression before breakout), MACD curl (turning up from below zero), or volume anomaly (high volume with minimal price move suggesting accumulation) AND RSI is not overbought (below 65) AND price is not in a clear downtrend. Be moderately strict but do not require perfection — early signals are valid entry triggers on their own. Respond with ONLY one word first: YES, NO, or WAIT. Then a colon and a one-sentence reason citing which condition was met.';
 
     var prompt = 'Should I BUY ' + sym + ' right now? Data: ' + dataLines.join(' | ');
 
@@ -5426,9 +5463,33 @@ function calcAutoTradeShares(accountSize, riskPct, entry, stop) {
 }
 
 // ── MAIN BOT LOOP ───────────────────────────────────────────────────────────────
+function isMarketHours() {
+  var now = new Date();
+  // Convert to ET (Eastern Time) regardless of user's local timezone
+  var etString = now.toLocaleString('en-US', { timeZone: 'America/New_York' });
+  var et = new Date(etString);
+  var day = et.getDay(); // 0 = Sunday, 6 = Saturday
+  var hours = et.getHours();
+  var mins = et.getMinutes();
+  var totalMins = hours * 60 + mins;
+
+  if (day === 0 || day === 6) return false; // weekend
+
+  // 9:20 AM to 4:00 PM ET (10 min before open through close)
+  var startMins = 9 * 60 + 20;  // 9:20 AM
+  var endMins = 16 * 60;        // 4:00 PM
+
+  return totalMins >= startMins && totalMins < endMins;
+}
+
 async function runBotCycle() {
-  if (!window._autoTradeList.length) {
-    logBotEvent('No stocks on auto-trade list — skipping cycle');
+  if (!isMarketHours()) {
+    // Only log this once per hour to avoid spamming the log overnight
+    var lastSkipLog = parseInt(localStorage.getItem('tradeiq_bot_last_skip_log') || '0');
+    if (Date.now() - lastSkipLog > 60 * 60 * 1000) {
+      logBotEvent('⏸ Outside market hours — bot idle (runs 9:20 AM - 4:00 PM ET, weekdays)');
+      localStorage.setItem('tradeiq_bot_last_skip_log', Date.now().toString());
+    }
     return;
   }
   if (!ALPACA_KEY || !ALPACA_SECRET) {
@@ -5444,7 +5505,16 @@ async function runBotCycle() {
   var accountSize = parseFloat(localStorage.getItem('tradeiq_bot_account_size') || '6000');
   var riskPct = parseFloat(localStorage.getItem('tradeiq_bot_risk_pct') || '1');
 
-  logBotEvent('Bot cycle started — checking ' + window._autoTradeList.length + ' stocks');
+  // Use expanded universe if enabled, otherwise just the manual watchlist
+  var useExpanded = localStorage.getItem('tradeiq_bot_use_expanded') === 'true';
+  var symbolsToScan = useExpanded ? getBotUniverse() : window._autoTradeList;
+
+  if (!symbolsToScan.length) {
+    logBotEvent('No stocks to scan — skipping cycle');
+    return;
+  }
+
+  logBotEvent('Bot cycle started — checking ' + symbolsToScan.length + ' stocks' + (useExpanded ? ' (expanded universe)' : ' (watchlist only)'));
 
   // Get current open positions to avoid duplicate entries
   var posRes = await fetch('https://paper-api.alpaca.markets/v2/positions', {
@@ -5453,13 +5523,16 @@ async function runBotCycle() {
   var positions = posRes.ok ? await posRes.json() : [];
   var heldSymbols = positions.map(function(p){ return p.symbol; });
 
-  for (var i = 0; i < window._autoTradeList.length; i++) {
-    var sym = window._autoTradeList[i];
+  for (var i = 0; i < symbolsToScan.length; i++) {
+    var sym = symbolsToScan[i];
 
     if (heldSymbols.includes(sym)) {
       logBotEvent(sym + ': already holding position, skipping');
       continue;
     }
+
+    // Space out indicator fetches to respect Twelve Data rate limit (55/min)
+    if (i > 0) await new Promise(function(r){ setTimeout(r, 1200); });
 
     var decision = await getAutoTradeDecision(sym);
     if (!decision) { logBotEvent(sym + ': could not get decision'); continue; }
@@ -5526,7 +5599,17 @@ function updateBotStatusUI() {
   if (startBtn) startBtn.disabled = window._botRunning;
   if (stopBtn) stopBtn.disabled = !window._botRunning;
   var listEl = document.getElementById('bot-watchlist-display');
-  if (listEl) listEl.textContent = window._autoTradeList.length ? window._autoTradeList.join(', ') : 'None selected';
+  var useExpanded = localStorage.getItem('tradeiq_bot_use_expanded') === 'true';
+  if (listEl) {
+    if (useExpanded) {
+      var universeSize = typeof getBotUniverse === 'function' ? getBotUniverse().length : '~200';
+      listEl.textContent = 'Expanded universe (' + universeSize + ' stocks)';
+    } else {
+      listEl.textContent = window._autoTradeList.length ? window._autoTradeList.join(', ') : 'None selected';
+    }
+  }
+  var universeSel = document.getElementById('bot-universe-select');
+  if (universeSel) universeSel.value = useExpanded ? 'true' : 'false';
 }
 
 function updateBotLogUI() {
