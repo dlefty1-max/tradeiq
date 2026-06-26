@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_130.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_131.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TradeIQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./TradeIQ_files/css2" rel="stylesheet">
+<link href="./index_files/css2" rel="stylesheet">
 <style>
 :root {
   --bg: #f0f2f5;
@@ -1056,8 +1056,8 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
     <button class="topbar-btn" id="searchGoBtn" onclick="doSearch()">Analyze</button>
     <button class="topbar-btn secondary" onclick="openTradeModal()">+ Log Trade</button>
     <div class="topbar-market-status">
-      <div class="status-dot premarket" id="market-dot"></div>
-      <span id="market-status-text">After-Hours</span>
+      <div class="status-dot open" id="market-dot"></div>
+      <span id="market-status-text">Market Open</span>
       <span style="margin-left: 8px; cursor: pointer;" onclick="fetchAllPrices()" id="refresh-btn">↻</span>
     </div>
   </div>
@@ -1185,7 +1185,7 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <div class="chart-detail" id="r-detail"></div>
             </div>
             <div id="chart-body">
-              <iframe id="tv-chart" class="chart-embed" src="./TradeIQ_files/saved_resource.html" frameborder="0" style="height:400px;"></iframe>
+              <iframe id="tv-chart" class="chart-embed" src="./index_files/saved_resource.html" frameborder="0" style="height:400px;"></iframe>
 
               <div class="chart-actions">
                 <button class="chart-action-btn" onclick="logResultTrade()">📝 Log Trade</button>
@@ -1276,9 +1276,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_130.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_130.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_130.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_131.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_131.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_131.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -5572,27 +5572,33 @@ function isMarketHours() {
 
 // Returns true if current time is within 15 minutes of a scheduled expanded-scan time
 // Scheduled times: market open (9:30), 11:00 AM, 2:00 PM ET
-function isExpandedScanTime() {
-  var now = new Date();
-  var etString = now.toLocaleString('en-US', { timeZone: 'America/New_York' });
-  var et = new Date(etString);
-  var hours = et.getHours();
-  var mins = et.getMinutes();
-  var totalMins = hours * 60 + mins;
+function getETMinutes() {
+  var et = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  return et.getHours() * 60 + et.getMinutes();
+}
 
+function isExpandedScanTime() {
+  var totalMins = getETMinutes();
   var scheduledTimes = [
-    9 * 60 + 30,   // 9:30 AM - market open
-    11 * 60,       // 11:00 AM
+    10 * 60,       // 10:00 AM (30 min after open — let market settle)
+    12 * 60,       // 12:00 PM (noon)
     14 * 60        // 2:00 PM
   ];
-
-  // Within 15 minutes after any scheduled time counts as a match
-  // (so whatever interval you picked, the next cycle after a scheduled time triggers it)
   for (var i = 0; i < scheduledTimes.length; i++) {
     var diff = totalMins - scheduledTimes[i];
-    if (diff >= 0 && diff <= 29) return true; // window covers up to a 30-min poll interval
+    if (diff >= 0 && diff <= 29) return true;
   }
   return false;
+}
+
+// Returns the minimum score required to trade at the current time of day
+// 10am scan: strict (80+), 12pm and 2pm: normal (70+), anytime 90+ always qualifies as bonus
+function getScanScoreThreshold() {
+  var totalMins = getETMinutes();
+  // 10am window (9:50-10:30) — strictest, market just opened
+  if (totalMins >= 590 && totalMins <= 630) return 80;
+  // All other times — normal threshold
+  return 70;
 }
 
 async function runBotCycle() {
@@ -5648,6 +5654,8 @@ async function runBotCycle() {
   var atDailyCap = tradesPlacedToday >= maxTradesPerDay;
   var EXCEPTIONAL_SCORE_THRESHOLD = 90;
   var MAX_BONUS_TRADES_PER_DAY = 2; // hard ceiling even for exceptional setups
+  var MIN_SCORE_THRESHOLD = getScanScoreThreshold(); // 80 at 10am, 70 otherwise
+  logBotEvent('Score threshold for this cycle: ' + MIN_SCORE_THRESHOLD + (MIN_SCORE_THRESHOLD === 80 ? ' (strict — 10am scan)' : ' (normal)'));
 
   var storedBonusDay = localStorage.getItem('tradeiq_bot_bonus_today_date');
   var bonusTradesUsedToday = (storedBonusDay === todayStr) ? parseInt(localStorage.getItem('tradeiq_bot_bonus_today_count') || '0') : 0;
@@ -5719,16 +5727,23 @@ async function runBotCycle() {
   if (candidates.length) {
     candidates.sort(function(a, b){ return b.score - a.score; });
 
+    // Filter by minimum score threshold for this time of day
+    var qualifiedCandidates = candidates.filter(function(c){ return c.score >= MIN_SCORE_THRESHOLD; });
+    var filteredOut = candidates.length - qualifiedCandidates.length;
+    if (filteredOut > 0) {
+      logBotEvent('Filtered out ' + filteredOut + ' candidate(s) below score threshold (' + MIN_SCORE_THRESHOLD + ')');
+    }
+
     var topCandidates;
     if (atDailyCap) {
       // Only exceptional setups (score 90+) qualify, limited to remaining bonus slots
       var bonusRemaining = MAX_BONUS_TRADES_PER_DAY - bonusTradesUsedToday;
-      var exceptional = candidates.filter(function(c){ return c.score >= EXCEPTIONAL_SCORE_THRESHOLD; });
+      var exceptional = qualifiedCandidates.filter(function(c){ return c.score >= EXCEPTIONAL_SCORE_THRESHOLD; });
       topCandidates = exceptional.slice(0, bonusRemaining);
-      logBotEvent('📊 Found ' + candidates.length + ' YES candidates, ' + exceptional.length + ' are EXCEPTIONAL (90+) — ' + topCandidates.length + ' will trade as bonus');
+      logBotEvent('📊 Found ' + candidates.length + ' YES candidates (' + qualifiedCandidates.length + ' meet ' + MIN_SCORE_THRESHOLD + '+ threshold), ' + exceptional.length + ' are EXCEPTIONAL (90+) — ' + topCandidates.length + ' will trade as bonus');
     } else {
-      logBotEvent('📊 Found ' + candidates.length + ' YES candidates — ' + remainingTradesToday + ' trade slot(s) left today, ranking by quality score');
-      topCandidates = candidates.slice(0, remainingTradesToday);
+      logBotEvent('📊 Found ' + candidates.length + ' YES candidates, ' + qualifiedCandidates.length + ' meet ' + MIN_SCORE_THRESHOLD + '+ threshold — ' + remainingTradesToday + ' trade slot(s) left today');
+      topCandidates = qualifiedCandidates.slice(0, remainingTradesToday);
     }
     if (candidates.length) logBotEvent('Rankings: ' + candidates.map(function(c){ return c.symbol + '(' + c.score + ')'; }).join(', '));
 
@@ -5822,7 +5837,7 @@ function updateBotStatusUI() {
     } else if (scheduleMode === 'always_watchlist') {
       listEl.textContent = wlText + ' (watchlist only)';
     } else {
-      var nextExpanded = isExpandedScanTime() ? 'EXPANDED NOW' : 'next: 9:30/11am/2pm ET';
+      var nextExpanded = isExpandedScanTime() ? 'EXPANDED NOW' : 'next: 10am/12pm/2pm ET';
       listEl.textContent = wlText + ' + scheduled expanded (' + nextExpanded + ')';
     }
   }
