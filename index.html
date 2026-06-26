@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_131.html -->
+<!-- saved from url=(0047)file:///C:/Users/dleft/Downloads/index_132.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1276,9 +1277,9 @@ body { background:var(--bg); color:var(--text); font-family:var(--font-ui); min-
               <!-- Quick links -->
               <div style="padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-2);">
                 <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);align-self:center;">View chain on:</span>
-                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_131.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
-                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_131.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
-                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_131.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
+                <a id="options-yahoo-link" href="file:///C:/Users/dleft/Downloads/index_132.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Yahoo Finance ↗</a>
+                <a id="options-barchart-link" href="file:///C:/Users/dleft/Downloads/index_132.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">Barchart ↗</a>
+                <a id="options-market-link" href="file:///C:/Users/dleft/Downloads/index_132.html#" target="_blank" style="font-size:11px;font-weight:700;color:var(--blue);font-family:var(--font-mono);padding:4px 10px;background:var(--blue-dim);border-radius:4px;text-decoration:none;">MarketWatch ↗</a>
               </div>
               <!-- Paste area -->
               <div style="padding:12px 16px;">
@@ -7215,6 +7216,7 @@ async function getTradeAIFeedback(idx, btn) {
   var pctMove = t.entry && t.exit ? ((t.exit - t.entry) / t.entry * 100).toFixed(2) : null;
   var pnlStr = t.pnl !== null ? (t.pnl >= 0 ? '+$' : '-$') + Math.abs(t.pnl).toFixed(2) : null;
 
+  var isAutomated = t.source === 'alpaca' || (t.reason && t.reason.includes('Auto-bot'));
   var prompt = 'You are a trading coach reviewing a specific trade. Give direct, actionable feedback.\n\n' +
     'TRADE DETAILS:\n' +
     '- Symbol: ' + t.symbol + '\n' +
@@ -7225,9 +7227,14 @@ async function getTradeAIFeedback(idx, btn) {
     '- Cost basis: $' + (t.entry * t.size).toFixed(2) + '\n' +
     (pnlStr ? '- P&L: ' + pnlStr + ' (' + pctMove + '%)\n' : '') +
     '- Outcome: ' + t.status + '\n' +
+    (t.stopLoss ? '- Stop loss: $' + parseFloat(t.stopLoss).toFixed(2) + ' (bracket order set on Alpaca — risk is defined)\n' : '') +
+    (t.target ? '- Profit target: $' + parseFloat(t.target).toFixed(2) + ' (bracket order set on Alpaca — auto-sells at this level)\n' : '') +
+    (t.stopLoss && t.target ? '- Risk/Reward: $' + ((t.entry - parseFloat(t.stopLoss)) * t.size).toFixed(2) + ' risk vs $' + ((parseFloat(t.target) - t.entry) * t.size).toFixed(2) + ' reward\n' : '') +
+    (isAutomated ? '- Trade type: AUTOMATED (placed by TradeIQ bot based on technical signals)\n' : '') +
     (t.reason && t.reason !== 'Imported from Fidelity' && t.reason !== 'Imported from CSV' ? '- Reason for trade: ' + t.reason + '\n' : '') +
     (t.emotion ? '- Emotional state: ' + t.emotion + '\n' : '') +
     '- Date: ' + t.date + '\n\n' +
+    (isAutomated ? 'IMPORTANT: This was an AUTOMATED trade placed by the TradeIQ bot. Stop loss and profit target are already set as bracket orders on Alpaca — risk IS defined even if not visible in the journal. Do NOT say there is no exit plan. Evaluate the technical setup and whether the bot made a good decision.\n\n' : '') +
     'Provide feedback in exactly this format:\n' +
     '**What went well:** (1-2 sentences)\n' +
     '**What to improve:** (1-2 sentences — be specific about entry, exit, sizing, or timing)\n' +
